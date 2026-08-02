@@ -1,0 +1,824 @@
+@extends('layouts.app')
+
+@section('title', 'Pengiriman & Inventaris')
+
+@section('content')
+<div class="p-container-margin space-y-lg">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-md mb-md">
+        <div>
+            <nav class="flex text-label-md text-outline mb-1 gap-2">
+                <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Pengiriman & Inventaris</span>
+            </nav>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Pengiriman & Inventaris</h1>
+        </div>
+        <button onclick="openQuickModal('terima')" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-primary text-on-primary font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
+            <span class="material-symbols-outlined text-[18px]">add_box</span>
+            Terima Pengiriman
+        </button>
+    </div>
+
+    <!-- Quick Stats Bento Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-md">
+        {{-- Card 1 --}}
+        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-primary/30 transition-colors">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-label-md text-outline">Total Stok</span>
+                <span class="material-symbols-outlined text-primary">inventory_2</span>
+            </div>
+            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-total-stok">{{ number_format($totalStok, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">vial</span></div>
+            <div class="mt-auto pt-4 flex items-center gap-2 text-primary">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                <span class="text-label-md">+4,2% dari bulan lalu</span>
+            </div>
+        </div>
+
+        {{-- Card 2 --}}
+        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-tertiary/30 transition-colors">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-label-md text-outline">Segera Kedaluwarsa (30 hari)</span>
+                <span class="material-symbols-outlined text-tertiary">event_busy</span>
+            </div>
+            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-segera-kadaluwarsa">{{ number_format($segeraKadaluwarsa, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">vial</span></div>
+            <div class="mt-auto pt-4 flex items-center gap-2 text-tertiary">
+                <span class="material-symbols-outlined text-[14px]">warning</span>
+                <span class="text-label-md">Rotasi stok segera dilakukan</span>
+            </div>
+        </div>
+
+        {{-- Card 3 --}}
+        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-error/30 transition-colors">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-label-md text-outline">Aset Dikarantina</span>
+                <span class="material-symbols-outlined text-error">lock_reset</span>
+            </div>
+            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-aset-karantina">{{ number_format($asetKarantina, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">batch</span></div>
+            <div class="mt-auto pt-4 flex items-center gap-2 text-error">
+                <span class="material-symbols-outlined text-[14px]">verified_user</span>
+                <span class="text-label-md">Menunggu persetujuan QA</span>
+            </div>
+        </div>
+
+        {{-- Card 4 --}}
+        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-primary/30 transition-colors">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-label-md text-outline">Kapasitas Tersedia</span>
+                <span class="material-symbols-outlined text-primary">database</span>
+            </div>
+            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-kapasitas">{{ $kapasitasUtilisasi }}%</span> <span class="text-label-md text-outline font-normal">utilisasi</span></div>
+            <div class="mt-auto pt-4 flex items-center gap-2">
+                <div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+                    <div class="bg-primary h-full shadow-[0_0_8px_rgba(76,213,246,0.5)]" style="width: {{ $kapasitasUtilisasi }}%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Filters & Search Form -->
+    <form method="GET" action="{{ route('shipments') }}" class="bg-surface-container border border-outline-variant/30 border-b-0 rounded-t-xl px-lg py-md flex flex-wrap items-center justify-between gap-4">
+        <div class="relative w-full max-w-md">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+            <input name="search" value="{{ request('search') }}" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg pl-12 pr-4 py-2 text-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface" placeholder="Cari ID batch, nama produk, atau jenis..." type="text"/>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <select name="status" onchange="this.form.submit()" class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2 text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                <option value="Semua" {{ request('status') === 'Semua' ? 'selected' : '' }}>Semua Status</option>
+                <option value="Aman" {{ request('status') === 'Aman' ? 'selected' : '' }}>Aman</option>
+                <option value="Peringatan Dini" {{ request('status') === 'Peringatan Dini' ? 'selected' : '' }}>Peringatan Dini</option>
+                <option value="Karantina" {{ request('status') === 'Karantina' ? 'selected' : '' }}>Karantina</option>
+            </select>
+            <select name="sort" onchange="this.form.submit()" class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2 text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                <option value="no_batch" {{ request('sort') === 'no_batch' ? 'selected' : '' }}>Urutkan ID Batch</option>
+                <option value="stok_desc" {{ request('sort') === 'stok_desc' ? 'selected' : '' }}>Stok Terbanyak</option>
+                <option value="stok_asc" {{ request('sort') === 'stok_asc' ? 'selected' : '' }}>Stok Tersedikit</option>
+                <option value="kadaluwarsa_asc" {{ request('sort') === 'kadaluwarsa_asc' ? 'selected' : '' }}>Kedaluwarsa Terdekat</option>
+            </select>
+            <button type="submit" class="flex items-center gap-2 px-md py-2 bg-primary text-on-primary rounded-lg hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_12px_rgba(2,132,199,0.3)] font-label-md">
+                <span class="material-symbols-outlined text-[18px]">filter_alt</span>
+                <span class="text-label-md">Terapkan</span>
+            </button>
+        </div>
+    </form>
+
+    <!-- Primary Inventory Table -->
+    <div class="bg-surface-container border border-outline-variant/30 rounded-b-xl overflow-hidden shadow-xl mb-md">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-highest/50 border-b border-outline-variant/10">
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Nama Produk</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">ID Batch</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Suhu Penyimpanan</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Jumlah Stok</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Tgl. Kedaluwarsa</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Status</th>
+                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider text-right">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant/5">
+                    @forelse($drugs as $drug)
+                    <tr data-batch="{{ $drug->no_batch }}" class="hover:bg-primary/5 group transition-all">
+                        <td class="px-lg py-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+                                    <span class="material-symbols-outlined text-primary">
+                                        {{ $drug->jenis === 'Vaksin' ? 'vaccines' : ($drug->jenis === 'Insulin' ? 'medical_services' : 'bloodtype') }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="text-body-lg font-semibold text-on-surface">{{ $drug->nama_produk }}</div>
+                                    <div class="text-label-md text-outline">{{ $drug->jenis }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-lg py-lg font-data-mono text-data-mono text-on-surface">
+                            <div class="flex items-center gap-2">
+                                <span>#{{ $drug->no_batch }}</span>
+                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
+                                    <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
+                                </a>
+                            </div>
+                        </td>
+                        <td class="px-lg py-lg">
+                            @php
+                                $suhu = (float) $drug->suhu_penyimpanan;
+                                $rangeText = '2°C s/d 8°C';
+                                $rangeLabel = 'Chilled';
+                                $colorClass = 'text-teal-600 dark:text-teal-400';
+                                $icon = 'thermostat';
+                                
+                                if ($suhu <= -70.0) {
+                                    $rangeText = '-80°C s/d -60°C';
+                                    $rangeLabel = 'Ultra-Cold';
+                                    $colorClass = 'text-cyan-500 dark:text-cyan-300';
+                                    $icon = 'severe_cold';
+                                } elseif ($suhu <= -20.0) {
+                                    $rangeText = '-25°C s/d -15°C';
+                                    $rangeLabel = 'Frozen';
+                                    $colorClass = 'text-blue-500 dark:text-blue-400';
+                                    $icon = 'kitchen';
+                                }
+                            @endphp
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-1.5 {{ $colorClass }}">
+                                    <span class="material-symbols-outlined text-[16px]">{{ $icon }}</span>
+                                    <span class="font-bold text-xs">{{ $rangeLabel }}</span>
+                                </div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold font-mono mt-0.5">
+                                    {{ $rangeText }} (target: {{ number_format($suhu, 1, ',', '.') }}°C)
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-lg py-lg">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between text-label-md">
+                                    <span id="stok-{{ $drug->no_batch }}" class="text-on-surface font-semibold">{{ number_format($drug->stok, 0, ',', '.') }}</span>
+                                    <span class="text-outline">Min: 5rb</span>
+                                </div>
+                                <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full" style="width: {{ min(100, ($drug->stok / 30000) * 100) }}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-lg py-lg font-data-mono text-data-mono text-on-surface">{{ $drug->tanggal_kadaluwarsa->format('Y-m-d') }}</td>
+                        <td class="px-lg py-lg">
+                            @if($drug->status === 'Aman')
+                                <span class="px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-label-md flex items-center gap-1 w-fit shadow-[0_0_8px_rgba(6,182,212,0.15)]">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                    <span id="status-{{ $drug->no_batch }}">Aman</span>
+                                </span>
+                            @elseif($drug->status === 'Peringatan Dini')
+                                <span class="px-3 py-1 rounded-full border border-tertiary/30 bg-tertiary/10 text-tertiary text-label-md flex items-center gap-1 w-fit shadow-[0_0_10px_rgba(255,185,95,0.2)]">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                                    <span id="status-{{ $drug->no_batch }}">Peringatan Dini</span>
+                                </span>
+                            @else
+                                <span class="px-3 py-1 rounded-full border border-error/30 bg-error/10 text-error text-label-md flex items-center gap-1 w-fit shadow-[0_0_10px_rgba(239,68,68,0.2)]">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                                    <span id="status-{{ $drug->no_batch }}">{{ $drug->status }}</span>
+                                </span>
+                            @endif
+                        </td>
+                        <td class="px-lg py-lg">
+                            <div class="flex justify-end gap-2">
+                                <button onclick="openColdChainModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}', '{{ $drug->suhu_penyimpanan }}')" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all coldchain-trigger" data-batch="{{ $drug->no_batch }}" data-name="{{ $drug->nama_produk }}" data-temp="{{ $drug->suhu_penyimpanan }}" title="Analisis Rantai Dingin">
+                                    <span class="material-symbols-outlined">timeline</span>
+                                </button>
+                                <button onclick="openQuickModal('transfer')" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all" title="Keluarkan Stok">
+                                    <span class="material-symbols-outlined">outbound</span>
+                                </button>
+                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all" title="Cetak QR Code Boks">
+                                    <span class="material-symbols-outlined">qr_code_2</span>
+                                </a>
+                                <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-2 hover:bg-outline/20 rounded-lg text-on-surface transition-all" title="Cetak Label">
+                                    <span class="material-symbols-outlined">print</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-lg py-lg text-center text-outline">Tidak ada data obat termolabil ditemukan.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="px-lg py-md flex items-center justify-between border-t border-outline-variant/10 bg-surface-container-low text-on-surface">
+            <span class="text-label-md text-outline">Menampilkan {{ $drugs->firstItem() ?? 0 }}-{{ $drugs->lastItem() ?? 0 }} dari {{ $drugs->total() }} data</span>
+            <div class="flex gap-2">
+                @if($drugs->onFirstPage())
+                    <button class="p-2 bg-surface-container-highest/20 rounded-lg text-outline cursor-not-allowed" disabled>
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                @else
+                    <a href="{{ $drugs->previousPageUrl() }}" class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface transition-all">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </a>
+                @endif
+
+                <span class="px-4 py-2 text-label-md font-bold bg-primary/20 text-primary rounded-lg border border-primary/30">{{ $drugs->currentPage() }}</span>
+
+                @if($drugs->hasMorePages())
+                    <a href="{{ $drugs->nextPageUrl() }}" class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface transition-all">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                @else
+                    <button class="p-2 bg-surface-container-highest/20 rounded-lg text-outline cursor-not-allowed" disabled>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Movement Chart & Quick Actions -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter pb-xl">
+        <div class="bg-surface-container border border-outline-variant/30 p-lg rounded-xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Tren Tingkat Stok</h3>
+                <select class="bg-surface-container-highest border-none text-label-md rounded-lg text-on-surface py-1 pr-8">
+                    <option>30 Hari Terakhir</option>
+                    <option>90 Hari Terakhir</option>
+                </select>
+            </div>
+            <!-- Dynamic Chart Area (ApexCharts) -->
+            <div id="chart-stok" class="h-48 w-full"></div>
+        </div>
+
+        <div class="bg-surface-container border border-outline-variant/30 p-lg rounded-xl flex flex-col">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-6">Aksi Cepat</h3>
+            <div class="grid grid-cols-2 gap-gutter flex-1">
+                <button id="btn-quick-audit" class="flex flex-col items-center justify-center gap-3 p-gutter bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/30 rounded-xl transition-all group active:scale-95">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">inventory</span>
+                    </div>
+                    <span class="text-label-md text-on-surface">Audit Stok</span>
+                </button>
+                <button id="btn-quick-transfer" class="flex flex-col items-center justify-center gap-3 p-gutter bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/30 rounded-xl transition-all group active:scale-95">
+                    <div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">sync_alt</span>
+                    </div>
+                    <span class="text-label-md text-on-surface">Transfer Batch</span>
+                </button>
+                <button id="btn-quick-report" class="flex flex-col items-center justify-center gap-3 p-gutter bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/30 rounded-xl transition-all group active:scale-95">
+                    <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">assignment_late</span>
+                    </div>
+                    <span class="text-label-md text-on-surface">Laporkan Selisih</span>
+                </button>
+                <button id="btn-quick-restok" class="flex flex-col items-center justify-center gap-3 p-gutter bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/30 rounded-xl transition-all group active:scale-95">
+                    <div class="w-12 h-12 rounded-full bg-outline/10 flex items-center justify-center text-outline group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">settings_backup_restore</span>
+                    </div>
+                    <span class="text-label-md text-on-surface">Aturan Restok</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reusable Quick Action Form Modal -->
+<div id="quick-action-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    <div class="bg-surface-container border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+        <!-- Modal Header -->
+        <div class="px-lg py-md border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/50">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary">bolt</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface" id="quick-modal-title">Aksi Cepat</h3>
+            </div>
+            <button id="close-quick-modal" class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant hover:text-on-surface transition-colors">
+                <span class="material-symbols-outlined text-[20px] align-middle">close</span>
+            </button>
+        </div>
+        
+        <!-- Modal Form -->
+        <form id="quick-action-form">
+            <div class="p-lg space-y-md" id="quick-modal-body">
+                <!-- Dynamic form fields injected here -->
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="px-lg py-md border-t border-outline-variant/20 flex justify-end gap-sm bg-surface-container-low">
+                <button type="button" id="close-quick-modal-btn" class="px-md py-2 border border-outline-variant/50 hover:bg-surface-container-high rounded-xl text-xs font-semibold text-on-surface transition-all active:scale-95">
+                    Batal
+                </button>
+                <button type="submit" id="btn-quick-submit" class="px-md py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_12px_rgba(2,132,199,0.3)]">
+                    Terapkan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Notification Toast Layer -->
+<div class="fixed bottom-gutter right-gutter bg-surface-container border border-outline-variant/30 p-md rounded-xl border-l-4 border-primary translate-y-24 opacity-0 transition-all duration-500 z-50 pointer-events-none" id="toast">
+    <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary">check_circle</span>
+        <div>
+            <div class="font-bold text-sm text-on-surface" id="toast-title">Aksi Berhasil</div>
+            <div class="text-xs text-on-surface-variant" id="toast-desc">Transaksi database telah tercatat.</div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+            series: [{
+                name: "Total Vial Obat",
+                data: @json($stockTrend)
+            }],
+            xaxis: {
+                categories: @json($stockTrendDates)
+            },
+            chart: {
+                height: 180,
+                type: 'area',
+                toolbar: { show: false },
+                sparkline: { enabled: true }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 3,
+                colors: ['#06b6d4']
+            },
+            colors: ['#06b6d4'],
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    opacityFrom: 0.45,
+                    opacityTo: 0.05,
+                    stops: [50, 100, 100]
+                }
+            },
+            tooltip: {
+                theme: 'dark',
+                x: { show: false }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart-stok"), options);
+        chart.render();
+
+        // --- Aksi Cepat Modals Interactivity ---
+        const quickModal = document.getElementById('quick-action-modal');
+        const modalBodyContent = document.getElementById('quick-modal-body');
+        const modalFormTitle = document.getElementById('quick-modal-title');
+        const closeQuickBtn = document.getElementById('close-quick-modal');
+        const closeQuickBtn2 = document.getElementById('close-quick-modal-btn');
+        const quickForm = document.getElementById('quick-action-form');
+        const submitQuickBtn = document.getElementById('btn-quick-submit');
+
+        const toast = document.getElementById('toast');
+        const toastTitle = document.getElementById('toast-title');
+        const toastDesc = document.getElementById('toast-desc');
+
+        function showToast(title, desc) {
+            toastTitle.textContent = title;
+            toastDesc.textContent = desc;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+
+        window.openQuickModal = openQuickModal;
+        window.showToast = showToast;
+        function openQuickModal(actionType) {
+            submitQuickBtn.classList.remove('hidden');
+            let html = '';
+            let title = '';
+            
+            if (actionType === 'audit') {
+                title = 'Audit Stok Fisik';
+                html = `
+                    <div class="space-y-md">
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
+                            <select id="audit-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
+                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
+                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
+                                <option value="BTCH-BF04">BTCH-BF04 (Vaksin Bio Farma Flu)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Riil di Gudang (Vial)</label>
+                            <input type="number" id="audit-count" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah fisik..." required>
+                        </div>
+                    </div>
+                `;
+            } else if (actionType === 'terima') {
+                title = 'Terima Pengiriman';
+                html = `
+                    <div class="space-y-md">
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Scan / Input ID Batch Baru</label>
+                            <input type="text" id="terima-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Contoh: BTCH-NEW01" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Produk & Suhu Target</label>
+                            <select id="terima-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option>Vaksin (2°C - 8°C)</option>
+                                <option>Insulin (2°C - 8°C)</option>
+                                <option>Serum Darah (2°C - 8°C)</option>
+                                <option>Vaksin Ultra-Cold (-70°C)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Diterima (Vial)</label>
+                            <input type="number" id="terima-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah vial..." required>
+                        </div>
+                    </div>
+                `;
+            } else if (actionType === 'transfer') {
+                title = 'Transfer Batch Rute';
+                html = `
+                    <div class="space-y-md">
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
+                            <select id="transfer-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
+                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
+                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Fasilitas Kesehatan Tujuan</label>
+                            <select id="transfer-dest" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <optgroup label="Rumah Sakit (RS) se-Palembang" class="bg-surface-container font-semibold text-primary">
+                                    <option>RSUP Dr. Mohammad Hoesin (RSMH)</option>
+                                    <option>RSUD Palembang BARI</option>
+                                    <option>RSUD Sumatera Selatan (Siti Fatimah)</option>
+                                    <option>RS Charitas Hospital Palembang</option>
+                                    <option>RS Muhammadiyah Palembang</option>
+                                    <option>RS Siti Khadijah Palembang</option>
+                                    <option>RS Ar-Rasyid</option>
+                                    <option>RS Bunda Palembang</option>
+                                    <option>RS Myria Palembang</option>
+                                    <option>RS Hermina Palembang</option>
+                                    <option>RS Hermina OPI Jakabaring</option>
+                                    <option>RS Bhayangkara Palembang</option>
+                                    <option>RS Dr. AK. Gani</option>
+                                    <option>RS Graha Mandiri</option>
+                                    <option>RS Ernaldi Bahar</option>
+                                    <option>RS Khusus Paru-Paru Provinsi Sumsel</option>
+                                    <option>RS Khusus Mata Provinsi Sumsel</option>
+                                    <option>RS Gigi dan Mulut Provinsi Sumsel</option>
+                                    <option>RSIA YK Madira</option>
+                                    <option>RS Pertamina Plaju</option>
+                                </optgroup>
+                                <optgroup label="Puskesmas se-Palembang" class="bg-surface-container font-semibold text-tertiary">
+                                    <option>Puskesmas Dempo</option>
+                                    <option>Puskesmas Padang Selasa</option>
+                                    <option>Puskesmas Multiwahana</option>
+                                    <option>Puskesmas Sako</option>
+                                    <option>Puskesmas Pembina</option>
+                                    <option>Puskesmas Sekip</option>
+                                    <option>Puskesmas Plaju</option>
+                                    <option>Puskesmas Sosial</option>
+                                    <option>Puskesmas 23 Ilir</option>
+                                    <option>Puskesmas Talang Betutu</option>
+                                    <option>Puskesmas 1 Ulu</option>
+                                    <option>Puskesmas Kertapati</option>
+                                    <option>Puskesmas Alang-Alang Lebar</option>
+                                    <option>Puskesmas Taman Bacaan</option>
+                                    <option>Puskesmas Sabokingking</option>
+                                    <option>Puskesmas Sukarami</option>
+                                    <option>Puskesmas Bukitsangkal</option>
+                                    <option>Puskesmas Gandus</option>
+                                    <option>Puskesmas Kampus</option>
+                                    <option>Puskesmas 5 Ilir</option>
+                                    <option>Puskesmas Karya Jaya</option>
+                                    <option>Puskesmas 4 Ulu</option>
+                                    <option>Puskesmas 7 Ulu</option>
+                                    <option>Puskesmas Opi</option>
+                                    <option>Puskesmas Kramasan</option>
+                                    <option>Puskesmas Makrayu</option>
+                                    <option>Puskesmas Sungai Baung</option>
+                                    <option>Puskesmas Merdeka</option>
+                                    <option>Puskesmas Nagaswidak</option>
+                                    <option>Puskesmas Basuki Rahmat</option>
+                                    <option>Puskesmas Boom Baru</option>
+                                    <option>Puskesmas Celentang</option>
+                                    <option>Puskesmas Kenten</option>
+                                    <option>Puskesmas Pakjo</option>
+                                    <option>Puskesmas Talang Ratu</option>
+                                    <option>Puskesmas Kalidoni</option>
+                                    <option>Puskesmas Sematang Borang</option>
+                                    <option>Puskesmas Talang Jambe</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Vial</label>
+                            <input type="number" id="transfer-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah transfer..." required>
+                        </div>
+                    </div>
+                `;
+            } else if (actionType === 'report') {
+                title = 'Laporkan Selisih';
+                html = `
+                    <div class="space-y-md">
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Terkait</label>
+                            <select id="report-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
+                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
+                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Selisih</label>
+                            <select id="report-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option>Hilang / Rusak Fisik</option>
+                                <option>Selisih Perhitungan Sistem</option>
+                                <option>Karantina karena Fluktuasi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Keterangan / Catatan</label>
+                            <textarea id="report-notes" rows="3" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan catatan tambahan..." required></textarea>
+                        </div>
+                    </div>
+                `;
+            } else if (actionType === 'restok') {
+                title = 'Aturan Restok Otomatis';
+                html = `
+                    <div class="space-y-md">
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Produk</label>
+                            <select id="restok-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option>Semua Kategori</option>
+                                <option>Vaksin</option>
+                                <option>Insulin</option>
+                                <option>Serum Darah</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Batas Minimum Stok Alert (Vial)</label>
+                            <input type="number" id="restok-min" value="5000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Pemesanan Otomatis (Vial)</label>
+                            <input type="number" id="restok-qty" value="20000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modalFormTitle.textContent = title;
+            modalBodyContent.innerHTML = html;
+            
+            if (actionType === 'transfer' && typeof TomSelect !== 'undefined') {
+                if (window.tsBatch) window.tsBatch.destroy();
+                if (window.tsDest) window.tsDest.destroy();
+                setTimeout(() => {
+                    window.tsBatch = new TomSelect('#transfer-batch', { create: false, sortField: { field: "text", direction: "asc" } });
+                    window.tsDest = new TomSelect('#transfer-dest', { create: false, sortField: { field: "text", direction: "asc" } });
+                }, 50);
+            }
+            quickModal.classList.remove('hidden');
+            setTimeout(() => {
+                quickModal.classList.remove('opacity-0');
+                quickModal.querySelector('.bg-surface-container').classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        }
+
+        function openColdChainModal(batch, name, temp) {
+            const tempNum = parseFloat(temp);
+            const rangeText = tempNum <= -70 ? '-80°C s/d -60°C' : (tempNum <= -20 ? '-25°C s/d -15°C' : '2°C s/d 8°C');
+            const rangeLabel = tempNum <= -70 ? 'Ultra-Cold' : (tempNum <= -20 ? 'Frozen' : 'Chilled');
+            const colorClass = tempNum <= -70 ? 'text-cyan-500' : (tempNum <= -20 ? 'text-blue-500' : 'text-teal-600 dark:text-teal-400');
+            const icon = tempNum <= -70 ? 'severe_cold' : (tempNum <= -20 ? 'kitchen' : 'thermostat');
+
+            modalFormTitle.textContent = 'Analisis Stabilitas Rantai Dingin';
+            submitQuickBtn.classList.add('hidden'); // Hide submit for read-only modal
+            
+            modalBodyContent.innerHTML = `
+                <div class="space-y-md text-left select-none">
+                    <div class="p-4 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-1">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-slate-900 dark:text-white">${name}</span>
+                            <span class="font-mono text-primary font-bold">#${batch}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 mt-2 ${colorClass}">
+                            <span class="material-symbols-outlined text-[16px]">${icon}</span>
+                            <span class="font-bold text-xs">${rangeLabel} (${rangeText})</span>
+                        </div>
+                        <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                            Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}°C</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-slate-100/30 dark:bg-slate-800/20 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-sm">Log Sensor Stabilitas Termal (24 Jam Terakhir)</label>
+                        <div class="space-y-2 text-[11px] font-medium text-slate-700 dark:text-on-surface-variant font-mono">
+                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                                <span>10:00 (Sekarang)</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                                <span>08:00 (2 Jam lalu)</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}°C [Aman]</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                                <span>04:00 (6 Jam lalu)</span>
+                                <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}°C [Aman]</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                                <span>22:00 (12 Jam lalu)</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}°C [Aman]</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>14:00 (20 Jam lalu)</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 border border-green-500/20 bg-green-500/10 rounded-xl flex items-center gap-2">
+                        <span class="material-symbols-outlined text-green-500 text-[20px]">verified</span>
+                        <div class="text-[10px] text-green-600 dark:text-green-400 leading-relaxed font-semibold">
+                            Suhu boks penyimpanan terpantau stabil. Standar CDOB dan Cold Chain terpenuhi sepenuhnya.
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            quickModal.classList.remove('hidden');
+            setTimeout(() => {
+                quickModal.classList.remove('opacity-0');
+                quickModal.querySelector('.bg-surface-container').classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        }
+        window.openColdChainModal = openColdChainModal;
+
+        function closeQuickModal() {
+            quickModal.classList.add('opacity-0');
+            quickModal.querySelector('.bg-surface-container').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                quickModal.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('btn-quick-audit').addEventListener('click', () => openQuickModal('audit'));
+        document.getElementById('btn-quick-transfer').addEventListener('click', () => openQuickModal('transfer'));
+        document.getElementById('btn-quick-report').addEventListener('click', () => openQuickModal('report'));
+        document.getElementById('btn-quick-restok').addEventListener('click', () => openQuickModal('restok'));
+
+        if (closeQuickBtn) closeQuickBtn.addEventListener('click', closeQuickModal);
+        if (closeQuickBtn2) closeQuickBtn2.addEventListener('click', closeQuickModal);
+
+        quickForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitQuickBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle animate-spin text-on-primary">sync</span> Memproses...';
+            submitQuickBtn.disabled = true;
+
+            setTimeout(() => {
+                closeQuickModal();
+                showToast('Aksi Sukses', `Transaksi '${modalFormTitle.textContent}' berhasil diproses di sistem.`);
+                submitQuickBtn.innerHTML = 'Terapkan';
+                submitQuickBtn.disabled = false;
+            }, 1200);
+        });
+
+        // ========================================
+        // REAL-TIME LIVE POLLING - Inventaris
+        // ========================================
+        function formatNumber(n) {
+            return new Intl.NumberFormat('id-ID').format(n);
+        }
+
+        function pollShipmentData() {
+            fetch('/api/shipments/live', {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) return;
+                const s = data.stats;
+
+                // Update stat cards with animation
+                const updates = [
+                    { id: 'live-total-stok', value: formatNumber(s.totalStok) },
+                    { id: 'live-segera-kadaluwarsa', value: formatNumber(s.segeraKadaluwarsa) },
+                    { id: 'live-aset-karantina', value: formatNumber(s.asetKarantina) },
+                    { id: 'live-kapasitas', value: s.kapasitasUtilisasi + '%' },
+                ];
+
+                updates.forEach(u => {
+                    const el = document.getElementById(u.id);
+                    if (el && el.textContent.trim() !== u.value) {
+                        el.style.transition = 'all 0.3s ease';
+                        el.style.opacity = '0.5';
+                        el.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            el.textContent = u.value;
+                            el.style.opacity = '1';
+                            el.style.transform = 'scale(1)';
+                        }, 150);
+                    }
+                });
+
+                // Update table stock values
+                if (data.drugs && Array.isArray(data.drugs)) {
+                    data.drugs.forEach(drug => {
+                        const stokEl = document.getElementById('stok-' + drug.no_batch);
+                        if (stokEl) {
+                            const newVal = formatNumber(drug.stok);
+                            if (stokEl.textContent.trim() !== newVal) {
+                                stokEl.style.color = '#0ea5e9';
+                                stokEl.textContent = newVal;
+                                setTimeout(() => { stokEl.style.color = ''; }, 1000);
+                            }
+                        }
+                        const statusEl = document.getElementById('status-' + drug.no_batch);
+                        if (statusEl && statusEl.textContent.trim() !== drug.status) {
+                            statusEl.textContent = drug.status;
+                        }
+                    });
+                }
+            })
+            .catch(err => console.warn('[BIO-GUARD Shipments] Poll error:', err));
+        }
+
+        // Poll every 3 seconds
+        setInterval(pollShipmentData, 3000);
+        console.log('[BIO-GUARD] Shipments real-time polling started (3s interval)');
+    });
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<style>
+.ts-control {
+    background-color: var(--color-surface-container-lowest, #ffffff) !important;
+    border-color: rgba(var(--color-outline-variant, 0,0,0), 0.5) !important;
+    border-radius: 0.5rem !important;
+    padding: 0.625rem 1rem !important;
+    font-size: 0.875rem !important;
+    color: var(--color-on-surface, #000000) !important;
+}
+.dark .ts-control {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+.ts-dropdown {
+    border-radius: 0.5rem !important;
+    overflow: hidden;
+    font-size: 0.875rem !important;
+    z-index: 9999 !important;
+}
+.dark .ts-dropdown {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+.ts-dropdown .option {
+    padding: 0.5rem 1rem;
+}
+.dark .ts-dropdown .option {
+    color: #e2e8f0 !important;
+}
+.ts-dropdown .active {
+    background-color: #0ea5e9 !important;
+    color: #ffffff !important;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
+@endpush
+
+

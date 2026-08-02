@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SyncController;
+use App\Http\Controllers\DashboardController;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+// Sync Telemetri dari Flutter (Dukungan untuk kedua penamaan route)
+Route::post('/sync/telemetri', [SyncController::class, 'upsertTelemetri'])
+    ->name('api.sync.telemetri');
+Route::post('/telemetry/sync', [SyncController::class, 'upsertTelemetri'])
+    ->name('api.telemetry.sync');
+
+// Data marker peta (untuk AJAX refresh)
+Route::get('/dashboard/map-data', [DashboardController::class, 'mapData'])
+    ->name('api.dashboard.map-data');
+Route::get('/dashboard/live-data', [DashboardController::class, 'liveData'])
+    ->name('api.dashboard.live-data');
+Route::get('/fleet/live', [DashboardController::class, 'liveData'])
+    ->name('api.fleet.live');
+
+// Live polling endpoints untuk dashboard real-time
+Route::get('/shipments/live', [\App\Http\Controllers\ShipmentController::class, 'liveData'])
+    ->name('api.shipments.live');
+Route::get('/sensors/live', [\App\Http\Controllers\AnalyticsController::class, 'liveData'])
+    ->name('api.sensors.live');
+Route::get('/alerts/live', [\App\Http\Controllers\AlertController::class, 'liveData'])
+    ->name('api.alerts.live');
