@@ -426,9 +426,9 @@
                                         {{ number_format($vibration, 2, ',', '.') }}G
                                     </span>
                                 </div>
-                                <div class="text-right">
+                                <div class="text-right" title="{{ $prediksi ? $prediksi->instruksi_mitigasi : '' }}">
                                     <span class="block">Risiko (AI)</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $probabilitas > 50 ? 'text-error font-bold' : ($probabilitas > 10 ? 'text-tertiary' : 'text-primary') }}">
+                                    <span class="font-mono-data font-bold block mt-0.5 {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
                                         {{ number_format($probabilitas, 1, ',', '.') }}%
                                     </span>
                                 </div>

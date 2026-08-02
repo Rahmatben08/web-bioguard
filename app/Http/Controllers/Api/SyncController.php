@@ -59,51 +59,33 @@ class SyncController extends Controller
                 ->whereIn('timestamp', collect($records)->pluck('timestamp'))
                 ->get();
 
-            $prediksiData = [];
+                $prediksiData = [];
+            $predictionService = new \App\Services\PredictionService();
+
             foreach ($syncedLogs as $log) {
                 $suhu = (float) $log->suhu_aktual;
                 $rute = $log->perjalananRute;
                 
                 // Heuristic Fallback values
-                if ($suhu > 8.0) {
-                    $prob = min(99.9, ($suhu - 8.0) * 15.0 + 5.0);
-                    $rekomendasi = 'Pindahkan ke ruang pendingin segera.';
-                } elseif ($suhu < 2.0) {
-                    $prob = min(99.9, (2.0 - $suhu) * 20.0 + 5.0);
-                    $rekomendasi = 'Naikkan suhu penyimpanan wadah obat termolabil.';
-                } else {
-                    $prob = min(5.0, max(0.1, ($suhu - 5.0) * 0.5 + 1.0));
-                    $rekomendasi = 'Suhu optimal. Pertahankan kondisi saat ini.';
+                $prob = 0.0;
+                $rekomendasi = 'Suhu optimal. Pertahankan kondisi saat ini.';
+                $sisaJarak = 0;
+
+                if ($rute) {
+                    $sisaJarak = $predictionService->getEstimatedRemainingDistance($rute->lokasi_tujuan, $log->latitude, $log->longitude);
                 }
 
-                // AI Python Microservice call (Http::post to http://127.0.0.1:8001/predict)
-                try {
-                    $response = \Illuminate\Support\Facades\Http::timeout(2)->post('http://127.0.0.1:8001/predict', [
-                        'suhu_aktual' => $suhu,
-                        'nilai_mkt' => $log->nilai_mkt ? (float) $log->nilai_mkt : null,
-                        'id_box' => $rute ? $rute->id_box : null,
-                    ]);
-
-                    if ($response->successful()) {
-                        $aiResult = $response->json();
-                        if (isset($aiResult['ai_probability'])) {
-                            $prob = (float) $aiResult['ai_probability'];
-                        } elseif (isset($aiResult['probabilitas_rusak'])) {
-                            $prob = (float) $aiResult['probabilitas_rusak'];
-                        }
-                        
-                        if (isset($aiResult['rekomendasi_tindakan'])) {
-                            $rekomendasi = $aiResult['rekomendasi_tindakan'];
-                        }
-                    }
-                } catch (\Exception $e) {
-                    \Illuminate\Support\Facades\Log::warning('Python AI Microservice unreachable: ' . $e->getMessage() . '. Using local prediction heuristics.');
-                }
+                $fluktuasiMkt = $log->nilai_mkt ? ((float) $log->nilai_mkt - 8.0) : ($suhu - 8.0);
+                
+                $aiResult = $predictionService->predictRisk($sisaJarak, 0, $fluktuasiMkt);
+                $prob = $aiResult['probabilitas_rusak'];
+                $rekomendasi = $aiResult['instruksi_mitigasi'];
 
                 $prediksiData[] = [
                     'id_log' => $log->id_log,
+                    'sisa_jarak_km' => $sisaJarak,
                     'probabilitas_rusak' => $prob,
-                    'rekomendasi_tindakan' => $rekomendasi,
+                    'instruksi_mitigasi' => $rekomendasi,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
@@ -145,7 +127,7 @@ class SyncController extends Controller
                 \App\Models\PrediksiAi::upsert(
                     $prediksiData,
                     ['id_log'],
-                    ['probabilitas_rusak', 'rekomendasi_tindakan', 'updated_at']
+                    ['sisa_jarak_km', 'probabilitas_rusak', 'instruksi_mitigasi', 'updated_at']
                 );
             }
 

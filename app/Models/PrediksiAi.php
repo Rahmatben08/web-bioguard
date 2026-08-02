@@ -23,8 +23,9 @@ class PrediksiAi extends Model
 
     protected $fillable = [
         'id_log',
+        'sisa_jarak_km',
         'probabilitas_rusak',
-        'rekomendasi_tindakan',
+        'instruksi_mitigasi',
     ];
 
     protected $casts = [
