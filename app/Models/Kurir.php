@@ -43,4 +43,12 @@ class Kurir extends Model
             $q->where('status_perjalanan', 'aktif');
         });
     }
+
+    /**
+     * Relasi: Satu kurir bisa memiliki satu akun pengguna (User)
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_kurir', 'id_kurir');
+    }
 }
