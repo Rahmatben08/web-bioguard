@@ -12,10 +12,21 @@
                 <h1 class="font-headline-sm text-headline-sm text-on-surface font-bold">Kelola Akun Kurir</h1>
                 <p class="text-sm text-on-surface-variant mt-1">Manajemen akses aplikasi untuk armada kurir BIO-GUARD.</p>
             </div>
-            <a href="{{ route('fleet') }}" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg hover:bg-surface-container-highest transition-colors shadow-sm text-sm font-semibold flex items-center gap-2 border border-outline-variant/30">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                Kembali ke Pelacakan Armada
-            </a>
+            <div class="flex items-center gap-2">
+                <button onclick="document.getElementById('modalTambahKurir').classList.remove('hidden')" class="px-3 py-1.5 bg-primary text-on-primary rounded text-xs font-bold hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">add</span> Tambah Kurir
+                </button>
+                <a href="{{ route('fleet') }}" class="px-4 py-1.5 bg-surface-container-high text-on-surface rounded hover:bg-surface-container-highest transition-colors shadow-sm text-sm font-semibold flex items-center gap-2 border border-outline-variant/30">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Kembali
+                </a>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input type="text" id="searchInput" placeholder="Cari berdasarkan ID, Nama, atau No. Kendaraan..." class="w-full bg-surface-container-low border border-outline-variant/50 rounded-xl pl-10 pr-4 py-2.5 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
         </div>
 
         @if(session('success'))
@@ -56,7 +67,7 @@
                     </thead>
                     <tbody class="divide-y divide-outline-variant/20">
                         @forelse($kurirs as $kurir)
-                            <tr class="hover:bg-surface-container-low/50 transition-colors">
+                            <tr class="hover:bg-surface-container-low/50 transition-colors kurir-row">
                                 <td class="px-6 py-4 font-mono font-bold text-primary">{{ $kurir->id_kurir }}</td>
                                 <td class="px-6 py-4 font-semibold">{{ $kurir->nama_lengkap }}</td>
                                 <td class="px-6 py-4 font-mono">{{ $kurir->nomor_kendaraan }}</td>
@@ -114,4 +125,57 @@
 
     </div>
 </div>
+
+<!-- Modal Tambah Kurir -->
+<div id="modalTambahKurir" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] hidden flex items-center justify-center">
+    <div class="bg-surface border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div class="p-4 border-b border-outline-variant/20 bg-surface-container flex justify-between items-center sticky top-0 z-10">
+            <h3 class="font-bold text-on-surface">Tambah Kurir & Akun Baru</h3>
+            <button type="button" onclick="document.getElementById('modalTambahKurir').classList.add('hidden')" class="text-on-surface-variant hover:text-error transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form action="{{ route('fleet.storeKurir') }}" method="POST" class="p-5 space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nama Lengkap</label>
+                <input type="text" name="nama_lengkap" required class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nomor Kendaraan</label>
+                <input type="text" name="nomor_kendaraan" required placeholder="Contoh: BG 1234 XY" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nomor WhatsApp (Opsional)</label>
+                <input type="text" name="no_wa" placeholder="Contoh: 08123456789" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <hr class="border-outline-variant/30">
+            <h4 class="font-bold text-sm text-primary mb-2">Informasi Akun (Untuk Login)</h4>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Email</label>
+                <input type="email" name="email" required placeholder="Contoh: kurir@bioguard.id" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Password</label>
+                <input type="password" name="password" required placeholder="Minimal 6 karakter" minlength="6" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div class="pt-2 flex justify-end gap-2">
+                <button type="button" onclick="document.getElementById('modalTambahKurir').classList.add('hidden')" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container text-sm font-semibold transition-colors">Batal</button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 text-sm font-bold shadow-[0_4px_12px_rgba(6,182,212,0.3)] transition-all active:scale-95">Simpan & Buat Akun</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('.kurir-row');
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
 @endsection

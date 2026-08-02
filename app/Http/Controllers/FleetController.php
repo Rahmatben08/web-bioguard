@@ -147,11 +147,26 @@ class FleetController extends Controller
             'nama_lengkap' => 'required|string|max:100',
             'nomor_kendaraan' => 'required|string|max:20',
             'no_wa' => 'nullable|string|max:20',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
         ]);
 
-        \App\Models\Kurir::create($validated);
+        $kurir = \App\Models\Kurir::create([
+            'nama_lengkap' => $validated['nama_lengkap'],
+            'nomor_kendaraan' => $validated['nomor_kendaraan'],
+            'no_wa' => $validated['no_wa'],
+        ]);
 
-        return back()->with('success', 'Kurir baru berhasil ditambahkan ke armada.');
+        User::create([
+            'name' => $kurir->nama_lengkap,
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'kurir',
+            'id_kurir' => $kurir->id_kurir,
+            'is_active' => true,
+        ]);
+
+        return back()->with('success', "Kurir dan Akun berhasil ditambahkan. Email: {$validated['email']}");
     }
 
     /**
