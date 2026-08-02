@@ -35,10 +35,10 @@
             
             <div class="hidden sm:block h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
 
-            <div class="flex gap-1 bg-slate-100 dark:bg-slate-900 bg-surface-container-lowest rounded-lg p-1 transition-colors duration-300">
-                <button class="px-4 py-1.5 text-xs font-bold bg-sky-600/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300">Q1</button>
-                <button class="px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">Q2</button>
-                <button class="px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">KUSTOM</button>
+            <div class="flex gap-1 bg-slate-100 dark:bg-slate-900 rounded-lg p-1 transition-colors duration-300" id="time-filter-buttons">
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-bold bg-sky-600/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300">Q1</button>
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">Q2</button>
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">KUSTOM</button>
             </div>
 
             <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
@@ -486,8 +486,52 @@
 @endsection
 
 @push('scripts')
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<style>
+    /* Customizing TomSelect for Tailwind dark mode compatibility */
+    .ts-wrapper .ts-control {
+        border: none;
+        background: transparent;
+        padding: 6px 12px;
+        min-height: auto;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .dark .ts-wrapper .ts-control {
+        color: #e2e8f0;
+    }
+    .ts-wrapper.single .ts-control:after {
+        border-color: #64748b transparent transparent transparent;
+    }
+    .ts-dropdown {
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        z-index: 50;
+    }
+    .dark .ts-dropdown {
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid #334155;
+    }
+    .dark .ts-dropdown .active {
+        background: #334155;
+        color: #fff;
+    }
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        if (document.getElementById('filter-box')) {
+            new TomSelect('#filter-box',{
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+        }
+
         window.applyFilters = function() {
             const date = document.getElementById('filter-date').value;
             const box = document.getElementById('filter-box').value;
@@ -554,16 +598,13 @@
         chart.render();
 
         // Q1/Q2/Kustom Time Filter Micro-interactions
-        const qButtons = document.querySelectorAll('button:has(text)'); // fallback, let's select specific
-        const buttons = document.querySelectorAll('.flex.gap-1.bg-surface-container-lowest button');
+        const buttons = document.querySelectorAll('#time-filter-buttons button');
         buttons.forEach((btn, idx) => {
             btn.addEventListener('click', () => {
                 buttons.forEach(b => {
-                    b.classList.remove('bg-primary-container/20', 'text-primary', 'font-bold');
-                    b.classList.add('text-on-surface-variant', 'font-medium');
+                    b.className = 'q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300';
                 });
-                btn.classList.remove('text-on-surface-variant', 'font-medium');
-                btn.classList.add('bg-primary-container/20', 'text-primary', 'font-bold');
+                btn.className = 'q-btn px-4 py-1.5 text-xs font-bold bg-sky-600/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300';
                 
                 // Trigger chart updates with randomized dummy trends based on quarter selected
                 let mult = (idx === 0) ? 1.0 : ((idx === 1) ? 1.4 : 0.8);
