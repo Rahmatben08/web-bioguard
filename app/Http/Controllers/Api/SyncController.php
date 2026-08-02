@@ -19,6 +19,13 @@ class SyncController extends Controller
      */
     public function upsertTelemetri(SyncTelemetriRequest $request): JsonResponse
     {
+        if (!auth()->user()->is_active) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Akun Anda dinonaktifkan. Silakan hubungi admin.'
+            ], 403);
+        }
+
         $validated = $request->validated();
         $records = $validated['data'];
 

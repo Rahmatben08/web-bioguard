@@ -72,6 +72,8 @@ class ShipmentController extends Controller
             $stockTrend[] = max(1000, $totalStok - ($i * 240) + (int)(sin($i * 4) * 350));
         }
 
+        $kurirs = \App\Models\Kurir::all();
+
         return view('dashboard.shipments', compact(
             'drugs',
             'totalStok',
@@ -79,7 +81,8 @@ class ShipmentController extends Controller
             'asetKarantina',
             'kapasitasUtilisasi',
             'stockTrend',
-            'stockTrendDates'
+            'stockTrendDates',
+            'kurirs'
         ));
     }
 
@@ -119,5 +122,148 @@ class ShipmentController extends Controller
             ],
             'drugs' => $drugs,
         ]);
+    }
+
+    /**
+     * Membuat rute perjalanan baru.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'id_kurir' => 'required|exists:kurir,id_kurir',
+            'id_box' => 'required|string|max:50',
+            'nama_kargo' => 'required|string|max:100',
+            'lokasi_tujuan' => 'required|string|max:150',
+        ]);
+
+        $validated['status_perjalanan'] = 'aktif';
+
+        \App\Models\PerjalananRute::create($validated);
+
+        return back()->with('success', 'Rute pengiriman baru berhasil dibuat dan langsung aktif.');
+    }
+
+    /**
+     * QUICK ACTIONS
+     */
+
+    public function terimaPengiriman(Request $request)
+    {
+        $validated = $request->validate([
+            'no_batch' => 'required|string|max:50|unique:thermolabile_drugs,no_batch',
+            'jenis' => 'required|string|max:100',
+            'qty' => 'required|integer|min:1',
+            'suhu' => 'required|numeric'
+        ]);
+
+        ThermolabileDrug::create([
+            'no_batch' => $validated['no_batch'],
+            'nama_produk' => 'Batch Baru (' . $validated['jenis'] . ')',
+            'jenis' => $validated['jenis'],
+            'suhu_penyimpanan' => $validated['suhu'],
+            'stok' => $validated['qty'],
+            'tanggal_kadaluwarsa' => now()->addMonths(6),
+            'status' => 'Aman',
+            // Track admin directly if model allows, but here we just rely on standard creation
+        ]);
+
+        return back()->with('success', "Batch {$validated['no_batch']} berhasil ditambahkan.");
+    }
+
+    public function auditStok(Request $request)
+    {
+        $validated = $request->validate([
+            'no_batch' => 'required|exists:thermolabile_drugs,no_batch',
+            'qty_fisik' => 'required|integer|min:0'
+        ]);
+
+        $drug = ThermolabileDrug::where('no_batch', $validated['no_batch'])->firstOrFail();
+        $stokSistem = $drug->stok;
+        $stokFisik = $validated['qty_fisik'];
+        $selisih = $stokFisik - $stokSistem;
+
+        // 1. Catat ke stok_audits
+        \App\Models\StokAudit::create([
+            'no_batch' => $drug->no_batch,
+            'stok_sistem' => $stokSistem,
+            'stok_fisik' => $stokFisik,
+            'selisih' => $selisih,
+            'id_admin' => auth()->id() ?? 1 // Fallback to 1 if auth is bypassed for testing
+        ]);
+
+        // 2. Update stok utama
+        $drug->update(['stok' => $stokFisik]);
+
+        return back()->with('success', "Audit stok {$drug->no_batch} berhasil dicatat dengan selisih {$selisih}.");
+    }
+
+    public function transferBatch(Request $request)
+    {
+        $validated = $request->validate([
+            'no_batch' => 'required|exists:thermolabile_drugs,no_batch',
+            'lokasi_tujuan' => 'required|string|max:150',
+            'qty' => 'required|integer|min:1'
+        ]);
+
+        $drug = ThermolabileDrug::where('no_batch', $validated['no_batch'])->firstOrFail();
+        
+        if ($drug->stok < $validated['qty']) {
+            return back()->with('error', "Stok tidak mencukupi untuk transfer.");
+        }
+
+        // 1. Catat perpindahan
+        \App\Models\BatchTransfer::create([
+            'no_batch' => $drug->no_batch,
+            'tujuan_faskes' => $validated['lokasi_tujuan'],
+            'jumlah_transfer' => $validated['qty'],
+            'id_admin' => auth()->id() ?? 1
+        ]);
+
+        // 2. Potong stok
+        $drug->decrement('stok', $validated['qty']);
+
+        return back()->with('success', "Transfer {$validated['qty']} vial {$drug->no_batch} ke {$validated['lokasi_tujuan']} berhasil diproses.");
+    }
+
+    public function laporSelisih(Request $request)
+    {
+        $validated = $request->validate([
+            'no_batch' => 'required|exists:thermolabile_drugs,no_batch',
+            'jenis_selisih' => 'required|string|max:100',
+            'catatan' => 'required|string'
+        ]);
+
+        // Catat sebagai insiden
+        \App\Models\IncidentLog::create([
+            // Since IncidentLog requires id_rute, we can optionally attach to an active route or a dummy one for inventory issues
+            'id_rute' => \App\Models\PerjalananRute::first()->id_rute ?? 1,
+            'jenis_insiden' => $validated['jenis_selisih'],
+            'deskripsi' => "Terkait Batch {$validated['no_batch']}: {$validated['catatan']} (Dilaporkan oleh Admin ID: " . (auth()->id() ?? 1) . ")",
+            'suhu_tercatat' => 0,
+            'durasi_anomali' => 0,
+            'status' => 'aktif'
+        ]);
+
+        return back()->with('success', "Laporan {$validated['jenis_selisih']} untuk batch {$validated['no_batch']} berhasil dicatat.");
+    }
+
+    public function aturanRestok(Request $request)
+    {
+        $validated = $request->validate([
+            'jenis_obat' => 'required|string|max:100',
+            'ambang_minimum' => 'required|integer|min:0',
+            'jumlah_restok' => 'required|integer|min:1'
+        ]);
+
+        \App\Models\RestockRule::updateOrCreate(
+            ['jenis_obat' => $validated['jenis_obat']],
+            [
+                'ambang_minimum' => $validated['ambang_minimum'],
+                'jumlah_restok_disarankan' => $validated['jumlah_restok'],
+                'id_admin' => auth()->id() ?? 1
+            ]
+        );
+
+        return back()->with('success', "Aturan restok untuk {$validated['jenis_obat']} berhasil disimpan/diperbarui.");
     }
 }

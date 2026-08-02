@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\PerjalananRute;
+use App\Models\Kurir;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class FleetController extends Controller
 {
@@ -132,5 +136,103 @@ class FleetController extends Controller
             ],
             'data' => $perjalananList,
         ]);
+    }
+
+    /**
+     * Menyimpan data kurir baru ke database.
+     */
+    public function storeKurir(\Illuminate\Http\Request $request)
+    {
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:100',
+            'nomor_kendaraan' => 'required|string|max:20',
+            'no_wa' => 'nullable|string|max:20',
+        ]);
+
+        \App\Models\Kurir::create($validated);
+
+        return back()->with('success', 'Kurir baru berhasil ditambahkan ke armada.');
+    }
+
+    /**
+     * Menampilkan halaman kelola akun kurir
+     */
+    public function accounts(): View
+    {
+        abort_if(auth()->user()->role !== 'admin', 403, 'Hanya admin yang dapat mengakses.');
+        $kurirs = Kurir::with('user')->get();
+        return view('dashboard.kurir_accounts', compact('kurirs'));
+    }
+
+    /**
+     * Membuat akun login untuk kurir
+     */
+    public function buatAkun(\Illuminate\Http\Request $request, $id)
+    {
+        abort_if(auth()->user()->role !== 'admin', 403, 'Hanya admin yang dapat mengakses.');
+        $kurir = Kurir::findOrFail($id);
+        
+        if ($kurir->user) {
+            return back()->with('error', 'Kurir ini sudah memiliki akun login.');
+        }
+
+        $passwordAcak = Str::random(10);
+        
+        $user = User::create([
+            'name' => $kurir->nama_lengkap,
+            'email' => strtolower(explode(' ', trim($kurir->nama_lengkap))[0]) . $kurir->id_kurir . '@bioguard.id',
+            'password' => Hash::make($passwordAcak),
+            'role' => 'kurir',
+            'id_kurir' => $kurir->id_kurir,
+            'is_active' => true,
+        ]);
+
+        return back()->with('success_password', "Akun berhasil dibuat. \nEmail: {$user->email} \nPassword: {$passwordAcak}\n\nCATAT SEKARANG, tidak akan ditampilkan lagi.");
+    }
+
+    /**
+     * Mereset password akun kurir
+     */
+    public function resetPassword(\Illuminate\Http\Request $request, $id)
+    {
+        abort_if(auth()->user()->role !== 'admin', 403, 'Hanya admin yang dapat mengakses.');
+        $kurir = Kurir::findOrFail($id);
+        
+        if (!$kurir->user) {
+            return back()->with('error', 'Kurir tidak memiliki akun.');
+        }
+
+        $passwordAcak = Str::random(10);
+        
+        $kurir->user->update([
+            'password' => Hash::make($passwordAcak)
+        ]);
+
+        return back()->with('success_password', "Password berhasil direset. \nEmail: {$kurir->user->email} \nPassword Baru: {$passwordAcak}\n\nCATAT SEKARANG, tidak akan ditampilkan lagi.");
+    }
+
+    /**
+     * Mengaktifkan/menonaktifkan akun kurir
+     */
+    public function toggleStatus(\Illuminate\Http\Request $request, $id)
+    {
+        abort_if(auth()->user()->role !== 'admin', 403, 'Hanya admin yang dapat mengakses.');
+        $kurir = Kurir::findOrFail($id);
+        
+        if (!$kurir->user) {
+            return back()->with('error', 'Kurir tidak memiliki akun.');
+        }
+
+        $user = $kurir->user;
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        if (!$user->is_active) {
+            // Revoke all tokens so the device is logged out
+            $user->tokens()->delete();
+            return back()->with('success', 'Akun berhasil dinonaktifkan. Sesi di aplikasi kurir telah diputus.');
+        }
+
+        return back()->with('success', 'Akun berhasil diaktifkan kembali.');
     }
 }

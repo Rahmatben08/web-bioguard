@@ -159,12 +159,6 @@
                 Masuk Ke Portal
             </button>
 
-            {{-- Quick Demo Login Button --}}
-            <button type="button" onclick="quickLogin()" 
-                class="w-full py-2.5 bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/30 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300 text-xs font-bold tracking-wide rounded-xl border border-slate-300 dark:border-slate-800 transition-all duration-300 ease-out cursor-pointer flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]">
-                <span class="material-symbols-outlined text-[16px] text-blue-600 dark:text-blue-400">key</span>
-                Masuk Instan Admin Demo
-            </button>
         </form>
 
         {{-- Theme Switcher on Footer --}}
@@ -234,21 +228,6 @@
                     }
                 });
             }
-
-            // Quick Demo Login Function
-            window.quickLogin = function() {
-                const emailInput = document.getElementById('email');
-                const passInput = document.getElementById('password');
-                if (emailInput && passInput) {
-                    emailInput.value = 'admin@bioguard.id';
-                    passInput.value = 'password';
-                    // Auto submit
-                    const form = emailInput.closest('form');
-                    if (form) {
-                        form.submit();
-                    }
-                }
-            };
         })();
     </script>
 

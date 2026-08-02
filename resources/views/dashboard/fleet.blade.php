@@ -8,8 +8,13 @@
     <aside class="w-full md:w-96 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col shrink-0 h-1/3 md:h-full z-20 shadow-2xl overflow-hidden">
         <!-- Sidebar Header -->
         <div class="p-lg border-b border-outline-variant/20 bg-surface-container-high/40 shrink-0">
-            <nav class="flex text-label-md text-outline mb-1 gap-2">
-                <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Armada Kurir</span>
+            <nav class="flex justify-between items-center text-label-md text-outline mb-1 gap-2">
+                <div>
+                    <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Armada Kurir</span>
+                </div>
+                <button onclick="document.getElementById('modalTambahKurir').classList.remove('hidden')" class="px-3 py-1 bg-primary text-on-primary rounded text-xs font-bold hover:bg-primary/90 transition-colors shadow-sm">
+                    + Tambah
+                </button>
             </nav>
             <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pelacakan Armada Aktif</h2>
             <p class="text-xs text-on-surface-variant mt-1">Telemetri GPS & Status Rantai Dingin aktual.</p>
@@ -92,6 +97,37 @@
     <main class="flex-1 h-2/3 md:h-full relative z-10" id="map-container">
         <div id="fleet-map" class="w-full h-full"></div>
     </main>
+</div>
+
+<!-- Modal Tambah Kurir -->
+<div id="modalTambahKurir" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] hidden flex items-center justify-center">
+    <div class="bg-surface border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative">
+        <div class="p-4 border-b border-outline-variant/20 bg-surface-container flex justify-between items-center">
+            <h3 class="font-bold text-on-surface">Tambah Kurir Baru</h3>
+            <button onclick="document.getElementById('modalTambahKurir').classList.add('hidden')" class="text-on-surface-variant hover:text-error transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form action="{{ route('fleet.storeKurir') }}" method="POST" class="p-5 space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nama Lengkap</label>
+                <input type="text" name="nama_lengkap" required class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nomor Kendaraan</label>
+                <input type="text" name="nomor_kendaraan" required placeholder="Contoh: BG 1234 XY" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nomor WhatsApp (Opsional)</label>
+                <input type="text" name="no_wa" placeholder="Contoh: 08123456789" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div class="pt-2 flex justify-end gap-2">
+                <button type="button" onclick="document.getElementById('modalTambahKurir').classList.add('hidden')" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container text-sm font-semibold transition-colors">Batal</button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 text-sm font-bold shadow-[0_4px_12px_rgba(6,182,212,0.3)] transition-all active:scale-95">Simpan Kurir</button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
 

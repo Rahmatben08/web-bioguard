@@ -80,6 +80,31 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/armada', [FleetController::class, 'index'])
         ->name('fleet');
+    Route::post('/armada/kurir', [FleetController::class, 'storeKurir'])
+        ->name('fleet.storeKurir');
+
+    // Kelola Akun Kurir Routes (Protected for admin only)
+    Route::prefix('armada/akun')->group(function () {
+        Route::get('/', [FleetController::class, 'accounts'])->name('fleet.accounts');
+        Route::post('/{id}/buat-akun', [FleetController::class, 'buatAkun'])->name('fleet.accounts.create');
+        Route::post('/{id}/reset-password', [FleetController::class, 'resetPassword'])->name('fleet.accounts.reset');
+        Route::post('/{id}/toggle-status', [FleetController::class, 'toggleStatus'])->name('fleet.accounts.toggle');
+    });
+    
+    Route::post('/pengiriman', [ShipmentController::class, 'store'])
+        ->name('shipments.store');
+    
+    // Quick Actions Routes
+    Route::post('/pengiriman/terima', [ShipmentController::class, 'terimaPengiriman'])
+        ->name('shipments.terima');
+    Route::post('/pengiriman/audit', [ShipmentController::class, 'auditStok'])
+        ->name('shipments.audit');
+    Route::post('/pengiriman/transfer', [ShipmentController::class, 'transferBatch'])
+        ->name('shipments.transfer');
+    Route::post('/pengiriman/lapor', [ShipmentController::class, 'laporSelisih'])
+        ->name('shipments.lapor');
+    Route::post('/pengiriman/restok', [ShipmentController::class, 'aturanRestok'])
+        ->name('shipments.restok');
 
     Route::get('/profil', [AdminController::class, 'profile'])->name('profile');
     Route::post('/profil', [AdminController::class, 'updateProfile'])->name('profile.update');
@@ -157,49 +182,5 @@ Route::post('/api/simulasi/sos', function (\Illuminate\Http\Request $request) {
 
 Route::post('/api/route/{id}/complete', [DashboardController::class, 'completeRoute'])->name('route.complete');
 
-// Programmatic helper routes for Shared Hosting deployment
-Route::get('/run-migration', function() {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
-            '--seed' => true,
-            '--force' => true
-        ]);
-        return 'Sukses: Database Migration & Seeding berhasil dilakukan!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
-
-Route::get('/run-symlink', function() {
-    try {
-        $target = storage_path('app/public');
-        $link = public_path('storage');
-        
-        // Helper function for recursive copy
-        $copyRecursive = function($src, $dst) use (&$copyRecursive) {
-            if (!is_dir($src)) return;
-            if (!is_dir($dst)) {
-                mkdir($dst, 0777, true);
-            }
-            $files = array_diff(scandir($src), ['.', '..']);
-            foreach ($files as $file) {
-                $srcPath = $src . '/' . $file;
-                $dstPath = $dst . '/' . $file;
-                if (is_dir($srcPath)) {
-                    $copyRecursive($srcPath, $dstPath);
-                } else {
-                    copy($srcPath, $dstPath);
-                }
-            }
-        };
-
-        // Perform copy bypass
-        $copyRecursive($target, $link);
-        
-        return 'Sukses: Folder storage dan isinya berhasil disalin secara fisik ke public_html/storage!';
-    } catch (\Throwable $e) {
-        return 'Error: ' . $e->getMessage() . ' (di ' . $e->getFile() . ' baris ' . $e->getLine() . ')';
-    }
-});
 
 

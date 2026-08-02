@@ -578,10 +578,16 @@
                 <span class="material-symbols-outlined" style="{{ request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : '' }}">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
-                <span class="material-symbols-outlined" style="{{ request()->is('armada*') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
+            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
+                <span class="material-symbols-outlined" style="{{ request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
+            @if(auth()->check() && auth()->user()->role === 'admin')
+            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
+                <span class="material-symbols-outlined" style="{{ request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : '' }}">manage_accounts</span>
+                <span class="font-label-md">Akun Kurir</span>
+            </a>
+            @endif
             <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : '' }}">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>
@@ -664,10 +670,16 @@
                 <span class="material-symbols-outlined" style="{{ request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : '' }}">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
-                <span class="material-symbols-outlined" style="{{ request()->is('armada*') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
+            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
+                <span class="material-symbols-outlined" style="{{ request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
+            @if(auth()->check() && auth()->user()->role === 'admin')
+            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
+                <span class="material-symbols-outlined" style="{{ request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : '' }}">manage_accounts</span>
+                <span class="font-label-md">Akun Kurir</span>
+            </a>
+            @endif
             <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : '' }}">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>

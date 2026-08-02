@@ -15,11 +15,18 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
+use App\Http\Controllers\Api\AuthController;
+
+// API Login
+Route::post('/login', [AuthController::class, 'login'])->name('api.login');
+
 // Sync Telemetri dari Flutter (Dukungan untuk kedua penamaan route)
-Route::post('/sync/telemetri', [SyncController::class, 'upsertTelemetri'])
-    ->name('api.sync.telemetri');
-Route::post('/telemetry/sync', [SyncController::class, 'upsertTelemetri'])
-    ->name('api.telemetry.sync');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/sync/telemetri', [SyncController::class, 'upsertTelemetri'])
+        ->name('api.sync.telemetri');
+    Route::post('/telemetry/sync', [SyncController::class, 'upsertTelemetri'])
+        ->name('api.telemetry.sync');
+});
 
 // Data marker peta (untuk AJAX refresh)
 Route::get('/dashboard/map-data', [DashboardController::class, 'mapData'])

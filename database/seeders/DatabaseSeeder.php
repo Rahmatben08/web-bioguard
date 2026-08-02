@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(DemoSeeder::class);
+        // Seeder demo dihapus dari pemanggilan otomatis agar tidak me-reset password admin
+        // saat deploy/migrate production.
+        // Untuk menggunakan di lokal, jalankan manual: php artisan db:seed --class=DemoSeeder
+        // $this->call(DemoSeeder::class);
     }
 }

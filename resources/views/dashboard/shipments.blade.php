@@ -12,10 +12,16 @@
             </nav>
             <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Pengiriman & Inventaris</h1>
         </div>
-        <button onclick="openQuickModal('terima')" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-primary text-on-primary font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
-            <span class="material-symbols-outlined text-[18px]">add_box</span>
-            Terima Pengiriman
-        </button>
+        <div class="flex gap-2">
+            <button onclick="document.getElementById('modalBuatPengiriman').classList.remove('hidden')" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-tertiary text-white font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(234,88,12,0.3)]">
+                <span class="material-symbols-outlined text-[18px]">local_shipping</span>
+                Buat Pengiriman
+            </button>
+            <button onclick="openQuickModal('terima')" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-primary text-on-primary font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
+                <span class="material-symbols-outlined text-[18px]">add_box</span>
+                Terima Pengiriman
+            </button>
+        </div>
     </div>
 
     <!-- Quick Stats Bento Grid -->
@@ -315,7 +321,8 @@
         </div>
         
         <!-- Modal Form -->
-        <form id="quick-action-form">
+        <form id="quick-action-form" method="POST">
+            @csrf
             <div class="p-lg space-y-md" id="quick-modal-body">
                 <!-- Dynamic form fields injected here -->
             </div>
@@ -341,6 +348,65 @@
             <div class="font-bold text-sm text-on-surface" id="toast-title">Aksi Berhasil</div>
             <div class="text-xs text-on-surface-variant" id="toast-desc">Transaksi database telah tercatat.</div>
         </div>
+    </div>
+</div>
+
+<!-- Modal Buat Pengiriman -->
+<div id="modalBuatPengiriman" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[2000] hidden flex items-center justify-center">
+    <div class="bg-surface border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative">
+        <div class="p-4 border-b border-outline-variant/20 bg-surface-container flex justify-between items-center">
+            <h3 class="font-bold text-on-surface">Buat Rute Pengiriman Baru</h3>
+            <button type="button" onclick="document.getElementById('modalBuatPengiriman').classList.add('hidden')" class="text-on-surface-variant hover:text-error transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form action="{{ route('shipments.store') }}" method="POST" class="p-5 space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Kurir</label>
+                <select name="id_kurir" required class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+                    <option value="">Pilih Kurir...</option>
+                    @foreach($kurirs ?? [] as $kurir)
+                        <option value="{{ $kurir->id_kurir }}">{{ $kurir->nama_lengkap }} ({{ $kurir->nomor_kendaraan }})</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">ID Boks (Kargo)</label>
+                <input type="text" name="id_box" required placeholder="Contoh: BOX-001" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Nama Kargo</label>
+                <input type="text" name="nama_kargo" required placeholder="Contoh: Vaksin Sinovac 1000 Vial" class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Lokasi Tujuan</label>
+                <select name="lokasi_tujuan" id="buat-pengiriman-tujuan" required class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+                    <option value="">Ketik untuk mencari faskes tujuan...</option>
+                    <optgroup label="Rumah Sakit (RS)">
+                        <option value="RSUP Dr. Mohammad Hoesin">RSUP Dr. Mohammad Hoesin (RSMH)</option>
+                        <option value="RSUD Palembang BARI">RSUD Palembang BARI</option>
+                        <option value="RSUD Siti Fatimah">RSUD Siti Fatimah</option>
+                        <option value="RS Charitas">RS Charitas</option>
+                        <option value="RS Muhammadiyah Palembang">RS Muhammadiyah Palembang</option>
+                        <option value="RS Hermina Palembang">RS Hermina Palembang</option>
+                        <option value="RS Bhayangkara">RS Bhayangkara</option>
+                    </optgroup>
+                    <optgroup label="Puskesmas">
+                        <option value="Puskesmas Dempo">Puskesmas Dempo</option>
+                        <option value="Puskesmas Sekip">Puskesmas Sekip</option>
+                        <option value="Puskesmas Plaju">Puskesmas Plaju</option>
+                        <option value="Puskesmas Kertapati">Puskesmas Kertapati</option>
+                        <option value="Puskesmas Alang-Alang Lebar">Puskesmas Alang-Alang Lebar</option>
+                        <option value="Puskesmas Gandus">Puskesmas Gandus</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="pt-2 flex justify-end gap-2">
+                <button type="button" onclick="document.getElementById('modalBuatPengiriman').classList.add('hidden')" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container text-sm font-semibold transition-colors">Batal</button>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 text-sm font-bold shadow-[0_4px_12px_rgba(6,182,212,0.3)] transition-all active:scale-95">Buat Pengiriman</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
@@ -419,177 +485,140 @@
             
             if (actionType === 'audit') {
                 title = 'Audit Stok Fisik';
+                quickForm.action = "{{ route('shipments.audit') }}";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
-                            <select id="audit-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
-                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
-                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
-                                <option value="BTCH-BF04">BTCH-BF04 (Vaksin Bio Farma Flu)</option>
+                            <select name="no_batch" id="audit-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                @foreach($drugs as $drug)
+                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
+                                @endforeach
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Riil di Gudang (Vial)</label>
-                            <input type="number" id="audit-count" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah fisik..." required>
+                            <input type="number" name="qty_fisik" id="audit-count" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah fisik..." required>
                         </div>
                     </div>
                 `;
             } else if (actionType === 'terima') {
                 title = 'Terima Pengiriman';
+                quickForm.action = "{{ route('shipments.terima') }}";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Scan / Input ID Batch Baru</label>
-                            <input type="text" id="terima-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Contoh: BTCH-NEW01" required>
+                            <input type="text" name="no_batch" id="terima-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Contoh: BTCH-NEW01" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Produk & Suhu Target</label>
-                            <select id="terima-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option>Vaksin (2°C - 8°C)</option>
-                                <option>Insulin (2°C - 8°C)</option>
-                                <option>Serum Darah (2°C - 8°C)</option>
-                                <option>Vaksin Ultra-Cold (-70°C)</option>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Produk</label>
+                            <select name="jenis" id="terima-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="Vaksin">Vaksin</option>
+                                <option value="Insulin">Insulin</option>
+                                <option value="Serum Darah">Serum Darah</option>
                             </select>
                         </div>
                         <div>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Suhu Penyimpanan (°C)</label>
+                            <input type="number" step="0.1" name="suhu" value="5.0" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
+                        </div>
+                        <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Diterima (Vial)</label>
-                            <input type="number" id="terima-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah vial..." required>
+                            <input type="number" name="qty" id="terima-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah vial..." required>
                         </div>
                     </div>
                 `;
             } else if (actionType === 'transfer') {
                 title = 'Transfer Batch Rute';
+                quickForm.action = "{{ route('shipments.transfer') }}";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
-                            <select id="transfer-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
-                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
-                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
+                            <select name="no_batch" id="transfer-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                @foreach($drugs as $drug)
+                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
+                                @endforeach
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Fasilitas Kesehatan Tujuan</label>
-                            <select id="transfer-dest" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <optgroup label="Rumah Sakit (RS) se-Palembang" class="bg-surface-container font-semibold text-primary">
-                                    <option>RSUP Dr. Mohammad Hoesin (RSMH)</option>
-                                    <option>RSUD Palembang BARI</option>
-                                    <option>RSUD Sumatera Selatan (Siti Fatimah)</option>
-                                    <option>RS Charitas Hospital Palembang</option>
-                                    <option>RS Muhammadiyah Palembang</option>
-                                    <option>RS Siti Khadijah Palembang</option>
-                                    <option>RS Ar-Rasyid</option>
-                                    <option>RS Bunda Palembang</option>
-                                    <option>RS Myria Palembang</option>
-                                    <option>RS Hermina Palembang</option>
-                                    <option>RS Hermina OPI Jakabaring</option>
-                                    <option>RS Bhayangkara Palembang</option>
-                                    <option>RS Dr. AK. Gani</option>
-                                    <option>RS Graha Mandiri</option>
-                                    <option>RS Ernaldi Bahar</option>
-                                    <option>RS Khusus Paru-Paru Provinsi Sumsel</option>
-                                    <option>RS Khusus Mata Provinsi Sumsel</option>
-                                    <option>RS Gigi dan Mulut Provinsi Sumsel</option>
-                                    <option>RSIA YK Madira</option>
-                                    <option>RS Pertamina Plaju</option>
+                            <select name="lokasi_tujuan" id="transfer-dest" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="">Ketik untuk mencari faskes tujuan...</option>
+                                <optgroup label="Rumah Sakit (RS)" class="bg-surface-container font-semibold text-primary">
+                                    <option value="RSUP Dr. Mohammad Hoesin">RSUP Dr. Mohammad Hoesin (RSMH)</option>
+                                    <option value="RSUD Palembang BARI">RSUD Palembang BARI</option>
+                                    <option value="RSUD Siti Fatimah">RSUD Siti Fatimah</option>
+                                    <option value="RS Charitas">RS Charitas</option>
+                                    <option value="RS Muhammadiyah Palembang">RS Muhammadiyah Palembang</option>
+                                    <option value="RS Hermina Palembang">RS Hermina Palembang</option>
+                                    <option value="RS Bhayangkara">RS Bhayangkara</option>
                                 </optgroup>
-                                <optgroup label="Puskesmas se-Palembang" class="bg-surface-container font-semibold text-tertiary">
-                                    <option>Puskesmas Dempo</option>
-                                    <option>Puskesmas Padang Selasa</option>
-                                    <option>Puskesmas Multiwahana</option>
-                                    <option>Puskesmas Sako</option>
-                                    <option>Puskesmas Pembina</option>
-                                    <option>Puskesmas Sekip</option>
-                                    <option>Puskesmas Plaju</option>
-                                    <option>Puskesmas Sosial</option>
-                                    <option>Puskesmas 23 Ilir</option>
-                                    <option>Puskesmas Talang Betutu</option>
-                                    <option>Puskesmas 1 Ulu</option>
-                                    <option>Puskesmas Kertapati</option>
-                                    <option>Puskesmas Alang-Alang Lebar</option>
-                                    <option>Puskesmas Taman Bacaan</option>
-                                    <option>Puskesmas Sabokingking</option>
-                                    <option>Puskesmas Sukarami</option>
-                                    <option>Puskesmas Bukitsangkal</option>
-                                    <option>Puskesmas Gandus</option>
-                                    <option>Puskesmas Kampus</option>
-                                    <option>Puskesmas 5 Ilir</option>
-                                    <option>Puskesmas Karya Jaya</option>
-                                    <option>Puskesmas 4 Ulu</option>
-                                    <option>Puskesmas 7 Ulu</option>
-                                    <option>Puskesmas Opi</option>
-                                    <option>Puskesmas Kramasan</option>
-                                    <option>Puskesmas Makrayu</option>
-                                    <option>Puskesmas Sungai Baung</option>
-                                    <option>Puskesmas Merdeka</option>
-                                    <option>Puskesmas Nagaswidak</option>
-                                    <option>Puskesmas Basuki Rahmat</option>
-                                    <option>Puskesmas Boom Baru</option>
-                                    <option>Puskesmas Celentang</option>
-                                    <option>Puskesmas Kenten</option>
-                                    <option>Puskesmas Pakjo</option>
-                                    <option>Puskesmas Talang Ratu</option>
-                                    <option>Puskesmas Kalidoni</option>
-                                    <option>Puskesmas Sematang Borang</option>
-                                    <option>Puskesmas Talang Jambe</option>
+                                <optgroup label="Puskesmas" class="bg-surface-container font-semibold text-tertiary">
+                                    <option value="Puskesmas Dempo">Puskesmas Dempo</option>
+                                    <option value="Puskesmas Sekip">Puskesmas Sekip</option>
+                                    <option value="Puskesmas Plaju">Puskesmas Plaju</option>
+                                    <option value="Puskesmas Kertapati">Puskesmas Kertapati</option>
+                                    <option value="Puskesmas Alang-Alang Lebar">Puskesmas Alang-Alang Lebar</option>
+                                    <option value="Puskesmas Gandus">Puskesmas Gandus</option>
                                 </optgroup>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Vial</label>
-                            <input type="number" id="transfer-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah transfer..." required>
+                            <input type="number" name="qty" id="transfer-qty" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan jumlah transfer..." required>
                         </div>
                     </div>
                 `;
             } else if (actionType === 'report') {
                 title = 'Laporkan Selisih';
+                quickForm.action = "{{ route('shipments.lapor') }}";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Terkait</label>
-                            <select id="report-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option value="BTCH-SV01">BTCH-SV01 (Vaksin Sinovac)</option>
-                                <option value="BTCH-IH02">BTCH-IH02 (Insulin Humalog)</option>
-                                <option value="BTCH-SA03">BTCH-SA03 (Serum Albumin)</option>
+                            <select name="no_batch" id="report-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                @foreach($drugs as $drug)
+                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
+                                @endforeach
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Selisih</label>
-                            <select id="report-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option>Hilang / Rusak Fisik</option>
-                                <option>Selisih Perhitungan Sistem</option>
-                                <option>Karantina karena Fluktuasi</option>
+                            <select name="jenis_selisih" id="report-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="Hilang / Rusak Fisik">Hilang / Rusak Fisik</option>
+                                <option value="Selisih Perhitungan Sistem">Selisih Perhitungan Sistem</option>
+                                <option value="Karantina karena Fluktuasi">Karantina karena Fluktuasi</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Keterangan / Catatan</label>
-                            <textarea id="report-notes" rows="3" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan catatan tambahan..." required></textarea>
+                            <textarea name="catatan" id="report-notes" rows="3" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Masukkan catatan tambahan..." required></textarea>
                         </div>
                     </div>
                 `;
             } else if (actionType === 'restok') {
                 title = 'Aturan Restok Otomatis';
+                quickForm.action = "{{ route('shipments.restok') }}";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jenis Produk</label>
-                            <select id="restok-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                <option>Semua Kategori</option>
-                                <option>Vaksin</option>
-                                <option>Insulin</option>
-                                <option>Serum Darah</option>
+                            <select name="jenis_obat" id="restok-type" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
+                                <option value="Semua Kategori">Semua Kategori</option>
+                                <option value="Vaksin">Vaksin</option>
+                                <option value="Insulin">Insulin</option>
+                                <option value="Serum Darah">Serum Darah</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Batas Minimum Stok Alert (Vial)</label>
-                            <input type="number" id="restok-min" value="5000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
+                            <input type="number" name="ambang_minimum" id="restok-min" value="5000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Jumlah Pemesanan Otomatis (Vial)</label>
-                            <input type="number" id="restok-qty" value="20000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
+                            <input type="number" name="jumlah_restok" id="restok-qty" value="20000" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
                         </div>
                     </div>
                 `;
@@ -698,18 +727,7 @@
         if (closeQuickBtn) closeQuickBtn.addEventListener('click', closeQuickModal);
         if (closeQuickBtn2) closeQuickBtn2.addEventListener('click', closeQuickModal);
 
-        quickForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            submitQuickBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle animate-spin text-on-primary">sync</span> Memproses...';
-            submitQuickBtn.disabled = true;
-
-            setTimeout(() => {
-                closeQuickModal();
-                showToast('Aksi Sukses', `Transaksi '${modalFormTitle.textContent}' berhasil diproses di sistem.`);
-                submitQuickBtn.innerHTML = 'Terapkan';
-                submitQuickBtn.disabled = false;
-            }, 1200);
-        });
+        // No longer intercepting form submission with preventDefault! Let it naturally post to backend.
 
         // ========================================
         // REAL-TIME LIVE POLLING - Inventaris
@@ -777,9 +795,18 @@
         // Poll every 3 seconds
         setInterval(pollShipmentData, 3000);
         console.log('[BIO-GUARD] Shipments real-time polling started (3s interval)');
+        // Initialize TomSelect for "Buat Pengiriman" modal
+        if (typeof TomSelect !== 'undefined') {
+            new TomSelect('#buat-pengiriman-tujuan', {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: 'Ketik untuk mencari faskes tujuan...'
+            });
+        }
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 <style>
 .ts-control {

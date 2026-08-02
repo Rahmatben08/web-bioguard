@@ -106,7 +106,7 @@
                 </button>
                 
                 {{-- Download APK Button in Header --}}
-                <a href="/bio-guard.apk" download class="hidden sm:flex items-center justify-center px-4 py-2 border border-white/60 dark:border-white/10 bg-white/30 dark:bg-slate-800/30 hover:bg-white/60 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 text-[11px] font-bold rounded-full transition-all shadow-sm">
+                <a href="/downloads/bio-guard-driver.apk" download class="hidden sm:flex items-center justify-center px-4 py-2 border border-white/60 dark:border-white/10 bg-white/30 dark:bg-slate-800/30 hover:bg-white/60 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 text-[11px] font-bold rounded-full transition-all shadow-sm">
                     Unduh APK
                 </a>
 
@@ -143,7 +143,7 @@
                        class="px-6 py-3 rounded-full bg-blue-600/90 dark:bg-blue-500/90 hover:bg-blue-600 dark:hover:bg-blue-500 text-white text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 border border-blue-500/50 backdrop-blur-md hover:-translate-y-0.5">
                         <span class="material-symbols-outlined text-[20px]">login</span> Masuk ke Portal Admin
                     </a>
-                    <a href="/bio-guard.apk" download
+                    <a href="/downloads/bio-guard-driver.apk" download
                        class="px-6 py-3 rounded-full bg-slate-900/80 dark:bg-slate-800/80 hover:bg-slate-900 dark:hover:bg-slate-700 text-white text-sm font-bold shadow-lg transition-all flex items-center gap-2 border border-slate-700/50 backdrop-blur-md hover:-translate-y-0.5">
                         <span class="material-symbols-outlined text-[20px]">download</span> Unduh Aplikasi (APK)
                     </a>
