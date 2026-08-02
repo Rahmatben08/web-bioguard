@@ -14,7 +14,13 @@
                 </div>
             </nav>
             <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pelacakan Armada Aktif</h2>
-            <p class="text-xs text-on-surface-variant mt-1">Telemetri GPS & Status Rantai Dingin aktual.</p>
+            <p class="text-xs text-on-surface-variant mt-1 mb-3">Telemetri GPS & Status Rantai Dingin aktual.</p>
+            
+            <!-- Search Bar -->
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+                <input type="text" id="searchFleetInput" placeholder="Cari nama, ID box, atau tujuan..." class="w-full bg-background border border-outline-variant/50 rounded-lg pl-9 pr-3 py-1.5 text-xs text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+            </div>
         </div>
 
         <!-- Drivers List -->
@@ -24,7 +30,7 @@
                     $log = $perjalanan->latestLog;
                     $excursion = $perjalanan->getExcursionInfo();
                 @endphp
-                <div id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="p-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col gap-2 relative overflow-hidden">
+                <div id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="fleet-driver-card p-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col gap-2 relative overflow-hidden">
                     <!-- Excursion Indicator Strip -->
                     @if($excursion['status'] === 'Aman')
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
@@ -594,5 +600,15 @@
             markers[id_rute].openPopup();
         }
     }
+
+    document.getElementById('searchFleetInput')?.addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let cards = document.querySelectorAll('.fleet-driver-card');
+
+        cards.forEach(card => {
+            let text = card.innerText.toLowerCase();
+            card.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
 </script>
 @endpush
