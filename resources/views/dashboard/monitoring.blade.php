@@ -776,7 +776,7 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            </x-card>
 
             {{-- BIO-GUARD Gateway Hub --}}
             <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
