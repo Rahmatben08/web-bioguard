@@ -285,6 +285,7 @@
                             $status = $exInfo['status'];
                             $statusLabel = $exInfo['status_label'];
                             $textClass = $exInfo['text_class'];
+                            $duration = $exInfo['duration'] ?? 0;
                             
                             $badgeColor = 'neutral';
                             if ($status === 'Aman') $badgeColor = 'success';
