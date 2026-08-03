@@ -3,7 +3,7 @@
 @section('title', 'Pengiriman & Inventaris')
 
 @section('content')
-<div class="p-container-margin space-y-lg">
+<div class="flex-1 w-full min-h-full p-container-margin space-y-lg">
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-md mb-md">
         <div>
@@ -27,57 +27,57 @@
     <!-- Quick Stats Bento Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-md">
         {{-- Card 1 --}}
-        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-primary/30 transition-colors">
+        <x-card class="hover:border-primary/30 transition-colors">
             <div class="flex justify-between items-start mb-4">
-                <span class="text-label-md text-outline">Total Stok</span>
-                <span class="material-symbols-outlined text-primary">inventory_2</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Stok</span>
+                <span class="material-symbols-outlined text-[20px] text-primary">inventory_2</span>
             </div>
-            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-total-stok">{{ number_format($totalStok, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">vial</span></div>
-            <div class="mt-auto pt-4 flex items-center gap-2 text-primary">
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-total-stok">{{ number_format($totalStok, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
+            <div class="mt-4 flex items-center gap-2 text-primary">
                 <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                <span class="text-label-md">+4,2% dari bulan lalu</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">+4,2% dari bulan lalu</span>
             </div>
-        </div>
+        </x-card>
 
         {{-- Card 2 --}}
-        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-tertiary/30 transition-colors">
+        <x-card class="hover:border-tertiary/30 transition-colors">
             <div class="flex justify-between items-start mb-4">
-                <span class="text-label-md text-outline">Segera Kedaluwarsa (30 hari)</span>
-                <span class="material-symbols-outlined text-tertiary">event_busy</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Segera Kedaluwarsa</span>
+                <span class="material-symbols-outlined text-[20px] text-tertiary">event_busy</span>
             </div>
-            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-segera-kadaluwarsa">{{ number_format($segeraKadaluwarsa, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">vial</span></div>
-            <div class="mt-auto pt-4 flex items-center gap-2 text-tertiary">
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-segera-kadaluwarsa">{{ number_format($segeraKadaluwarsa, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
+            <div class="mt-4 flex items-center gap-2 text-tertiary">
                 <span class="material-symbols-outlined text-[14px]">warning</span>
-                <span class="text-label-md">Rotasi stok segera dilakukan</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Rotasi stok segera</span>
             </div>
-        </div>
+        </x-card>
 
         {{-- Card 3 --}}
-        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-error/30 transition-colors">
+        <x-card class="hover:border-error/30 transition-colors">
             <div class="flex justify-between items-start mb-4">
-                <span class="text-label-md text-outline">Aset Dikarantina</span>
-                <span class="material-symbols-outlined text-error">lock_reset</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Aset Dikarantina</span>
+                <span class="material-symbols-outlined text-[20px] text-error">lock_reset</span>
             </div>
-            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-aset-karantina">{{ number_format($asetKarantina, 0, ',', '.') }}</span> <span class="text-label-md text-outline font-normal">batch</span></div>
-            <div class="mt-auto pt-4 flex items-center gap-2 text-error">
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-aset-karantina">{{ number_format($asetKarantina, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">batch</span></div>
+            <div class="mt-4 flex items-center gap-2 text-error">
                 <span class="material-symbols-outlined text-[14px]">verified_user</span>
-                <span class="text-label-md">Menunggu persetujuan QA</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider">Menunggu persetujuan QA</span>
             </div>
-        </div>
+        </x-card>
 
         {{-- Card 4 --}}
-        <div class="bg-surface-container/60 backdrop-blur-md p-lg rounded-xl border border-outline-variant/30 flex flex-col hover:border-primary/30 transition-colors">
+        <x-card class="hover:border-primary/30 transition-colors">
             <div class="flex justify-between items-start mb-4">
-                <span class="text-label-md text-outline">Kapasitas Tersedia</span>
-                <span class="material-symbols-outlined text-primary">database</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kapasitas Tersedia</span>
+                <span class="material-symbols-outlined text-[20px] text-primary">database</span>
             </div>
-            <div class="font-headline-lg text-headline-lg text-on-surface"><span id="live-kapasitas">{{ $kapasitasUtilisasi }}%</span> <span class="text-label-md text-outline font-normal">utilisasi</span></div>
-            <div class="mt-auto pt-4 flex items-center gap-2">
-                <div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
-                    <div class="bg-primary h-full shadow-[0_0_8px_rgba(76,213,246,0.5)]" style="width: {{ $kapasitasUtilisasi }}%"></div>
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-kapasitas">{{ $kapasitasUtilisasi }}%</span> <span class="text-xs text-slate-500 font-semibold">utilisasi</span></div>
+            <div class="mt-4 flex items-center gap-2">
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+                    <div class="bg-primary h-full" style="width: {{ $kapasitasUtilisasi }}%"></div>
                 </div>
             </div>
-        </div>
+        </x-card>
     </div>
 
     <!-- Table Filters & Search Form -->
@@ -107,37 +107,37 @@
     </form>
 
     <!-- Primary Inventory Table -->
-    <div class="bg-surface-container border border-outline-variant/30 rounded-b-xl overflow-hidden shadow-xl mb-md">
+    <x-card noPadding="true" class="mb-md">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <x-table>
                 <thead>
-                    <tr class="bg-surface-container-highest/50 border-b border-outline-variant/10">
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Nama Produk</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">ID Batch</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Suhu Penyimpanan</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Jumlah Stok</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Tgl. Kedaluwarsa</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider">Status</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-outline uppercase tracking-wider text-right">Aksi</th>
+                    <tr>
+                        <th>Nama Produk</th>
+                        <th>ID Batch</th>
+                        <th>Suhu Penyimpanan</th>
+                        <th>Jumlah Stok</th>
+                        <th>Tgl. Kedaluwarsa</th>
+                        <th>Status</th>
+                        <th class="text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-outline-variant/5">
+                <tbody>
                     @forelse($drugs as $drug)
-                    <tr data-batch="{{ $drug->no_batch }}" class="hover:bg-primary/5 group transition-all">
-                        <td class="px-lg py-lg">
+                    <tr data-batch="{{ $drug->no_batch }}">
+                        <td>
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
-                                    <span class="material-symbols-outlined text-primary">
+                                <div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+                                    <span class="material-symbols-outlined">
                                         {{ $drug->jenis === 'Vaksin' ? 'vaccines' : ($drug->jenis === 'Insulin' ? 'medical_services' : 'bloodtype') }}
                                     </span>
                                 </div>
                                 <div>
-                                    <div class="text-body-lg font-semibold text-on-surface">{{ $drug->nama_produk }}</div>
-                                    <div class="text-label-md text-outline">{{ $drug->jenis }}</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">{{ $drug->nama_produk }}</div>
+                                    <div class="text-[10px] text-slate-500 font-mono">{{ $drug->jenis }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-lg py-lg font-data-mono text-data-mono text-on-surface">
+                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">
                             <div class="flex items-center gap-2">
                                 <span>#{{ $drug->no_batch }}</span>
                                 <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
@@ -145,7 +145,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td class="px-lg py-lg">
+                        <td>
                             @php
                                 $suhu = (float) $drug->suhu_penyimpanan;
                                 $rangeText = '2°C s/d 8°C';
@@ -170,95 +170,89 @@
                                     <span class="material-symbols-outlined text-[16px]">{{ $icon }}</span>
                                     <span class="font-bold text-xs">{{ $rangeLabel }}</span>
                                 </div>
-                                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold font-mono mt-0.5">
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold font-mono mt-0.5 tabular-nums">
                                     {{ $rangeText }} (target: {{ number_format($suhu, 1, ',', '.') }}°C)
                                 </div>
                             </div>
                         </td>
-                        <td class="px-lg py-lg">
+                        <td>
                             <div class="flex flex-col gap-1">
-                                <div class="flex justify-between text-label-md">
-                                    <span id="stok-{{ $drug->no_batch }}" class="text-on-surface font-semibold">{{ number_format($drug->stok, 0, ',', '.') }}</span>
-                                    <span class="text-outline">Min: 5rb</span>
+                                <div class="flex justify-between text-[11px] font-bold">
+                                    <span id="stok-{{ $drug->no_batch }}" class="text-slate-900 dark:text-white tabular-nums">{{ number_format($drug->stok, 0, ',', '.') }}</span>
+                                    <span class="text-slate-500">Min: 5rb</span>
                                 </div>
-                                <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                                <div class="w-32 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                                     <div class="bg-primary h-full" style="width: {{ min(100, ($drug->stok / 30000) * 100) }}%"></div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-lg py-lg font-data-mono text-data-mono text-on-surface">{{ $drug->tanggal_kadaluwarsa->format('Y-m-d') }}</td>
-                        <td class="px-lg py-lg">
-                            @if($drug->status === 'Aman')
-                                <span class="px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-label-md flex items-center gap-1 w-fit shadow-[0_0_8px_rgba(6,182,212,0.15)]">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                                    <span id="status-{{ $drug->no_batch }}">Aman</span>
-                                </span>
-                            @elseif($drug->status === 'Peringatan Dini')
-                                <span class="px-3 py-1 rounded-full border border-tertiary/30 bg-tertiary/10 text-tertiary text-label-md flex items-center gap-1 w-fit shadow-[0_0_10px_rgba(255,185,95,0.2)]">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
-                                    <span id="status-{{ $drug->no_batch }}">Peringatan Dini</span>
-                                </span>
-                            @else
-                                <span class="px-3 py-1 rounded-full border border-error/30 bg-error/10 text-error text-label-md flex items-center gap-1 w-fit shadow-[0_0_10px_rgba(239,68,68,0.2)]">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
-                                    <span id="status-{{ $drug->no_batch }}">{{ $drug->status }}</span>
-                                </span>
-                            @endif
+                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">{{ $drug->tanggal_kadaluwarsa->format('Y-m-d') }}</td>
+                        <td>
+                            @php
+                                $badgeColor = 'neutral';
+                                if ($drug->status === 'Aman') $badgeColor = 'success';
+                                elseif ($drug->status === 'Peringatan Dini') $badgeColor = 'warning';
+                                else $badgeColor = 'error';
+                            @endphp
+                            <x-badge color="{{ $badgeColor }}">
+                                {{ $drug->status }}
+                            </x-badge>
                         </td>
-                        <td class="px-lg py-lg">
+                        <td>
                             <div class="flex justify-end gap-2">
-                                <button onclick="openColdChainModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}', '{{ $drug->suhu_penyimpanan }}')" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all coldchain-trigger" data-batch="{{ $drug->no_batch }}" data-name="{{ $drug->nama_produk }}" data-temp="{{ $drug->suhu_penyimpanan }}" title="Analisis Rantai Dingin">
-                                    <span class="material-symbols-outlined">timeline</span>
+                                <button onclick="openColdChainModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}', '{{ $drug->suhu_penyimpanan }}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="{{ $drug->no_batch }}" data-name="{{ $drug->nama_produk }}" data-temp="{{ $drug->suhu_penyimpanan }}" title="Analisis Rantai Dingin">
+                                    <span class="material-symbols-outlined text-[18px]">timeline</span>
                                 </button>
-                                <button onclick="openQuickModal('transfer')" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all" title="Keluarkan Stok">
-                                    <span class="material-symbols-outlined">outbound</span>
                                 </button>
-                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="p-2 hover:bg-primary/20 rounded-lg text-primary transition-all" title="Cetak QR Code Boks">
-                                    <span class="material-symbols-outlined">qr_code_2</span>
+                                <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
+                                    <span class="material-symbols-outlined text-[18px]">outbound</span>
+                                </button>
+                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Code Boks">
+                                    <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
                                 </a>
-                                <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-2 hover:bg-outline/20 rounded-lg text-on-surface transition-all" title="Cetak Label">
-                                    <span class="material-symbols-outlined">print</span>
+                                <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">
+                                    <span class="material-symbols-outlined text-[18px]">print</span>
                                 </button>
                             </div>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-lg py-lg text-center text-outline">Tidak ada data obat termolabil ditemukan.</td>
+                        <td colspan="7" class="text-center text-slate-500 py-8">Tidak ada data obat termolabil ditemukan.</td>
                     </tr>
                     @endforelse
                 </tbody>
-            </table>
+            </x-table>
         </div>
 
         <!-- Pagination -->
-        <div class="px-lg py-md flex items-center justify-between border-t border-outline-variant/10 bg-surface-container-low text-on-surface">
-            <span class="text-label-md text-outline">Menampilkan {{ $drugs->firstItem() ?? 0 }}-{{ $drugs->lastItem() ?? 0 }} dari {{ $drugs->total() }} data</span>
+        <div class="px-6 py-4 flex items-center justify-between border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+            <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Menampilkan {{ $drugs->firstItem() ?? 0 }}-{{ $drugs->lastItem() ?? 0 }} dari {{ $drugs->total() }} data</span>
             <div class="flex gap-2">
                 @if($drugs->onFirstPage())
-                    <button class="p-2 bg-surface-container-highest/20 rounded-lg text-outline cursor-not-allowed" disabled>
-                        <span class="material-symbols-outlined">chevron_left</span>
+                    <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
+                        <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
                 @else
-                    <a href="{{ $drugs->previousPageUrl() }}" class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface transition-all">
-                        <span class="material-symbols-outlined">chevron_left</span>
+                    <a href="{{ $drugs->previousPageUrl() }}" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </a>
                 @endif
 
-                <span class="px-4 py-2 text-label-md font-bold bg-primary/20 text-primary rounded-lg border border-primary/30">{{ $drugs->currentPage() }}</span>
+                <span class="px-3 py-1.5 text-xs font-bold bg-primary text-on-primary rounded shadow-sm">{{ $drugs->currentPage() }}</span>
 
                 @if($drugs->hasMorePages())
-                    <a href="{{ $drugs->nextPageUrl() }}" class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface transition-all">
-                        <span class="material-symbols-outlined">chevron_right</span>
+                    <a href="{{ $drugs->nextPageUrl() }}" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </a>
                 @else
-                    <button class="p-2 bg-surface-container-highest/20 rounded-lg text-outline cursor-not-allowed" disabled>
-                        <span class="material-symbols-outlined">chevron_right</span>
+                    <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
                 @endif
             </div>
         </div>
-    </div>
+    </x-card>
 
     <!-- Inventory Movement Chart & Quick Actions -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter pb-xl">

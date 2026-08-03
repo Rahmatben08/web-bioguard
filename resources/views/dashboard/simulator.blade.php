@@ -3,11 +3,11 @@
 @section('title', 'Simulator Kurir Telemetri')
 
 @section('content')
-<div class="h-full flex flex-col lg:flex-row p-md lg:p-lg gap-lg overflow-y-auto">
+<div class="flex-1 w-full min-h-full flex flex-col lg:flex-row p-md lg:p-lg gap-lg overflow-y-auto">
     <!-- LEFT COLUMN: Mobile Mockup Device -->
-    <div class="flex-1 flex justify-center items-center">
+    <div class="w-full lg:w-1/2 flex justify-center items-center relative py-12">
         <!-- Smartphone Container -->
-        <div class="relative w-[360px] h-[720px] rounded-[48px] bg-slate-950 p-[12px] border-[6px] border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col ring-1 ring-white/10">
+        <div class="relative w-[360px] h-[720px] rounded-[48px] bg-slate-950 p-[12px] border-[6px] border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col ring-1 ring-white/10 lg:scale-125 xl:scale-[1.35] origin-center transition-transform duration-500">
             <!-- Screen Notch / Dynamic Island -->
             <div class="absolute top-[18px] left-1/2 -translate-x-1/2 w-[110px] h-[24px] bg-black rounded-full z-50 flex items-center justify-between px-3">
                 <div class="w-1.5 h-1.5 rounded-full bg-slate-800/80"></div>
@@ -229,7 +229,7 @@
     </div>
 
     <!-- RIGHT COLUMN: Simulation Control Panel -->
-    <div class="w-full lg:w-96 flex flex-col gap-md">
+    <div class="w-full lg:w-1/2 max-w-3xl flex flex-col gap-md">
         <!-- Route / Courier Info Card -->
         <div class="bg-surface-container border border-outline-variant rounded-2xl p-md flex flex-col gap-sm">
             <h3 class="font-headline-sm text-sm uppercase tracking-wider text-primary">Status Perjalanan</h3>
@@ -574,7 +574,7 @@
         const isDark = document.documentElement.classList.contains('dark');
         const tileUrl = isDark 
             ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-            : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+            : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
         L.tileLayer(tileUrl, {
             maxZoom: 19

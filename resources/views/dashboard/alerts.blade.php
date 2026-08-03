@@ -3,7 +3,7 @@
 @section('title', 'Pusat Peringatan Sistem')
 
 @section('content')
-<div class="p-container-margin space-y-lg">
+<div class="flex-1 w-full min-h-full p-container-margin space-y-lg">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-md mb-md">
         <div>

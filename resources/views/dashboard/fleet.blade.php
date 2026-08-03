@@ -3,7 +3,7 @@
 @section('title', 'Manajemen Armada & Pelacakan Kurir')
 
 @section('content')
-<div class="h-[calc(100vh-4rem)] md:h-screen flex flex-col md:flex-row overflow-hidden relative bg-background">
+<div class="flex-1 w-full h-full flex flex-col md:flex-row overflow-hidden relative bg-background">
     <!-- Sidebar - Active Drivers List -->
     <aside class="w-full md:w-96 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col shrink-0 h-1/3 md:h-full z-20 shadow-2xl overflow-hidden">
         <!-- Sidebar Header -->
@@ -24,81 +24,57 @@
         </div>
 
         <!-- Drivers List -->
-        <div class="flex-1 overflow-y-auto p-md space-y-sm" id="drivers-list-container">
+        <div class="flex-1 overflow-y-auto p-4" id="drivers-list-container">
+            <x-table class="w-full text-xs">
             @forelse($perjalananAktif as $perjalanan)
                 @php
                     $log = $perjalanan->latestLog;
                     $excursion = $perjalanan->getExcursionInfo();
                 @endphp
-                <div id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="fleet-driver-card p-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group flex flex-col gap-2 relative overflow-hidden">
-                    <!-- Excursion Indicator Strip -->
-                    @if($excursion['status'] === 'Aman')
-                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-                    @elseif($excursion['status'] === 'Peringatan')
-                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
-                    @else
-                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-error animate-pulse"></div>
-                    @endif
-
-                    <div class="flex justify-between items-start pl-2">
-                        <div class="flex items-center gap-3 min-w-0">
-                            <!-- Micro-Avatar dengan Inisial & Gradasi Neon -->
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 dark:from-primary dark:to-indigo-500 flex items-center justify-center text-slate-950 dark:text-white font-black text-xs uppercase tracking-wider shadow-[0_0_10px_rgba(76,213,246,0.3)] shrink-0 select-none">
-                                {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('') }}
-                            </div>
-                            <div class="min-w-0">
-                                <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors truncate">{{ $perjalanan->kurir->nama_lengkap }}</h4>
-                                <p class="text-xs text-outline font-data-mono truncate">{{ $perjalanan->kurir->nomor_kendaraan }} • {{ $perjalanan->kurir->no_wa ?? '-' }}</p>
-                            </div>
-                        </div>
-                        <span class="text-[10px] font-black font-data-mono px-2 py-0.5 rounded bg-surface-container-highest text-primary shrink-0">
-                            {{ $perjalanan->id_box }}
-                        </span>
-                    </div>
-
-                    <div class="flex justify-between items-center text-xs pl-2 text-on-surface-variant">
-                        <span>Tujuan: <span class="font-semibold text-on-surface">{{ $perjalanan->lokasi_tujuan }}</span></span>
+                @php
+                    $badgeColor = 'neutral';
+                    if ($excursion['status'] === 'Aman') $badgeColor = 'success';
+                    elseif ($excursion['status'] === 'Peringatan') $badgeColor = 'warning';
+                    elseif ($excursion['status'] === 'Tidak Layak Pakai') $badgeColor = 'error';
+                @endphp
+                <tr id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer group">
+                    <td class="p-2 border-b border-slate-200 dark:border-slate-800">
+                        <div class="font-bold text-slate-900 dark:text-white truncate">{{ $perjalanan->kurir->nama_lengkap }}</div>
+                        <div class="text-[10px] text-slate-500 font-mono">{{ $perjalanan->kurir->nomor_kendaraan }}</div>
+                    </td>
+                    <td class="p-2 border-b border-slate-200 dark:border-slate-800 tabular-nums">
                         @if($log)
-                            <span class="font-data-mono font-bold text-primary" id="temp-val-{{ $perjalanan->id_rute }}">
+                            <span class="font-bold text-slate-700 dark:text-slate-300" id="temp-val-{{ $perjalanan->id_rute }}">
                                 {{ number_format($log->suhu_aktual, 1, ',', '.') }}°C
                             </span>
                         @else
-                            <span class="text-outline">No Data</span>
+                            <span class="text-slate-400">-</span>
                         @endif
-                    </div>
-
-                    <div class="pl-2">
-                        @if($excursion['status'] === 'Aman')
-                            <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-primary" id="status-badge-{{ $perjalanan->id_rute }}">
-                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                Rantai Dingin Aman
-                            </span>
-                        @elseif($excursion['status'] === 'Peringatan')
-                            <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-tertiary" id="status-badge-{{ $perjalanan->id_rute }}">
-                                <span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
-                                Peringatan Dini
-                            </span>
-                        @else
-                            <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-error animate-pulse" id="status-badge-{{ $perjalanan->id_rute }}">
-                                <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
-                                Bahaya: Ekskursi Suhu
-                            </span>
-                        @endif
-                    </div>
-                </div>
+                    </td>
+                    <td class="p-2 border-b border-slate-200 dark:border-slate-800 text-right">
+                        <x-badge color="{{ $badgeColor }}">
+                            {{ $excursion['status'] === 'Aman' ? 'AMAN' : ($excursion['status'] === 'Peringatan' ? 'PERINGATAN' : 'BAHAYA') }}
+                        </x-badge>
+                    </td>
+                </tr>
             @empty
-                <div class="p-lg rounded-xl border border-outline-variant/20 text-center text-outline">
-                    <span class="material-symbols-outlined text-3xl mb-2 text-outline">local_shipping</span>
-                    <div class="text-sm font-semibold">Tidak Ada Armada Aktif</div>
-                    <div class="text-xs">Saat ini tidak ada kurir di perjalanan.</div>
-                </div>
+                <tr>
+                    <td colspan="3" class="p-8 text-center text-slate-500">
+                        <span class="material-symbols-outlined text-3xl mb-2">local_shipping</span>
+                        <div class="text-sm font-bold">Tidak Ada Armada Aktif</div>
+                    </td>
+                </tr>
             @endforelse
+            </x-table>
+        </div>
         </div>
     </aside>
 
     <!-- Map Section -->
-    <main class="flex-1 h-2/3 md:h-full relative z-10" id="map-container">
-        <div id="fleet-map" class="w-full h-full"></div>
+    <main class="flex-1 h-2/3 md:h-full relative z-10 p-4 bg-slate-50 dark:bg-slate-900" id="map-container">
+        <div class="w-full h-full rounded-md border border-slate-300 dark:border-slate-700 overflow-hidden shadow-sm">
+            <div id="fleet-map" class="w-full h-full"></div>
+        </div>
     </main>
 </div>
 @endsection
@@ -315,16 +291,18 @@
         L.control.zoom({ position: 'bottomright' }).addTo(map);
 
         // Dynamic Theme Map Tiles Setup
-        const isDarkTheme = document.documentElement.classList.contains('dark');
-        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        let isDarkTheme = document.documentElement.classList.contains('dark');
+        let tileUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
         const tileLayer = L.tileLayer(tileUrl, {
             maxZoom: 20,
-            attribution: '&copy; OpenStreetMap contributors'
+            attribution: '&copy; CartoDB'
         }).addTo(map);
 
         window.addEventListener('theme-changed', (e) => {
-            // Handled dynamically via CSS filters in dark mode
+            isDarkTheme = e.detail.theme === 'dark';
+            const newUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            tileLayer.setUrl(newUrl);
         });
 
         // Render initial data and center map

@@ -3,7 +3,7 @@
 @section('title', 'Analisis Telemetri & Sensor')
 
 @section('content')
-<div class="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300 p-container-margin space-y-lg">
+<div class="flex-1 w-full min-h-full transition-colors duration-300 p-container-margin space-y-lg">
     <!-- Header Controls Section -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md mb-md">
         <div>
@@ -53,45 +53,45 @@
     <!-- KPI Overview Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-md">
         <!-- Metric 1 -->
-        <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
+        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
-                <span class="text-slate-500 dark:text-slate-400 font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Skor Integritas Armada</span>
-                <span class="text-sky-600 dark:text-sky-400 transition-colors duration-300 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Skor Integritas Armada</span>
+                <span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
             </div>
             <div class="flex items-baseline gap-2 z-10">
-                <span class="font-headline-lg text-headline-lg text-sky-600 dark:text-sky-400 font-bold transition-colors duration-300"><span id="live-integritas">98,4%</span></span>
-                <span class="text-sky-600 dark:text-sky-400 font-bold text-xs flex items-center transition-colors duration-300"><span class="material-symbols-outlined text-xs">trending_up</span>+0,2%</span>
+                <span class="text-3xl text-primary font-black tabular-nums"><span id="live-integritas">98,4%</span></span>
+                <span class="text-primary font-bold text-[10px] flex items-center"><span class="material-symbols-outlined text-[10px]">trending_up</span>+0,2%</span>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-700 transition-colors duration-300">
-                <div class="h-full bg-sky-500 dark:bg-sky-400 transition-colors duration-300" style="width: 98.4%"></div>
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800">
+                <div class="h-full bg-primary" style="width: 98.4%"></div>
             </div>
-        </div>
+        </x-card>
         <!-- Metric 2 -->
-        <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
+        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
-                <span class="text-slate-500 dark:text-slate-400 font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Total Anomali</span>
-                <span class="text-amber-600 dark:text-amber-400 transition-colors duration-300 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Total Anomali</span>
+                <span class="text-amber-500 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
             </div>
             <div class="flex items-baseline gap-2 z-10">
-                <span class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 font-bold transition-colors duration-300"><span id="live-anomali">12</span></span>
-                <span class="text-amber-600 dark:text-amber-400 font-bold text-xs flex items-center transition-colors duration-300"><span class="material-symbols-outlined text-xs">trending_down</span>-15%</span>
+                <span class="text-3xl text-slate-900 dark:text-white font-black tabular-nums"><span id="live-anomali">12</span></span>
+                <span class="text-amber-500 font-bold text-[10px] flex items-center"><span class="material-symbols-outlined text-[10px]">trending_down</span>-15%</span>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-700 transition-colors duration-300">
-                <div class="h-full bg-amber-500 dark:bg-amber-400 transition-colors duration-300" style="width: 15%"></div>
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800">
+                <div class="h-full bg-amber-500" style="width: 15%"></div>
             </div>
-        </div>
+        </x-card>
         <!-- Metric 3 -->
-        <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
+        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
-                <span class="text-slate-500 dark:text-slate-400 font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Kepatuhan Regulasi</span>
-                <span class="text-sky-600 dark:text-sky-400 transition-colors duration-300 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Kepatuhan Regulasi</span>
+                <span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
             </div>
-            <div class="flex items-center gap-2 z-10 mt-xs">
-                <span class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 font-bold transition-colors duration-300"><span id="live-kepatuhan">100%</span></span>
-                <span class="px-2 py-0.5 rounded-full border border-sky-600/40 text-sky-600 dark:border-sky-400/40 dark:text-sky-400 bg-sky-600/5 dark:bg-sky-500/5 text-[10px] uppercase font-black tracking-tighter transition-colors duration-300">Tersertifikasi</span>
+            <div class="flex items-center gap-2 z-10 mt-1">
+                <span class="text-3xl text-slate-900 dark:text-white font-black tabular-nums"><span id="live-kepatuhan">100%</span></span>
+                <span class="px-2 py-0.5 rounded-full border border-primary/40 text-primary bg-primary/5 text-[10px] uppercase font-black tracking-tighter">Tersertifikasi</span>
             </div>
-            <div class="absolute inset-0 bg-sky-600/5 dark:bg-sky-400/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        </div>
+            <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </x-card>
         <!-- Metric 4 -->
         <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
@@ -138,35 +138,35 @@
                     $shelfTextColor = "text-red-600 dark:text-red-400";
                 }
             @endphp
-            <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40">
+            <x-card class="transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-primary/40">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span class="material-symbols-outlined text-7xl text-slate-800 dark:text-slate-100 transition-colors duration-300">hourglass_empty</span>
+                    <span class="material-symbols-outlined text-7xl text-slate-900 dark:text-white">hourglass_empty</span>
                 </div>
                 
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 transition-colors duration-300 border border-slate-200 dark:border-slate-600/50">BOX-{{ $route['id_box'] }}</span>
-                        <h4 class="font-bold text-base text-slate-800 dark:text-slate-100 mt-1.5 transition-colors duration-300">{{ $route['nama_kargo'] }}</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">Kurir: {{ $route['nama_kurir'] }}</p>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600/50">BOX-{{ $route['id_box'] }}</span>
+                        <h4 class="font-bold text-base text-slate-900 dark:text-white mt-1.5">{{ $route['nama_kargo'] }}</h4>
+                        <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono transition-colors duration-300">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono">
                         {{ number_format($mktVal, 1, ',', '.') }}°C MKT
                     </span>
                 </div>
 
                 <div class="space-y-1.5 mt-2">
                     <div class="flex justify-between text-xs font-semibold">
-                        <span class="text-slate-500 dark:text-slate-400 transition-colors duration-300">Est. Sisa Waktu Kelayakan:</span>
-                        <span class="font-bold uppercase {{ $shelfTextColor }} transition-colors duration-300">{{ $shelfLife }}</span>
+                        <span class="text-slate-500">Est. Sisa Waktu Kelayakan:</span>
+                        <span class="font-bold uppercase {{ $shelfTextColor }}">{{ $shelfLife }}</span>
                     </div>
-                    <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden transition-colors duration-300">
+                    <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div class="h-full {{ $shelfColor }} rounded-full transition-all duration-500" style="width: {{ $shelfLifeProgress }}%"></div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono transition-colors duration-300">AI Risk Projection: {{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
-                    <button class="btn-proyeksi text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all duration-300" 
+                <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                    <span class="text-[10px] text-slate-500 font-mono font-bold">AI Risk Projection: {{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
+                    <button class="btn-proyeksi text-primary hover:text-primary/80 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all duration-300 cursor-pointer" 
                             data-box="BOX-{{ $route['id_box'] }}"
                             data-kargo="{{ $route['nama_kargo'] }}"
                             data-mkt="{{ number_format($mktVal, 1, ',', '.') }}"
@@ -174,7 +174,7 @@
                         <span class="material-symbols-outlined text-xs">trending_up</span> Proyeksi AI
                     </button>
                 </div>
-            </div>
+            </x-card>
             @endforeach
         </div>
     </div>
@@ -182,100 +182,100 @@
     <!-- Middle Section: Map and Risk Trends -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-md">
         <!-- Predictive Risk Trends Chart -->
-        <div class="lg:col-span-8 bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm rounded-xl p-lg flex flex-col min-h-[400px] transition-colors duration-300">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-sm mb-lg">
+        <x-card class="lg:col-span-8 flex flex-col min-h-[400px]">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                    <h3 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">Tren Risiko Prediktif</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-body-md font-body-md transition-colors duration-300">Obat Termolabil Rusak vs Prediksi Risiko AI (6 Bulan)</p>
+                    <h3 class="font-bold text-slate-900 dark:text-white">Tren Risiko Prediktif</h3>
+                    <p class="text-slate-500 text-xs mt-0.5">Obat Termolabil Rusak vs Prediksi Risiko AI (6 Bulan)</p>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-amber-500 dark:bg-amber-400 transition-colors duration-300"></span>
-                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 transition-colors duration-300">Kerusakan Aktual</span>
+                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                        <span class="text-xs font-bold text-slate-500">Kerusakan Aktual</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-sky-600 dark:bg-sky-400 transition-colors duration-300"></span>
-                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 transition-colors duration-300">Prediksi AI</span>
+                        <span class="w-3 h-3 rounded-full bg-primary"></span>
+                        <span class="text-xs font-bold text-slate-500">Prediksi AI</span>
                     </div>
                 </div>
             </div>
             <!-- Dynamic Chart (ApexCharts) -->
             <div id="chart-risiko-prediktif" class="flex-1 min-h-[250px] w-full"></div>
-        </div>
+        </x-card>
 
         <!-- Regional Heatmap / Hub Performance -->
-        <div class="lg:col-span-4 bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm rounded-xl p-lg flex flex-col h-full overflow-hidden transition-colors duration-300">
-            <h3 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 mb-xs transition-colors duration-300">Kinerja Hub</h3>
-            <p class="text-slate-500 dark:text-slate-400 text-body-md font-body-md mb-lg transition-colors duration-300">Efisiensi distribusi regional.</p>
-            <div class="flex-1 space-y-gutter overflow-y-auto pr-2">
+        <x-card class="lg:col-span-4 flex flex-col h-full overflow-hidden">
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Kinerja Hub</h3>
+            <p class="text-slate-500 text-xs mb-4">Efisiensi distribusi regional.</p>
+            <div class="flex-1 space-y-3 overflow-y-auto pr-2">
                 <!-- Hub Card -->
-                <div class="p-md rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/40 border-l-4 border-sky-500 dark:border-sky-400 transition-all duration-300">
+                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">Palembang Pusat Hub (PLB-01)</span>
-                        <span class="text-sky-600 dark:text-sky-400 text-[10px] font-black tracking-wider bg-sky-600/10 px-2 py-0.5 rounded transition-colors duration-300">OPTIMAL</span>
+                        <span class="font-bold text-sm text-slate-900 dark:text-white">Palembang Pusat Hub (PLB-01)</span>
+                        <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
                     </div>
                     <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">Efisiensi: 99,2%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-1 transition-colors duration-300">
-                            <div class="h-full bg-sky-500 dark:bg-sky-400 transition-colors duration-300" style="width: 99%"></div>
+                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 99,2%</span>
+                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                            <div class="h-full bg-primary" style="width: 99%"></div>
                         </div>
                     </div>
                 </div>
                 <!-- Hub Card -->
-                <div class="p-md rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/40 border-l-4 border-amber-500 dark:border-amber-400 transition-all duration-300">
+                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-amber-500 bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">Jakabaring Outpost (PLB-02)</span>
-                        <span class="text-amber-600 dark:text-amber-400 text-[10px] font-black tracking-wider bg-amber-600/10 px-2 py-0.5 rounded transition-colors duration-300">PERINGATAN RISIKO</span>
+                        <span class="font-bold text-sm text-slate-900 dark:text-white">Jakabaring Outpost (PLB-02)</span>
+                        <span class="text-amber-500 text-[10px] font-black tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">PERINGATAN RISIKO</span>
                     </div>
                     <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">Efisiensi: 84,5%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-1 transition-colors duration-300">
-                            <div class="h-full bg-amber-500 dark:bg-amber-400 transition-colors duration-300" style="width: 84%"></div>
+                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 84,5%</span>
+                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                            <div class="h-full bg-amber-500" style="width: 84%"></div>
                         </div>
                     </div>
                 </div>
                 <!-- Hub Card -->
-                <div class="p-md rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/40 border-l-4 border-sky-500 dark:border-sky-400 transition-all duration-300">
+                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">Plaju Outpost (PLB-03)</span>
-                        <span class="text-sky-600 dark:text-sky-400 text-[10px] font-black tracking-wider bg-sky-600/10 px-2 py-0.5 rounded transition-colors duration-300">OPTIMAL</span>
+                        <span class="font-bold text-sm text-slate-900 dark:text-white">Plaju Outpost (PLB-03)</span>
+                        <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
                     </div>
                     <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">Efisiensi: 97,8%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-1 transition-colors duration-300">
-                            <div class="h-full bg-sky-500 dark:bg-sky-400 transition-colors duration-300" style="width: 97%"></div>
+                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 97,8%</span>
+                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                            <div class="h-full bg-primary" style="width: 97%"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </x-card>
     </div>
 
     <!-- Operational Efficiency Table -->
-    <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm rounded-xl overflow-hidden mb-md transition-colors duration-300">
-        <div class="px-lg py-md border-b border-slate-200 dark:border-slate-700/50 flex justify-between items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-            <h3 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">Indeks Efisiensi Rute</h3>
+    <x-card noPadding="true" class="mb-6 overflow-hidden">
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/40">
+            <h3 class="font-bold text-slate-900 dark:text-white">Indeks Efisiensi Rute</h3>
             <div class="flex gap-2">
-                <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 rounded-lg transition-colors duration-300"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
-                <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 rounded-lg transition-colors duration-300"><span class="material-symbols-outlined text-[18px]">fullscreen</span></button>
+                <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 rounded-lg transition-colors duration-300 cursor-pointer"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
+                <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 rounded-lg transition-colors duration-300 cursor-pointer"><span class="material-symbols-outlined text-[18px]">fullscreen</span></button>
             </div>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <x-table class="w-full">
                 <thead>
-                    <tr class="bg-slate-100/50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider transition-colors duration-300">ID Rute (Box)</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider transition-colors duration-300">Mitra Kurir / Tujuan</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center transition-colors duration-300">Peringkat Stabilitas (Indeks)</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center transition-colors duration-300">Suhu Penyimpanan</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right transition-colors duration-300">Potensi Risiko Spoilage (AI)</th>
-                        <th class="px-lg py-md font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right transition-colors duration-300">Aksi</th>
-                    </tr>
+                    <x-table.tr>
+                        <x-table.th>ID Rute (Box)</x-table.th>
+                        <x-table.th>Mitra Kurir / Tujuan</x-table.th>
+                        <x-table.th class="text-center">Peringkat Stabilitas (Indeks)</x-table.th>
+                        <x-table.th class="text-center">Suhu Penyimpanan</x-table.th>
+                        <x-table.th class="text-right">Potensi Risiko Spoilage (AI)</x-table.th>
+                        <x-table.th class="text-right">Aksi</x-table.th>
+                    </x-table.tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 dark:divide-slate-700/30 font-body-md text-body-md">
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($routesData as $route)
-                    <tr data-box="BOX-{{ $route['id_box'] }}" class="hover:bg-sky-500/5 dark:hover:bg-sky-400/5 transition-all duration-300 group border-b border-slate-100 dark:border-slate-700/30">
-                        <td class="px-lg py-4 font-bold text-sky-600 dark:text-sky-400 transition-colors duration-300">BOX-{{ $route['id_box'] }}</td>
+                    <x-table.tr data-box="BOX-{{ $route['id_box'] }}">
+                        <x-table.td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</x-table.td>
                         <td class="px-lg py-4 text-slate-800 dark:text-slate-100 transition-colors duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600 text-xs font-black text-sky-600 dark:text-sky-400 transition-colors duration-300">

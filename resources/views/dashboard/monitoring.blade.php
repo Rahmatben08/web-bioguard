@@ -3,7 +3,7 @@
 @section('title', 'Pusat Kendali Logistik Medis')
 
 @section('content')
-<div class="p-container-margin space-y-lg">
+<div class="flex-1 w-full min-h-full p-container-margin space-y-lg">
 
     {{-- ================================================================= --}}
     {{-- SECTION 1: PAGE HEADER                                            --}}
@@ -12,10 +12,11 @@
     {{-- SECTION 1: PAGE HEADER                                            --}}
     {{-- ================================================================= --}}
     <!-- STITCH_AI_HEADER: Ganti dengan gaya header enterprise -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md bg-white/40 dark:bg-slate-900/20 backdrop-blur-md border border-slate-200 dark:border-slate-800/60 p-6 rounded-2xl shadow-sm mb-md relative z-40">
-        {{-- Title & Interactive Datepicker & Clock --}}
-        <div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Pusat Kendali Logistik Medis</h1>
+    <x-card class="mb-md z-40 relative border-b-4 border-b-primary shadow-sm p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md">
+            {{-- Title & Interactive Datepicker & Clock --}}
+            <div>
+                <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white uppercase">Pusat Kendali Logistik Medis</h1>
             <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 dark:text-on-surface-variant">
                 <div class="flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
                     <span class="material-symbols-outlined text-[16px] align-middle text-primary">calendar_month</span>
@@ -103,7 +104,8 @@
                 Ekspor Laporan Excel
             </a>
         </div>
-    </div>
+        </div>
+    </x-card>
 
     {{-- Desktop Notification Permission Request Banner --}}
     <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700 dark:text-on-surface text-xs font-semibold gap-md animate-pulse">
@@ -123,50 +125,22 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
 
         {{-- Card 1: Active Couriers --}}
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex items-center gap-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-primary/40">
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
-                <span class="material-symbols-outlined text-primary text-[24px]">local_shipping</span>
-            </div>
-            <div class="min-w-0">
-                <p class="uppercase tracking-widest text-xs font-semibold text-slate-500">Kurir Aktif</p>
-                <p id="stat-active-couriers" class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">{{ $totalKurirAktif ?? 0 }}</p>
-            </div>
-        </div>
+        <x-metric-card title="Kurir Aktif" value="{{ $totalKurirAktif ?? 0 }}" valueId="stat-active-couriers" icon="local_shipping" color="primary" />
 
         {{-- Card 2: Pending Sync --}}
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex items-center gap-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-tertiary/40">
-            <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center shrink-0 border border-tertiary/20">
-                <span class="material-symbols-outlined text-tertiary text-[24px]">sync</span>
-            </div>
-            <div class="min-w-0">
-                <p class="uppercase tracking-widest text-xs font-semibold text-slate-500">Sinkronisasi Tertunda</p>
-                <p id="stat-pending-sync" class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-1">{{ $totalPendingSync ?? 0 }}</p>
-            </div>
-        </div>
+        <x-metric-card title="Sinkronisasi Tertunda" value="{{ $totalPendingSync ?? 0 }}" valueId="stat-pending-sync" icon="sync" color="tertiary" />
 
         {{-- Card 3: System Status --}}
-        <!-- STITCH_AI_ALERT_INDICATOR: Ganti dengan gaya indikator alert enterprise -->
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 flex items-center gap-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-green-500/40">
-            <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center shrink-0 relative border border-green-500/20">
-                <span class="material-symbols-outlined text-green-400 text-[24px]">cell_tower</span>
-                <span class="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse"></span>
-            </div>
-            <div class="min-w-0 flex-1">
-                <p class="uppercase tracking-widest text-xs font-semibold text-slate-500">Status Sistem</p>
-                <div class="flex items-center gap-xs mt-1">
-                    <span class="relative flex h-2.5 w-2.5">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+        <x-metric-card title="Status Sistem" value="TERHUBUNG" icon="cell_tower" color="green-500">
+            <div class="flex items-center gap-xs mt-1 absolute right-6 top-8">
+                <div class="shrink-0" id="stat-alerts-container">
+                    <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider {{ ($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden' }}">
+                        {{ $alertCount ?? 0 }} Alarm
                     </span>
-                    <span class="text-lg font-bold tracking-tight text-green-500">TERHUBUNG</span>
                 </div>
             </div>
-            <div class="shrink-0" id="stat-alerts-container">
-                <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider {{ ($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden' }}">
-                    {{ $alertCount ?? 0 }} Alarm
-                </span>
-            </div>
-        </div>
+            <div class="absolute top-6 right-6 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse"></div>
+        </x-metric-card>
     </div>
 
     {{-- ================================================================= --}}
@@ -179,7 +153,7 @@
         {{-- ============================================================= --}}
         <!-- STITCH_AI_MAP_CARD: Ganti dengan gaya card peta enterprise -->
         <div class="lg:col-span-8">
-            <div class="relative bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:border-slate-300 dark:hover:border-slate-700/80 transition-all duration-300 ease-out">
+            <x-card noPadding="true" class="relative z-10">
                 {{-- Map Header --}}
                 <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
                     <div class="flex items-center gap-sm">
@@ -199,7 +173,7 @@
                 <div id="map" class="w-full" style="min-height: 440px; height: 58vh;"></div>
 
                 {{-- Widget AI Spatial-Thermal --}}
-                <div class="absolute top-[80px] right-4 z-[1000] w-64 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 p-4 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-2xl dark:shadow-black/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-teal-500 dark:hover:border-teal-400 group">
+                <div class="absolute top-[60px] right-4 z-[1000] w-64 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 p-4 rounded-md shadow-md transition-all duration-300 group">
                     <div class="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-800/80 pb-2">
                         <div class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-teal-600 dark:text-teal-400 text-[20px] animate-pulse">insights</span>
@@ -278,7 +252,7 @@
                     </div>
                     <span class="ml-auto text-[10px] text-slate-400 font-mono" id="map-last-update">Pembaruan Otomatis: 2 detik</span>
                 </div>
-            </div>
+            </x-card>
         </div>
 
         {{-- ============================================================= --}}
@@ -297,7 +271,8 @@
 
                 {{-- Telemetry Cards Scroll Container --}}
                 <!-- STITCH_AI_TELEMETRY_CARD: Ganti dengan gaya card telemetri enterprise -->
-                <div id="telemetry-cards-container" class="max-h-[60vh] overflow-y-auto divide-y divide-slate-200 dark:divide-slate-800/60">
+                <x-card noPadding="true" class="h-full max-h-[60vh] overflow-y-auto">
+                    <div id="telemetry-cards-container" class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($perjalananAktif ?? [] as $perjalanan)
                         @php
                             $log = $perjalanan->latestLog;
@@ -306,44 +281,40 @@
                             $prediksi = $log ? $log->prediksiAi : null;
                             $probabilitas = $prediksi ? $prediksi->probabilitas_rusak : 0.0;
                             
-                            // Eval excursion info
                             $exInfo = $perjalanan->getExcursionInfo();
                             $status = $exInfo['status'];
                             $statusLabel = $exInfo['status_label'];
-                            $badgeClass = $exInfo['badge_class'];
                             $textClass = $exInfo['text_class'];
-                            $duration = $exInfo['duration'];
+                            
+                            $badgeColor = 'neutral';
+                            if ($status === 'Aman') $badgeColor = 'success';
+                            elseif ($status === 'Peringatan') $badgeColor = 'warning';
+                            elseif ($status === 'Tidak Layak Pakai') $badgeColor = 'error';
 
                             // Vibration evaluations
                             $vibration = $log ? (float) $log->gaya_guncangan : 0.05;
                             $shakeClass = $vibration > 1.50 ? 'animate-shake-infinite' : '';
 
                             // Fluid styling
-                            $bgClass = 'bg-white/40 dark:bg-slate-900/30';
-                            $cardBorderClass = 'border-slate-200 dark:border-slate-800/60';
+                            $bgClass = 'bg-white dark:bg-slate-900';
                             $accentBorderClass = 'border-l-4 border-l-primary';
-                            $pulseRing = '';
                             
                             if ($status === 'Peringatan') {
-                                $bgClass = 'bg-amber-500/5 dark:bg-amber-500/10';
-                                $accentBorderClass = 'border-l-4 border-l-tertiary';
-                                $cardBorderClass = 'border-tertiary/40 dark:border-tertiary/20';
+                                $bgClass = 'bg-amber-50 dark:bg-amber-900/10';
+                                $accentBorderClass = 'border-l-4 border-l-warning';
                             } elseif ($status === 'Tidak Layak Pakai') {
-                                $bgClass = 'bg-red-500/5 dark:bg-red-500/10';
+                                $bgClass = 'bg-rose-50 dark:bg-rose-900/10';
                                 $accentBorderClass = 'border-l-4 border-l-error';
-                                $cardBorderClass = 'border-error/40 dark:border-error/20';
-                                $pulseRing = 'ring-1 ring-error/30 animate-pulse';
                             }
                         @endphp
 
                         {{-- Individual Telemetry Card --}}
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card telemetry-card-glow-{{ $status === 'Aman' ? 'safe' : ($status === 'Peringatan' ? 'warning' : 'danger') }} cursor-pointer p-6 {{ $bgClass }} {{ $accentBorderClass }} {{ $cardBorderClass }} {{ $pulseRing }} {{ $shakeClass }} border-b hover:bg-slate-100/50 dark:hover:bg-slate-800/30 active:scale-[0.99] transition-all duration-300 ease-out group" data-rute-id="{{ $perjalanan->id_rute }}">
+                        <div class="telemetry-card cursor-pointer p-4 {{ $bgClass }} {{ $accentBorderClass }} {{ $shakeClass }} hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group" data-rute-id="{{ $perjalanan->id_rute }}">
                             {{-- Courier Info --}}
                             <div class="flex items-start justify-between gap-sm">
                                 <div class="flex items-center gap-3 min-w-0">
-                                    <!-- Micro-Avatar dengan Inisial & Gradasi Neon -->
-                                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 dark:from-primary dark:to-indigo-500 flex items-center justify-center text-slate-950 dark:text-white font-black text-xs uppercase tracking-wider shadow-[0_0_10px_rgba(76,213,246,0.3)] shrink-0 select-none">
+                                    <div class="w-8 h-8 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-800 dark:text-slate-200 font-bold text-xs uppercase tracking-wider shrink-0 select-none">
                                         {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('') }}
                                     </div>
                                     <div class="min-w-0">
@@ -363,16 +334,16 @@
 
                                 {{-- Status Badge --}}
                                 <!-- STITCH_AI_STATUS_BADGE: Ganti dengan gaya badge status enterprise -->
-                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full {{ $badgeClass }} text-[10px] font-black uppercase tracking-wider shrink-0">
+                                <x-badge color="{{ $badgeColor }}">
                                     @if($status === 'Aman')
-                                        <span class="material-symbols-outlined text-[12px]">check_circle</span>
+                                        <span class="material-symbols-outlined text-[12px] mr-1">check_circle</span>
                                     @elseif($status === 'Peringatan')
-                                        <span class="material-symbols-outlined text-[12px]">info</span>
+                                        <span class="material-symbols-outlined text-[12px] mr-1">info</span>
                                     @else
-                                        <span class="material-symbols-outlined text-[12px]">warning</span>
+                                        <span class="material-symbols-outlined text-[12px] mr-1">warning</span>
                                     @endif
                                     {{ $statusLabel }}
-                                </span>
+                                </x-badge>
                             </div>
 
                             {{-- Destination --}}
@@ -384,17 +355,17 @@
                             {{-- Temperature & MKT --}}
                             <div class="flex items-end justify-between mt-sm">
                                 <div>
-                                    <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Suhu Aktual</p>
-                                    <p class="text-4xl font-extrabold tracking-tight {{ $textClass }}">
+                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Suhu Aktual</p>
+                                    <p class="text-5xl font-extrabold tracking-tight {{ $textClass }} tabular-nums">
                                         @if($status !== 'Aman')
-                                            <span class="material-symbols-outlined text-[18px] align-middle mr-0.5">thermostat</span>
+                                            <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
                                         @endif
                                         {{ $temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Nilai MKT</p>
-                                    <p class="text-lg font-bold text-slate-600 dark:text-on-surface-variant font-mono">
+                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
+                                    <p class="text-base font-bold text-slate-700 dark:text-slate-300 tabular-nums">
                                         {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt }}
                                     </p>
                                 </div>
@@ -449,9 +420,10 @@
                         </div>
                     @endforelse
                 </div>
+                </x-card>
 
                 {{-- Panel Footer --}}
-                <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
+                <div class="mt-4">
                     <a href="{{ route('shipments') }}"
                        class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
                         <span class="material-symbols-outlined text-[18px]">timeline</span>
@@ -469,7 +441,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-lg">
         
         {{-- Chart 1: MKT vs Suhu Aktual --}}
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 transition-all duration-300 flex flex-col min-h-[340px]">
+        <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
@@ -480,10 +452,10 @@
                 </div>
             </div>
             <div id="chart-mkt" class="w-full flex-1"></div>
-        </div>
+        </x-card>
 
         {{-- Chart 2: Proyeksi Risiko Prediktif AI --}}
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 transition-all duration-300 flex flex-col min-h-[340px]">
+        <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
@@ -494,10 +466,10 @@
                 </div>
             </div>
             <div id="chart-risiko" class="w-full flex-1"></div>
-        </div>
+        </x-card>
 
         {{-- Chart 3: Log Sinkronisasi Store-and-Forward --}}
-        <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 transition-all duration-300 flex flex-col min-h-[340px]">
+        <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
@@ -508,7 +480,7 @@
                 </div>
             </div>
             <div id="chart-sync" class="w-full flex-1"></div>
-        </div>
+        </x-card>
 
     </div>
 
@@ -518,7 +490,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-lg">
 
         {{-- Left Panel (col-span-8): Karantina Kargo --}}
-        <div class="lg:col-span-8 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between">
+        <x-card noPadding="true" class="lg:col-span-8 flex flex-col justify-between overflow-hidden">
             <div>
                 {{-- Header --}}
                 <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
@@ -560,9 +532,9 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error/15 text-error text-[9px] font-black uppercase tracking-widest border border-error/30 animate-pulse">
+                                        <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
-                                        </span>
+                                        </x-badge>
                                     </td>
                                 </tr>
                                 {{-- Row 2 --}}
@@ -575,9 +547,9 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error/15 text-error text-[9px] font-black uppercase tracking-widest border border-error/30 animate-pulse">
+                                        <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
-                                        </span>
+                                        </x-badge>
                                     </td>
                                 </tr>
                                 {{-- Row 3 --}}
@@ -590,9 +562,9 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error/15 text-error text-[9px] font-black uppercase tracking-widest border border-error/30 animate-pulse">
+                                        <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
-                                        </span>
+                                        </x-badge>
                                     </td>
                                 </tr>
                             </tbody>
@@ -600,13 +572,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </x-card>
 
         {{-- Right Panel (col-span-4): SOS & CDOB Stack --}}
         <div class="lg:col-span-4 flex flex-col gap-gutter">
 
             {{-- Simulator Hub Dasbor (Embedded Control Panel) --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between">
+            <x-card class="flex flex-col justify-between">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">construction</span>
@@ -643,10 +615,10 @@
                         Reset ke Kondisi Normal
                     </button>
                 </div>
-            </div>
+            </x-card>
 
             {{-- 4. Log Intervensi Darurat (SOS Center) --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between">
+            <x-card noPadding="true" class="flex flex-col justify-between overflow-hidden">
                 {{-- Header --}}
                 <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
                     <div class="flex items-center gap-sm">
@@ -698,10 +670,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </x-card>
 
             {{-- 1. Modul Cetak Jejak Audit CDOB (E-Certificate Otomatis) --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between min-h-[160px]">
+            <x-card class="flex flex-col justify-between min-h-[160px]">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
@@ -718,10 +690,10 @@
                         Dokumen mencakup seluruh grafik suhu sepanjang rute, status MKT akhir, dan stempel validasi BPOM.
                     </p>
                 </div>
-            </div>
+            </x-card>
 
             {{-- Panel Pemantauan Kesehatan IoT Box --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between mt-sm">
+            <x-card class="flex flex-col justify-between mt-sm">
                 <div>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">developer_board</span>
@@ -1095,16 +1067,18 @@ const plannedPaths = {
         attributionControl: false
     });
 
-    const isDarkTheme = document.documentElement.classList.contains('dark');
-    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    let isDarkTheme = document.documentElement.classList.contains('dark');
+    let tileUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
     const tileLayer = L.tileLayer(tileUrl, {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution: '&copy; CartoDB'
     }).addTo(map);
 
     window.addEventListener('theme-changed', (e) => {
-        // Handled dynamically via CSS filters in dark mode
+        isDarkTheme = e.detail.theme === 'dark';
+        const newUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+        tileLayer.setUrl(newUrl);
     });
 
     L.control.attribution({ prefix: false }).addTo(map);
@@ -1465,7 +1439,7 @@ const plannedPaths = {
                     <div class="flex items-end justify-between mt-sm">
                         <div>
                             <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Suhu Aktual</p>
-                            <p class="text-4xl font-extrabold tracking-tight ${textClass}">
+                            <p class="text-5xl font-extrabold tracking-tight ${textClass}">
                                 ${tempIcon}${tempDisplay}
                             </p>
                         </div>
@@ -2720,6 +2694,32 @@ document.addEventListener("DOMContentLoaded", function () {
             borderColor: themeColors.gridColor,
             strokeDashArray: 4,
             xaxis: { lines: { show: true } }
+        },
+        annotations: {
+            yAxis: [
+                {
+                    y: 8,
+                    borderColor: '#ef4444',
+                    strokeDashArray: 4,
+                    label: {
+                        borderColor: '#ef4444',
+                        style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
+                        text: 'Max (8°C)',
+                        offsetY: -3
+                    }
+                },
+                {
+                    y: 2,
+                    borderColor: '#3b82f6',
+                    strokeDashArray: 4,
+                    label: {
+                        borderColor: '#3b82f6',
+                        style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
+                        text: 'Min (2°C)',
+                        offsetY: 0
+                    }
+                }
+            ]
         },
         legend: {
             show: true,

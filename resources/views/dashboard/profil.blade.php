@@ -5,7 +5,7 @@
 @section('content')
 <canvas id="canvas-particles" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-<div class="p-container-margin space-y-lg relative z-10 max-w-6xl mx-auto">
+<div class="flex-1 w-full min-h-full p-container-margin space-y-lg relative z-10 max-w-6xl mx-auto">
 
     {{-- Header --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md bg-white/40 dark:bg-slate-900/20 backdrop-blur-md border border-slate-200 dark:border-slate-800/60 p-6 rounded-2xl shadow-sm hover:shadow-[0_0_25px_rgba(76,213,246,0.12)] hover:border-primary/20 transition-all duration-500 mb-md">

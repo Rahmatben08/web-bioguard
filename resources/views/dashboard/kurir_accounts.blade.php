@@ -3,7 +3,7 @@
 @section('title', 'Kelola Akun Kurir')
 
 @section('content')
-<div class="h-[calc(100vh-4rem)] md:h-screen overflow-y-auto bg-background p-6">
+<div class="flex-1 w-full min-h-full bg-background p-6">
     <div class="max-w-7xl mx-auto space-y-6">
         
         <!-- Header Section -->
@@ -53,34 +53,34 @@
         @endif
 
         <!-- Accounts Table -->
-        <div class="bg-surface border border-outline-variant/30 rounded-2xl overflow-hidden shadow-sm">
+        <x-card noPadding="true" class="overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-on-surface">
-                    <thead class="bg-surface-container text-on-surface-variant uppercase text-xs font-bold">
-                        <tr>
-                            <th class="px-6 py-4">ID Kurir</th>
-                            <th class="px-6 py-4">Nama Kurir</th>
-                            <th class="px-6 py-4">No. Kendaraan</th>
-                            <th class="px-6 py-4">Status Akun</th>
-                            <th class="px-6 py-4 text-right">Aksi</th>
-                        </tr>
+                <x-table class="w-full">
+                    <thead>
+                        <x-table.tr>
+                            <x-table.th>ID Kurir</x-table.th>
+                            <x-table.th>Nama Kurir</x-table.th>
+                            <x-table.th>No. Kendaraan</x-table.th>
+                            <x-table.th>Status Akun</x-table.th>
+                            <x-table.th class="text-right">Aksi</x-table.th>
+                        </x-table.tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/20">
                         @forelse($kurirs as $kurir)
-                            <tr class="hover:bg-surface-container-low/50 transition-colors kurir-row">
-                                <td class="px-6 py-4 font-mono font-bold text-primary">{{ $kurir->id_kurir }}</td>
-                                <td class="px-6 py-4 font-semibold">{{ $kurir->nama_lengkap }}</td>
-                                <td class="px-6 py-4 font-mono">{{ $kurir->nomor_kendaraan }}</td>
-                                <td class="px-6 py-4">
+                            <x-table.tr class="kurir-row">
+                                <x-table.td class="font-mono font-bold text-primary">{{ $kurir->id_kurir }}</x-table.td>
+                                <x-table.td class="font-semibold">{{ $kurir->nama_lengkap }}</x-table.td>
+                                <x-table.td class="font-mono">{{ $kurir->nomor_kendaraan }}</x-table.td>
+                                <x-table.td>
                                     @if(!$kurir->user)
-                                        <span class="px-2.5 py-1 bg-surface-container-high text-on-surface-variant text-[10px] uppercase font-bold rounded-full border border-outline-variant/50">Belum Punya Akun</span>
+                                        <x-badge color="warning">Belum Punya Akun</x-badge>
                                     @elseif($kurir->user->is_active)
-                                        <span class="px-2.5 py-1 bg-green-500/10 text-green-700 dark:text-green-400 border border-green-500/20 text-[10px] uppercase font-bold rounded-full">Aktif</span>
+                                        <x-badge color="success">Aktif</x-badge>
                                     @else
-                                        <span class="px-2.5 py-1 bg-red-500/10 text-red-700 dark:text-red-400 border border-red-500/20 text-[10px] uppercase font-bold rounded-full animate-pulse">Nonaktif</span>
+                                        <x-badge color="error" class="animate-pulse">Nonaktif</x-badge>
                                     @endif
-                                </td>
-                                <td class="px-6 py-4 text-right space-x-2">
+                                </x-table.td>
+                                <x-table.td class="text-right space-x-2">
                                     @if(!$kurir->user)
                                         <form action="{{ route('fleet.accounts.create', $kurir->id_kurir) }}" method="POST" class="inline-block">
                                             @csrf
@@ -111,17 +111,17 @@
                                             @endif
                                         </form>
                                     @endif
-                                </td>
-                            </tr>
+                                </x-table.td>
+                            </x-table.tr>
                         @empty
-                            <tr>
-                                <td colspan="5" class="px-6 py-8 text-center text-on-surface-variant">Belum ada armada kurir terdaftar.</td>
-                            </tr>
+                            <x-table.tr>
+                                <x-table.td colspan="5" class="px-6 py-8 text-center text-on-surface-variant">Belum ada armada kurir terdaftar.</x-table.td>
+                            </x-table.tr>
                         @endforelse
                     </tbody>
-                </table>
+                </x-table>
             </div>
-        </div>
+        </x-card>
 
     </div>
 </div>

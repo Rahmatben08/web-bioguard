@@ -558,45 +558,45 @@
 
         {{-- Navigation Links --}}
         <div class="flex-1 flex flex-col gap-sm px-md">
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
                 <span class="material-symbols-outlined" style="{{ (request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : '' }}">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('pengiriman*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('shipments') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('shipments') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('pengiriman*') ? "font-variation-settings: 'FILL' 1;" : '' }}">inventory_2</span>
                 <span class="font-label-md">Pengiriman</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('sensor*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('sensors') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('sensors') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('sensor*') ? "font-variation-settings: 'FILL' 1;" : '' }}">sensors</span>
                 <span class="font-label-md">Sensor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('inventaris*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('inventory') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('inventory') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('inventaris*') ? "font-variation-settings: 'FILL' 1;" : '' }}">ac_unit</span>
                 <span class="font-label-md">Inventaris Hub</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('peringatan*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('alerts') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('alerts') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : '' }}">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
             @if(auth()->check() && auth()->user()->role === 'admin')
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : '' }}">manage_accounts</span>
                 <span class="font-label-md">Akun Kurir</span>
             </a>
             @endif
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : '' }}">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulator*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.standalone') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.standalone') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulator*') ? "font-variation-settings: 'FILL' 1;" : '' }}">phone_iphone</span>
                 <span class="font-label-md">Web Simulator HP</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('profil*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('profile') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('profile') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('profil*') ? "font-variation-settings: 'FILL' 1;" : '' }}">account_circle</span>
                 <span class="font-label-md">Profil Admin</span>
             </a>
@@ -650,45 +650,45 @@
 
         {{-- Navigation Links --}}
         <div class="flex-1 flex flex-col gap-sm px-md">
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
                 <span class="material-symbols-outlined" style="{{ (request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : '' }}">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('pengiriman*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('shipments') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('shipments') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('pengiriman*') ? "font-variation-settings: 'FILL' 1;" : '' }}">inventory_2</span>
                 <span class="font-label-md">Pengiriman</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('sensor*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('sensors') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('sensors') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('sensor*') ? "font-variation-settings: 'FILL' 1;" : '' }}">sensors</span>
                 <span class="font-label-md">Sensor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('inventaris*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('inventory') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('inventory') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('inventaris*') ? "font-variation-settings: 'FILL' 1;" : '' }}">ac_unit</span>
                 <span class="font-label-md">Inventaris Hub</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('peringatan*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('alerts') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('alerts') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : '' }}">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : '' }}">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
             @if(auth()->check() && auth()->user()->role === 'admin')
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('fleet.accounts') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : '' }}">manage_accounts</span>
                 <span class="font-label-md">Akun Kurir</span>
             </a>
             @endif
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.integrated') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : '' }}">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('simulator*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.standalone') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('simulator.standalone') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('simulator*') ? "font-variation-settings: 'FILL' 1;" : '' }}">phone_iphone</span>
                 <span class="font-label-md">Web Simulator HP</span>
             </a>
-            <a class="flex items-center gap-md px-md py-sm rounded-xl {{ request()->is('profil*') ? 'text-primary bg-primary/10 border-r-2 border-primary shadow-[0_0_12px_rgba(76,213,246,0.15)] group scale-[0.98]' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('profile') }}">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl {{ request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('profile') }}">
                 <span class="material-symbols-outlined" style="{{ request()->is('profil*') ? "font-variation-settings: 'FILL' 1;" : '' }}">account_circle</span>
                 <span class="font-label-md">Profil Admin</span>
             </a>
@@ -717,7 +717,7 @@
 
         {{-- Theme Switcher --}}
         <div class="px-md mb-sm {{ auth()->check() ? '' : 'mt-auto' }}">
-            <button id="theme-toggle" class="w-full flex items-center justify-between px-md py-sm rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 hover:bg-slate-200/50 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-300 ease-out active:scale-95 cursor-pointer">
+            <button id="theme-toggle" class="w-full flex items-center justify-between px-md py-3 rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 hover:bg-slate-200/50 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-300 ease-out active:scale-95 cursor-pointer">
                 <div class="flex items-center gap-md">
                     <span id="theme-toggle-icon" class="material-symbols-outlined text-[20px] text-primary">dark_mode</span>
                     <span id="theme-toggle-text" class="font-label-md">Mode Gelap</span>
@@ -762,7 +762,7 @@
         </header>
 
         {{-- View Content --}}
-        <div id="page-content-wrapper" class="flex-1 overflow-y-auto animate-page-slide-in">
+        <div id="page-content-wrapper" class="flex-1 flex flex-col overflow-y-auto overflow-x-hidden animate-page-slide-in relative">
             @yield('content')
         </div>
     </main>
