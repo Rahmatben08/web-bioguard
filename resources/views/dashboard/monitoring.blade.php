@@ -119,7 +119,7 @@
     </div>
 
     {{-- ================================================================= --}}
-    {{-- SECTION 2: SUMMARY STATS â€” BENTO ROW                             --}}
+    {{-- SECTION 2: SUMMARY STATS - BENTO ROW                             --}}
     {{-- ================================================================= --}}
     <!-- STITCH_AI_STATS_CARD: Ganti dengan gaya card statistik enterprise -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
@@ -144,7 +144,7 @@
     </div>
 
     {{-- ================================================================= --}}
-    {{-- SECTION 3: MAIN WORKSPACE â€” 70/30 SPLIT                          --}}
+    {{-- SECTION 3: MAIN WORKSPACE - 70/30 SPLIT                          --}}
     {{-- ================================================================= --}}
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 
@@ -244,7 +244,7 @@
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
-                        <span>Peringatan Dini (â‰¤ 30s)</span>
+                        <span>Peringatan Dini (&le; 30s)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-error animate-bio-pulse"></span>
@@ -323,8 +323,8 @@
                                             {{ $perjalanan->kurir->nama_lengkap }}
                                         </p>
                                         <p class="text-label-md text-slate-500 mt-0.5 flex items-center gap-1">
-                                            {{ $perjalanan->kurir->nomor_kendaraan }} â€¢ 
-                                            <span class="font-mono-data text-[10px]">{{ $perjalanan->id_box }}</span> â€¢
+                                            {{ $perjalanan->kurir->nomor_kendaraan }} &bull; 
+                                            <span class="font-mono-data text-[10px]">{{ $perjalanan->id_box }}</span> &bull;
                                             <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">{{ $perjalanan->kurir->no_wa ?? '-' }}</span>
                                             <a href="{{ route('dashboard.qr', $perjalanan->id_box) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -437,7 +437,7 @@
     </div>{{-- /grid --}}
 
     {{-- ================================================================= --}}
-    {{-- SECTION 4: ANALYTICS AREA â€” BENTO GRID OF 3 CHARTS                --}}
+    {{-- SECTION 4: ANALYTICS AREA -- BENTO GRID OF 3 CHARTS               --}}
     {{-- ================================================================= --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-lg">
         
@@ -1115,7 +1115,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">ðŸš¨ AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -1417,8 +1417,8 @@ const plannedPaths = {
                                     ${c.nama_kurir}
                                 </p>
                                 <p class="text-label-md text-slate-500 mt-0.5 flex items-center gap-1">
-                                    ${c.nomor_kendaraan} â€¢ 
-                                    <span class="font-mono-data text-[10px]">${c.id_box}</span> â€¢ 
+                                    ${c.nomor_kendaraan} &bull; 
+                                    <span class="font-mono-data text-[10px]">${c.id_box}</span> &bull; 
                                     <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">${c.no_wa || '-'}</span>
                                     <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
                                         <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -1488,7 +1488,7 @@ const plannedPaths = {
     function triggerPushNotification(c) {
         if (window.Notification && Notification.permission === 'granted') {
             try {
-                new Notification('âš ï¸ ALARM SUHU KRITIS BIO-GUARD', {
+                new Notification('âš  ALARM SUHU KRITIS BIO-GUARD', {
                     body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
                     icon: '/favicon.ico'
                 });
@@ -1830,7 +1830,7 @@ const plannedPaths = {
                     if (isHistoricalMode) {
                         ts.textContent = `Arsip Data: ${selectedDate} (Jeda Polling)`;
                     } else {
-                        ts.textContent = 'Pembaruan Otomatis: 2 detik â€¢ Diperbarui: ' + new Date().toLocaleTimeString('id-ID');
+                        ts.textContent = 'Pembaruan Otomatis: 2 detik &bull; Diperbarui: ' + new Date().toLocaleTimeString('id-ID');
                     }
                 }
             }
@@ -1979,7 +1979,7 @@ const plannedPaths = {
         logItem.innerHTML = `
             <div class="flex items-center text-[8px] text-slate-500">
                 <span class="font-mono">${timeStr}</span>
-                <span class="mx-1">â€¢</span>
+                <span class="mx-1">&bull;</span>
                 ${platformBadge}
                 ${typeBadge}
             </div>

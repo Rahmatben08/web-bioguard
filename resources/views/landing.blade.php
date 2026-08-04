@@ -175,7 +175,7 @@
                         {{-- Title & Subtitle --}}
                         <div class="mb-4">
                             <h3 class="text-[#1565c0] dark:text-[#64b5f6] text-lg font-black tracking-tight">Monitoring Suhu Real-Time</h3>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs font-semibold">Rantai dingin obat termolabil â€” sensor aktif</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs font-semibold">Rantai dingin obat termolabil &mdash; sensor aktif</p>
                         </div>
 
                         {{-- Legend Row --}}
@@ -516,18 +516,41 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="mt-20 border-t border-slate-200 dark:border-slate-900 bg-white/60 dark:bg-slate-950/20 backdrop-blur-md py-8">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-semibold text-slate-500 dark:text-slate-350">
-            <div class="flex items-center gap-2">
-                <img src="{{ asset('images/logo.png') }}" alt="BIO-GUARD Logo Small" class="h-6 w-auto">
-                <span>Â© 2026 BIO-GUARD Enterprise. All rights reserved.</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="#about" class="hover:text-primary transition-colors">Tentang</a>
-                <a href="#logo-meaning" class="hover:text-primary transition-colors">Logo</a>
-                <a href="#mascot" class="hover:text-primary transition-colors">Maskot</a>
-                <a href="#vision-mission" class="hover:text-primary transition-colors">Visi & Misi</a>
-                <a href="{{ route('simulator.standalone') }}" target="_blank" class="hover:text-primary transition-colors">Simulator Web</a>
+    <footer class="relative border-t border-blue-500/10 dark:border-blue-500/5 bg-white/80 dark:bg-[#060e1a]/90 backdrop-blur-md">
+        {{-- Subtle gradient separator --}}
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-6 py-10">
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+
+                {{-- Left: Logo + Tagline --}}
+                <div class="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
+                    <div class="flex items-center gap-3">
+                        <img src="{{ asset('images/logo.png') }}" alt="BIO-GUARD Logo" class="h-8 w-auto drop-shadow-md">
+                        <span class="text-base font-black text-slate-800 dark:text-white tracking-tight">BIO-GUARD</span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium max-w-[220px] leading-relaxed">
+                        Penjaga Cerdas Rantai Dingin Medis — IoT &amp; AI untuk keamanan farmasi termolabil.
+                    </p>
+                    <span class="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                        &copy; 2026 BIO-GUARD Enterprise. All rights reserved.
+                    </span>
+                </div>
+
+                {{-- Right: Navigation Links --}}
+                <div class="flex flex-col items-center md:items-end gap-4">
+                    <span class="text-[10px] font-black text-blue-600 dark:text-blue-500 tracking-widest uppercase">Navigasi</span>
+                    <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
+                        <a href="#about" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Tentang</a>
+                        <a href="#logo-meaning" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Logo</a>
+                        <a href="#mascot" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Maskot</a>
+                        <a href="#vision-mission" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Visi &amp; Misi</a>
+                        <a href="{{ route('simulator.standalone') }}" target="_blank" class="text-xs font-semibold text-blue-600 dark:text-[#64b5f6] hover:underline transition-colors duration-200 flex items-center gap-1">
+                            Simulator Web
+                            <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+                        </a>
+                    </nav>
+                </div>
             </div>
         </div>
     </footer>
