@@ -300,46 +300,50 @@
                 {{-- Right Side: Card Explanations --}}
                 <div class="lg:col-span-6 space-y-4">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/shield_logo.png') }}?v=6" alt="Shield Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
+                            <img src="{{ asset('images/shield_logo.png') }}?v=6" alt="Shield Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Shield (Perisai)</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Mewakili perlindungan mutlak terhadap integritas jejak audit digital dan keamanan fisik obat termolabil dari risiko kerusakan selama perjalanan.</p>
+                        <div class="pt-1">
+                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Shield (Perisai)</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Mewakili perlindungan mutlak terhadap integritas jejak audit digital dan keamanan fisik obat termolabil dari risiko kerusakan selama perjalanan.</p>
                         </div>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/snowflake.png') }}?v=6" alt="Snowflake Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-cyan-500/10 blur-xl rounded-full scale-150 group-hover:bg-cyan-500/20 transition-all"></div>
+                            <img src="{{ asset('images/snowflake.png') }}?v=6" alt="Snowflake Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Snowflake (Kepingan Salju)</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2°C - 8°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
+                        <div class="pt-1">
+                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Snowflake (Kepingan Salju)</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2°C - 8°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
                         </div>
                     </div>
 
                     {{-- Card 3 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/circuit.png') }}?v=6" alt="Circuit Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-indigo-500/10 blur-xl rounded-full scale-150 group-hover:bg-indigo-500/20 transition-all"></div>
+                            <img src="{{ asset('images/circuit.png') }}?v=6" alt="Circuit Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Circuit Lines (Jalur Sirkuit)</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Menyimpulkan komputasi cerdas di dalam chip yang mampu memprediksi risiko secara real-time tanpa jeda peladen.</p>
+                        <div class="pt-1">
+                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Circuit Lines (Jalur Sirkuit)</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Menyimpulkan komputasi cerdas di dalam chip yang mampu memprediksi risiko secara real-time tanpa jeda peladen.</p>
                         </div>
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/waves_logo.png') }}?v=6" alt="Waves Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
+                            <img src="{{ asset('images/waves_logo.png') }}?v=6" alt="Waves Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">Dynamic Waves (Gelombang Dinamis)</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Visualisasi dari arsitektur Offline-First yang kebal terhadap blank spot jaringan, serta pergerakan dinamis armada kurir di lapangan.</p>
+                        <div class="pt-1">
+                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Dynamic Waves (Gelombang Dinamis)</h4>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Visualisasi dari arsitektur Offline-First yang kebal terhadap blank spot jaringan, serta pergerakan dinamis armada kurir di lapangan.</p>
                         </div>
                     </div>
                 </div>
@@ -357,78 +361,74 @@
                 <span class="text-xs font-black text-primary tracking-widest uppercase">Mascot Resmi</span>
                 <h2 class="text-3xl font-black text-slate-900 dark:text-white">Meet Our Mascot!</h2>
                 <p class="text-sm text-slate-600 dark:text-slate-350 max-w-xl mx-auto">Kenalkan Peggi, Si Penguin Penjaga Cerdas Rantai Dingin Medis Masa Depan.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center relative">
                 
-                {{-- Left Side: Card Explanations --}}
-                <div class="lg:col-span-6 space-y-4 order-2 lg:order-1">
+                {{-- Left Side: Cards 1 & 2 (order-2 on mobile, order-1 on desktop) --}}
+                <div class="lg:col-span-4 space-y-6 order-2 lg:order-1 relative z-10">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/penguin_happy.png') }}?v=6" alt="Penguin Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('images/penguin_happy.png') }}?v=6" alt="Penguin Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Penguin (Penguin)</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Simbol ketahanan luar biasa di kondisi dingin ekstrem. Merepresentasikan komitmen Bio-Guard dalam menjaga stabilitas kargo logistik.</p>
+                        <div class="pt-0.5">
+                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Penguin (Penguin)</h4>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Simbol ketahanan di kondisi ekstrem, menjaga stabilitas logistik.</p>
                         </div>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/glasses.png') }}?v=6" alt="Goggles Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('images/glasses.png') }}?v=6" alt="Goggles Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Edge-Vision Goggles</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Melambangkan komputasi cerdas Edge Computing dan AI yang mampu menganalisis data serta memprediksi risiko anomali suhu sebelum kerusakan terjadi.</p>
-                        </div>
-                    </div>
-
-                    {{-- Card 3 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/vest.png') }}?v=6" alt="Vest Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Bio-Armor Vest</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Seragam pelindung andalan yang menyimbolkan jaminan mutu dan kepatuhan absolut terhadap standar ketat CDOB BPOM RI.</p>
-                        </div>
-                    </div>
-
-                    {{-- Card 4 --}}
-                    <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 hover:border-primary/40 transition-all duration-300 group">
-                        <div class="w-16 h-16 bg-transparent flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-110 transition-transform overflow-visible">
-                            <img src="{{ asset('images/tablet.png') }}?v=6" alt="Tablet Icon" class="w-full h-full object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-slate-900 dark:text-white">The Nexus Command Pad</h4>
-                            <p class="text-xs text-slate-600 dark:text-slate-350 mt-1 leading-relaxed">Mewakili integrasi dasbor web dan aplikasi mobile cerdas yang memastikan sinkronisasi data telemetri tetap berjalan mulus.</p>
+                        <div class="pt-0.5">
+                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Edge-Vision Goggles</h4>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Komputasi cerdas AI untuk prediksi risiko secara presisi.</p>
                         </div>
                     </div>
                 </div>
 
-                {{-- Right Side: Premium Interactive Mascot with Speech Bubble --}}
-                <div class="lg:col-span-6 flex flex-col items-center justify-center p-8 bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl min-h-[400px] relative overflow-hidden shadow-xl order-1 lg:order-2 group">
-                    {{-- Tech mesh backgrounds --}}
-                    <div class="absolute w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                {{-- Center: Mascot (order-1 on mobile, order-2 on desktop) --}}
+                <div class="lg:col-span-4 flex flex-col items-center justify-center min-h-[400px] relative overflow-visible order-1 lg:order-2 group z-0">
+                    {{-- Glowing Backdrops --}}
+                    <div class="absolute w-80 h-80 bg-blue-500/20 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/30 transition-colors duration-700"></div>
+                    <div class="absolute w-64 h-64 border border-dashed border-blue-500/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
 
                     {{-- Interactive Speech Bubble --}}
-                    <div class="mb-6 bg-blue-50 dark:bg-[#182c47] border border-blue-200 dark:border-blue-800/60 text-blue-900 dark:text-primary text-xs font-bold px-4 py-2.5 rounded-2xl relative shadow-md select-none animate-pulse max-w-[280px] text-center">
-                        Hai Sobat BIO-GUARD! Kenalin, aku Peggi, Si Penguin IoT ðŸ§
-                        {{-- Speech Bubble Tail --}}
-                        <div class="absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-blue-50 dark:bg-[#182c47] border-r border-b border-blue-200 dark:border-blue-800/60 rotate-45"></div>
+                    <div class="mb-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-bold px-5 py-3 rounded-2xl relative shadow-lg select-none animate-bounce max-w-[240px] text-center z-20">
+                        Hai! Aku Peggi, Si Penguin Penjaga Rantai Dingin!
+                        <div class="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-blue-500 rotate-45"></div>
                     </div>
 
-                    <div class="relative z-10 flex flex-col items-center">
-                        <div class="relative w-64 h-64 flex items-center justify-center bg-transparent border-none overflow-visible">
+                    <div class="relative z-10 flex flex-col items-center mt-4">
+                        <div class="relative w-72 h-72 lg:w-80 lg:h-80 flex items-center justify-center bg-transparent border-none overflow-visible">
                             <img src="{{ asset('images/penguin_wink.png') }}?v=2" alt="Peggi Mascot" 
-                                 class="w-full h-full object-contain select-none animate-mascot-float dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+                                 class="w-full h-full object-contain select-none animate-mascot-float drop-shadow-2xl dark:drop-shadow-[0_0_30px_rgba(33,150,243,0.4)] hover:scale-105 transition-transform duration-500">
                         </div>
-                        
-                        {{-- Badge --}}
-                        <div class="mt-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest select-none shadow-sm">
-                            Penjaga Cerdas Rantai Dingin
+                    </div>
+                </div>
+
+                {{-- Right Side: Cards 3 & 4 (order-3 on mobile, order-3 on desktop) --}}
+                <div class="lg:col-span-4 space-y-6 order-3 relative z-10">
+                    {{-- Card 3 --}}
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('images/vest.png') }}?v=6" alt="Vest Icon" class="w-8 h-8 object-contain drop-shadow-md">
+                        </div>
+                        <div class="pt-0.5">
+                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Bio-Armor Vest</h4>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Seragam pelindung kepatuhan absolut standar CDOB BPOM RI.</p>
+                        </div>
+                    </div>
+
+                    {{-- Card 4 --}}
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('images/tablet.png') }}?v=6" alt="Tablet Icon" class="w-8 h-8 object-contain drop-shadow-md">
+                        </div>
+                        <div class="pt-0.5">
+                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Nexus Command Pad</h4>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Sinkronisasi mulus dasbor web dan aplikasi kurir di lapangan.</p>
                         </div>
                     </div>
                 </div>
@@ -448,44 +448,66 @@
                 <p class="text-sm text-slate-600 dark:text-slate-350 max-w-xl mx-auto">Landasan arah strategis Bio-Guard dalam menjaga keamanan logistik obat termolabil di Indonesia.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-                {{-- Visi Card (col-5) --}}
-                <div class="md:col-span-5 bg-white/60 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 flex flex-col justify-between shadow-lg relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
-                    <div class="space-y-4 relative z-10">
-                        <span class="material-symbols-outlined text-primary text-[36px]">visibility</span>
-                        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Visi Kami</h3>
-                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
-                            "Menjadi sistem pemantauan rantai dingin (cold chain monitoring) terdistribusi berbasis Internet of Things (IoT) dan Artificial Intelligence (AI) yang inovatif dan terdepan di Indonesia, guna menjamin keamanan, mutu, dan efektivitas terapeutik produk farmasi termolabil (obat dan vaksin) sepanjang jalur distribusi hulu-hilir, sejalan dengan prinsip patient safety dan tata kelola logistik farmasi berbasis bukti (evidence-based)."
-                        </p>
+            <div class="flex flex-col gap-16 lg:gap-20">
+                {{-- Visi: Large Pull-Quote --}}
+                <div class="relative w-full max-w-5xl mx-auto text-center px-4 md:px-12 py-10">
+                    <div class="absolute top-0 left-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10 dark:text-blue-500/5 font-serif font-black select-none -translate-x-4 lg:-translate-x-8 -translate-y-8 lg:-translate-y-12">"</div>
+                    <div class="absolute bottom-0 right-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10 dark:text-blue-500/5 font-serif font-black select-none translate-x-4 lg:translate-x-8 translate-y-8 lg:translate-y-12 rotate-180">"</div>
+                    
+                    <h3 class="relative z-10 text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-800 dark:text-slate-100 leading-relaxed tracking-tight">
+                        Menjadi sistem pemantauan rantai dingin <span class="text-blue-600 dark:text-[#64b5f6]">terdistribusi berbasis IoT dan AI</span> yang inovatif dan terdepan di Indonesia, guna menjamin keamanan, mutu, dan efektivitas terapeutik produk farmasi termolabil sepanjang jalur distribusi hulu-hilir, sejalan dengan prinsip <span class="text-blue-600 dark:text-[#64b5f6]">patient safety</span> dan tata kelola logistik farmasi berbasis bukti.
+                    </h3>
+                    <div class="mt-6">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-widest uppercase border border-blue-100 dark:border-blue-800/50">Visi Kami</span>
                     </div>
                 </div>
 
-                {{-- Misi Card (col-7) --}}
-                <div class="md:col-span-7 bg-white/60 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 space-y-6 shadow-lg relative overflow-hidden">
-                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl"></div>
-                    <div class="space-y-2 relative z-10">
-                        <span class="material-symbols-outlined text-primary text-[36px]">assignment</span>
-                        <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Misi Kami</h3>
+                {{-- Misi: 4 Cards Grid --}}
+                <div class="w-full">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">Misi Kami</h3>
                     </div>
-                    <ol class="space-y-4 text-sm text-slate-700 dark:text-slate-300 relative z-10 font-medium list-none pl-0">
-                        <li class="flex gap-3">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-xs shrink-0 mt-0.5">1</span>
-                            <span>Mengembangkan sistem telemetri suhu dan geolokasi berbasis arsitektur IoT dengan pendekatan edge computing, guna menghasilkan akurasi pemantauan real-time yang andal, rendah latensi, dan tahan gangguan konektivitas di lapangan.</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-xs shrink-0 mt-0.5">2</span>
-                            <span>Merancang dan mengintegrasikan algoritma predictive analytics berbasis Artificial Intelligence untuk deteksi dini anomali suhu dan potensi degradasi mutu produk termolabil, sebagai upaya mitigasi risiko sebelum produk tersebut sampai ke tangan pasien.</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-xs shrink-0 mt-0.5">3</span>
-                            <span>Mendukung transformasi digital regulasi CDOB (Cara Distribusi Obat yang Baik) yang ditetapkan oleh BPOM, melalui penyediaan sistem pelaporan dan pendokumentasian rantai dingin yang transparan, akuntabel, dan dapat diaudit (auditable).</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-xs shrink-0 mt-0.5">4</span>
-                            <span>Berkontribusi pada pengembangan keilmuan di bidang IoT dan AI untuk logistik kesehatan, melalui publikasi hasil riset dan penyusunan luaran ilmiah yang relevan dengan capaian PKM-KC.</span>
-                        </li>
-                    </ol>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {{-- Misi 1 --}}
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">router</span>
+                            </div>
+                            <div class="pt-0.5">
+                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Mengembangkan sistem telemetri suhu dan geolokasi berbasis arsitektur IoT dengan pendekatan <span class="text-blue-600 dark:text-[#64b5f6] font-bold">edge computing</span>, guna menghasilkan akurasi pemantauan real-time yang andal dan rendah latensi.</p>
+                            </div>
+                        </div>
+                        
+                        {{-- Misi 2 --}}
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">psychology</span>
+                            </div>
+                            <div class="pt-0.5">
+                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Merancang dan mengintegrasikan algoritma <span class="text-blue-600 dark:text-[#64b5f6] font-bold">predictive analytics</span> berbasis AI untuk deteksi dini anomali suhu dan potensi degradasi mutu produk sebagai mitigasi risiko.</p>
+                            </div>
+                        </div>
+
+                        {{-- Misi 3 --}}
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">verified_user</span>
+                            </div>
+                            <div class="pt-0.5">
+                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Mendukung transformasi digital regulasi <span class="text-blue-600 dark:text-[#64b5f6] font-bold">CDOB BPOM</span> melalui penyediaan sistem pelaporan rantai dingin yang transparan, akuntabel, dan auditable.</p>
+                            </div>
+                        </div>
+
+                        {{-- Misi 4 --}}
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">school</span>
+                            </div>
+                            <div class="pt-0.5">
+                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Berkontribusi pada <span class="text-blue-600 dark:text-[#64b5f6] font-bold">pengembangan keilmuan</span> di bidang IoT dan AI untuk logistik kesehatan melalui publikasi hasil riset dan luaran ilmiah PKM-KC.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
