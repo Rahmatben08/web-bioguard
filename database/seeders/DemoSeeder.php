@@ -22,8 +22,8 @@ class DemoSeeder extends Seeder
             'name' => 'Admin Bio-Guard',
             'email' => 'admin@bioguard.id',
             'password' => Hash::make('password'),
-            'dispatcher_id' => 'DSP-PLB-2026',
-            'iot_api_key' => 'bg_api_plb_demo_123',
+            'dispatcher_id' => 'PLB-DSC-001',
+            'iot_api_key' => 'bg_api_' . Str::random(32),
             'photo' => 'uploads/default-avatar.png',
         ]);
 

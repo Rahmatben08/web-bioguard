@@ -20,6 +20,11 @@ use App\Http\Controllers\Api\AuthController;
 // API Login
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
+// Endpoint demo publik (menyimpan ke tabel terpisah demo_telemetri) - Rate limited 1 request per detik (60/menit)
+Route::post('/demo/sync-telemetri', [SyncController::class, 'demoSync'])
+    ->middleware('throttle:60,1')
+    ->name('api.demo.sync');
+
 // Sync Telemetri dari Flutter (Dukungan untuk kedua penamaan route)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/sync/telemetri', [SyncController::class, 'upsertTelemetri'])

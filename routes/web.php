@@ -109,6 +109,40 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profil', [AdminController::class, 'profile'])->name('profile');
     Route::post('/profil', [AdminController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profil/regenerate-key', [AdminController::class, 'regenerateApiKey'])->name('profile.regenerate-key');
+
+    // ==========================================
+    // SIMULATOR ROUTES (INTERNAL ADMIN)
+    // ==========================================
+    Route::get('/simulasi-kurir', function () {
+        // Ambil rute perjalanan aktif beserta kurirnya
+        $ruteAktif = PerjalananRute::with('kurir')->aktif()->get();
+
+        // Jika kosong, buat seeder dummy otomatis
+        if ($ruteAktif->isEmpty()) {
+            $kurir = Kurir::firstOrCreate(
+                ['nama_lengkap' => 'Budi Santoso'],
+                ['nomor_kendaraan' => 'BG 1945 PKM']
+            );
+
+            $dummyRute = PerjalananRute::create([
+                'id_kurir' => $kurir->id_kurir,
+                'id_box' => 'BOX-IOT-PKM-01',
+                'nama_kargo' => 'Vaksin Polio & BCG',
+                'lokasi_tujuan' => 'RSUP Dr. Mohammad Hoesin',
+                'status_perjalanan' => 'aktif',
+            ]);
+
+            $ruteAktif = collect([$dummyRute->load('kurir')]);
+        }
+        
+        // Hapus token lama untuk simulator ini (jika ada) agar tidak menumpuk
+        auth()->user()->tokens()->where('name', 'simulator-internal')->delete();
+        
+        // Generate temporary Sanctum token for this session to authorize API calls
+        $apiToken = auth()->user()->createToken('simulator-internal')->plainTextToken;
+
+        return view('dashboard.simulator', compact('ruteAktif', 'apiToken'));
+    })->name('simulator.integrated');
 });
 
 // Fallback redirects for old paths to prevent 404s
@@ -122,30 +156,6 @@ Route::redirect('/simulasi', '/simulator');
 // ==========================================
 // SIMULATOR ROUTES
 // ==========================================
-Route::get('/simulasi-kurir', function () {
-    // Ambil rute perjalanan aktif beserta kurirnya
-    $ruteAktif = PerjalananRute::with('kurir')->aktif()->get();
-
-    // Jika kosong, buat seeder dummy otomatis
-    if ($ruteAktif->isEmpty()) {
-        $kurir = Kurir::firstOrCreate(
-            ['nama_lengkap' => 'Budi Santoso'],
-            ['nomor_kendaraan' => 'BG 1945 PKM']
-        );
-
-        $dummyRute = PerjalananRute::create([
-            'id_kurir' => $kurir->id_kurir,
-            'id_box' => 'BOX-IOT-PKM-01',
-            'nama_kargo' => 'Vaksin Polio & BCG',
-            'lokasi_tujuan' => 'RSUP Dr. Mohammad Hoesin',
-            'status_perjalanan' => 'aktif',
-        ]);
-
-        $ruteAktif = collect([$dummyRute->load('kurir')]);
-    }
-
-    return view('dashboard.simulator', compact('ruteAktif'));
-})->name('simulator.integrated');
 
 Route::post('/api/simulasi/sos', function (\Illuminate\Http\Request $request) {
     $id_rute = $request->input('id_rute');

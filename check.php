@@ -1,0 +1,1 @@
+<?php $tokens = token_get_all(file_get_contents('compiled.php')); $ifs = []; foreach ($tokens as $i => $t) { if (is_array($t)) { if ($t[0] == T_IF) $ifs[] = $t[2]; elseif ($t[0] == T_ENDIF) array_pop($ifs); } } print_r($ifs);

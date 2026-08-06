@@ -159,4 +159,57 @@ class SyncController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Menerima data telemetri dari simulator publik (tanpa auth, disimpan di tabel demo_telemetri terpisah)
+     */
+    public function demoSync(SyncTelemetriRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+        $records = $validated['data'];
+
+        try {
+            DB::beginTransaction();
+
+            $upsertData = collect($records)->map(function ($record) {
+                return [
+                    'id_rute' => $record['id_rute'],
+                    'timestamp' => $record['timestamp'],
+                    'suhu_aktual' => $record['suhu_aktual'],
+                    'nilai_mkt' => $record['nilai_mkt'] ?? null,
+                    'latitude' => $record['latitude'],
+                    'longitude' => $record['longitude'],
+                    'is_synced_from_offline' => $record['is_synced_from_offline'] ?? true,
+                    'gaya_guncangan' => $record['gaya_guncangan'] ?? 0.05,
+                ];
+            })->toArray();
+
+            // Insert data into demo_telemetri using raw model insert/upsert
+            \App\Models\DemoTelemetri::upsert(
+                $upsertData,
+                ['id_rute', 'timestamp'],
+                ['suhu_aktual', 'nilai_mkt', 'latitude', 'longitude', 'is_synced_from_offline', 'gaya_guncangan']
+            );
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data telemetri demo berhasil disinkronkan.',
+                'synced_count' => count($records),
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error('Demo telemetri sync gagal', [
+                'error' => $e->getMessage()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyinkronkan data telemetri demo.',
+            ], 500);
+        }
+    }
 }

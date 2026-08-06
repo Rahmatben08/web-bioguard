@@ -1,0 +1,1 @@
+<?php require __DIR__.'/vendor/autoload.php'; $app = require_once __DIR__.'/bootstrap/app.php'; $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap(); $compiler = app('blade.compiler'); $content = file_get_contents('resources/views/landing.blade.php'); $compiled = $compiler->compileString($content); file_put_contents('compiled.php', $compiled);
