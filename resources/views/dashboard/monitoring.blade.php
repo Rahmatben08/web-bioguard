@@ -12,11 +12,14 @@
     {{-- SECTION 1: PAGE HEADER                                            --}}
     {{-- ================================================================= --}}
     <!-- STITCH_AI_HEADER: Ganti dengan gaya header enterprise -->
-    <x-card class="mb-md z-40 relative border-b-4 border-b-primary shadow-sm p-4">
+    <div class="mb-md z-40 relative border-b border-outline-variant/30 pb-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md">
             {{-- Title & Interactive Datepicker & Clock --}}
             <div>
-                <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white uppercase">Pusat Kendali Logistik Medis</h1>
+                <nav class="flex text-label-md text-outline mb-1 gap-2">
+                    <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Pusat Kendali</span>
+                </nav>
+                <h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Dasbor Utama</h1>
             <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 dark:text-on-surface-variant">
                 <div class="flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
                     <span class="material-symbols-outlined text-[16px] align-middle text-primary">calendar_month</span>
@@ -34,15 +37,15 @@
         <div class="flex items-center gap-sm relative">
             {{-- Lonceng Notifikasi Dropdown --}}
             <div class="relative z-50" id="notification-hub-container">
-                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
+                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
                     <span class="material-symbols-outlined text-[20px]">notifications</span>
                     <span id="notification-count-badge" class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black leading-none border-2 border-white dark:border-slate-900 animate-pulse hidden">0</span>
                 </button>
                 
                 <!-- Dropdown panel -->
                 <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-850 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
-                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-2 mb-2">
-                        <span class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5 uppercase tracking-wider">
+                    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-2">
+                        <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider">
                             <span class="material-symbols-outlined text-[18px] text-primary">campaign</span> Log Notifikasi Real-time
                         </span>
                         <button id="clear-notifications-btn" class="text-[9px] font-extrabold text-slate-500 hover:text-primary transition-colors uppercase tracking-widest cursor-pointer">Bersihkan</button>
@@ -60,15 +63,15 @@
             </div>
 
             <div class="relative inline-block" id="filter-dashboard-container">
-                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
+                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
                     <span class="material-symbols-outlined text-[18px]">filter_list</span>
                     Filter
                 </button>
                 
                 <!-- Floating Dashboard Filter Panel -->
                 <div id="filter-dashboard-dropdown" class="absolute right-0 mt-2 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-250 dark:border-slate-800 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
-                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-2 mb-3">
-                        <span class="text-xs font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5 uppercase tracking-wider select-none">
+                    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-3">
+                        <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider select-none">
                             <span class="material-symbols-outlined text-[18px] text-primary">tune</span> Penyaringan Dasbor
                         </span>
                         <button id="btn-reset-dashboard-filter" class="text-[9px] font-extrabold text-slate-500 hover:text-primary transition-colors uppercase tracking-widest cursor-pointer">Reset</button>
@@ -78,7 +81,7 @@
                         {{-- Filter Status --}}
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Status Rantai Dingin</label>
-                            <select id="filter-status-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-status-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Status</option>
                                 <option value="Aman">Aman</option>
                                 <option value="Peringatan">Peringatan Dini</option>
@@ -89,7 +92,7 @@
                         {{-- Filter Tipe Kargo / Box --}}
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Kategori Suhu Kargo</label>
-                            <select id="filter-cargo-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-cargo-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Kategori</option>
                                 <option value="BOX-001">Chilled (BOX-001)</option>
                                 <option value="BOX-002">Frozen (BOX-002)</option>
@@ -104,8 +107,7 @@
                 Ekspor Laporan Excel
             </a>
         </div>
-        </div>
-    </x-card>
+    </div>
 
     {{-- Desktop Notification Permission Request Banner --}}
     <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700 dark:text-on-surface text-xs font-semibold gap-md animate-pulse">
@@ -155,10 +157,10 @@
         <div class="lg:col-span-8">
             <x-card noPadding="true" class="relative z-10">
                 {{-- Map Header --}}
-                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-primary text-[20px]">map</span>
-                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Pelacakan Armada Langsung</h2>
+                        <h2 class="text-lg font-bold text-on-surface">Pelacakan Armada Langsung</h2>
                     </div>
                     <div class="flex items-center gap-xs text-xs font-semibold text-slate-500">
                         <span class="relative flex h-2 w-2">
@@ -173,11 +175,11 @@
                 <div id="map" class="w-full" style="min-height: 440px; height: 58vh;"></div>
 
                 {{-- Widget AI Spatial-Thermal --}}
-                <div class="absolute top-[60px] right-4 z-[1000] w-64 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 p-4 rounded-md shadow-md transition-all duration-300 group">
-                    <div class="flex items-center justify-between mb-3 border-b border-slate-200 dark:border-slate-800/80 pb-2">
+                <div class="absolute top-[60px] right-4 z-[1000] w-64 bg-white/95 dark:bg-slate-900/95 border border-outline-variant/30 p-4 rounded-md shadow-md transition-all duration-300 group">
+                    <div class="flex items-center justify-between mb-3 border-b border-outline-variant/30 pb-2">
                         <div class="flex items-center gap-2">
                             <span class="material-symbols-outlined text-teal-600 dark:text-teal-400 text-[20px] animate-pulse">insights</span>
-                            <h3 class="text-xs font-extrabold text-slate-800 dark:text-slate-100 tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
+                            <h3 class="text-xs font-extrabold text-on-surface tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
                         </div>
                         <button id="btn-toggle-layers" class="text-slate-400 hover:text-teal-500 transition-colors cursor-pointer" title="Pengaturan Lapisan Peta">
                             <span class="material-symbols-outlined text-[16px] align-middle">layers</span>
@@ -193,7 +195,7 @@
                                 <button type="button" id="btn-map-sat" class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all">SATELIT</button>
                             </div>
                         </div>
-                        <div class="pt-1 border-t border-slate-200 dark:border-slate-800/60">
+                        <div class="pt-1 border-t border-outline-variant/30/60">
                             <span class="font-bold text-slate-700 dark:text-on-surface-variant block mb-1 uppercase tracking-wider text-[9px]">Overlay Spasial</span>
                             <label class="flex items-center gap-2 cursor-pointer select-none">
                                 <input type="checkbox" id="chk-risk-heatmap" class="rounded border-slate-350 dark:border-slate-800 text-primary focus:ring-primary/50 h-3.5 w-3.5">
@@ -204,43 +206,43 @@
                     <div class="space-y-2 text-[11px]">
                         {{-- Suhu Luar --}}
                         <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-slate-500 dark:text-slate-400">Suhu Luar:</span>
+                            <span class="font-semibold text-on-surface-variant">Suhu Luar:</span>
                             <div class="flex items-center gap-1 font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">
-                                <span>34°C</span>
+                                <span>34Â°C</span>
                                 <span class="material-symbols-outlined text-[12px] text-red-500 font-bold animate-bounce" title="Suhu meningkat">trending_up</span>
                             </div>
                         </div>
                         {{-- Kelembaban --}}
                         <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-slate-500 dark:text-slate-400">Kelembaban:</span>
+                            <span class="font-semibold text-on-surface-variant">Kelembaban:</span>
                             <span class="font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">80%</span>
                         </div>
                         {{-- Status Lalu Lintas --}}
                         <div class="flex flex-col gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
                             <div class="flex justify-between items-start">
-                                <span class="font-semibold text-slate-500 dark:text-slate-400">Lalu Lintas:</span>
+                                <span class="font-semibold text-on-surface-variant">Lalu Lintas:</span>
                                 <span class="text-amber-600 dark:text-amber-400 font-extrabold flex items-center gap-1 text-[11px]">
                                     <span class="h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse shrink-0"></span>
                                     Padat Tinggi
                                 </span>
                             </div>
-                            <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Jl. Jend. Sudirman</p>
+                            <p class="text-[10px] text-on-surface-variant font-medium">Jl. Jend. Sudirman</p>
                             <button onclick="alert('Mencari rute alternatif tercepat untuk menghindari kemacetan Jl. Jend. Sudirman...')" 
                                     class="w-full mt-1 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500 hover:text-white border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold transition-all active:scale-[0.98]">
                                 Rekomendasikan Rute Baru
                             </button>
                         </div>
                     </div>
-                    <p class="text-[9px] text-slate-500 dark:text-slate-400 mt-3 leading-relaxed border-t border-slate-200 dark:border-slate-800 pt-2">
+                    <p class="text-[9px] text-on-surface-variant mt-3 leading-relaxed border-t border-outline-variant/30 pt-2">
                         * Data cuaca & kemacetan Palembang dianalisis oleh AI untuk memproyeksikan risiko kerusakan kargo secara prediktif.
                     </p>
                 </div>
 
                 {{-- Map Legend --}}
-                <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-slate-200 dark:border-slate-800/60 text-xs font-semibold text-slate-500">
+                <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-                        <span>Aman (2°C - 8°C)</span>
+                        <span>Aman (2Â°C - 8Â°C)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
@@ -259,12 +261,12 @@
         {{-- RIGHT PANEL (col-span-4): REAL-TIME TELEMETRY CARDS           --}}
         {{-- ============================================================= --}}
         <div class="lg:col-span-4">
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm">
+            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
                 {{-- Panel Header --}}
-                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-primary text-[20px]">device_thermostat</span>
-                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Telemetri & Prediksi AI</h2>
+                        <h2 class="text-lg font-bold text-on-surface">Telemetri & Prediksi AI</h2>
                     </div>
                     <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">{{ count($perjalananAktif ?? []) }} aktif</span>
                 </div>
@@ -319,7 +321,7 @@
                                         {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('') }}
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-body-sm font-bold text-slate-900 dark:text-white truncate">
+                                        <p class="text-body-sm font-bold text-on-surface truncate">
                                             {{ $perjalanan->kurir->nama_lengkap }}
                                         </p>
                                         <p class="text-label-md text-slate-500 mt-0.5 flex items-center gap-1">
@@ -361,19 +363,19 @@
                                         @if($status !== 'Aman')
                                             <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
                                         @endif
-                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-' }}
+                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . 'Â°C' : '-' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
                                     <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
-                                    <p class="text-base font-bold text-slate-700 dark:text-slate-300 tabular-nums">
-                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt }}
+                                    <p class="text-base font-bold text-on-surface-variant tabular-nums">
+                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . 'Â°C' : $mkt }}
                                     </p>
                                 </div>
                             </div>
 
                             {{-- AI prediction & Excursion Duration & Vibration --}}
-                            <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-slate-200 dark:border-slate-800/60 text-[10px] font-semibold text-slate-500">
+                            <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
                                 <div>
                                     <span class="block">Durasi Anomali</span>
                                     <span class="font-mono-data font-bold block mt-0.5 {{ $status !== 'Aman' ? $textClass : 'text-slate-700 dark:text-on-surface-variant' }}">
@@ -426,7 +428,7 @@
                 {{-- Panel Footer --}}
                 <div class="mt-4">
                     <a href="{{ route('shipments') }}"
-                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
+                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
                         <span class="material-symbols-outlined text-[18px]">timeline</span>
                         Lihat Log Telemetri Lengkap
                     </a>
@@ -445,7 +447,7 @@
         <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[20px]">query_stats</span>
                         Suhu Aktual vs MKT
                     </h3>
@@ -459,7 +461,7 @@
         <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
                         Proyeksi Risiko Prediktif AI
                     </h3>
@@ -473,7 +475,7 @@
         <x-card class="flex flex-col min-h-[340px]">
             <div class="flex justify-between items-center mb-4">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[20px]">sync_saved_locally</span>
                         Log Sinkronisasi Store-and-Forward
                     </h3>
@@ -494,10 +496,10 @@
         <x-card noPadding="true" class="lg:col-span-8 flex flex-col justify-between overflow-hidden">
             <div>
                 {{-- Header --}}
-                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-error text-[22px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
-                        <h2 class="text-sm font-bold text-slate-900 dark:text-white">Panel Manajemen "Karantina Kargo"</h2>
+                        <h2 class="text-sm font-bold text-on-surface">Panel Manajemen "Karantina Kargo"</h2>
                     </div>
                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider animate-pulse">
                         Kritis
@@ -507,14 +509,14 @@
                 {{-- Body --}}
                 <div class="p-6">
                     <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
-                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
+                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8Â°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
                     {{-- Table --}}
-                    <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800/60">
+                    <div class="overflow-x-auto rounded-xl border border-outline-variant/30/60">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
-                                <tr class="bg-slate-900/10 dark:bg-slate-100/5 border-b border-slate-200 dark:border-slate-800/60">
+                                <tr class="bg-slate-900/10 dark:bg-slate-100/5 border-b border-outline-variant/30/60">
                                     <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">ID Boks</th>
                                     <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Nama Kurir</th>
                                     <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Titik Kerusakan</th>
@@ -526,12 +528,12 @@
                                 {{-- Row 1 --}}
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-003</td>
-                                    <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Citra Dewi</td>
+                                    <td class="px-4 py-3 font-medium text-on-surface">Citra Dewi</td>
                                     <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2Â°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -541,12 +543,12 @@
                                 {{-- Row 2 --}}
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-002</td>
-                                    <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Budi Santoso</td>
+                                    <td class="px-4 py-3 font-medium text-on-surface">Budi Santoso</td>
                                     <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5Â°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -556,12 +558,12 @@
                                 {{-- Row 3 --}}
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-005</td>
-                                    <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Ahmad Fadillah</td>
+                                    <td class="px-4 py-3 font-medium text-on-surface">Ahmad Fadillah</td>
                                     <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9Â°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -581,7 +583,7 @@
             {{-- Simulator Hub Dasbor (Embedded Control Panel) --}}
             <x-card class="flex flex-col justify-between">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">construction</span>
                         Simulator Hub Dasbor
                     </h3>
@@ -591,7 +593,7 @@
                 <div class="mt-4 space-y-3">
                     <div class="flex flex-col gap-1">
                         <label class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Pilih Target Boks IoT</label>
-                        <select id="sim-target-box" class="w-full bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white focus:border-primary focus:outline-none transition-all duration-300">
+                        <select id="sim-target-box" class="w-full bg-slate-100/80 dark:bg-slate-800/60 border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
                             @foreach($perjalananAktif ?? [] as $perjalanan)
                                 <option value="{{ $perjalanan->id_rute }}" data-box="{{ $perjalanan->id_box }}">
                                     {{ $perjalanan->id_box }} ({{ $perjalanan->kurir->nama_lengkap }})
@@ -621,10 +623,10 @@
             {{-- 4. Log Intervensi Darurat (SOS Center) --}}
             <x-card noPadding="true" class="flex flex-col justify-between overflow-hidden">
                 {{-- Header --}}
-                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-900/5 dark:bg-slate-100/5">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-tertiary text-[22px] animate-bounce">campaign</span>
-                        <h2 class="text-sm font-bold text-slate-900 dark:text-white">Log Intervensi Darurat (SOS)</h2>
+                        <h2 class="text-sm font-bold text-on-surface">Log Intervensi Darurat (SOS)</h2>
                     </div>
                     <span class="inline-flex items-center justify-center w-auto h-5 px-2.5 rounded-full bg-error text-on-error text-[9px] font-bold">2 Peringatan</span>
                 </div>
@@ -636,7 +638,7 @@
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-xs">
                                 <span class="material-symbols-outlined text-red-500 text-[18px]">emergency</span>
-                                <span class="font-bold text-slate-900 dark:text-white text-xs">BOX-003: Boks Bocor</span>
+                                <span class="font-bold text-on-surface text-xs">BOX-003: Boks Bocor</span>
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">Baru saja</span>
                         </div>
@@ -656,7 +658,7 @@
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-xs">
                                 <span class="material-symbols-outlined text-amber-500 text-[18px]">traffic</span>
-                                <span class="font-bold text-slate-900 dark:text-white text-xs">BOX-002: Kemacetan Ekstrem</span>
+                                <span class="font-bold text-on-surface text-xs">BOX-002: Kemacetan Ekstrem</span>
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">5 mnt lalu</span>
                         </div>
@@ -676,7 +678,7 @@
             {{-- 1. Modul Cetak Jejak Audit CDOB (E-Certificate Otomatis) --}}
             <x-card class="flex flex-col justify-between min-h-[160px]">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
                         Cetak Jejak Audit CDOB
                     </h3>
@@ -696,7 +698,7 @@
             {{-- Panel Pemantauan Kesehatan IoT Box --}}
             <x-card class="flex flex-col justify-between mt-sm">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">developer_board</span>
                         Kesehatan Perangkat Boks IoT
                     </h3>
@@ -737,8 +739,8 @@
                         <div class="p-3 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-{{ $perjalanan->id_box }}">
                             <!-- Box ID & Courier -->
                             <div class="flex justify-between items-center text-xs">
-                                <span class="font-bold text-slate-900 dark:text-white font-mono">{{ $perjalanan->id_box }}</span>
-                                <span class="text-slate-500 dark:text-slate-400 font-semibold">{{ $perjalanan->kurir->nama_lengkap }}</span>
+                                <span class="font-bold text-on-surface font-mono">{{ $perjalanan->id_box }}</span>
+                                <span class="text-on-surface-variant font-semibold">{{ $perjalanan->kurir->nama_lengkap }}</span>
                             </div>
                             
                             <!-- Battery & Signal Row -->
@@ -749,7 +751,7 @@
                                         <span class="flex items-center gap-0.5 text-slate-500">
                                             <span class="material-symbols-outlined text-[13px]">battery_charging_full</span> Daya Baterai
                                         </span>
-                                        <span class="text-slate-900 dark:text-white font-mono" id="device-battery-val-{{ $perjalanan->id_box }}">{{ $battery }}%</span>
+                                        <span class="text-on-surface font-mono" id="device-battery-val-{{ $perjalanan->id_box }}">{{ $battery }}%</span>
                                     </div>
                                     <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
                                         <div class="h-full {{ $batColor }} rounded-full transition-all duration-500" id="device-battery-bar-{{ $perjalanan->id_box }}" style="width: {{ $battery }}%"></div>
@@ -762,7 +764,7 @@
                                         <span class="flex items-center gap-0.5 text-slate-500">
                                             <span class="material-symbols-outlined text-[13px]" id="device-signal-icon-{{ $perjalanan->id_box }}">{{ $sigIcon }}</span> GSM Sinyal
                                         </span>
-                                        <span class="text-slate-900 dark:text-white font-mono" id="device-signal-val-{{ $perjalanan->id_box }}">{{ $signal }} dBm</span>
+                                        <span class="text-on-surface font-mono" id="device-signal-val-{{ $perjalanan->id_box }}">{{ $signal }} dBm</span>
                                     </div>
                                     <!-- Calibration status row -->
                                     <div class="flex items-center justify-between font-semibold mt-1">
@@ -780,9 +782,9 @@
             </x-card>
 
             {{-- BIO-GUARD Gateway Hub --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
+            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-xs">
+                    <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">hub</span>
                         BIO-GUARD Gateway Hub
                     </h3>
@@ -804,12 +806,12 @@
 
 <!-- AI Rerouting Modal -->
 <div id="rerouting-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">directions_alt</span>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">AI Dynamic Rerouting</h3>
+                <h3 class="text-sm font-bold text-on-surface">AI Dynamic Rerouting</h3>
             </div>
             <button onclick="closeReroutingModal()" class="text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white transition-colors">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
@@ -820,14 +822,14 @@
             <div class="p-4 rounded-xl border border-teal-500/30 bg-teal-500/10 flex flex-col gap-2">
                 <div class="flex items-center gap-xs">
                     <span class="material-symbols-outlined text-teal-500 text-[18px]">psychology</span>
-                    <span class="font-bold text-slate-900 dark:text-white text-xs">Rekomendasi Rute Alternatif (Musi IV Bypass)</span>
+                    <span class="font-bold text-on-surface text-xs">Rekomendasi Rute Alternatif (Musi IV Bypass)</span>
                 </div>
                 <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
                     Sistem mendeteksi hambatan parah di Jembatan Ampera. Rute alternatif disarankan melewati **Jembatan Musi IV**.
                 </p>
-                <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                    <div>Jarak: <span class="text-slate-900 dark:text-white font-bold">-0.4 km</span></div>
-                    <div>Waktu: <span class="text-slate-900 dark:text-white font-bold">Hemat ~8 mnt</span></div>
+                <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
+                    <div>Jarak: <span class="text-on-surface font-bold">-0.4 km</span></div>
+                    <div>Waktu: <span class="text-on-surface font-bold">Hemat ~8 mnt</span></div>
                 </div>
             </div>
             <p class="text-[11px] text-slate-500 leading-relaxed">
@@ -835,8 +837,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
+            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800">
                 Batal
             </button>
             <button onclick="applyRerouting()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
@@ -848,12 +850,12 @@
 
 <!-- CDOB Audit Preview Modal -->
 <div id="audit-preview-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300 animate-opacity">
-    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
         <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-850 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary text-[20px] font-bold">verified_user</span>
-                <h3 class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Pratinjau Jejak Audit CDOB</h3>
+                <h3 class="text-xs font-black text-on-surface uppercase tracking-wider">Pratinjau Jejak Audit CDOB</h3>
             </div>
             <button onclick="closeAuditPreviewModal()" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
@@ -868,7 +870,7 @@
                 </div>
 
                 {{-- Brand Header --}}
-                <div class="flex justify-between items-start border-b border-slate-200 dark:border-slate-800/60 pb-4 mb-4">
+                <div class="flex justify-between items-start border-b border-outline-variant/30/60 pb-4 mb-4">
                     <div>
                         <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
                         <p class="text-[9px] text-slate-450 mt-0.5">Badan Pengawas Obat dan Makanan (BPOM) RI</p>
@@ -891,7 +893,7 @@
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
                         <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
-                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0°C - 8,0°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8°C</span> tanpa kerusakan zat aktif terdeteksi.
+                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0Â°C - 8,0Â°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8Â°C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
                     <div class="col-span-2">
@@ -910,8 +912,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
+            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
                 Batal
             </button>
             <a href="{{ route('dashboard.audit-pdf') }}" target="_blank" onclick="closeAuditPreviewModal()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)] cursor-pointer flex items-center gap-1">
@@ -1115,7 +1117,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">ðŸš¨ AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -1233,7 +1235,7 @@ const plannedPaths = {
             statusColor = 'text-red-500 dark:text-error';
         }
 
-        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + 'Â°C' : '-';
 
         return `
             <div class="p-2 text-xs space-y-2 select-none font-sans">
@@ -1296,7 +1298,7 @@ const plannedPaths = {
         if (!container) return;
         
         container.innerHTML = Array(3).fill(0).map(() => `
-            <div class="p-6 border-b border-slate-200 dark:border-slate-800/60 animate-pulse space-y-4">
+            <div class="p-6 border-b border-outline-variant/30/60 animate-pulse space-y-4">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-slate-250 dark:bg-slate-800"></div>
                     <div class="flex-1 space-y-2">
@@ -1343,7 +1345,7 @@ const plannedPaths = {
             const textClass = c.text_class;
             const duration = c.excursion_duration;
             const temp = c.suhu_aktual;
-            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '°C' : '-';
+            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + 'Â°C' : '-';
             const prob = c.probabilitas_rusak;
             
             // Vibration evaluations
@@ -1357,7 +1359,7 @@ const plannedPaths = {
             const shakeClass = vibration > 1.50 ? 'animate-shake-infinite' : '';
 
             const statusIcon = status === 'Aman' ? 'check_circle' : (status === 'Peringatan' ? 'info' : 'warning');
-            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + 'Â°C' : '-';
             const durationDisplay = status === 'Aman' ? '0s (Normal)' : duration + 's';
             
             let sparklineClass = 'sparkline-cyan';
@@ -1378,8 +1380,8 @@ const plannedPaths = {
 
             const qrRoute = `/dashboard/qr/${encodeURIComponent(c.id_box)}`;
 
-            let bgClass = 'bg-white/40 dark:bg-slate-900/30';
-            let cardBorderClass = 'border-slate-200 dark:border-slate-800/60';
+            let bgClass = 'bg-surface-container-low';
+            let cardBorderClass = 'border-outline-variant/30/60';
             let accentBorderClass = 'border-l-4 border-l-primary';
             let pulseRing = '';
             
@@ -1413,7 +1415,7 @@ const plannedPaths = {
                                 ${initials}
                             </div>
                             <div class="min-w-0">
-                                <p class="text-body-sm font-bold text-slate-900 dark:text-white truncate">
+                                <p class="text-body-sm font-bold text-on-surface truncate">
                                     ${c.nama_kurir}
                                 </p>
                                 <p class="text-label-md text-slate-500 mt-0.5 flex items-center gap-1">
@@ -1452,7 +1454,7 @@ const plannedPaths = {
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-slate-200 dark:border-slate-800/60 text-[10px] font-semibold text-slate-500">
+                    <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
                         <div>
                             <span class="block">Durasi Anomali</span>
                             <span class="font-mono-data font-bold block mt-0.5 ${status !== 'Aman' ? textClass : 'text-slate-700 dark:text-on-surface-variant'}">
@@ -1488,8 +1490,8 @@ const plannedPaths = {
     function triggerPushNotification(c) {
         if (window.Notification && Notification.permission === 'granted') {
             try {
-                new Notification('âš  ALARM SUHU KRITIS BIO-GUARD', {
-                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
+                new Notification('Ã¢Å¡Â Â ALARM SUHU KRITIS BIO-GUARD', {
+                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C.`,
                     icon: '/favicon.ico'
                 });
             } catch (e) {
@@ -1728,10 +1730,10 @@ const plannedPaths = {
             // 1. Temperature Alert Gateway Logs
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C. Pindahkan kargo segera!`, 'danger');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C!`, 'danger');
+                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C. Pindahkan kargo segera!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C.`, 'warning');
                     logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Notifikasi dikirim ke Kurir ${c.nama_kurir}. Harap periksa kerapatan penutup Boks ${c.id_box}.`, 'warning');
                 }
             }
@@ -1757,9 +1759,9 @@ const plannedPaths = {
 
             // Notification Center Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
-                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C melebihi batas cold chain!`, 'danger');
+                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C melebihi batas cold chain!`, 'danger');
             } else if (c.excursion_status === 'Peringatan') {
-                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}Â°C.`, 'warning');
             }
 
             if (c.battery_level < 20) {
@@ -1951,7 +1953,7 @@ const plannedPaths = {
         if (platform === 'WA') {
             platformBadge = `<span class="bg-green-500/10 text-green-400 border border-green-500/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">WhatsApp</span>`;
         } else if (platform === 'TG') {
-            platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-sky-500/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
+            platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
         }
         
         let typeBadge = '';
@@ -2000,24 +2002,24 @@ const plannedPaths = {
         modalDiv.id = modalId;
         modalDiv.className = "fixed inset-0 z-[3000] flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300";
         modalDiv.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
-                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800/60 bg-emerald-500/10 dark:bg-emerald-500/5 flex justify-between items-center">
+            <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
+                <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-emerald-500/10 dark:bg-emerald-500/5 flex justify-between items-center">
                     <div class="flex items-center gap-2 text-green-500">
                         <span class="material-symbols-outlined font-bold">verified</span>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Kedatangan Terverifikasi (Geofencing)</h3>
+                        <h3 class="text-sm font-bold text-on-surface">Kedatangan Terverifikasi (Geofencing)</h3>
                     </div>
                 </div>
                 <div class="p-6 space-y-4">
                     <div class="p-4 rounded-xl border border-green-500/30 bg-green-500/10 flex flex-col gap-2">
                         <div class="flex items-center gap-xs">
                             <span class="material-symbols-outlined text-green-500 text-[18px]">local_shipping</span>
-                            <span class="font-bold text-slate-900 dark:text-white text-xs">${courierName} (${boxId})</span>
+                            <span class="font-bold text-on-surface text-xs">${courierName} (${boxId})</span>
                         </div>
                         <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
-                        <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-'}</span></div>
+                        <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
+                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + 'Â°C' : '-'}</span></div>
                             <div>Status: <span class="text-green-500 font-bold">Selesai</span></div>
                         </div>
                     </div>
@@ -2025,7 +2027,7 @@ const plannedPaths = {
                         Tanda terima digital terkirim ke faskes penerima. Data perjalanan telah dikunci untuk kepatuhan CDOB.
                     </p>
                 </div>
-                <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50 dark:bg-slate-850 flex justify-end">
+                <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end">
                     <button onclick="document.getElementById('${modalId}').remove()" class="px-5 py-2.5 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
                         Selesai
                     </button>
@@ -2087,7 +2089,7 @@ const plannedPaths = {
         const destCoord = coordinatesLookup[p.lokasi_tujuan] || {lat: -6.2000, lng: 106.8400};
 
         let status = 'Aman';
-        let statusLabel = 'Aman (Sesuai Standar 2°C - 8°C)';
+        let statusLabel = 'Aman (Sesuai Standar 2Â°C - 8Â°C)';
         let badgeClass = 'bg-primary/10 text-primary border border-primary/30';
         let textClass = 'text-cyan-500 font-bold';
         let duration = 0;
@@ -2334,14 +2336,14 @@ const plannedPaths = {
         let message = '';
         if (type === 'suhu') {
             temp = 9.8;
-            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}Â°C) dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'deviasi') {
             lat = lat - 0.008; 
             lng = lng + 0.012;
             message = `Simulasi deviasi koordinat rute dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'reset') {
             temp = 4.2;
-            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}Â°C) dikirim untuk Boks ${activeBoxId}`;
         }
 
         const payload = {
@@ -2682,7 +2684,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yaxis: {
             labels: {
                 formatter: function (val) {
-                    return val.toFixed(1).replace('.', ',') + '°C';
+                    return val.toFixed(1).replace('.', ',') + 'Â°C';
                 },
                 style: {
                     colors: themeColors.textColor,
@@ -2705,7 +2707,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#ef4444',
                         style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Max (8°C)',
+                        text: 'Max (8Â°C)',
                         offsetY: -3
                     }
                 },
@@ -2716,7 +2718,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#3b82f6',
                         style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Min (2°C)',
+                        text: 'Min (2Â°C)',
                         offsetY: 0
                     }
                 }

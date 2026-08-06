@@ -7,44 +7,44 @@
     <!-- Header Controls Section -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md mb-md">
         <div>
-            <nav class="flex text-label-md text-slate-500 dark:text-slate-400 mb-1 gap-2 transition-colors duration-300">
-                <span>BIO-GUARD</span> / <span class="text-sky-600 dark:text-sky-400 font-semibold transition-colors duration-300">Analisis Sensor</span>
+            <nav class="flex text-label-md text-on-surface-variant mb-1 gap-2 transition-colors duration-300">
+                <span>BIO-GUARD</span> / <span class="text-primary font-semibold transition-colors duration-300">Analisis Sensor</span>
             </nav>
-            <h1 class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 transition-colors duration-300">Laporan & Analisis</h1>
-            <p class="text-slate-500 dark:text-slate-400 font-body-md text-body-md transition-colors duration-300">Metrik kinerja distribusi biologis tingkat perusahaan.</p>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface transition-colors duration-300">Laporan & Analisis</h1>
+            <p class="text-on-surface-variant font-body-md text-body-md transition-colors duration-300">Metrik kinerja distribusi biologis tingkat perusahaan.</p>
         </div>
         @php
             $selectedDate = request()->input('date');
             $selectedBox = request()->input('id_box');
         @endphp
-        <div class="flex items-center gap-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
+        <div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
             <!-- Filter Inputs -->
             <div class="flex gap-2 items-center flex-wrap">
-                <input type="date" id="filter-date" value="{{ $selectedDate }}" class="bg-slate-100 dark:bg-slate-900 border-none text-xs font-semibold text-slate-850 dark:text-slate-200 focus:ring-1 focus:ring-sky-500 rounded-lg py-1.5 px-3 transition-colors duration-300">
-                <select id="filter-box" class="bg-slate-100 dark:bg-slate-900 border-none text-xs font-semibold text-slate-850 dark:text-slate-200 focus:ring-1 focus:ring-sky-500 rounded-lg py-1.5 pr-8 transition-colors duration-300">
+                <input type="date" id="filter-date" value="{{ $selectedDate }}" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
+                <select id="filter-box" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 pr-8 transition-colors duration-300">
                     <option value="">Semua Boks</option>
                     <option value="BOX-001" {{ $selectedBox === 'BOX-001' ? 'selected' : '' }}>BOX-001</option>
                     <option value="BOX-002" {{ $selectedBox === 'BOX-002' ? 'selected' : '' }}>BOX-002</option>
                     <option value="BOX-003" {{ $selectedBox === 'BOX-003' ? 'selected' : '' }}>BOX-003</option>
                     <option value="BOX-004" {{ $selectedBox === 'BOX-004' ? 'selected' : '' }}>BOX-004</option>
                 </select>
-                <button onclick="applyFilters()" class="bg-sky-600 hover:bg-sky-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 duration-100 shadow-md shadow-sky-500/10 cursor-pointer">
+                <button onclick="applyFilters()" class="bg-primary hover:bg-primary/90 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 duration-100 shadow-md shadow-primary/20 cursor-pointer">
                     Filter
                 </button>
             </div>
             
             <div class="hidden sm:block h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
 
-            <div class="flex gap-1 bg-slate-100 dark:bg-slate-900 rounded-lg p-1 transition-colors duration-300" id="time-filter-buttons">
-                <button type="button" class="q-btn px-4 py-1.5 text-xs font-bold bg-sky-600/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300">Q1</button>
-                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">Q2</button>
-                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">KUSTOM</button>
+            <div class="flex gap-1 bg-surface-container rounded-lg p-1 transition-colors duration-300" id="time-filter-buttons">
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-bold bg-primary/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300">Q1</button>
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-on-surface-variant hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">Q2</button>
+                <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-on-surface-variant hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300">KUSTOM</button>
             </div>
 
             <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
                 <span class="material-symbols-outlined text-[18px] align-middle">description</span>
             </button>
-            <button class="bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-850 dark:text-slate-200 p-2 rounded-lg border border-slate-200 dark:border-slate-700/50 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
+            <button class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
                 <span class="material-symbols-outlined text-[18px] align-middle">picture_as_pdf</span>
             </button>
         </div>
@@ -62,7 +62,7 @@
                 <span class="text-3xl text-primary font-black tabular-nums"><span id="live-integritas">98,4%</span></span>
                 <span class="text-primary font-bold text-[10px] flex items-center"><span class="material-symbols-outlined text-[10px]">trending_up</span>+0,2%</span>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800">
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
                 <div class="h-full bg-primary" style="width: 98.4%"></div>
             </div>
         </x-card>
@@ -73,10 +73,10 @@
                 <span class="text-amber-500 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
             </div>
             <div class="flex items-baseline gap-2 z-10">
-                <span class="text-3xl text-slate-900 dark:text-white font-black tabular-nums"><span id="live-anomali">12</span></span>
+                <span class="text-3xl text-on-surface font-black tabular-nums"><span id="live-anomali">12</span></span>
                 <span class="text-amber-500 font-bold text-[10px] flex items-center"><span class="material-symbols-outlined text-[10px]">trending_down</span>-15%</span>
             </div>
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800">
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
                 <div class="h-full bg-amber-500" style="width: 15%"></div>
             </div>
         </x-card>
@@ -87,20 +87,20 @@
                 <span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
             </div>
             <div class="flex items-center gap-2 z-10 mt-1">
-                <span class="text-3xl text-slate-900 dark:text-white font-black tabular-nums"><span id="live-kepatuhan">100%</span></span>
+                <span class="text-3xl text-on-surface font-black tabular-nums"><span id="live-kepatuhan">100%</span></span>
                 <span class="px-2 py-0.5 rounded-full border border-primary/40 text-primary bg-primary/5 text-[10px] uppercase font-black tracking-tighter">Tersertifikasi</span>
             </div>
             <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </x-card>
         <!-- Metric 4 -->
-        <div class="bg-white dark:bg-slate-800/80 dark:backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
+        <div class="bg-surface-container-low border border-outline-variant/30 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
-                <span class="text-slate-500 dark:text-slate-400 font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Penghematan Operasional</span>
-                <span class="text-sky-600 dark:text-sky-400 transition-colors duration-300 material-symbols-outlined">payments</span>
+                <span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Penghematan Operasional</span>
+                <span class="text-primary transition-colors duration-300 material-symbols-outlined">payments</span>
             </div>
             <div class="flex items-baseline gap-2 z-10">
-                <span class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 font-bold transition-colors duration-300"><span id="live-penghematan">Rp 680 Jt</span></span>
-                <span class="text-slate-500 dark:text-slate-400 font-body-md text-body-md transition-colors duration-300">Diatribusikan oleh AI</span>
+                <span class="font-headline-lg text-headline-lg text-on-surface font-bold transition-colors duration-300"><span id="live-penghematan">Rp 680 Jt</span></span>
+                <span class="text-on-surface-variant font-body-md text-body-md transition-colors duration-300">Diatribusikan oleh AI</span>
             </div>
             <div class="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity">
                 <span class="material-symbols-outlined text-6xl text-sky-600/10 dark:text-sky-400/10 transition-colors duration-300">psychology</span>
@@ -111,8 +111,8 @@
     <!-- AI Predictive Shelf-life Monitor (CDOB Compliance) -->
     <div class="space-y-md mb-md">
         <div class="flex items-center gap-2">
-            <span class="text-sky-600 dark:text-sky-400 material-symbols-outlined transition-colors duration-300">psychology</span>
-            <h2 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 transition-colors duration-300">AI Predictive Shelf-life Monitor (Kepatuhan CDOB)</h2>
+            <span class="text-primary material-symbols-outlined transition-colors duration-300">psychology</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface transition-colors duration-300">AI Predictive Shelf-life Monitor (Kepatuhan CDOB)</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
             @foreach($routesData as $route)
@@ -122,8 +122,8 @@
                     $shelfLife = "36 Jam (Optimal)";
                     $shelfLifeProgress = 100;
                     $shelfColor = "bg-sky-500 dark:bg-sky-400";
-                    $shelfBg = "bg-sky-50 dark:bg-sky-500/10 border-sky-100 dark:border-sky-500/20 text-sky-600 dark:text-sky-400";
-                    $shelfTextColor = "text-sky-600 dark:text-sky-400";
+                    $shelfBg = "bg-primary/10 border-primary/20 text-primary";
+                    $shelfTextColor = "text-primary";
                 } elseif ($mktVal > 8.0 && $mktVal <= 8.5) {
                     $shelfLife = "12 Jam (Peringatan)";
                     $shelfLifeProgress = 40;
@@ -140,17 +140,17 @@
             @endphp
             <x-card class="transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-primary/40">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <span class="material-symbols-outlined text-7xl text-slate-900 dark:text-white">hourglass_empty</span>
+                    <span class="material-symbols-outlined text-7xl text-on-surface">hourglass_empty</span>
                 </div>
                 
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600/50">BOX-{{ $route['id_box'] }}</span>
-                        <h4 class="font-bold text-base text-slate-900 dark:text-white mt-1.5">{{ $route['nama_kargo'] }}</h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-outline-variant/40">BOX-{{ $route['id_box'] }}</span>
+                        <h4 class="font-bold text-base text-on-surface mt-1.5">{{ $route['nama_kargo'] }}</h4>
                         <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
                     </div>
                     <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono">
-                        {{ number_format($mktVal, 1, ',', '.') }}°C MKT
+                        {{ number_format($mktVal, 1, ',', '.') }}Ã‚Â°C MKT
                     </span>
                 </div>
 
@@ -159,12 +159,12 @@
                         <span class="text-slate-500">Est. Sisa Waktu Kelayakan:</span>
                         <span class="font-bold uppercase {{ $shelfTextColor }}">{{ $shelfLife }}</span>
                     </div>
-                    <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
                         <div class="h-full {{ $shelfColor }} rounded-full transition-all duration-500" style="width: {{ $shelfLifeProgress }}%"></div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/20">
                     <span class="text-[10px] text-slate-500 font-mono font-bold">AI Risk Projection: {{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
                     <button class="btn-proyeksi text-primary hover:text-primary/80 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all duration-300 cursor-pointer" 
                             data-box="BOX-{{ $route['id_box'] }}"
@@ -185,7 +185,7 @@
         <x-card class="lg:col-span-8 flex flex-col min-h-[400px]">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
-                    <h3 class="font-bold text-slate-900 dark:text-white">Tren Risiko Prediktif</h3>
+                    <h3 class="font-bold text-on-surface">Tren Risiko Prediktif</h3>
                     <p class="text-slate-500 text-xs mt-0.5">Obat Termolabil Rusak vs Prediksi Risiko AI (6 Bulan)</p>
                 </div>
                 <div class="flex gap-4">
@@ -205,44 +205,44 @@
 
         <!-- Regional Heatmap / Hub Performance -->
         <x-card class="lg:col-span-4 flex flex-col h-full overflow-hidden">
-            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Kinerja Hub</h3>
+            <h3 class="font-bold text-on-surface mb-1">Kinerja Hub</h3>
             <p class="text-slate-500 text-xs mb-4">Efisiensi distribusi regional.</p>
             <div class="flex-1 space-y-3 overflow-y-auto pr-2">
                 <!-- Hub Card -->
-                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
+                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-900 dark:text-white">Palembang Pusat Hub (PLB-01)</span>
+                        <span class="font-bold text-sm text-on-surface">Palembang Pusat Hub (PLB-01)</span>
                         <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
                     </div>
                     <div class="flex justify-between items-end">
                         <span class="text-xs text-slate-500 font-bold">Efisiensi: 99,2%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
                             <div class="h-full bg-primary" style="width: 99%"></div>
                         </div>
                     </div>
                 </div>
                 <!-- Hub Card -->
-                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-amber-500 bg-slate-50 dark:bg-slate-900">
+                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-amber-500 bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-900 dark:text-white">Jakabaring Outpost (PLB-02)</span>
+                        <span class="font-bold text-sm text-on-surface">Jakabaring Outpost (PLB-02)</span>
                         <span class="text-amber-500 text-[10px] font-black tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">PERINGATAN RISIKO</span>
                     </div>
                     <div class="flex justify-between items-end">
                         <span class="text-xs text-slate-500 font-bold">Efisiensi: 84,5%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
                             <div class="h-full bg-amber-500" style="width: 84%"></div>
                         </div>
                     </div>
                 </div>
                 <!-- Hub Card -->
-                <div class="p-4 rounded border border-slate-200 dark:border-slate-800 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
+                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-slate-900 dark:text-white">Plaju Outpost (PLB-03)</span>
+                        <span class="font-bold text-sm text-on-surface">Plaju Outpost (PLB-03)</span>
                         <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
                     </div>
                     <div class="flex justify-between items-end">
                         <span class="text-xs text-slate-500 font-bold">Efisiensi: 97,8%</span>
-                        <div class="w-32 h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mb-1">
+                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
                             <div class="h-full bg-primary" style="width: 97%"></div>
                         </div>
                     </div>
@@ -253,8 +253,8 @@
 
     <!-- Operational Efficiency Table -->
     <x-card noPadding="true" class="mb-6 overflow-hidden">
-        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/40">
-            <h3 class="font-bold text-slate-900 dark:text-white">Indeks Efisiensi Rute</h3>
+        <div class="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container">
+            <h3 class="font-bold text-on-surface">Indeks Efisiensi Rute</h3>
             <div class="flex gap-2">
                 <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 rounded-lg transition-colors duration-300 cursor-pointer"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
                 <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100 rounded-lg transition-colors duration-300 cursor-pointer"><span class="material-symbols-outlined text-[18px]">fullscreen</span></button>
@@ -272,18 +272,18 @@
                         <x-table.th scope="col" class="text-right">Aksi</x-table.th>
                     </x-table.tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                <tbody class="divide-y divide-outline-variant/30">
                     @forelse($routesData as $route)
                     <x-table.tr data-box="BOX-{{ $route['id_box'] }}">
                         <x-table.td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</x-table.td>
-                        <td class="px-lg py-4 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+                        <td class="px-lg py-4 text-on-surface transition-colors duration-300">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600 text-xs font-black text-sky-600 dark:text-sky-400 transition-colors duration-300">
+                                <div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center border border-outline-variant/40 text-xs font-black text-primary transition-colors duration-300">
                                     {{ substr($route['nama_kurir'], 0, 2) }}
                                 </div>
                                 <div>
                                     <div class="font-semibold">{{ $route['nama_kurir'] }}</div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">{{ $route['tujuan'] }}</div>
+                                    <div class="text-xs text-on-surface-variant transition-colors duration-300">{{ $route['tujuan'] }}</div>
                                 </div>
                             </div>
                         </td>
@@ -295,24 +295,24 @@
                                     @endphp
                                     @for($i = 1; $i <= 5; $i++)
                                         @if($i <= $stars)
-                                            <span class="material-symbols-outlined text-sky-600 dark:text-sky-400 text-xs transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">star</span>
+                                            <span class="material-symbols-outlined text-primary text-xs transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">star</span>
                                         @else
                                             <span class="material-symbols-outlined text-slate-300 dark:text-slate-700 text-xs transition-colors duration-300">star</span>
                                         @endif
                                     @endfor
                                 </div>
-                                <span class="text-xs font-semibold text-sky-600 dark:text-sky-400 transition-colors duration-300">({{ number_format($route['efficiency_index'], 1, ',', '.') }}%)</span>
+                                <span class="text-xs font-semibold text-primary transition-colors duration-300">({{ number_format($route['efficiency_index'], 1, ',', '.') }}%)</span>
                             </div>
                         </td>
                         <td class="px-lg py-4 text-center">
                             @php
                                 $deviation = abs($route['avg_temp'] - 5.0);
                             @endphp
-                            <span class="px-2 py-0.5 rounded-full {{ $deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-sky-50 dark:bg-sky-500/10 border-sky-100 dark:border-sky-500/20 text-sky-600 dark:text-sky-400') }} text-[10px] font-black font-data-mono transition-colors duration-300">
-                                ±{{ number_format($deviation, 2, ',', '.') }}°C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}°C</span>)
+                            <span class="px-2 py-0.5 rounded-full {{ $deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-primary/10 border-primary/20 text-primary') }} text-[10px] font-black font-data-mono transition-colors duration-300">
+                                Ã‚Â±{{ number_format($deviation, 2, ',', '.') }}Ã‚Â°C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C</span>)
                             </span>
                         </td>
-                        <td class="px-lg py-4 text-right font-data-mono text-slate-500 dark:text-slate-400 transition-colors duration-300">
+                        <td class="px-lg py-4 text-right font-data-mono text-on-surface-variant transition-colors duration-300">
                             Risiko AI: <span id="risk-BOX-{{ $route['id_box'] }}">{{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
                         </td>
                         <td class="px-lg py-4 text-right">
@@ -322,7 +322,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}°C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     TINDAK LANJUT
                                 </button>
@@ -332,7 +332,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}°C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     Analisis
                                 </button>
@@ -341,13 +341,13 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-lg py-4 text-center text-slate-500 dark:text-slate-400 transition-colors duration-300">Tidak ada rute/sensor aktif saat ini.</td>
+                        <td colspan="6" class="px-lg py-4 text-center text-on-surface-variant transition-colors duration-300">Tidak ada rute/sensor aktif saat ini.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="p-md bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-700/50 flex justify-between items-center px-lg text-slate-500 dark:text-slate-400 transition-colors duration-300">
+        <div class="p-md bg-slate-50 dark:bg-slate-900/50 border-t border-outline-variant/30 flex justify-between items-center px-lg text-on-surface-variant transition-colors duration-300">
             <span class="text-xs font-medium font-label-md">Menampilkan {{ count($routesData) }} rute pengiriman obat aktif</span>
         </div>
     </x-card>
@@ -355,12 +355,12 @@
 
 <!-- Detailed Analysis Modal -->
 <div id="analysis-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-surface-container bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+    <div class="bg-surface-container bg-surface-container-low border border-outline-variant/30 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
         <!-- Modal Header -->
-        <div class="px-lg py-md border-b border-slate-200 dark:border-slate-700/50 flex justify-between items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+        <div class="px-lg py-md border-b border-outline-variant/30 flex justify-between items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
             <div class="flex items-center gap-sm">
-                <span class="material-symbols-outlined text-sky-600 dark:text-sky-400 transition-colors duration-300">query_stats</span>
-                <h3 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 transition-colors duration-300" id="modal-title">Analisis Detil Sensor</h3>
+                <span class="material-symbols-outlined text-primary transition-colors duration-300">query_stats</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface transition-colors duration-300" id="modal-title">Analisis Detil Sensor</h3>
             </div>
             <button id="close-analysis-modal" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 transition-colors duration-300">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
@@ -371,49 +371,49 @@
         <div class="p-lg overflow-y-auto space-y-lg flex-1">
             <!-- Info Cards Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Box ID</span>
-                    <p class="font-bold text-sky-600 dark:text-sky-400 mt-1 font-mono transition-colors duration-300" id="modal-box-id">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Box ID</span>
+                    <p class="font-bold text-primary mt-1 font-mono transition-colors duration-300" id="modal-box-id">-</p>
                 </div>
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Stabilitas</span>
-                    <p class="font-bold text-slate-800 dark:text-slate-100 mt-1 transition-colors duration-300" id="modal-stabilitas">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Stabilitas</span>
+                    <p class="font-bold text-on-surface mt-1 transition-colors duration-300" id="modal-stabilitas">-</p>
                 </div>
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Suhu Rerata</span>
-                    <p class="font-bold text-slate-800 dark:text-slate-100 mt-1 transition-colors duration-300" id="modal-suhu-rerata">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Suhu Rerata</span>
+                    <p class="font-bold text-on-surface mt-1 transition-colors duration-300" id="modal-suhu-rerata">-</p>
                 </div>
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Risiko AI</span>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Risiko AI</span>
                     <p class="font-bold text-red-600 dark:text-red-400 mt-1 transition-colors duration-300" id="modal-risiko-ai">-</p>
                 </div>
             </div>
 
             <!-- Shipment details -->
-            <div class="p-md rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/30 space-y-2 transition-colors duration-300">
+            <div class="p-md rounded-xl bg-slate-100/50 dark:bg-slate-900/50 border border-outline-variant/50/30 space-y-2 transition-colors duration-300">
                 <div class="flex justify-between text-xs">
-                    <span class="text-slate-500 dark:text-slate-400 transition-colors duration-300">Kurir Penanggung Jawab</span>
-                    <span class="font-bold text-slate-800 dark:text-slate-100 transition-colors duration-300" id="modal-kurir-name">-</span>
+                    <span class="text-on-surface-variant transition-colors duration-300">Kurir Penanggung Jawab</span>
+                    <span class="font-bold text-on-surface transition-colors duration-300" id="modal-kurir-name">-</span>
                 </div>
                 <div class="flex justify-between text-xs">
-                    <span class="text-slate-500 dark:text-slate-400 transition-colors duration-300">Tujuan Pengiriman</span>
-                    <span class="font-bold text-slate-800 dark:text-slate-100 truncate max-w-xs transition-colors duration-300" id="modal-dest">-</span>
+                    <span class="text-on-surface-variant transition-colors duration-300">Tujuan Pengiriman</span>
+                    <span class="font-bold text-on-surface truncate max-w-xs transition-colors duration-300" id="modal-dest">-</span>
                 </div>
             </div>
 
             <!-- Telemetry Log Simulation Chart -->
             <div class="space-y-sm">
-                <h4 class="font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider transition-colors duration-300">Simulasi Fluktuasi Telemetri (1 Jam Terakhir)</h4>
-                <div id="chart-modal-telemetry" class="w-full h-44 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/30 p-2 transition-colors duration-300"></div>
+                <h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider transition-colors duration-300">Simulasi Fluktuasi Telemetri (1 Jam Terakhir)</h4>
+                <div id="chart-modal-telemetry" class="w-full h-44 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-outline-variant/50/30 p-2 transition-colors duration-300"></div>
             </div>
         </div>
         
         <!-- Modal Footer -->
-        <div class="px-lg py-md border-t border-slate-200 dark:border-slate-700/50 flex justify-end gap-sm bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-            <button id="btn-modal-calibrate" class="px-md py-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 flex items-center gap-1 duration-300">
-                <span class="material-symbols-outlined text-[16px] text-sky-600 dark:text-sky-400 transition-colors duration-300">tune</span> Kalibrasi Sensor
+        <div class="px-lg py-md border-t border-outline-variant/30 flex justify-end gap-sm bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <button id="btn-modal-calibrate" class="px-md py-2 border border-outline-variant/50 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 flex items-center gap-1 duration-300">
+                <span class="material-symbols-outlined text-[16px] text-primary transition-colors duration-300">tune</span> Kalibrasi Sensor
             </button>
-            <button id="close-analysis-modal-btn" class="px-md py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-semibold transition-all duration-300 active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
+            <button id="close-analysis-modal-btn" class="px-md py-2 bg-primary hover:bg-primary/90 text-white rounded-xl text-xs font-semibold transition-all duration-300 active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
                 Tutup
             </button>
         </div>
@@ -422,12 +422,12 @@
 
 <!-- AI Shelf-life Projection Modal -->
 <div id="projection-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-surface-container bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+    <div class="bg-surface-container bg-surface-container-low border border-outline-variant/30 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
         <!-- Modal Header -->
-        <div class="px-lg py-md border-b border-slate-200 dark:border-slate-700/50 flex justify-between items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+        <div class="px-lg py-md border-b border-outline-variant/30 flex justify-between items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
             <div class="flex items-center gap-sm">
-                <span class="material-symbols-outlined text-sky-600 dark:text-sky-400 transition-colors duration-300">psychology</span>
-                <h3 class="font-headline-sm text-headline-sm text-slate-800 dark:text-slate-100 transition-colors duration-300" id="proj-modal-title">Proyeksi Penurunan Kualitas AI</h3>
+                <span class="material-symbols-outlined text-primary transition-colors duration-300">psychology</span>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface transition-colors duration-300" id="proj-modal-title">Proyeksi Penurunan Kualitas AI</h3>
             </div>
             <button id="close-projection-modal" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 transition-colors duration-300">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
@@ -438,35 +438,35 @@
         <div class="p-lg overflow-y-auto space-y-lg flex-1">
             <!-- Info Header -->
             <div class="grid grid-cols-3 gap-sm">
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Box ID & Kargo</span>
-                    <p class="font-bold text-sky-600 dark:text-sky-400 mt-1 font-mono text-xs truncate transition-colors duration-300" id="proj-modal-box">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Box ID & Kargo</span>
+                    <p class="font-bold text-primary mt-1 font-mono text-xs truncate transition-colors duration-300" id="proj-modal-box">-</p>
                 </div>
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Mean Kinetic Temp</span>
-                    <p class="font-bold text-slate-800 dark:text-slate-100 mt-1 transition-colors duration-300" id="proj-modal-mkt">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Mean Kinetic Temp</span>
+                    <p class="font-bold text-on-surface mt-1 transition-colors duration-300" id="proj-modal-mkt">-</p>
                 </div>
-                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 transition-colors duration-300">
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold transition-colors duration-300">Est. Kelayakan</span>
-                    <p class="font-bold text-sky-600 dark:text-sky-400 mt-1 text-xs truncate transition-colors duration-300" id="proj-modal-shelflife">-</p>
+                <div class="p-md rounded-xl bg-slate-50 dark:bg-slate-900 border border-outline-variant/30 transition-colors duration-300">
+                    <span class="text-[10px] text-on-surface-variant uppercase font-semibold transition-colors duration-300">Est. Kelayakan</span>
+                    <p class="font-bold text-primary mt-1 text-xs truncate transition-colors duration-300" id="proj-modal-shelflife">-</p>
                 </div>
             </div>
 
             <!-- Description -->
-            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed transition-colors duration-300">
+            <p class="text-xs text-on-surface-variant leading-relaxed transition-colors duration-300">
                 Grafik di bawah mensimulasikan laju degradasi kualitas produk biologis berdasarkan akumulasi paparan panas (Arrhenius Equation) dibandingkan dengan batas toleransi CDOB BPOM.
             </p>
 
             <!-- ApexCharts spline chart container -->
             <div class="space-y-sm">
-                <h4 class="font-label-md text-label-md text-slate-500 dark:text-slate-400 uppercase tracking-wider transition-colors duration-300">Kurva Degradasi Kualitas (MKT vs Sisa Jam)</h4>
-                <div id="chart-degradasi-kualitas" class="w-full h-56 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700/30 p-2 transition-colors duration-300"></div>
+                <h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider transition-colors duration-300">Kurva Degradasi Kualitas (MKT vs Sisa Jam)</h4>
+                <div id="chart-degradasi-kualitas" class="w-full h-56 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-outline-variant/50/30 p-2 transition-colors duration-300"></div>
             </div>
         </div>
         
         <!-- Modal Footer -->
-        <div class="px-lg py-md border-t border-slate-200 dark:border-slate-700/50 flex justify-end gap-sm bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-            <button id="close-projection-modal-btn" class="px-md py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-semibold transition-all duration-300 active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
+        <div class="px-lg py-md border-t border-outline-variant/30 flex justify-end gap-sm bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <button id="close-projection-modal-btn" class="px-md py-2 bg-primary hover:bg-primary/90 text-white rounded-xl text-xs font-semibold transition-all duration-300 active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
                 Tutup Proyeksi
             </button>
         </div>
@@ -474,12 +474,12 @@
 </div>
 
 <!-- Interactive Layer: Notification Toast (Micro-interaction) -->
-<div class="fixed bottom-gutter right-gutter bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 p-md rounded-xl border-l-4 border-sky-500 dark:border-sky-400 translate-y-24 opacity-0 transition-all duration-500 z-50 pointer-events-none shadow-lg" id="toast">
+<div class="fixed bottom-gutter right-gutter bg-surface-container-low border border-outline-variant/30 p-md rounded-xl border-l-4 border-sky-500 dark:border-sky-400 translate-y-24 opacity-0 transition-all duration-500 z-50 pointer-events-none shadow-lg" id="toast">
     <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-sky-600 dark:text-sky-400 transition-colors duration-300">analytics</span>
+        <span class="material-symbols-outlined text-primary transition-colors duration-300">analytics</span>
         <div>
-            <div class="font-bold text-sm text-slate-800 dark:text-slate-100 transition-colors duration-300" id="toast-title">Laporan Berhasil Dibuat</div>
-            <div class="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300" id="toast-desc">Ringkasan Operasional Q1 telah siap.</div>
+            <div class="font-bold text-sm text-on-surface transition-colors duration-300" id="toast-title">Laporan Berhasil Dibuat</div>
+            <div class="text-xs text-on-surface-variant transition-colors duration-300" id="toast-desc">Ringkasan Operasional Q1 telah siap.</div>
         </div>
     </div>
 </div>
@@ -602,9 +602,9 @@
         buttons.forEach((btn, idx) => {
             btn.addEventListener('click', () => {
                 buttons.forEach(b => {
-                    b.className = 'q-btn px-4 py-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300';
+                    b.className = 'q-btn px-4 py-1.5 text-xs font-medium text-on-surface-variant hover:text-slate-800 dark:hover:text-slate-200 rounded-md transition-all duration-300';
                 });
-                btn.className = 'q-btn px-4 py-1.5 text-xs font-bold bg-sky-600/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300';
+                btn.className = 'q-btn px-4 py-1.5 text-xs font-bold bg-primary/10 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 rounded-md transition-all duration-300';
                 
                 // Trigger chart updates with randomized dummy trends based on quarter selected
                 let mult = (idx === 0) ? 1.0 : ((idx === 1) ? 1.4 : 0.8);
@@ -716,7 +716,7 @@
 
             var modalChartOpts = {
                 series: [{
-                    name: "Suhu Sensor (°C)",
+                    name: "Suhu Sensor (Ã‚Â°C)",
                     data: mockTemps
                 }],
                 chart: {
@@ -781,7 +781,7 @@
                 calibrateBtn.disabled = true;
                 setTimeout(() => {
                     calibrateBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle text-green-400">check_circle</span> Terkalibrasi';
-                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar ±0,02°C.`);
+                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar Ã‚Â±0,02Ã‚Â°C.`);
                     if (currentActiveBtn) {
                         currentActiveBtn.innerHTML = 'Analisis';
                         currentActiveBtn.className = 'btn-analisis text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 text-xs font-bold uppercase tracking-tighter active:scale-95 transition-all duration-300';
@@ -807,7 +807,7 @@
 
         function openProjModal(data) {
             projBox.textContent = `${data.box} - ${data.kargo}`;
-            projMkt.textContent = `${data.mkt}°C`;
+            projMkt.textContent = `${data.mkt}Ã‚Â°C`;
             projShelfLife.textContent = data.shelflife;
             
             projModal.classList.remove('hidden');
@@ -924,7 +924,7 @@
                     const boxId = 'BOX-' + route.id_box;
                     const tempEl = document.getElementById('temp-' + boxId);
                     if (tempEl) {
-                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + '°C';
+                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + 'Ã‚Â°C';
                     }
                     const riskEl = document.getElementById('risk-' + boxId);
                     if (riskEl) {

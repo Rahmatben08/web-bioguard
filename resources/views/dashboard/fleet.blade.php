@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex-1 w-full h-full flex flex-col md:flex-row overflow-hidden relative bg-background">
     <!-- Sidebar - Active Drivers List -->
-    <aside class="w-full md:w-96 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col shrink-0 h-1/3 md:h-full z-20 shadow-2xl overflow-hidden">
+    <aside id="fleet-sidebar" class="w-full md:w-96 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col shrink-0 h-1/3 md:h-full z-20 shadow-2xl overflow-hidden transition-all duration-300">
         <!-- Sidebar Header -->
         <div class="p-lg border-b border-outline-variant/20 bg-surface-container-high/40 shrink-0">
             <nav class="flex justify-between items-center text-label-md text-outline mb-1 gap-2">
@@ -37,24 +37,26 @@
                     elseif ($excursion['status'] === 'Peringatan') $badgeColor = 'warning';
                     elseif ($excursion['status'] === 'Tidak Layak Pakai') $badgeColor = 'error';
                 @endphp
-                <tr id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer group">
-                    <td class="p-2 border-b border-slate-200 dark:border-slate-800">
-                        <div class="font-bold text-slate-900 dark:text-white truncate">{{ $perjalanan->kurir->nama_lengkap }}</div>
-                        <div class="text-[10px] text-slate-500 font-mono">{{ $perjalanan->kurir->nomor_kendaraan }}</div>
+                <tr id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="hover:bg-surface-container-high transition-colors cursor-pointer group">
+                    <td class="p-2 border-b border-outline-variant/30">
+                        <div class="font-bold text-on-surface truncate">{{ $perjalanan->kurir->nama_lengkap }}</div>
+                        <div class="text-[10px] text-on-surface-variant font-mono">{{ $perjalanan->kurir->nomor_kendaraan }}</div>
                     </td>
-                    <td class="p-2 border-b border-slate-200 dark:border-slate-800 tabular-nums">
+                    <td class="p-2 border-b border-outline-variant/30 tabular-nums">
                         @if($log)
-                            <span class="font-bold text-slate-700 dark:text-slate-300" id="temp-val-{{ $perjalanan->id_rute }}">
+                            <span class="font-bold text-on-surface" id="temp-val-{{ $perjalanan->id_rute }}">
                                 {{ number_format($log->suhu_aktual, 1, ',', '.') }}°C
                             </span>
                         @else
-                            <span class="text-slate-400">-</span>
+                            <span class="text-on-surface-variant">-</span>
                         @endif
                     </td>
-                    <td class="p-2 border-b border-slate-200 dark:border-slate-800 text-right">
-                        <x-badge color="{{ $badgeColor }}">
-                            {{ $excursion['status'] === 'Aman' ? 'AMAN' : ($excursion['status'] === 'Peringatan' ? 'PERINGATAN' : 'BAHAYA') }}
-                        </x-badge>
+                    <td class="p-2 border-b border-outline-variant/30 text-right">
+                        <span id="status-badge-{{ $perjalanan->id_rute }}">
+                            <x-badge color="{{ $badgeColor }}" class="{{ $badgeColor !== 'success' ? 'animate-pulse motion-reduce:animate-none' : '' }}">
+                                {{ $excursion['status'] === 'Aman' ? 'AMAN' : ($excursion['status'] === 'Peringatan' ? 'PERINGATAN' : 'BAHAYA') }}
+                            </x-badge>
+                        </span>
                     </td>
                 </tr>
             @empty
@@ -67,12 +69,31 @@
             @endforelse
             </x-table>
         </div>
-        </div>
     </aside>
 
-    <!-- Map Section -->
-    <main class="flex-1 h-2/3 md:h-full relative z-10 p-4 bg-slate-50 dark:bg-slate-900" id="map-container">
-        <div class="w-full h-full rounded-md border border-slate-300 dark:border-slate-700 overflow-hidden shadow-sm">
+    <!-- Map Container -->
+    <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 dark:bg-slate-900" id="map-container">
+        <!-- Floating Persistent Summary Overlay (z-[1000]) -->
+        <div class="absolute top-4 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">
+            <div class="pointer-events-auto flex items-center gap-2">
+                <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer" title="Toggle Sidebar">
+                    <span id="sidebar-icon" class="material-symbols-outlined text-[20px]">menu_open</span>
+                </button>
+                <x-card noPadding="true" class="shadow-lg backdrop-blur-md bg-surface/90 border border-outline-variant/30 flex items-center p-2 rounded-full px-4 gap-4 transition-all duration-300">
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-on-surface">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                        <span id="summary-aktif">-- Aktif</span>
+                    </div>
+                    <div class="w-px h-4 bg-outline-variant/50"></div>
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-error">
+                        <span class="w-2 h-2 rounded-full bg-error animate-pulse motion-reduce:animate-none"></span>
+                        <span id="summary-alert">-- Peringatan</span>
+                    </div>
+                </x-card>
+            </div>
+        </div>
+
+        <div class="w-full h-full overflow-hidden">
             <div id="fleet-map" class="w-full h-full"></div>
         </div>
     </main>
@@ -544,10 +565,22 @@
                     }));
 
                     // Update Sidebar values dynamically
+                    if (res.stats) {
+                        const aktifEl = document.getElementById('summary-aktif');
+                        const alertEl = document.getElementById('summary-alert');
+                        if (aktifEl) aktifEl.textContent = `${res.stats.total_kurir_aktif} Aktif`;
+                        if (alertEl) alertEl.textContent = `${res.stats.alert_count} Peringatan`;
+                    }
+                    
                     res.data.forEach(route => {
                         const tempEl = document.getElementById(`temp-val-${route.id_rute}`);
                         if (tempEl) {
-                            tempEl.textContent = route.suhu_aktual.toFixed(1).replace('.', ',') + '°C';
+                            const newText = route.suhu_aktual.toFixed(1).replace('.', ',') + '°C';
+                            if (tempEl.textContent.trim() !== newText) {
+                                tempEl.textContent = newText;
+                                tempEl.classList.add('text-primary', 'transition-colors', 'duration-300');
+                                setTimeout(() => tempEl.classList.remove('text-primary'), 500);
+                            }
                         }
 
                         const badgeEl = document.getElementById(`status-badge-${route.id_rute}`);
@@ -555,13 +588,13 @@
                             let content = '';
                             if (route.excursion_status === 'Aman') {
                                 content = `<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Rantai Dingin Aman`;
-                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-primary';
+                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-primary transition-colors duration-300';
                             } else if (route.excursion_status === 'Peringatan') {
-                                content = `<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span> Peringatan Dini`;
-                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-tertiary';
+                                content = `<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse motion-reduce:animate-none"></span> Peringatan Dini`;
+                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-tertiary transition-colors duration-300';
                             } else {
-                                content = `<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Bahaya: Ekskursi Suhu`;
-                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-error animate-pulse';
+                                content = `<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse motion-reduce:animate-none"></span> Bahaya: Ekskursi Suhu`;
+                                badgeEl.className = 'inline-flex items-center gap-1 text-[10px] font-semibold text-error transition-colors duration-300';
                             }
                             badgeEl.innerHTML = content;
                         }
@@ -588,5 +621,27 @@
             card.style.display = text.includes(filter) ? '' : 'none';
         });
     });
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('fleet-sidebar');
+        const icon = document.getElementById('sidebar-icon');
+        
+        if (sidebar.classList.contains('md:w-0')) {
+            sidebar.classList.remove('md:w-0', 'w-0', 'h-0', 'opacity-0', 'border-none');
+            sidebar.classList.add('md:w-96', 'w-full', 'h-1/3', 'md:h-full');
+            icon.textContent = 'menu_open';
+        } else {
+            sidebar.classList.add('md:w-0', 'w-0', 'h-0', 'opacity-0', 'border-none');
+            sidebar.classList.remove('md:w-96', 'w-full', 'h-1/3', 'md:h-full');
+            icon.textContent = 'menu';
+        }
+        
+        // Let transition finish before invalidating map size
+        setTimeout(() => {
+            if (typeof map !== 'undefined' && map) {
+                map.invalidateSize();
+            }
+        }, 300);
+    }
 </script>
 @endpush
