@@ -34,7 +34,7 @@
         </div>
 
         {{-- Action Buttons --}}
-        <div class="flex items-center gap-4 relative">
+        <div class="flex items-center gap-6 relative">
             {{-- Lonceng Notifikasi Dropdown --}}
             <div class="relative z-50" id="notification-hub-container">
                 <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
@@ -134,14 +134,18 @@
 
         {{-- Card 3: System Status --}}
         <x-metric-card title="Status Sistem" value="TERHUBUNG" icon="cell_tower" color="green-500" valueClass="text-2xl truncate">
-            <div class="flex items-center gap-xs mt-1 absolute right-6 top-8">
+            <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-medium text-slate-500">Peringatan Aktif:</span>
                 <div class="shrink-0" id="stat-alerts-container">
                     <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider {{ ($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden' }}">
                         {{ $alertCount ?? 0 }} Alarm
                     </span>
+                    <span id="stat-alerts-empty" class="text-[11px] font-bold text-green-600 {{ ($alertCount ?? 0) == 0 ? '' : 'hidden' }}">
+                        Aman
+                    </span>
                 </div>
             </div>
-            <div class="absolute top-6 right-6 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse"></div>
+            <div class="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse border-2 border-white dark:border-slate-900"></div>
         </x-metric-card>
     </div>
 

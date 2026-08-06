@@ -606,7 +606,7 @@
         @auth
         <div class="px-md border-t border-slate-200 dark:border-slate-800/60 pt-md mt-auto flex flex-col gap-sm">
             <div class="flex items-center gap-md bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 rounded-xl p-md">
-                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('uploads/default-avatar.png') }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0">
+                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
                 <div class="min-w-0 flex-1">
                     <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
                     <p class="text-[9px] text-slate-500 font-mono font-bold mt-0.5 truncate">{{ auth()->user()->dispatcher_id }}</p>
@@ -698,7 +698,7 @@
         @auth
         <div class="px-md border-t border-slate-200 dark:border-slate-800/60 pt-md mt-auto flex flex-col gap-sm">
             <div class="flex items-center gap-md bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 rounded-xl p-md">
-                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('uploads/default-avatar.png') }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0">
+                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
                 <div class="min-w-0 flex-1">
                     <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
                     <p class="text-[9px] text-slate-500 font-mono font-bold mt-0.5 truncate">{{ auth()->user()->dispatcher_id }}</p>
