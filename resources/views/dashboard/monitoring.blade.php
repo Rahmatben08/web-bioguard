@@ -1810,7 +1810,7 @@ const plannedPaths = {
         const datepickerEl = document.getElementById('datepicker');
         const selectedDate = datepickerEl ? datepickerEl.value : '';
         
-        let url = '/api/fleet/live-location';
+        let url = '/dashboard/fleet/live-location';
         if (isHistoricalMode && selectedDate) {
             url += `?date=${selectedDate}`;
         }
@@ -2189,7 +2189,7 @@ const plannedPaths = {
 
         showTelemetryShimmer();
 
-        fetch(`/api/fleet/live-location?date=${dateStr}`, {
+        fetch(`/dashboard/fleet/live-location?date=${dateStr}`, {
             headers: {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''

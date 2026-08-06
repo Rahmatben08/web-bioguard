@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/peringatan/{id}/resolve', [AlertController::class, 'resolve'])
         ->name('alerts.resolve');
 
-    Route::get('/api/fleet/live-location', [FleetController::class, 'liveLocation'])
+    Route::get('/dashboard/fleet/live-location', [FleetController::class, 'liveLocation'])
         ->name('fleet.live');
 
     Route::get('/armada', [FleetController::class, 'index'])

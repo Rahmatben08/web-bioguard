@@ -263,19 +263,19 @@
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead>
-                    <table.tr>
-                        <table.th>ID Rute (Box)</th>
-                        <table.th>Mitra Kurir / Tujuan</th>
-                        <table.th class="text-center">Peringkat Stabilitas (Indeks)</th>
-                        <table.th class="text-center">Suhu Penyimpanan</th>
-                        <table.th class="text-right">Potensi Risiko Spoilage (AI)</th>
-                        <table.th class="text-right">Aksi</th>
-                    </tr>
+                    <x-table.tr>
+                        <x-table.th scope="col">ID Rute (Box)</x-table.th>
+                        <x-table.th scope="col">Mitra Kurir / Tujuan</x-table.th>
+                        <x-table.th scope="col" class="text-center">Peringkat Stabilitas (Indeks)</x-table.th>
+                        <x-table.th scope="col" class="text-center">Suhu Penyimpanan</x-table.th>
+                        <x-table.th scope="col" class="text-right">Potensi Risiko Spoilage (AI)</x-table.th>
+                        <x-table.th scope="col" class="text-right">Aksi</x-table.th>
+                    </x-table.tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
                     @forelse($routesData as $route)
-                    <table.tr data-box="BOX-{{ $route['id_box'] }}">
-                        <table.td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</td>
+                    <x-table.tr data-box="BOX-{{ $route['id_box'] }}">
+                        <x-table.td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</x-table.td>
                         <td class="px-lg py-4 text-slate-800 dark:text-slate-100 transition-colors duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600 text-xs font-black text-sky-600 dark:text-sky-400 transition-colors duration-300">
