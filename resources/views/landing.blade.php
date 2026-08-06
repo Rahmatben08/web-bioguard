@@ -890,7 +890,7 @@
                 console.error("Error fetching live data:", error);
             }
         }
-        setInterval(updateWidget, 5000);
+        setInterval(updateWidget, 15000);
         updateWidget(); // run once immediately
 
         // ─── Parallax Tilt on Hover ─────────────────────────────────────
