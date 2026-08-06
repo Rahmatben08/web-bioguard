@@ -34,7 +34,7 @@
         </div>
 
         {{-- Action Buttons --}}
-        <div class="flex items-center gap-sm relative">
+        <div class="flex items-center gap-4 relative">
             {{-- Lonceng Notifikasi Dropdown --}}
             <div class="relative z-50" id="notification-hub-container">
                 <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">

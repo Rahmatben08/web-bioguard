@@ -1,6 +1,6 @@
 @props(['icon' => null, 'title', 'value', 'color' => 'primary', 'trend' => null, 'trendUp' => true, 'valueId' => null, 'valueClass' => ''])
 
-<x-card class="flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-{{ $color }}/50">
+<x-card class="relative flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-{{ $color }}/50">
     <div class="flex justify-between items-start mb-2">
         <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ $title }}</span>
         @if($icon)
