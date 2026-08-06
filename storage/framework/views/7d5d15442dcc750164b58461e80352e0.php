@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Analisis Telemetri & Sensor'); ?>
 
-@section('title', 'Analisis Telemetri & Sensor')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex-1 w-full min-h-full transition-colors duration-300 p-container-margin space-y-lg">
     <!-- Header Controls Section -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md mb-md">
@@ -13,20 +11,20 @@
             <h1 class="font-headline-lg text-headline-lg text-on-surface transition-colors duration-300">Laporan & Analisis</h1>
             <p class="text-on-surface-variant font-body-md text-body-md transition-colors duration-300">Metrik kinerja distribusi biologis tingkat perusahaan.</p>
         </div>
-        @php
+        <?php
             $selectedDate = request()->input('date');
             $selectedBox = request()->input('id_box');
-        @endphp
+        ?>
         <div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
             <!-- Filter Inputs -->
             <div class="flex gap-2 items-center flex-wrap">
-                <input type="date" id="filter-date" value="{{ $selectedDate }}" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
+                <input type="date" id="filter-date" value="<?php echo e($selectedDate); ?>" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
                 <select id="filter-box" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 pr-8 transition-colors duration-300">
                     <option value="">Semua Boks</option>
-                    <option value="BOX-001" {{ $selectedBox === 'BOX-001' ? 'selected' : '' }}>BOX-001</option>
-                    <option value="BOX-002" {{ $selectedBox === 'BOX-002' ? 'selected' : '' }}>BOX-002</option>
-                    <option value="BOX-003" {{ $selectedBox === 'BOX-003' ? 'selected' : '' }}>BOX-003</option>
-                    <option value="BOX-004" {{ $selectedBox === 'BOX-004' ? 'selected' : '' }}>BOX-004</option>
+                    <option value="BOX-001" <?php echo e($selectedBox === 'BOX-001' ? 'selected' : ''); ?>>BOX-001</option>
+                    <option value="BOX-002" <?php echo e($selectedBox === 'BOX-002' ? 'selected' : ''); ?>>BOX-002</option>
+                    <option value="BOX-003" <?php echo e($selectedBox === 'BOX-003' ? 'selected' : ''); ?>>BOX-003</option>
+                    <option value="BOX-004" <?php echo e($selectedBox === 'BOX-004' ? 'selected' : ''); ?>>BOX-004</option>
                 </select>
                 <button onclick="applyFilters()" class="bg-primary hover:bg-primary/90 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 duration-100 shadow-md shadow-primary/20 cursor-pointer">
                     Filter
@@ -53,7 +51,16 @@
     <!-- KPI Overview Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-md">
         <!-- Metric 1 -->
-        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300">
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300']); ?>
             <div class="flex justify-between items-start z-10">
                 <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Skor Integritas Armada</span>
                 <span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
@@ -65,9 +72,27 @@
             <div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
                 <div class="h-full bg-primary" style="width: 98.4%"></div>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
         <!-- Metric 2 -->
-        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-amber-500/40 transition-all duration-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-amber-500/40 transition-all duration-300']); ?>
             <div class="flex justify-between items-start z-10">
                 <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Total Anomali</span>
                 <span class="text-amber-500 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
@@ -79,9 +104,27 @@
             <div class="absolute bottom-0 left-0 w-full h-1 bg-surface-container-highest">
                 <div class="h-full bg-amber-500" style="width: 15%"></div>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
         <!-- Metric 3 -->
-        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300">
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'h-32 flex flex-col justify-between overflow-hidden group hover:border-primary/40 transition-all duration-300']); ?>
             <div class="flex justify-between items-start z-10">
                 <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest">Kepatuhan Regulasi</span>
                 <span class="text-primary material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
@@ -91,7 +134,16 @@
                 <span class="px-2 py-0.5 rounded-full border border-primary/40 text-primary bg-primary/5 text-[10px] uppercase font-black tracking-tighter">Tersertifikasi</span>
             </div>
             <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
         <!-- Metric 4 -->
         <div class="bg-surface-container-low border border-outline-variant/30 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
@@ -115,8 +167,8 @@
             <h2 class="font-headline-sm text-headline-sm text-on-surface transition-colors duration-300">AI Predictive Shelf-life Monitor (Kepatuhan CDOB)</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            @foreach($routesData as $route)
-            @php
+            <?php $__currentLoopData = $routesData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $route): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php
                 $mktVal = (float)$route['mkt'];
                 if ($mktVal >= 2.0 && $mktVal <= 8.0) {
                     $shelfLife = "36 Jam (Optimal)";
@@ -137,52 +189,79 @@
                     $shelfBg = "bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400 animate-pulse";
                     $shelfTextColor = "text-red-600 dark:text-red-400";
                 }
-            @endphp
-            <x-card class="transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-primary/40">
+            ?>
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-primary/40']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'transition-all duration-300 flex flex-col justify-between gap-sm relative overflow-hidden group hover:border-primary/40']); ?>
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                     <span class="material-symbols-outlined text-7xl text-on-surface">hourglass_empty</span>
                 </div>
                 
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-outline-variant/40">BOX-{{ $route['id_box'] }}</span>
-                        <h4 class="font-bold text-base text-on-surface mt-1.5">{{ $route['nama_kargo'] }}</h4>
-                        <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-outline-variant/40">BOX-<?php echo e($route['id_box']); ?></span>
+                        <h4 class="font-bold text-base text-on-surface mt-1.5"><?php echo e($route['nama_kargo']); ?></h4>
+                        <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: <?php echo e($route['nama_kurir']); ?></p>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono">
-                        {{ number_format($mktVal, 1, ',', '.') }}&deg;C MKT
+                    <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide <?php echo e($shelfBg); ?> border font-mono">
+                        <?php echo e(number_format($mktVal, 1, ',', '.')); ?>&deg;C MKT
                     </span>
                 </div>
 
                 <div class="space-y-1.5 mt-2">
                     <div class="flex justify-between text-xs font-semibold">
                         <span class="text-slate-500">Est. Sisa Waktu Kelayakan:</span>
-                        <span class="font-bold uppercase {{ $shelfTextColor }}">{{ $shelfLife }}</span>
+                        <span class="font-bold uppercase <?php echo e($shelfTextColor); ?>"><?php echo e($shelfLife); ?></span>
                     </div>
                     <div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
-                        <div class="h-full {{ $shelfColor }} rounded-full transition-all duration-500" style="width: {{ $shelfLifeProgress }}%"></div>
+                        <div class="h-full <?php echo e($shelfColor); ?> rounded-full transition-all duration-500" style="width: <?php echo e($shelfLifeProgress); ?>%"></div>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center mt-3 pt-3 border-t border-outline-variant/20">
-                    <span class="text-[10px] text-slate-500 font-mono font-bold">AI Risk Projection: {{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
+                    <span class="text-[10px] text-slate-500 font-mono font-bold">AI Risk Projection: <?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%</span>
                     <button class="btn-proyeksi text-primary hover:text-primary/80 text-xs font-bold uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all duration-300 cursor-pointer" 
-                            data-box="BOX-{{ $route['id_box'] }}"
-                            data-kargo="{{ $route['nama_kargo'] }}"
-                            data-mkt="{{ number_format($mktVal, 1, ',', '.') }}"
-                            data-shelflife="{{ $shelfLife }}">
+                            data-box="BOX-<?php echo e($route['id_box']); ?>"
+                            data-kargo="<?php echo e($route['nama_kargo']); ?>"
+                            data-mkt="<?php echo e(number_format($mktVal, 1, ',', '.')); ?>"
+                            data-shelflife="<?php echo e($shelfLife); ?>">
                         <span class="material-symbols-outlined text-xs">trending_up</span> Proyeksi AI
                     </button>
                 </div>
-            </x-card>
-            @endforeach
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
 
     <!-- Middle Section: Map and Risk Trends -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-md">
         <!-- Predictive Risk Trends Chart -->
-        <x-card class="lg:col-span-8 flex flex-col min-h-[400px]">
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'lg:col-span-8 flex flex-col min-h-[400px]']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'lg:col-span-8 flex flex-col min-h-[400px]']); ?>
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h3 class="font-bold text-on-surface">Tren Risiko Prediktif</h3>
@@ -201,10 +280,28 @@
             </div>
             <!-- Dynamic Chart (ApexCharts) -->
             <div id="chart-risiko-prediktif" class="flex-1 min-h-[250px] w-full"></div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
         <!-- Regional Heatmap / Hub Performance -->
-        <x-card class="lg:col-span-4 flex flex-col h-full overflow-hidden">
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'lg:col-span-4 flex flex-col h-full overflow-hidden']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'lg:col-span-4 flex flex-col h-full overflow-hidden']); ?>
             <h3 class="font-bold text-on-surface mb-1">Kinerja Hub</h3>
             <p class="text-slate-500 text-xs mb-4">Efisiensi distribusi regional.</p>
             <div class="flex-1 space-y-3 overflow-y-auto pr-2">
@@ -248,11 +345,29 @@
                     </div>
                 </div>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
     </div>
 
     <!-- Operational Efficiency Table -->
-    <x-card noPadding="true" class="mb-6 overflow-hidden">
+    <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'mb-6 overflow-hidden']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'mb-6 overflow-hidden']); ?>
         <div class="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container">
             <h3 class="font-bold text-on-surface">Indeks Efisiensi Rute</h3>
             <div class="flex gap-2">
@@ -273,84 +388,94 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-outline-variant/30">
-                    @forelse($routesData as $route)
-                    <tr data-box="BOX-{{ $route['id_box'] }}">
-                        <td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</td>
+                    <?php $__empty_1 = true; $__currentLoopData = $routesData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $route): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <tr data-box="BOX-<?php echo e($route['id_box']); ?>">
+                        <td class="font-bold text-primary">BOX-<?php echo e($route['id_box']); ?></td>
                         <td class="px-lg py-4 text-on-surface transition-colors duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center border border-outline-variant/40 text-xs font-black text-primary transition-colors duration-300">
-                                    {{ substr($route['nama_kurir'], 0, 2) }}
+                                    <?php echo e(substr($route['nama_kurir'], 0, 2)); ?>
+
                                 </div>
                                 <div>
-                                    <div class="font-semibold">{{ $route['nama_kurir'] }}</div>
-                                    <div class="text-xs text-on-surface-variant transition-colors duration-300">{{ $route['tujuan'] }}</div>
+                                    <div class="font-semibold"><?php echo e($route['nama_kurir']); ?></div>
+                                    <div class="text-xs text-on-surface-variant transition-colors duration-300"><?php echo e($route['tujuan']); ?></div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-lg py-4">
                             <div class="flex justify-center items-center gap-2">
                                 <div class="flex gap-0.5">
-                                    @php
+                                    <?php
                                         $stars = round($route['efficiency_index'] / 20);
-                                    @endphp
-                                    @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= $stars)
+                                    ?>
+                                    <?php for($i = 1; $i <= 5; $i++): ?>
+                                        <?php if($i <= $stars): ?>
                                             <span class="material-symbols-outlined text-primary text-xs transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">star</span>
-                                        @else
+                                        <?php else: ?>
                                             <span class="material-symbols-outlined text-slate-300 dark:text-slate-700 text-xs transition-colors duration-300">star</span>
-                                        @endif
-                                    @endfor
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
                                 </div>
-                                <span class="text-xs font-semibold text-primary transition-colors duration-300">({{ number_format($route['efficiency_index'], 1, ',', '.') }}%)</span>
+                                <span class="text-xs font-semibold text-primary transition-colors duration-300">(<?php echo e(number_format($route['efficiency_index'], 1, ',', '.')); ?>%)</span>
                             </div>
                         </td>
                         <td class="px-lg py-4 text-center">
-                            @php
+                            <?php
                                 $deviation = abs($route['avg_temp'] - 5.0);
-                            @endphp
-                            <span class="px-2 py-0.5 rounded-full {{ $deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-primary/10 border-primary/20 text-primary') }} text-[10px] font-black font-data-mono transition-colors duration-300">
-                                &plusmn;{{ number_format($deviation, 2, ',', '.') }}&deg;C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C</span>)
+                            ?>
+                            <span class="px-2 py-0.5 rounded-full <?php echo e($deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-primary/10 border-primary/20 text-primary')); ?> text-[10px] font-black font-data-mono transition-colors duration-300">
+                                &plusmn;<?php echo e(number_format($deviation, 2, ',', '.')); ?>&deg;C (Rerata: <span id="temp-BOX-<?php echo e($route['id_box']); ?>"><?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C</span>)
                             </span>
                         </td>
                         <td class="px-lg py-4 text-right font-data-mono text-on-surface-variant transition-colors duration-300">
-                            Risiko AI: <span id="risk-BOX-{{ $route['id_box'] }}">{{ number_format($route['ai_risk'], 2, ',', '.') }}%</span>
+                            Risiko AI: <span id="risk-BOX-<?php echo e($route['id_box']); ?>"><?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%</span>
                         </td>
                         <td class="px-lg py-4 text-right">
-                            @if($deviation > 1.5 || $route['ai_risk'] > 50.0)
+                            <?php if($deviation > 1.5 || $route['ai_risk'] > 50.0): ?>
                                 <button class="btn-analisis bg-red-600 hover:bg-red-700 text-white shadow-[0_0_12px_rgba(220,38,38,0.2)] dark:bg-red-500 dark:hover:bg-red-600 px-md py-1.5 rounded-xl text-xs font-bold tracking-widest active:scale-95 transition-all duration-300" 
-                                        data-box="BOX-{{ $route['id_box'] }}" 
-                                        data-kurir="{{ $route['nama_kurir'] }}" 
-                                        data-tujuan="{{ $route['tujuan'] }}" 
-                                        data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C" 
-                                        data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
+                                        data-box="BOX-<?php echo e($route['id_box']); ?>" 
+                                        data-kurir="<?php echo e($route['nama_kurir']); ?>" 
+                                        data-tujuan="<?php echo e($route['tujuan']); ?>" 
+                                        data-stabilitas="<?php echo e(number_format($route['efficiency_index'], 1, ',', '.')); ?>%" 
+                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C" 
+                                        data-risiko="<?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%">
                                     TINDAK LANJUT
                                 </button>
-                            @else
+                            <?php else: ?>
                                 <button class="btn-analisis text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 text-xs font-bold uppercase tracking-tighter active:scale-95 transition-all duration-300" 
-                                        data-box="BOX-{{ $route['id_box'] }}" 
-                                        data-kurir="{{ $route['nama_kurir'] }}" 
-                                        data-tujuan="{{ $route['tujuan'] }}" 
-                                        data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C" 
-                                        data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
+                                        data-box="BOX-<?php echo e($route['id_box']); ?>" 
+                                        data-kurir="<?php echo e($route['nama_kurir']); ?>" 
+                                        data-tujuan="<?php echo e($route['tujuan']); ?>" 
+                                        data-stabilitas="<?php echo e(number_format($route['efficiency_index'], 1, ',', '.')); ?>%" 
+                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C" 
+                                        data-risiko="<?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%">
                                     Analisis
                                 </button>
-                            @endif
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="6" class="px-lg py-4 text-center text-on-surface-variant transition-colors duration-300">Tidak ada rute/sensor aktif saat ini.</td>
                     </tr>
-                    @endforelse
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
         <div class="p-md bg-slate-50 dark:bg-slate-900/50 border-t border-outline-variant/30 flex justify-between items-center px-lg text-on-surface-variant transition-colors duration-300">
-            <span class="text-xs font-medium font-label-md">Menampilkan {{ count($routesData) }} rute pengiriman obat aktif</span>
+            <span class="text-xs font-medium font-label-md">Menampilkan <?php echo e(count($routesData)); ?> rute pengiriman obat aktif</span>
         </div>
-    </x-card>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 </div>
 
 <!-- Detailed Analysis Modal -->
@@ -483,9 +608,9 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <style>
@@ -544,8 +669,8 @@
         };
 
         // Render Predictive Risk Trend Chart
-        var chartDataRisiko = @json($aiRisks);
-        var chartDataDamaged = @json($actualDamaged);
+        var chartDataRisiko = <?php echo json_encode($aiRisks, 15, 512) ?>;
+        var chartDataDamaged = <?php echo json_encode($actualDamaged, 15, 512) ?>;
         
         var options = {
             series: [{
@@ -575,7 +700,7 @@
                 }
             },
             xaxis: {
-                categories: @json($chartCategories),
+                categories: <?php echo json_encode($chartCategories, 15, 512) ?>,
                 labels: {
                     style: {
                         colors: '#bcc9cd'
@@ -939,7 +1064,9 @@
     setInterval(pollSensorData, 3000);
     console.log('[BIO-GUARD] Sensors real-time polling started (3s interval)');
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
 
 
 
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project pkm\bio_guard_backend\resources\views\dashboard\sensors.blade.php ENDPATH**/ ?>

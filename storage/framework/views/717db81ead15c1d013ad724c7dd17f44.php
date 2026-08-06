@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Manajemen Armada & Pelacakan Kurir'); ?>
 
-@section('title', 'Manajemen Armada & Pelacakan Kurir')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex-1 w-full h-full flex flex-col md:flex-row overflow-hidden relative bg-background">
     <!-- Sidebar - Active Drivers List -->
     <aside id="fleet-sidebar" class="w-full md:w-96 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant/30 flex flex-col shrink-0 h-1/3 md:h-full z-20 shadow-2xl overflow-hidden transition-all duration-300">
@@ -25,49 +23,86 @@
 
         <!-- Drivers List -->
         <div class="flex-1 overflow-y-auto p-4" id="drivers-list-container">
-            <x-table class="w-full text-xs">
-            @forelse($perjalananAktif as $perjalanan)
-                @php
+            <?php if (isset($component)) { $__componentOriginal163c8ba6efb795223894d5ffef5034f5 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal163c8ba6efb795223894d5ffef5034f5 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.table','data' => ['class' => 'w-full text-xs']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('table'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'w-full text-xs']); ?>
+            <?php $__empty_1 = true; $__currentLoopData = $perjalananAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <?php
                     $log = $perjalanan->latestLog;
                     $excursion = $perjalanan->getExcursionInfo();
-                @endphp
-                @php
+                ?>
+                <?php
                     $badgeColor = 'neutral';
                     if ($excursion['status'] === 'Aman') $badgeColor = 'success';
                     elseif ($excursion['status'] === 'Peringatan') $badgeColor = 'warning';
                     elseif ($excursion['status'] === 'Tidak Layak Pakai') $badgeColor = 'error';
-                @endphp
-                <tr id="driver-card-{{ $perjalanan->id_rute }}" onclick="focusCourier({{ $perjalanan->id_rute }})" class="hover:bg-surface-container-high transition-colors cursor-pointer group">
+                ?>
+                <tr id="driver-card-<?php echo e($perjalanan->id_rute); ?>" onclick="focusCourier(<?php echo e($perjalanan->id_rute); ?>)" class="hover:bg-surface-container-high transition-colors cursor-pointer group">
                     <td class="p-2 border-b border-outline-variant/30">
-                        <div class="font-bold text-on-surface truncate">{{ $perjalanan->kurir->nama_lengkap }}</div>
-                        <div class="text-[10px] text-on-surface-variant font-mono">{{ $perjalanan->kurir->nomor_kendaraan }}</div>
+                        <div class="font-bold text-on-surface truncate"><?php echo e($perjalanan->kurir->nama_lengkap); ?></div>
+                        <div class="text-[10px] text-on-surface-variant font-mono"><?php echo e($perjalanan->kurir->nomor_kendaraan); ?></div>
                     </td>
                     <td class="p-2 border-b border-outline-variant/30 tabular-nums">
-                        @if($log)
-                            <span class="font-bold text-on-surface" id="temp-val-{{ $perjalanan->id_rute }}">
-                                {{ number_format($log->suhu_aktual, 1, ',', '.') }}&deg;C
+                        <?php if($log): ?>
+                            <span class="font-bold text-on-surface" id="temp-val-<?php echo e($perjalanan->id_rute); ?>">
+                                <?php echo e(number_format($log->suhu_aktual, 1, ',', '.')); ?>°C
                             </span>
-                        @else
+                        <?php else: ?>
                             <span class="text-on-surface-variant">-</span>
-                        @endif
+                        <?php endif; ?>
                     </td>
                     <td class="p-2 border-b border-outline-variant/30 text-right">
-                        <span id="status-badge-{{ $perjalanan->id_rute }}">
-                            <x-badge color="{{ $badgeColor }}" class="{{ $badgeColor !== 'success' ? 'animate-pulse motion-reduce:animate-none' : '' }}">
-                                {{ $excursion['status'] === 'Aman' ? 'AMAN' : ($excursion['status'] === 'Peringatan' ? 'PERINGATAN' : 'BAHAYA') }}
-                            </x-badge>
+                        <span id="status-badge-<?php echo e($perjalanan->id_rute); ?>">
+                            <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => ''.e($badgeColor).'','class' => ''.e($badgeColor !== 'success' ? 'animate-pulse motion-reduce:animate-none' : '').'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => ''.e($badgeColor).'','class' => ''.e($badgeColor !== 'success' ? 'animate-pulse motion-reduce:animate-none' : '').'']); ?>
+                                <?php echo e($excursion['status'] === 'Aman' ? 'AMAN' : ($excursion['status'] === 'Peringatan' ? 'PERINGATAN' : 'BAHAYA')); ?>
+
+                             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                         </span>
                     </td>
                 </tr>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <tr>
                     <td colspan="3" class="p-8 text-center text-slate-500">
                         <span class="material-symbols-outlined text-3xl mb-2">local_shipping</span>
                         <div class="text-sm font-bold">Tidak Ada Armada Aktif</div>
                     </td>
                 </tr>
-            @endforelse
-            </x-table>
+            <?php endif; ?>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal163c8ba6efb795223894d5ffef5034f5)): ?>
+<?php $attributes = $__attributesOriginal163c8ba6efb795223894d5ffef5034f5; ?>
+<?php unset($__attributesOriginal163c8ba6efb795223894d5ffef5034f5); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal163c8ba6efb795223894d5ffef5034f5)): ?>
+<?php $component = $__componentOriginal163c8ba6efb795223894d5ffef5034f5; ?>
+<?php unset($__componentOriginal163c8ba6efb795223894d5ffef5034f5); ?>
+<?php endif; ?>
         </div>
     </aside>
 
@@ -79,7 +114,16 @@
                 <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer" title="Toggle Sidebar">
                     <span id="sidebar-icon" class="material-symbols-outlined text-[20px]">menu_open</span>
                 </button>
-                <x-card noPadding="true" class="shadow-lg backdrop-blur-md bg-surface/90 border border-outline-variant/30 flex items-center p-2 rounded-full px-4 gap-4 transition-all duration-300">
+                <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'shadow-lg backdrop-blur-md bg-surface/90 border border-outline-variant/30 flex items-center p-2 rounded-full px-4 gap-4 transition-all duration-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'shadow-lg backdrop-blur-md bg-surface/90 border border-outline-variant/30 flex items-center p-2 rounded-full px-4 gap-4 transition-all duration-300']); ?>
                     <div class="flex items-center gap-1.5 text-xs font-semibold text-on-surface">
                         <span class="w-2 h-2 rounded-full bg-primary"></span>
                         <span id="summary-aktif">-- Aktif</span>
@@ -89,7 +133,16 @@
                         <span class="w-2 h-2 rounded-full bg-error animate-pulse motion-reduce:animate-none"></span>
                         <span id="summary-alert">-- Peringatan</span>
                     </div>
-                </x-card>
+                 <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
             </div>
         </div>
 
@@ -98,9 +151,9 @@
         </div>
     </main>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <style>
     .marker-danger-pulse {
         box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
@@ -127,9 +180,9 @@
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
-        @foreach($perjalananAktif as $p)
-            '{{ $p->id_rute }}': {{ $p->isRerouted() ? 'true' : 'false' }},
-        @endforeach
+        <?php $__currentLoopData = $perjalananAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            '<?php echo e($p->id_rute); ?>': <?php echo e($p->isRerouted() ? 'true' : 'false'); ?>,
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     };
 
     // Alternative Optimized Routes
@@ -198,13 +251,13 @@
     };
 
     // Swap planned path dynamically on load if rerouted
-    @foreach($perjalananAktif as $p)
-        @if($p->isRerouted())
-            if (alternativePaths['{{ $p->lokasi_tujuan }}']) {
-                plannedPaths['{{ $p->lokasi_tujuan }}'] = alternativePaths['{{ $p->lokasi_tujuan }}'];
+    <?php $__currentLoopData = $perjalananAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($p->isRerouted()): ?>
+            if (alternativePaths['<?php echo e($p->lokasi_tujuan); ?>']) {
+                plannedPaths['<?php echo e($p->lokasi_tujuan); ?>'] = alternativePaths['<?php echo e($p->lokasi_tujuan); ?>'];
             }
-        @endif
-    @endforeach
+        <?php endif; ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     function getDistanceMeters(p1, p2) {
         const R = 6371e3;
@@ -284,7 +337,7 @@
         requestAnimationFrame(step);
     }
 
-    @php
+    <?php
         $activeRoutesData = $perjalananAktif->map(function($p) {
             return [
                 'id_rute' => $p->id_rute,
@@ -300,8 +353,8 @@
                 'status' => $p->getExcursionInfo()['status']
             ];
         })->toArray();
-    @endphp
-    let activeRoutes = {!! json_encode($activeRoutesData) !!};
+    ?>
+    let activeRoutes = <?php echo json_encode($activeRoutesData); ?>;
 
     document.addEventListener("DOMContentLoaded", function () {
         // Initialize Leaflet Map centered on Palembang
@@ -486,7 +539,7 @@
                 </p>
                 <p class="flex items-center gap-1 text-slate-400">
                     <span class="material-symbols-outlined text-[14px] text-primary">thermostat</span>
-                    Suhu Aktual: <span class="font-black text-sm ${tempColor}">${route.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C</span>
+                    Suhu Aktual: <span class="font-black text-sm ${tempColor}">${route.suhu_aktual.toFixed(1).replace('.', ',')}°C</span>
                 </p>
                 ${isDeviated ? `
                 <div class="p-1 px-2 border border-red-500/30 bg-red-500/10 text-red-500 font-bold text-[9px] rounded uppercase tracking-wider animate-pulse flex items-center gap-1">
@@ -543,7 +596,7 @@
     }
 
     function pollLiveLocation() {
-        fetch('{{ route("fleet.live") }}')
+        fetch('<?php echo e(route("fleet.live")); ?>')
             .then(response => response.json())
             .then(res => {
                 if (res.success && res.data) {
@@ -575,7 +628,7 @@
                     res.data.forEach(route => {
                         const tempEl = document.getElementById(`temp-val-${route.id_rute}`);
                         if (tempEl) {
-                            const newText = route.suhu_aktual.toFixed(1).replace('.', ',') + '&deg;C';
+                            const newText = route.suhu_aktual.toFixed(1).replace('.', ',') + '°C';
                             if (tempEl.textContent.trim() !== newText) {
                                 tempEl.textContent = newText;
                                 tempEl.classList.add('text-primary', 'transition-colors', 'duration-300');
@@ -644,4 +697,6 @@
         }, 300);
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project pkm\bio_guard_backend\resources\views\dashboard\fleet.blade.php ENDPATH**/ ?>

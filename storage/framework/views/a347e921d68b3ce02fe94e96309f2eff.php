@@ -1,20 +1,18 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Pusat Kendali Logistik Medis'); ?>
 
-@section('title', 'Pusat Kendali Logistik Medis')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex-1 w-full min-h-full p-container-margin space-y-lg">
 
-    {{-- ================================================================= --}}
-    {{-- SECTION 1: PAGE HEADER                                            --}}
-    {{-- ================================================================= --}}
-    {{-- ================================================================= --}}
-    {{-- SECTION 1: PAGE HEADER                                            --}}
-    {{-- ================================================================= --}}
+    
+    
+    
+    
+    
+    
     <!-- STITCH_AI_HEADER: Ganti dengan gaya header enterprise -->
     <div class="mb-md z-40 relative border-b border-outline-variant/30 pb-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md">
-            {{-- Title & Interactive Datepicker & Clock --}}
+            
             <div>
                 <nav class="flex text-label-md text-outline mb-1 gap-2">
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Pusat Kendali</span>
@@ -33,9 +31,9 @@
             </div>
         </div>
 
-        {{-- Action Buttons --}}
+        
         <div class="flex items-center gap-sm relative">
-            {{-- Lonceng Notifikasi Dropdown --}}
+            
             <div class="relative z-50" id="notification-hub-container">
                 <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
                     <span class="material-symbols-outlined text-[20px]">notifications</span>
@@ -78,7 +76,7 @@
                     </div>
                     
                     <div class="space-y-3 text-xs text-left">
-                        {{-- Filter Status --}}
+                        
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Status Rantai Dingin</label>
                             <select id="filter-status-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
@@ -89,7 +87,7 @@
                             </select>
                         </div>
                         
-                        {{-- Filter Tipe Kargo / Box --}}
+                        
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Kategori Suhu Kargo</label>
                             <select id="filter-cargo-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
@@ -102,14 +100,14 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('dashboard.export') }}" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
+            <a href="<?php echo e(route('dashboard.export')); ?>" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
                 <span class="material-symbols-outlined text-[18px]">download</span>
                 Ekspor Laporan Excel
             </a>
         </div>
     </div>
 
-    {{-- Desktop Notification Permission Request Banner --}}
+    
     <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700 dark:text-on-surface text-xs font-semibold gap-md animate-pulse">
         <div class="flex items-center gap-xs">
             <span class="material-symbols-outlined text-primary text-[20px] shrink-0">notifications_active</span>
@@ -120,43 +118,108 @@
         </button>
     </div>
 
-    {{-- ================================================================= --}}
-    {{-- SECTION 2: SUMMARY STATS - BENTO ROW                             --}}
-    {{-- ================================================================= --}}
+    
+    
+    
     <!-- STITCH_AI_STATS_CARD: Ganti dengan gaya card statistik enterprise -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
 
-        {{-- Card 1: Active Couriers --}}
-        <x-metric-card title="Kurir Aktif" value="{{ $totalKurirAktif ?? 0 }}" valueId="stat-active-couriers" icon="local_shipping" color="primary" valueClass="text-xl" />
+        
+        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','valueId' => 'stat-active-couriers','icon' => 'local_shipping','color' => 'primary','valueClass' => 'text-xl']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('metric-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','valueId' => 'stat-active-couriers','icon' => 'local_shipping','color' => 'primary','valueClass' => 'text-xl']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
 
-        {{-- Card 2: Pending Sync --}}
-        <x-metric-card title="Sinkronisasi Tertunda" value="{{ $totalPendingSync ?? 0 }}" valueId="stat-pending-sync" icon="sync" color="tertiary" valueClass="text-xl" />
+        
+        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Sinkronisasi Tertunda','value' => ''.e($totalPendingSync ?? 0).'','valueId' => 'stat-pending-sync','icon' => 'sync','color' => 'tertiary','valueClass' => 'text-xl']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('metric-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['title' => 'Sinkronisasi Tertunda','value' => ''.e($totalPendingSync ?? 0).'','valueId' => 'stat-pending-sync','icon' => 'sync','color' => 'tertiary','valueClass' => 'text-xl']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
 
-        {{-- Card 3: System Status --}}
-        <x-metric-card title="Status Sistem" value="TERHUBUNG" icon="cell_tower" color="green-500" valueClass="text-2xl truncate">
+        
+        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Status Sistem','value' => 'TERHUBUNG','icon' => 'cell_tower','color' => 'green-500','valueClass' => 'text-2xl truncate']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('metric-card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['title' => 'Status Sistem','value' => 'TERHUBUNG','icon' => 'cell_tower','color' => 'green-500','valueClass' => 'text-2xl truncate']); ?>
             <div class="flex items-center gap-xs mt-1 absolute right-6 top-8">
                 <div class="shrink-0" id="stat-alerts-container">
-                    <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider {{ ($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden' }}">
-                        {{ $alertCount ?? 0 }} Alarm
+                    <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider <?php echo e(($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden'); ?>">
+                        <?php echo e($alertCount ?? 0); ?> Alarm
                     </span>
                 </div>
             </div>
             <div class="absolute top-6 right-6 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse"></div>
-        </x-metric-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
+<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
+<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php endif; ?>
     </div>
 
-    {{-- ================================================================= --}}
-    {{-- SECTION 3: MAIN WORKSPACE - 70/30 SPLIT                          --}}
-    {{-- ================================================================= --}}
+    
+    
+    
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 
-        {{-- ============================================================= --}}
-        {{-- LEFT PANEL (col-span-8): LIVE FLEET TRACKING MAP              --}}
-        {{-- ============================================================= --}}
+        
+        
+        
         <!-- STITCH_AI_MAP_CARD: Ganti dengan gaya card peta enterprise -->
         <div class="lg:col-span-8">
-            <x-card noPadding="true" class="relative z-10">
-                {{-- Map Header --}}
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'relative z-10']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'relative z-10']); ?>
+                
                 <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-primary text-[20px]">map</span>
@@ -171,10 +234,10 @@
                     </div>
                 </div>
 
-                {{-- Leaflet Map Container --}}
+                
                 <div id="map" class="w-full" style="min-height: 440px; height: 58vh;"></div>
 
-                {{-- Widget AI Spatial-Thermal --}}
+                
                 <div class="absolute top-4 right-4 z-[1000] w-52 bg-white/95 dark:bg-slate-900/95 border border-outline-variant/30 p-3 rounded-xl shadow-sm backdrop-blur-sm transition-all duration-300 group">
                     <div class="flex items-center justify-between mb-3 border-b border-outline-variant/30 pb-2">
                         <div class="flex items-center gap-2">
@@ -204,7 +267,7 @@
                         </div>
                     </div>
                     <div class="space-y-2 text-[11px]">
-                        {{-- Suhu Luar --}}
+                        
                         <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
                             <span class="font-semibold text-on-surface-variant">Suhu Luar:</span>
                             <div class="flex items-center gap-1 font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">
@@ -212,12 +275,12 @@
                                 <span class="material-symbols-outlined text-[12px] text-red-500 font-bold animate-bounce" title="Suhu meningkat">trending_up</span>
                             </div>
                         </div>
-                        {{-- Kelembaban --}}
+                        
                         <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
                             <span class="font-semibold text-on-surface-variant">Kelembaban:</span>
                             <span class="font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">80%</span>
                         </div>
-                        {{-- Status Lalu Lintas --}}
+                        
                         <div class="flex flex-col gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
                             <div class="flex justify-between items-start">
                                 <span class="font-semibold text-on-surface-variant">Lalu Lintas:</span>
@@ -238,7 +301,7 @@
                     </p>
                 </div>
 
-                {{-- Map Legend --}}
+                
                 <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
@@ -254,29 +317,47 @@
                     </div>
                     <span class="ml-auto text-[10px] text-slate-400 font-mono" id="map-last-update">Pembaruan Otomatis: 2 detik</span>
                 </div>
-            </x-card>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
         </div>
 
-        {{-- ============================================================= --}}
-        {{-- RIGHT PANEL (col-span-4): REAL-TIME TELEMETRY CARDS           --}}
-        {{-- ============================================================= --}}
+        
+        
+        
         <div class="lg:col-span-4">
             <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
-                {{-- Panel Header --}}
+                
                 <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-primary text-[20px]">device_thermostat</span>
                         <h2 class="text-lg font-bold text-on-surface">Telemetri & Prediksi AI</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">{{ count($perjalananAktif ?? []) }} aktif</span>
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest"><?php echo e(count($perjalananAktif ?? [])); ?> aktif</span>
                 </div>
 
-                {{-- Telemetry Cards Scroll Container --}}
+                
                 <!-- STITCH_AI_TELEMETRY_CARD: Ganti dengan gaya card telemetri enterprise -->
-                <x-card noPadding="true" class="h-full max-h-[60vh] overflow-y-auto">
+                <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'h-full max-h-[60vh] overflow-y-auto']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'h-full max-h-[60vh] overflow-y-auto']); ?>
                     <div id="telemetry-cards-container" class="divide-y divide-slate-200 dark:divide-slate-800">
-                    @forelse($perjalananAktif ?? [] as $perjalanan)
-                        @php
+                    <?php $__empty_1 = true; $__currentLoopData = $perjalananAktif ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <?php
                             $log = $perjalanan->latestLog;
                             $temp = $log ? (float) $log->suhu_aktual : null;
                             $mkt = $log && $log->nilai_mkt ? (float) $log->nilai_mkt : '-';
@@ -309,125 +390,158 @@
                                 $bgClass = 'bg-rose-50 dark:bg-rose-900/10';
                                 $accentBorderClass = 'border-l-4 border-l-error';
                             }
-                        @endphp
+                        ?>
 
-                        {{-- Individual Telemetry Card --}}
+                        
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card cursor-pointer p-4 {{ $bgClass }} {{ $accentBorderClass }} {{ $shakeClass }} hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group" data-rute-id="{{ $perjalanan->id_rute }}">
-                            {{-- Courier Info --}}
+                        <div class="telemetry-card cursor-pointer p-4 <?php echo e($bgClass); ?> <?php echo e($accentBorderClass); ?> <?php echo e($shakeClass); ?> hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group" data-rute-id="<?php echo e($perjalanan->id_rute); ?>">
+                            
                             <div class="flex items-start justify-between gap-sm">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <div class="w-8 h-8 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-800 dark:text-slate-200 font-bold text-xs uppercase tracking-wider shrink-0 select-none">
-                                        {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('') }}
+                                        <?php echo e(collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('')); ?>
+
                                     </div>
                                     <div class="min-w-0">
                                         <p class="text-body-sm font-bold text-on-surface truncate">
-                                            {{ $perjalanan->kurir->nama_lengkap }}
+                                            <?php echo e($perjalanan->kurir->nama_lengkap); ?>
+
                                         </p>
                                         <p class="text-label-md text-slate-500 mt-0.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                            {{ $perjalanan->kurir->nomor_kendaraan }} &bull; 
-                                            <span class="font-mono-data text-[10px]">{{ $perjalanan->id_box }}</span> &bull;
-                                            <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">{{ $perjalanan->kurir->no_wa ?? '-' }}</span>
-                                            <a href="{{ route('dashboard.qr', $perjalanan->id_box) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
+                                            <?php echo e($perjalanan->kurir->nomor_kendaraan); ?> &bull; 
+                                            <span class="font-mono-data text-[10px]"><?php echo e($perjalanan->id_box); ?></span> &bull;
+                                            <span class="font-mono-data text-[10px]" title="WhatsApp Kurir"><?php echo e($perjalanan->kurir->no_wa ?? '-'); ?></span>
+                                            <a href="<?php echo e(route('dashboard.qr', $perjalanan->id_box)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
                                             </a>
                                         </p>
                                     </div>
                                 </div>
 
-                                {{-- Status Badge --}}
+                                
                                 <!-- STITCH_AI_STATUS_BADGE: Ganti dengan gaya badge status enterprise -->
-                                <x-badge color="{{ $badgeColor }}">
-                                    @if($status === 'Aman')
+                                <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => ''.e($badgeColor).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => ''.e($badgeColor).'']); ?>
+                                    <?php if($status === 'Aman'): ?>
                                         <span class="material-symbols-outlined text-[12px] mr-1">check_circle</span>
-                                    @elseif($status === 'Peringatan')
+                                    <?php elseif($status === 'Peringatan'): ?>
                                         <span class="material-symbols-outlined text-[12px] mr-1">info</span>
-                                    @else
+                                    <?php else: ?>
                                         <span class="material-symbols-outlined text-[12px] mr-1">warning</span>
-                                    @endif
-                                    {{ $statusLabel }}
-                                </x-badge>
+                                    <?php endif; ?>
+                                    <?php echo e($statusLabel); ?>
+
+                                 <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                             </div>
 
-                            {{-- Destination --}}
+                            
                             <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-sm truncate">
                                 <span class="material-symbols-outlined text-[12px] align-middle mr-0.5 text-primary">pin_drop</span>
-                                {{ $perjalanan->lokasi_tujuan }}
+                                <?php echo e($perjalanan->lokasi_tujuan); ?>
+
                             </p>
 
-                            {{-- Temperature & MKT --}}
+                            
                             <div class="flex items-end justify-between mt-sm">
                                 <div>
                                     <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Suhu Aktual</p>
-                                    <p class="text-2xl font-extrabold tracking-tight {{ $textClass }} tabular-nums">
-                                        @if($status !== 'Aman')
+                                    <p class="text-2xl font-extrabold tracking-tight <?php echo e($textClass); ?> tabular-nums">
+                                        <?php if($status !== 'Aman'): ?>
                                             <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
-                                        @endif
-                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '&deg;C' : '-' }}
+                                        <?php endif; ?>
+                                        <?php echo e($temp !== null ? number_format($temp, 1, ',', '.') . '&deg;C' : '-'); ?>
+
                                     </p>
                                 </div>
                                 <div class="text-right">
                                     <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
                                     <p class="text-base font-bold text-on-surface-variant tabular-nums">
-                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '&deg;C' : $mkt }}
+                                        <?php echo e(is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '&deg;C' : $mkt); ?>
+
                                     </p>
                                 </div>
                             </div>
 
-                            {{-- AI prediction & Excursion Duration & Vibration --}}
+                            
                             <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
                                 <div>
                                     <span class="block">Durasi Anomali</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $status !== 'Aman' ? $textClass : 'text-slate-700 dark:text-on-surface-variant' }}">
-                                        @if($status === 'Aman')
+                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($status !== 'Aman' ? $textClass : 'text-slate-700 dark:text-on-surface-variant'); ?>">
+                                        <?php if($status === 'Aman'): ?>
                                             0s (Normal)
-                                        @else
-                                            {{ $duration }}s
-                                        @endif
+                                        <?php else: ?>
+                                            <?php echo e($duration); ?>s
+                                        <?php endif; ?>
                                     </span>
                                 </div>
                                 <div class="text-center">
                                     <span class="block">Guncangan</span>
-                                    @php
+                                    <?php
                                         $vibeStatusClass = 'text-green-500';
                                         if ($vibration > 1.50) {
                                             $vibeStatusClass = 'text-red-500 font-bold';
                                         } elseif ($vibration > 1.00) {
                                             $vibeStatusClass = 'text-amber-500';
                                         }
-                                    @endphp
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $vibeStatusClass }}">
-                                        {{ number_format($vibration, 2, ',', '.') }}G
+                                    ?>
+                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($vibeStatusClass); ?>">
+                                        <?php echo e(number_format($vibration, 2, ',', '.')); ?>G
                                     </span>
                                 </div>
-                                <div class="text-right" title="{{ $prediksi ? $prediksi->instruksi_mitigasi : '' }}">
+                                <div class="text-right" title="<?php echo e($prediksi ? $prediksi->instruksi_mitigasi : ''); ?>">
                                     <span class="block">Risiko (AI)</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
-                                        {{ number_format($probabilitas, 1, ',', '.') }}%
+                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500')); ?>">
+                                        <?php echo e(number_format($probabilitas, 1, ',', '.')); ?>%
                                     </span>
                                 </div>
                             </div>
 
-                            {{-- Sparkline Gradient Bar --}}
+                            
                             <div class="mt-sm h-1.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
-                                <div class="h-full rounded-full transition-all duration-1000 {{ $status === 'Aman' ? 'sparkline-cyan animate-sparkline-pulse' : ($status === 'Peringatan' ? 'sparkline-cyan border-tertiary bg-tertiary animate-sparkline-pulse' : 'sparkline-red animate-sparkline-pulse-danger') }}"
-                                     style="width: {{ $temp !== null ? min(max(($temp / 12) * 100, 8), 100) : 0 }}%;">
+                                <div class="h-full rounded-full transition-all duration-1000 <?php echo e($status === 'Aman' ? 'sparkline-cyan animate-sparkline-pulse' : ($status === 'Peringatan' ? 'sparkline-cyan border-tertiary bg-tertiary animate-sparkline-pulse' : 'sparkline-red animate-sparkline-pulse-danger')); ?>"
+                                     style="width: <?php echo e($temp !== null ? min(max(($temp / 12) * 100, 8), 100) : 0); ?>%;">
                                 </div>
                             </div>
                         </div>
-                    @empty
-                        {{-- Empty State --}}
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        
                         <div class="p-xl text-center text-slate-500">
                             <span class="material-symbols-outlined text-[40px] text-outline">sensors_off</span>
                             <p class="text-body-sm text-on-surface-variant mt-sm">Tidak ada pengiriman aktif</p>
                         </div>
-                    @endforelse
+                    <?php endif; ?>
                 </div>
-                </x-card>
+                 <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-                {{-- Panel Footer --}}
+                
                 <div class="mt-4">
-                    <a href="{{ route('shipments') }}"
+                    <a href="<?php echo e(route('shipments')); ?>"
                        class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
                         <span class="material-symbols-outlined text-[18px]">timeline</span>
                         Lihat Log Telemetri Lengkap
@@ -436,15 +550,24 @@
             </div>
         </div>
 
-    </div>{{-- /grid --}}
+    </div>
 
-    {{-- ================================================================= --}}
-    {{-- SECTION 4: ANALYTICS AREA -- BENTO GRID OF 3 CHARTS               --}}
-    {{-- ================================================================= --}}
+    
+    
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-lg">
         
-        {{-- Chart 1: MKT vs Suhu Aktual --}}
-        <x-card class="flex flex-col min-h-[340px]">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col min-h-[340px]']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col min-h-[340px]']); ?>
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
@@ -455,10 +578,28 @@
                 </div>
             </div>
             <div id="chart-mkt" class="w-full flex-1"></div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Chart 2: Proyeksi Risiko Prediktif AI --}}
-        <x-card class="flex flex-col min-h-[340px]">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col min-h-[340px]']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col min-h-[340px]']); ?>
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
@@ -469,10 +610,28 @@
                 </div>
             </div>
             <div id="chart-risiko" class="w-full flex-1"></div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Chart 3: Log Sinkronisasi Store-and-Forward --}}
-        <x-card class="flex flex-col min-h-[340px]">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col min-h-[340px]']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col min-h-[340px]']); ?>
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
@@ -483,19 +642,37 @@
                 </div>
             </div>
             <div id="chart-sync" class="w-full flex-1"></div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
     </div>
 
-    {{-- ================================================================= --}}
-    {{-- SECTION 5: ENTERPRISE MANAGEMENT & AUDIT                          --}}
-    {{-- ================================================================= --}}
+    
+    
+    
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mt-lg">
 
-        {{-- Left Panel (col-span-8): Karantina Kargo --}}
-        <x-card noPadding="true" class="lg:col-span-8 flex flex-col justify-between overflow-hidden">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'lg:col-span-8 flex flex-col justify-between overflow-hidden']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'lg:col-span-8 flex flex-col justify-between overflow-hidden']); ?>
             <div>
-                {{-- Header --}}
+                
                 <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-error text-[22px]" style="font-variation-settings: 'FILL' 1;">gavel</span>
@@ -506,13 +683,13 @@
                     </span>
                 </div>
 
-                {{-- Body --}}
+                
                 <div class="p-6">
                     <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
                         Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8&deg;C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
-                    {{-- Table --}}
+                    
                     <div class="overflow-x-auto rounded-xl border border-outline-variant/30/60">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
@@ -525,7 +702,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
-                                {{-- Row 1 --}}
+                                
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-003</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Citra Dewi</td>
@@ -535,12 +712,30 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2&deg;C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <x-badge color="error" class="animate-pulse">
+                                        <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => 'error','class' => 'animate-pulse']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => 'error','class' => 'animate-pulse']); ?>
                                             Tidak Layak Pakai
-                                        </x-badge>
+                                         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                                     </td>
                                 </tr>
-                                {{-- Row 2 --}}
+                                
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-002</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Budi Santoso</td>
@@ -550,12 +745,30 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5&deg;C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <x-badge color="error" class="animate-pulse">
+                                        <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => 'error','class' => 'animate-pulse']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => 'error','class' => 'animate-pulse']); ?>
                                             Tidak Layak Pakai
-                                        </x-badge>
+                                         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                                     </td>
                                 </tr>
-                                {{-- Row 3 --}}
+                                
                                 <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-005</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Ahmad Fadillah</td>
@@ -565,9 +778,27 @@
                                     </td>
                                     <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9&deg;C</td>
                                     <td class="px-4 py-3 text-right">
-                                        <x-badge color="error" class="animate-pulse">
+                                        <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => 'error','class' => 'animate-pulse']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => 'error','class' => 'animate-pulse']); ?>
                                             Tidak Layak Pakai
-                                        </x-badge>
+                                         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -575,13 +806,31 @@
                     </div>
                 </div>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Right Panel (col-span-4): SOS & CDOB Stack --}}
+        
         <div class="lg:col-span-4 flex flex-col gap-gutter">
 
-            {{-- Simulator Hub Dasbor (Embedded Control Panel) --}}
-            <x-card class="flex flex-col justify-between">
+            
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col justify-between']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col justify-between']); ?>
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">construction</span>
@@ -594,11 +843,11 @@
                     <div class="flex flex-col gap-1">
                         <label class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Pilih Target Boks IoT</label>
                         <select id="sim-target-box" class="w-full bg-slate-100/80 dark:bg-slate-800/60 border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
-                            @foreach($perjalananAktif ?? [] as $perjalanan)
-                                <option value="{{ $perjalanan->id_rute }}" data-box="{{ $perjalanan->id_box }}">
-                                    {{ $perjalanan->id_box }} ({{ $perjalanan->kurir->nama_lengkap }})
+                            <?php $__currentLoopData = $perjalananAktif ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($perjalanan->id_rute); ?>" data-box="<?php echo e($perjalanan->id_box); ?>">
+                                    <?php echo e($perjalanan->id_box); ?> (<?php echo e($perjalanan->kurir->nama_lengkap); ?>)
                                 </option>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
 
@@ -618,11 +867,29 @@
                         Reset ke Kondisi Normal
                     </button>
                 </div>
-            </x-card>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-            {{-- 4. Log Intervensi Darurat (SOS Center) --}}
-            <x-card noPadding="true" class="flex flex-col justify-between overflow-hidden">
-                {{-- Header --}}
+            
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'flex flex-col justify-between overflow-hidden']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'flex flex-col justify-between overflow-hidden']); ?>
+                
                 <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30/60 bg-surface-container-high">
                     <div class="flex items-center gap-sm">
                         <span class="material-symbols-outlined text-tertiary text-[22px] animate-bounce">campaign</span>
@@ -631,9 +898,9 @@
                     <span class="inline-flex items-center justify-center w-auto h-5 px-2.5 rounded-full bg-error text-on-error text-[9px] font-bold">2 Peringatan</span>
                 </div>
 
-                {{-- Body --}}
+                
                 <div class="p-6 space-y-4">
-                    {{-- Alert 1: Boks Bocor --}}
+                    
                     <div class="p-4 rounded-xl border border-red-500/30 bg-red-500/10 flex flex-col gap-2">
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-xs">
@@ -653,7 +920,7 @@
                         </div>
                     </div>
 
-                    {{-- Alert 2: Kemacetan Ekstrem --}}
+                    
                     <div class="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 flex flex-col gap-2">
                         <div class="flex items-start justify-between">
                             <div class="flex items-center gap-xs">
@@ -673,10 +940,28 @@
                         </div>
                     </div>
                 </div>
-            </x-card>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-            {{-- 1. Modul Cetak Jejak Audit CDOB (E-Certificate Otomatis) --}}
-            <x-card class="flex flex-col justify-between min-h-[160px]">
+            
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col justify-between min-h-[160px]']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col justify-between min-h-[160px]']); ?>
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
@@ -693,10 +978,28 @@
                         Dokumen mencakup seluruh grafik suhu sepanjang rute, status MKT akhir, dan stempel validasi BPOM.
                     </p>
                 </div>
-            </x-card>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-            {{-- Panel Pemantauan Kesehatan IoT Box --}}
-            <x-card class="flex flex-col justify-between mt-sm">
+            
+            <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'flex flex-col justify-between mt-sm']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'flex flex-col justify-between mt-sm']); ?>
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">developer_board</span>
@@ -706,8 +1009,8 @@
                 </div>
                 
                 <div class="mt-4 space-y-3" id="device-health-list">
-                    @foreach($perjalananAktif ?? [] as $perjalanan)
-                        @php
+                    <?php $__currentLoopData = $perjalananAktif ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php
                             $health = $perjalanan->getDeviceHealth();
                             $battery = $health['battery'];
                             $signal = $health['signal'];
@@ -734,13 +1037,13 @@
                                 $calibDot = 'bg-red-500 animate-pulse';
                                 $calibText = 'text-red-500';
                             }
-                        @endphp
+                        ?>
                         
-                        <div class="p-3 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-{{ $perjalanan->id_box }}">
+                        <div class="p-3 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-<?php echo e($perjalanan->id_box); ?>">
                             <!-- Box ID & Courier -->
                             <div class="flex justify-between items-center text-xs">
-                                <span class="font-bold text-on-surface font-mono">{{ $perjalanan->id_box }}</span>
-                                <span class="text-on-surface-variant font-semibold">{{ $perjalanan->kurir->nama_lengkap }}</span>
+                                <span class="font-bold text-on-surface font-mono"><?php echo e($perjalanan->id_box); ?></span>
+                                <span class="text-on-surface-variant font-semibold"><?php echo e($perjalanan->kurir->nama_lengkap); ?></span>
                             </div>
                             
                             <!-- Battery & Signal Row -->
@@ -751,10 +1054,10 @@
                                         <span class="flex items-center gap-0.5 text-slate-500">
                                             <span class="material-symbols-outlined text-[13px]">battery_charging_full</span> Daya Baterai
                                         </span>
-                                        <span class="text-on-surface font-mono" id="device-battery-val-{{ $perjalanan->id_box }}">{{ $battery }}%</span>
+                                        <span class="text-on-surface font-mono" id="device-battery-val-<?php echo e($perjalanan->id_box); ?>"><?php echo e($battery); ?>%</span>
                                     </div>
                                     <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                                        <div class="h-full {{ $batColor }} rounded-full transition-all duration-500" id="device-battery-bar-{{ $perjalanan->id_box }}" style="width: {{ $battery }}%"></div>
+                                        <div class="h-full <?php echo e($batColor); ?> rounded-full transition-all duration-500" id="device-battery-bar-<?php echo e($perjalanan->id_box); ?>" style="width: <?php echo e($battery); ?>%"></div>
                                     </div>
                                 </div>
                                 
@@ -762,26 +1065,36 @@
                                 <div class="flex flex-col justify-between">
                                     <div class="flex items-center justify-between font-semibold">
                                         <span class="flex items-center gap-0.5 text-slate-500">
-                                            <span class="material-symbols-outlined text-[13px]" id="device-signal-icon-{{ $perjalanan->id_box }}">{{ $sigIcon }}</span> GSM Sinyal
+                                            <span class="material-symbols-outlined text-[13px]" id="device-signal-icon-<?php echo e($perjalanan->id_box); ?>"><?php echo e($sigIcon); ?></span> GSM Sinyal
                                         </span>
-                                        <span class="text-on-surface font-mono" id="device-signal-val-{{ $perjalanan->id_box }}">{{ $signal }} dBm</span>
+                                        <span class="text-on-surface font-mono" id="device-signal-val-<?php echo e($perjalanan->id_box); ?>"><?php echo e($signal); ?> dBm</span>
                                     </div>
                                     <!-- Calibration status row -->
                                     <div class="flex items-center justify-between font-semibold mt-1">
                                         <span class="text-slate-500">Sensor:</span>
-                                        <span class="flex items-center gap-1 font-bold text-[9px] uppercase tracking-wider {{ $calibText }}" id="device-calibration-val-{{ $perjalanan->id_box }}">
-                                            <span class="h-1.5 w-1.5 rounded-full {{ $calibDot }} inline-block" id="device-calibration-dot-{{ $perjalanan->id_box }}"></span>
-                                            {{ $calib === 'Terkalibrasi' ? 'CAL' : 'ERR' }}
+                                        <span class="flex items-center gap-1 font-bold text-[9px] uppercase tracking-wider <?php echo e($calibText); ?>" id="device-calibration-val-<?php echo e($perjalanan->id_box); ?>">
+                                            <span class="h-1.5 w-1.5 rounded-full <?php echo e($calibDot); ?> inline-block" id="device-calibration-dot-<?php echo e($perjalanan->id_box); ?>"></span>
+                                            <?php echo e($calib === 'Terkalibrasi' ? 'CAL' : 'ERR'); ?>
+
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-            </x-card>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-            {{-- BIO-GUARD Gateway Hub --}}
+            
             <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
@@ -802,7 +1115,7 @@
 
     </div>
 
-</div>{{-- /p-container-margin --}}
+</div>
 
 <!-- AI Rerouting Modal -->
 <div id="rerouting-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
@@ -864,12 +1177,12 @@
         <!-- Body -->
         <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
             <div class="relative border-2 border-dashed border-primary/20 dark:border-primary/10 rounded-2xl p-6 bg-slate-50/50 dark:bg-slate-950/20 backdrop-blur-sm overflow-hidden select-none">
-                {{-- Decorative premium badge watermark --}}
+                
                 <div class="absolute -right-10 -bottom-10 opacity-5 dark:opacity-10 pointer-events-none text-[120px] material-symbols-outlined text-primary font-black">
                     workspace_premium
                 </div>
 
-                {{-- Brand Header --}}
+                
                 <div class="flex justify-between items-start border-b border-outline-variant/30/60 pb-4 mb-4">
                     <div>
                         <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
@@ -880,7 +1193,7 @@
                     </span>
                 </div>
 
-                {{-- Meta Grid --}}
+                
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Sistem Verifikator</span>
@@ -888,7 +1201,7 @@
                     </div>
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">ID Operator Dispatcher</span>
-                        <span class="font-extrabold text-slate-700 dark:text-slate-350">{{ Auth::user()->dispatcher_id ?? 'DSP-PLB-2026' }}</span>
+                        <span class="font-extrabold text-slate-700 dark:text-slate-350"><?php echo e(Auth::user()->dispatcher_id ?? 'DSP-PLB-2026'); ?></span>
                     </div>
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
@@ -916,7 +1229,7 @@
             <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
                 Batal
             </button>
-            <a href="{{ route('dashboard.audit-pdf') }}" target="_blank" onclick="closeAuditPreviewModal()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)] cursor-pointer flex items-center gap-1">
+            <a href="<?php echo e(route('dashboard.audit-pdf')); ?>" target="_blank" onclick="closeAuditPreviewModal()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)] cursor-pointer flex items-center gap-1">
                 <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
                 Unduh PDF Resmi
             </a>
@@ -925,13 +1238,13 @@
 </div>
 
 <!-- STITCH_AI_FOOTER: Ganti dengan gaya footer enterprise -->
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-{{-- ================================================================= --}}
-{{-- LEAFLET.JS INITIALIZATION & LIVE UPDATES                          --}}
-{{-- ================================================================= --}}
-@push('scripts')
+
+
+
+<?php $__env->startPush('scripts'); ?>
 <script>
 (function () {
     'use strict';
@@ -949,9 +1262,9 @@
     let isHistoricalMode = false;
     let routeTrails = {};
     const activeReroutes = {
-        @foreach($perjalananAktif as $p)
-            '{{ $p->id_rute }}': {{ $p->isRerouted() ? 'true' : 'false' }},
-        @endforeach
+        <?php $__currentLoopData = $perjalananAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            '<?php echo e($p->id_rute); ?>': <?php echo e($p->isRerouted() ? 'true' : 'false'); ?>,
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     };
     const alternativePolylines = {};
     let targetRerouteRouteId = null;
@@ -993,13 +1306,13 @@ const plannedPaths = {
 
 
     // Swap planned path dynamically on load if rerouted
-    @foreach($perjalananAktif as $p)
-        @if($p->isRerouted())
-            if (alternativePaths['{{ $p->lokasi_tujuan }}']) {
-                plannedPaths['{{ $p->lokasi_tujuan }}'] = alternativePaths['{{ $p->lokasi_tujuan }}'];
+    <?php $__currentLoopData = $perjalananAktif; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($p->isRerouted()): ?>
+            if (alternativePaths['<?php echo e($p->lokasi_tujuan); ?>']) {
+                plannedPaths['<?php echo e($p->lokasi_tujuan); ?>'] = alternativePaths['<?php echo e($p->lokasi_tujuan); ?>'];
             }
-        @endif
-    @endforeach
+        <?php endif; ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     // Helper functions for Route Deviation Calculation
     function getDistanceMeters(p1, p2) {
@@ -1117,7 +1430,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸Ãƒâ€¦Ã‚Â¡Ãƒâ€šÃ‚Â¨ AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -2074,7 +2387,7 @@ const plannedPaths = {
     }
 
     // Bootstrapped Initial Data
-    const initialList = @json($perjalananAktif ?? []);
+    const initialList = <?php echo json_encode($perjalananAktif ?? [], 15, 512) ?>;
     const bootstrapData = initialList.map(p => {
         const log = p.latest_log;
         if (!log) return null;
@@ -2166,9 +2479,10 @@ const plannedPaths = {
     }).filter(x => x !== null);
 
     const initialStats = {
-        total_kurir_aktif: {{ $totalKurirAktif ?? 0 }},
-        total_pending_sync: {{ $totalPendingSync ?? 0 }},
-        alert_count: {{ $alertCount ?? 0 }}
+        total_kurir_aktif: <?php echo e($totalKurirAktif ?? 0); ?>,
+        total_pending_sync: <?php echo e($totalPendingSync ?? 0); ?>,
+        alert_count: <?php echo e($alertCount ?? 0); ?>
+
     };
 
     if (typeof L !== 'undefined' && map) {
@@ -2448,7 +2762,7 @@ const plannedPaths = {
     };
 
     window.downloadOfficialPdf = function () {
-        window.open('{{ route("dashboard.audit-pdf") }}', '_blank');
+        window.open('<?php echo e(route("dashboard.audit-pdf")); ?>', '_blank');
         closeAuditPreviewModal();
     };
 
@@ -2938,7 +3252,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
 
 
 
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project pkm\bio_guard_backend\resources\views\dashboard\monitoring.blade.php ENDPATH**/ ?>

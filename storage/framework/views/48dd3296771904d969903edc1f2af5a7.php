@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Pengiriman & Inventaris'); ?>
 
-@section('title', 'Pengiriman & Inventaris')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="flex-1 w-full min-h-full p-container-margin space-y-lg">
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-md mb-md">
@@ -26,78 +24,150 @@
 
     <!-- Quick Stats Bento Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-md">
-        {{-- Card 1 --}}
-        <x-card class="hover:border-primary/30 transition-colors">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'hover:border-primary/30 transition-colors']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'hover:border-primary/30 transition-colors']); ?>
             <div class="flex justify-between items-start mb-4">
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Stok</span>
                 <span class="material-symbols-outlined text-[20px] text-primary">inventory_2</span>
             </div>
-            <div class="text-3xl font-extrabold tabular-nums"><span id="live-total-stok">{{ number_format($totalStok, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-total-stok"><?php echo e(number_format($totalStok, 0, ',', '.')); ?></span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
             <div class="mt-4 flex items-center gap-2 text-primary">
                 <span class="material-symbols-outlined text-[14px]">trending_up</span>
                 <span class="text-[10px] font-bold uppercase tracking-wider">+4,2% dari bulan lalu</span>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Card 2 --}}
-        <x-card class="hover:border-tertiary/30 transition-colors">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'hover:border-tertiary/30 transition-colors']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'hover:border-tertiary/30 transition-colors']); ?>
             <div class="flex justify-between items-start mb-4">
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Segera Kedaluwarsa</span>
                 <span class="material-symbols-outlined text-[20px] text-tertiary">event_busy</span>
             </div>
-            <div class="text-3xl font-extrabold tabular-nums"><span id="live-segera-kadaluwarsa">{{ number_format($segeraKadaluwarsa, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-segera-kadaluwarsa"><?php echo e(number_format($segeraKadaluwarsa, 0, ',', '.')); ?></span> <span class="text-xs text-slate-500 font-semibold">vial</span></div>
             <div class="mt-4 flex items-center gap-2 text-tertiary">
                 <span class="material-symbols-outlined text-[14px]">warning</span>
                 <span class="text-[10px] font-bold uppercase tracking-wider">Rotasi stok segera</span>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Card 3 --}}
-        <x-card class="hover:border-error/30 transition-colors">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'hover:border-error/30 transition-colors']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'hover:border-error/30 transition-colors']); ?>
             <div class="flex justify-between items-start mb-4">
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Aset Dikarantina</span>
                 <span class="material-symbols-outlined text-[20px] text-error">lock_reset</span>
             </div>
-            <div class="text-3xl font-extrabold tabular-nums"><span id="live-aset-karantina">{{ number_format($asetKarantina, 0, ',', '.') }}</span> <span class="text-xs text-slate-500 font-semibold">batch</span></div>
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-aset-karantina"><?php echo e(number_format($asetKarantina, 0, ',', '.')); ?></span> <span class="text-xs text-slate-500 font-semibold">batch</span></div>
             <div class="mt-4 flex items-center gap-2 text-error">
                 <span class="material-symbols-outlined text-[14px]">verified_user</span>
                 <span class="text-[10px] font-bold uppercase tracking-wider">Menunggu persetujuan QA</span>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
-        {{-- Card 4 --}}
-        <x-card class="hover:border-primary/30 transition-colors">
+        
+        <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'hover:border-primary/30 transition-colors']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'hover:border-primary/30 transition-colors']); ?>
             <div class="flex justify-between items-start mb-4">
                 <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Kapasitas Tersedia</span>
                 <span class="material-symbols-outlined text-[20px] text-primary">database</span>
             </div>
-            <div class="text-3xl font-extrabold tabular-nums"><span id="live-kapasitas">{{ $kapasitasUtilisasi }}%</span> <span class="text-xs text-slate-500 font-semibold">utilisasi</span></div>
+            <div class="text-3xl font-extrabold tabular-nums"><span id="live-kapasitas"><?php echo e($kapasitasUtilisasi); ?>%</span> <span class="text-xs text-slate-500 font-semibold">utilisasi</span></div>
             <div class="mt-4 flex items-center gap-2">
                 <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
-                    <div class="bg-primary h-full" style="width: {{ $kapasitasUtilisasi }}%"></div>
+                    <div class="bg-primary h-full" style="width: <?php echo e($kapasitasUtilisasi); ?>%"></div>
                 </div>
             </div>
-        </x-card>
+         <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
     </div>
 
     <!-- Table Filters & Search Form -->
-    <form method="GET" action="{{ route('shipments') }}" class="bg-surface-container border border-outline-variant/30 border-b-0 rounded-t-xl px-lg py-md flex flex-wrap items-center justify-between gap-4">
+    <form method="GET" action="<?php echo e(route('shipments')); ?>" class="bg-surface-container border border-outline-variant/30 border-b-0 rounded-t-xl px-lg py-md flex flex-wrap items-center justify-between gap-4">
         <div class="relative w-full max-w-md">
             <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-            <input name="search" value="{{ request('search') }}" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg pl-12 pr-4 py-2 text-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface" placeholder="Cari ID batch, nama produk, atau jenis..." type="text"/>
+            <input name="search" value="<?php echo e(request('search')); ?>" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg pl-12 pr-4 py-2 text-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-all text-on-surface" placeholder="Cari ID batch, nama produk, atau jenis..." type="text"/>
         </div>
         <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
             <select name="status" onchange="this.form.submit()" class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2 text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all">
-                <option value="Semua" {{ request('status') === 'Semua' ? 'selected' : '' }}>Semua Status</option>
-                <option value="Aman" {{ request('status') === 'Aman' ? 'selected' : '' }}>Aman</option>
-                <option value="Peringatan Dini" {{ request('status') === 'Peringatan Dini' ? 'selected' : '' }}>Peringatan Dini</option>
-                <option value="Karantina" {{ request('status') === 'Karantina' ? 'selected' : '' }}>Karantina</option>
+                <option value="Semua" <?php echo e(request('status') === 'Semua' ? 'selected' : ''); ?>>Semua Status</option>
+                <option value="Aman" <?php echo e(request('status') === 'Aman' ? 'selected' : ''); ?>>Aman</option>
+                <option value="Peringatan Dini" <?php echo e(request('status') === 'Peringatan Dini' ? 'selected' : ''); ?>>Peringatan Dini</option>
+                <option value="Karantina" <?php echo e(request('status') === 'Karantina' ? 'selected' : ''); ?>>Karantina</option>
             </select>
             <select name="sort" onchange="this.form.submit()" class="bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2 text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all">
-                <option value="no_batch" {{ request('sort') === 'no_batch' ? 'selected' : '' }}>Urutkan ID Batch</option>
-                <option value="stok_desc" {{ request('sort') === 'stok_desc' ? 'selected' : '' }}>Stok Terbanyak</option>
-                <option value="stok_asc" {{ request('sort') === 'stok_asc' ? 'selected' : '' }}>Stok Tersedikit</option>
-                <option value="kadaluwarsa_asc" {{ request('sort') === 'kadaluwarsa_asc' ? 'selected' : '' }}>Kedaluwarsa Terdekat</option>
+                <option value="no_batch" <?php echo e(request('sort') === 'no_batch' ? 'selected' : ''); ?>>Urutkan ID Batch</option>
+                <option value="stok_desc" <?php echo e(request('sort') === 'stok_desc' ? 'selected' : ''); ?>>Stok Terbanyak</option>
+                <option value="stok_asc" <?php echo e(request('sort') === 'stok_asc' ? 'selected' : ''); ?>>Stok Tersedikit</option>
+                <option value="kadaluwarsa_asc" <?php echo e(request('sort') === 'kadaluwarsa_asc' ? 'selected' : ''); ?>>Kedaluwarsa Terdekat</option>
             </select>
             <button type="submit" class="flex items-center gap-2 px-md py-2 bg-primary text-on-primary rounded-lg hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_12px_rgba(2,132,199,0.3)] font-label-md">
                 <span class="material-symbols-outlined text-[18px]">filter_alt</span>
@@ -107,9 +177,27 @@
     </form>
 
     <!-- Primary Inventory Table -->
-    <x-card noPadding="true" class="mb-md">
+    <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'mb-md']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'mb-md']); ?>
         <div class="overflow-x-auto">
-            <x-table>
+            <?php if (isset($component)) { $__componentOriginal163c8ba6efb795223894d5ffef5034f5 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal163c8ba6efb795223894d5ffef5034f5 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.table','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('table'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
                 <thead>
                     <tr>
                         <th>Nama Produk</th>
@@ -122,92 +210,112 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($drugs as $drug)
-                    <tr data-batch="{{ $drug->no_batch }}">
+                    <?php $__empty_1 = true; $__currentLoopData = $drugs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $drug): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <tr data-batch="<?php echo e($drug->no_batch); ?>">
                         <td>
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
                                     <span class="material-symbols-outlined">
-                                        {{ $drug->jenis === 'Vaksin' ? 'vaccines' : ($drug->jenis === 'Insulin' ? 'medical_services' : 'bloodtype') }}
+                                        <?php echo e($drug->jenis === 'Vaksin' ? 'vaccines' : ($drug->jenis === 'Insulin' ? 'medical_services' : 'bloodtype')); ?>
+
                                     </span>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-slate-900 dark:text-white">{{ $drug->nama_produk }}</div>
-                                    <div class="text-[10px] text-slate-500 font-mono">{{ $drug->jenis }}</div>
+                                    <div class="font-bold text-slate-900 dark:text-white"><?php echo e($drug->nama_produk); ?></div>
+                                    <div class="text-[10px] text-slate-500 font-mono"><?php echo e($drug->jenis); ?></div>
                                 </div>
                             </div>
                         </td>
                         <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">
                             <div class="flex items-center gap-2">
-                                <span>#{{ $drug->no_batch }}</span>
-                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
+                                <span>#<?php echo e($drug->no_batch); ?></span>
+                                <a href="<?php echo e(route('dashboard.qr', $drug->no_batch)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
                                     <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
                                 </a>
                             </div>
                         </td>
                         <td>
-                            @php
+                            <?php
                                 $suhu = (float) $drug->suhu_penyimpanan;
-                                $rangeText = '2&deg;C s/d 8&deg;C';
+                                $rangeText = '2°C s/d 8°C';
                                 $rangeLabel = 'Chilled';
                                 $colorClass = 'text-teal-600 dark:text-teal-400';
                                 $icon = 'thermostat';
                                 
                                 if ($suhu <= -70.0) {
-                                    $rangeText = '-80&deg;C s/d -60&deg;C';
+                                    $rangeText = '-80°C s/d -60°C';
                                     $rangeLabel = 'Ultra-Cold';
                                     $colorClass = 'text-cyan-500 dark:text-cyan-300';
                                     $icon = 'severe_cold';
                                 } elseif ($suhu <= -20.0) {
-                                    $rangeText = '-25&deg;C s/d -15&deg;C';
+                                    $rangeText = '-25°C s/d -15°C';
                                     $rangeLabel = 'Frozen';
                                     $colorClass = 'text-blue-500 dark:text-blue-400';
                                     $icon = 'kitchen';
                                 }
-                            @endphp
+                            ?>
                             <div class="flex flex-col">
-                                <div class="flex items-center gap-1.5 {{ $colorClass }}">
-                                    <span class="material-symbols-outlined text-[16px]">{{ $icon }}</span>
-                                    <span class="font-bold text-xs">{{ $rangeLabel }}</span>
+                                <div class="flex items-center gap-1.5 <?php echo e($colorClass); ?>">
+                                    <span class="material-symbols-outlined text-[16px]"><?php echo e($icon); ?></span>
+                                    <span class="font-bold text-xs"><?php echo e($rangeLabel); ?></span>
                                 </div>
                                 <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold font-mono mt-0.5 tabular-nums">
-                                    {{ $rangeText }} (target: {{ number_format($suhu, 1, ',', '.') }}&deg;C)
+                                    <?php echo e($rangeText); ?> (target: <?php echo e(number_format($suhu, 1, ',', '.')); ?>°C)
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="flex flex-col gap-1">
                                 <div class="flex justify-between text-[11px] font-bold">
-                                    <span id="stok-{{ $drug->no_batch }}" class="text-slate-900 dark:text-white tabular-nums">{{ number_format($drug->stok, 0, ',', '.') }}</span>
+                                    <span id="stok-<?php echo e($drug->no_batch); ?>" class="text-slate-900 dark:text-white tabular-nums"><?php echo e(number_format($drug->stok, 0, ',', '.')); ?></span>
                                     <span class="text-slate-500">Min: 5rb</span>
                                 </div>
                                 <div class="w-32 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="bg-primary h-full" style="width: {{ min(100, ($drug->stok / 30000) * 100) }}%"></div>
+                                    <div class="bg-primary h-full" style="width: <?php echo e(min(100, ($drug->stok / 30000) * 100)); ?>%"></div>
                                 </div>
                             </div>
                         </td>
-                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">{{ $drug->tanggal_kadaluwarsa->format('Y-m-d') }}</td>
+                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300"><?php echo e($drug->tanggal_kadaluwarsa->format('Y-m-d')); ?></td>
                         <td>
-                            @php
+                            <?php
                                 $badgeColor = 'neutral';
                                 if ($drug->status === 'Aman') $badgeColor = 'success';
                                 elseif ($drug->status === 'Peringatan Dini') $badgeColor = 'warning';
                                 else $badgeColor = 'error';
-                            @endphp
-                            <x-badge color="{{ $badgeColor }}">
-                                {{ $drug->status }}
-                            </x-badge>
+                            ?>
+                            <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => ''.e($badgeColor).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('badge'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['color' => ''.e($badgeColor).'']); ?>
+                                <?php echo e($drug->status); ?>
+
+                             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
+<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
+<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
+<?php endif; ?>
                         </td>
                         <td>
                             <div class="flex justify-end gap-2">
-                                <button onclick="openColdChainModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}', '{{ $drug->suhu_penyimpanan }}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="{{ $drug->no_batch }}" data-name="{{ $drug->nama_produk }}" data-temp="{{ $drug->suhu_penyimpanan }}" title="Analisis Rantai Dingin">
+                                <button onclick="openColdChainModal('<?php echo e($drug->no_batch); ?>', '<?php echo e($drug->nama_produk); ?>', '<?php echo e($drug->suhu_penyimpanan); ?>')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="<?php echo e($drug->no_batch); ?>" data-name="<?php echo e($drug->nama_produk); ?>" data-temp="<?php echo e($drug->suhu_penyimpanan); ?>" title="Analisis Rantai Dingin">
                                     <span class="material-symbols-outlined text-[18px]">timeline</span>
                                 </button>
                                 </button>
                                 <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
                                     <span class="material-symbols-outlined text-[18px]">outbound</span>
                                 </button>
-                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Code Boks">
+                                <a href="<?php echo e(route('dashboard.qr', $drug->no_batch)); ?>" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Code Boks">
                                     <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
                                 </a>
                                 <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">
@@ -216,43 +324,61 @@
                             </div>
                         </td>
                     </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
                         <td colspan="7" class="text-center text-slate-500 py-8">Tidak ada data obat termolabil ditemukan.</td>
                     </tr>
-                    @endforelse
+                    <?php endif; ?>
                 </tbody>
-            </x-table>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal163c8ba6efb795223894d5ffef5034f5)): ?>
+<?php $attributes = $__attributesOriginal163c8ba6efb795223894d5ffef5034f5; ?>
+<?php unset($__attributesOriginal163c8ba6efb795223894d5ffef5034f5); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal163c8ba6efb795223894d5ffef5034f5)): ?>
+<?php $component = $__componentOriginal163c8ba6efb795223894d5ffef5034f5; ?>
+<?php unset($__componentOriginal163c8ba6efb795223894d5ffef5034f5); ?>
+<?php endif; ?>
         </div>
 
         <!-- Pagination -->
         <div class="px-6 py-4 flex items-center justify-between border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-            <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Menampilkan {{ $drugs->firstItem() ?? 0 }}-{{ $drugs->lastItem() ?? 0 }} dari {{ $drugs->total() }} data</span>
+            <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Menampilkan <?php echo e($drugs->firstItem() ?? 0); ?>-<?php echo e($drugs->lastItem() ?? 0); ?> dari <?php echo e($drugs->total()); ?> data</span>
             <div class="flex gap-2">
-                @if($drugs->onFirstPage())
+                <?php if($drugs->onFirstPage()): ?>
                     <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
                         <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
-                @else
-                    <a href="{{ $drugs->previousPageUrl() }}" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                <?php else: ?>
+                    <a href="<?php echo e($drugs->previousPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
                         <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </a>
-                @endif
+                <?php endif; ?>
 
-                <span class="px-3 py-1.5 text-xs font-bold bg-primary text-on-primary rounded shadow-sm">{{ $drugs->currentPage() }}</span>
+                <span class="px-3 py-1.5 text-xs font-bold bg-primary text-on-primary rounded shadow-sm"><?php echo e($drugs->currentPage()); ?></span>
 
-                @if($drugs->hasMorePages())
-                    <a href="{{ $drugs->nextPageUrl() }}" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                <?php if($drugs->hasMorePages()): ?>
+                    <a href="<?php echo e($drugs->nextPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
                         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </a>
-                @else
+                <?php else: ?>
                     <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
                         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
-    </x-card>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
 
     <!-- Inventory Movement Chart & Quick Actions -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter pb-xl">
@@ -316,7 +442,7 @@
         
         <!-- Modal Form -->
         <form id="quick-action-form" method="POST">
-            @csrf
+            <?php echo csrf_field(); ?>
             <div class="p-lg space-y-md" id="quick-modal-body">
                 <!-- Dynamic form fields injected here -->
             </div>
@@ -354,15 +480,15 @@
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <form action="{{ route('shipments.store') }}" method="POST" class="p-5 space-y-4">
-            @csrf
+        <form action="<?php echo e(route('shipments.store')); ?>" method="POST" class="p-5 space-y-4">
+            <?php echo csrf_field(); ?>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Kurir</label>
                 <select name="id_kurir" required class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
                     <option value="">Pilih Kurir...</option>
-                    @foreach($kurirs ?? [] as $kurir)
-                        <option value="{{ $kurir->id_kurir }}">{{ $kurir->nama_lengkap }} ({{ $kurir->nomor_kendaraan }})</option>
-                    @endforeach
+                    <?php $__currentLoopData = $kurirs ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kurir): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($kurir->id_kurir); ?>"><?php echo e($kurir->nama_lengkap); ?> (<?php echo e($kurir->nomor_kendaraan); ?>)</option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
             </div>
             <div>
@@ -403,18 +529,18 @@
         </form>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var options = {
             series: [{
                 name: "Total Vial Obat",
-                data: @json($stockTrend)
+                data: <?php echo json_encode($stockTrend, 15, 512) ?>
             }],
             xaxis: {
-                categories: @json($stockTrendDates)
+                categories: <?php echo json_encode($stockTrendDates, 15, 512) ?>
             },
             chart: {
                 height: 180,
@@ -479,15 +605,15 @@
             
             if (actionType === 'audit') {
                 title = 'Audit Stok Fisik';
-                quickForm.action = "{{ route('shipments.audit') }}";
+                quickForm.action = "<?php echo e(route('shipments.audit')); ?>";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
                             <select name="no_batch" id="audit-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                @foreach($drugs as $drug)
-                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
-                                @endforeach
+                                <?php $__currentLoopData = $drugs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $drug): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($drug->no_batch); ?>"><?php echo e($drug->no_batch); ?> (<?php echo e($drug->nama_produk); ?>)</option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div>
@@ -498,7 +624,7 @@
                 `;
             } else if (actionType === 'terima') {
                 title = 'Terima Pengiriman';
-                quickForm.action = "{{ route('shipments.terima') }}";
+                quickForm.action = "<?php echo e(route('shipments.terima')); ?>";
                 html = `
                     <div class="space-y-md">
                         <div>
@@ -514,7 +640,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Suhu Penyimpanan (&deg;C)</label>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Suhu Penyimpanan (°C)</label>
                             <input type="number" step="0.1" name="suhu" value="5.0" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
                         </div>
                         <div>
@@ -525,15 +651,15 @@
                 `;
             } else if (actionType === 'transfer') {
                 title = 'Transfer Batch Rute';
-                quickForm.action = "{{ route('shipments.transfer') }}";
+                quickForm.action = "<?php echo e(route('shipments.transfer')); ?>";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Obat</label>
                             <select name="no_batch" id="transfer-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                @foreach($drugs as $drug)
-                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
-                                @endforeach
+                                <?php $__currentLoopData = $drugs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $drug): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($drug->no_batch); ?>"><?php echo e($drug->no_batch); ?> (<?php echo e($drug->nama_produk); ?>)</option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div>
@@ -567,15 +693,15 @@
                 `;
             } else if (actionType === 'report') {
                 title = 'Laporkan Selisih';
-                quickForm.action = "{{ route('shipments.lapor') }}";
+                quickForm.action = "<?php echo e(route('shipments.lapor')); ?>";
                 html = `
                     <div class="space-y-md">
                         <div>
                             <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Pilih Batch Terkait</label>
                             <select name="no_batch" id="report-batch" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none">
-                                @foreach($drugs as $drug)
-                                    <option value="{{ $drug->no_batch }}">{{ $drug->no_batch }} ({{ $drug->nama_produk }})</option>
-                                @endforeach
+                                <?php $__currentLoopData = $drugs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $drug): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($drug->no_batch); ?>"><?php echo e($drug->no_batch); ?> (<?php echo e($drug->nama_produk); ?>)</option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div>
@@ -594,7 +720,7 @@
                 `;
             } else if (actionType === 'restok') {
                 title = 'Aturan Restok Otomatis';
-                quickForm.action = "{{ route('shipments.restok') }}";
+                quickForm.action = "<?php echo e(route('shipments.restok')); ?>";
                 html = `
                     <div class="space-y-md">
                         <div>
@@ -638,7 +764,7 @@
 
         function openColdChainModal(batch, name, temp) {
             const tempNum = parseFloat(temp);
-            const rangeText = tempNum <= -70 ? '-80&deg;C s/d -60&deg;C' : (tempNum <= -20 ? '-25&deg;C s/d -15&deg;C' : '2&deg;C s/d 8&deg;C');
+            const rangeText = tempNum <= -70 ? '-80°C s/d -60°C' : (tempNum <= -20 ? '-25°C s/d -15°C' : '2°C s/d 8°C');
             const rangeLabel = tempNum <= -70 ? 'Ultra-Cold' : (tempNum <= -20 ? 'Frozen' : 'Chilled');
             const colorClass = tempNum <= -70 ? 'text-cyan-500' : (tempNum <= -20 ? 'text-blue-500' : 'text-teal-600 dark:text-teal-400');
             const icon = tempNum <= -70 ? 'severe_cold' : (tempNum <= -20 ? 'kitchen' : 'thermostat');
@@ -658,7 +784,7 @@
                             <span class="font-bold text-xs">${rangeLabel} (${rangeText})</span>
                         </div>
                         <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
-                            Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}&deg;C</strong>
+                            Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}°C</strong>
                         </div>
                     </div>
                     
@@ -667,23 +793,23 @@
                         <div class="space-y-2 text-[11px] font-medium text-slate-700 dark:text-on-surface-variant font-mono">
                             <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
                                 <span>10:00 (Sekarang)</span>
-                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
                                 <span>08:00 (2 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
                                 <span>04:00 (6 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
                                 <span>22:00 (12 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>14:00 (20 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
                             </div>
                         </div>
                     </div>
@@ -840,6 +966,8 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
-@endpush
+<?php $__env->stopPush(); ?>
 
 
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project pkm\bio_guard_backend\resources\views\dashboard\shipments.blade.php ENDPATH**/ ?>
