@@ -317,72 +317,73 @@
 
                         {{-- Individual Telemetry Card --}}
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card cursor-pointer p-4 {{ $bgClass }} {{ $accentBorderClass }} {{ $shakeClass }} hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group" data-rute-id="{{ $perjalanan->id_rute }}">
-                            {{-- Courier Info --}}
-                            <div class="flex items-start justify-between gap-sm">
+                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl {{ $bgClass }} border border-slate-200 dark:border-slate-800/80 {{ $pulseRing ?? '' }} {{ $shakeClass }} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="{{ $perjalanan->id_rute }}">
+                            
+                            {{-- Header: Avatar & Info --}}
+                            <div class="flex items-start justify-between gap-3 mb-4">
                                 <div class="flex items-center gap-3 min-w-0">
-                                    <div class="w-8 h-8 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-800 dark:text-slate-200 font-bold text-xs uppercase tracking-wider shrink-0 select-none">
-                                        {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('') }}
+                                    <!-- Clean Avatar -->
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                                        {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0] ?? '')->take(2)->implode('') }}
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-body-sm font-bold text-on-surface truncate">
+                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="{{ $perjalanan->kurir->nama_lengkap }}">
                                             {{ $perjalanan->kurir->nama_lengkap }}
-                                        </p>
-                                        <p class="text-label-md text-slate-500 mt-0.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                            {{ $perjalanan->kurir->nomor_kendaraan }} &bull; 
-                                            <span class="font-mono-data text-[10px]">{{ $perjalanan->id_box }}</span> &bull;
-                                            <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">{{ $perjalanan->kurir->no_wa ?? '-' }}</span>
-                                            <a href="{{ route('dashboard.qr', $perjalanan->id_box) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
+                                        </h4>
+                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
+                                            <span>{{ $perjalanan->kurir->nomor_kendaraan }}</span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="font-mono">{{ $perjalanan->id_box }}</span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span>{{ $perjalanan->kurir->no_wa ?? '-' }}</span>
+                                            <a href="{{ route('dashboard.qr', $perjalanan->id_box) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
                                             </a>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
-
-                                {{-- Status Badge --}}
-                                <!-- STITCH_AI_STATUS_BADGE: Ganti dengan gaya badge status enterprise -->
-                                <x-badge color="{{ $badgeColor }}">
+                                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg {{ $badgeColor ?? '' }} text-[10px] font-bold uppercase tracking-wider shrink-0">
                                     @if($status === 'Aman')
-                                        <span class="material-symbols-outlined text-[12px] mr-1">check_circle</span>
+                                        <span class="material-symbols-outlined text-[14px]">check_circle</span>
                                     @elseif($status === 'Peringatan')
-                                        <span class="material-symbols-outlined text-[12px] mr-1">info</span>
+                                        <span class="material-symbols-outlined text-[14px]">info</span>
                                     @else
-                                        <span class="material-symbols-outlined text-[12px] mr-1">warning</span>
+                                        <span class="material-symbols-outlined text-[14px]">warning</span>
                                     @endif
-                                    {{ $statusLabel }}
-                                </x-badge>
+                                    {{ $status }}
+                                </div>
                             </div>
 
                             {{-- Destination --}}
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-sm truncate">
-                                <span class="material-symbols-outlined text-[12px] align-middle mr-0.5 text-primary">pin_drop</span>
-                                {{ $perjalanan->lokasi_tujuan }}
-                            </p>
+                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                                <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
+                                <span class="truncate">{{ $perjalanan->lokasi_tujuan }}</span>
+                            </div>
 
-                            {{-- Temperature & MKT --}}
-                            <div class="flex items-end justify-between mt-sm">
+                            {{-- Key Metrics (Suhu & MKT) --}}
+                            <div class="flex items-end justify-between mb-4 px-1">
                                 <div>
-                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Suhu Aktual</p>
-                                    <p class="text-2xl font-extrabold tracking-tight {{ $textClass }} tabular-nums">
+                                    <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Suhu Aktual</p>
+                                    <p class="text-3xl font-black tracking-tighter tabular-nums {{ $textClass }} flex items-center gap-1">
                                         @if($status !== 'Aman')
-                                            <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
+                                            <span class="material-symbols-outlined text-[20px]">thermostat</span>
                                         @endif
                                         {{ $temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
-                                    <p class="text-base font-bold text-on-surface-variant tabular-nums">
+                                    <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
+                                    <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
                                         {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt }}
                                     </p>
                                 </div>
                             </div>
 
-                            {{-- AI prediction & Excursion Duration & Vibration --}}
-                            <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
+                            {{-- Secondary Metrics --}}
+                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
                                 <div>
-                                    <span class="block">Durasi Anomali</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $status !== 'Aman' ? $textClass : 'text-slate-700 dark:text-on-surface-variant' }}">
+                                    <span class="block mb-0.5">Durasi Anomali</span>
+                                    <span class="text-xs font-bold font-mono {{ $status !== 'Aman' ? $textClass : 'text-slate-800 dark:text-slate-200' }}">
                                         @if($status === 'Aman')
                                             0s (Normal)
                                         @else
@@ -391,7 +392,7 @@
                                     </span>
                                 </div>
                                 <div class="text-center">
-                                    <span class="block">Guncangan</span>
+                                    <span class="block mb-0.5">Guncangan</span>
                                     @php
                                         $vibeStatusClass = 'text-green-500';
                                         if ($vibration > 1.50) {
@@ -400,13 +401,13 @@
                                             $vibeStatusClass = 'text-amber-500';
                                         }
                                     @endphp
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $vibeStatusClass }}">
+                                    <span class="text-xs font-bold font-mono {{ $vibeStatusClass }}">
                                         {{ number_format($vibration, 2, ',', '.') }}G
                                     </span>
                                 </div>
                                 <div class="text-right" title="{{ $prediksi ? $prediksi->instruksi_mitigasi : '' }}">
-                                    <span class="block">Risiko (AI)</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
+                                    <span class="block mb-0.5">Risiko (AI)</span>
+                                    <span class="text-xs font-bold font-mono {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
                                         {{ number_format($probabilitas, 1, ',', '.') }}%
                                     </span>
                                 </div>
@@ -1397,69 +1398,77 @@ const plannedPaths = {
             }
 
             html += `
-                <div class="telemetry-card ${glowClass} cursor-pointer p-6 ${bgClass} ${accentBorderClass} ${cardBorderClass} ${pulseRing} ${shakeClass} hover:bg-slate-100/50 dark:hover:bg-slate-800/30 active:scale-[0.99] border transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
-                    <div class="flex items-start justify-between gap-sm">
+                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200 dark:border-slate-800/80 ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
+                    
+                    {{-- Header: Avatar & Info --}}
+                    <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3 min-w-0">
-                            <!-- Micro-Avatar dengan Inisial & Gradasi Neon -->
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 dark:from-primary dark:to-indigo-500 flex items-center justify-center text-slate-950 dark:text-white font-black text-xs uppercase tracking-wider shadow-[0_0_10px_rgba(76,213,246,0.3)] shrink-0 select-none">
+                            <!-- Clean Avatar -->
+                            <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                 ${initials}
                             </div>
                             <div class="min-w-0">
-                                <p class="text-body-sm font-bold text-on-surface truncate">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="${c.nama_kurir}">
                                     ${c.nama_kurir}
-                                </p>
-                                <p class="text-label-md text-slate-500 mt-0.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                    ${c.nomor_kendaraan} &bull; 
-                                    <span class="font-mono-data text-[10px]">${c.id_box}</span> &bull; 
-                                    <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">${c.no_wa || '-'}</span>
-                                    <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
+                                </h4>
+                                <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
+                                    <span>${c.nomor_kendaraan}</span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="font-mono">${c.id_box}</span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span>${c.no_wa || '-'}</span>
+                                    <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                         <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
                                     </a>
-                                </p>
+                                </div>
                             </div>
                         </div>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full ${badgeClass} text-[10px] font-black uppercase tracking-wider shrink-0">
-                            <span class="material-symbols-outlined text-[12px]">${statusIcon}</span>
-                            ${status.toUpperCase()}
-                        </span>
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${badgeClass} text-[10px] font-bold uppercase tracking-wider shrink-0">
+                            <span class="material-symbols-outlined text-[14px]">${statusIcon}</span>
+                            ${status}
+                        </div>
                     </div>
 
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-sm truncate">
-                        <span class="material-symbols-outlined text-[12px] align-middle mr-0.5 text-primary">pin_drop</span>
-                        ${c.lokasi_tujuan}
-                    </p>
+                    {{-- Destination --}}
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                        <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
+                        <span class="truncate">${c.lokasi_tujuan}</span>
+                    </div>
 
-                    <div class="flex items-end justify-between mt-sm">
+                    {{-- Key Metrics (Suhu & MKT) --}}
+                    <div class="flex items-end justify-between mb-4 px-1">
                         <div>
-                            <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Suhu Aktual</p>
-                            <p class="text-2xl font-extrabold tracking-tight ${textClass}">
-                                ${tempIcon}${tempDisplay}
+                            <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Suhu Aktual</p>
+                            <p class="text-3xl font-black tracking-tighter tabular-nums ${textClass} flex items-center gap-1">
+                                ${tempIcon}
+                                ${tempDisplay}
                             </p>
                         </div>
                         <div class="text-right">
-                            <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Nilai MKT</p>
-                            <p class="text-lg font-bold text-slate-600 dark:text-on-surface-variant font-mono">
+                            <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
+                            <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
                                 ${mkt}
                             </p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
+                    {{-- Secondary Metrics --}}
+                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
                         <div>
-                            <span class="block">Durasi Anomali</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${status !== 'Aman' ? textClass : 'text-slate-700 dark:text-on-surface-variant'}">
+                            <span class="block mb-0.5">Durasi Anomali</span>
+                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 dark:text-slate-200'}">
                                 ${durationDisplay}
                             </span>
                         </div>
                         <div class="text-center">
-                            <span class="block">Guncangan</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${vibeStatusClass}">
+                            <span class="block mb-0.5">Guncangan</span>
+                            <span class="text-xs font-bold font-mono ${vibeStatusClass}">
                                 ${vibration.toFixed(2).replace('.', ',')}G
                             </span>
                         </div>
                         <div class="text-right">
-                            <span class="block">Risiko (AI)</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${probColor}">
+                            <span class="block mb-0.5">Risiko (AI)</span>
+                            <span class="text-xs font-bold font-mono ${probColor}">
                                 ${prob.toFixed(1).replace('.', ',')}%
                             </span>
                         </div>

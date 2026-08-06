@@ -695,52 +695,46 @@
         </div>
 
         {{-- User Profile Card & Logout --}}
-        @auth
-        <div class="px-md border-t border-slate-200 dark:border-slate-800/60 pt-md mt-auto flex flex-col gap-sm">
-            <div class="flex items-center gap-md bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 rounded-xl p-md">
-                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
-                <div class="min-w-0 flex-1">
-                    <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
-                    <p class="text-[9px] text-slate-500 font-mono font-bold mt-0.5 truncate">{{ auth()->user()->dispatcher_id }}</p>
+        <div class="mt-auto flex flex-col w-full">
+            {{-- Unified Profile & Settings Footer --}}
+            @auth
+            <div class="px-md py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/20">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="relative shrink-0">
+                        <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/20 shadow-sm">
+                        <div class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-white dark:border-slate-950"></div>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
+                        <p class="text-[9px] text-slate-500 font-mono font-medium truncate">{{ auth()->user()->dispatcher_id }}</p>
+                    </div>
+                    <button id="theme-toggle" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer" title="Ubah Tema">
+                        <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
+                    </button>
                 </div>
+                <form action="{{ route('logout') }}" method="POST" class="w-full">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-rose-500 bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-500 hover:text-white rounded-lg transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[16px]">logout</span>
+                        Keluar Sesi
+                    </button>
+                </form>
             </div>
-            
-            <form action="{{ route('logout') }}" method="POST" class="w-full">
-                @csrf
-                <button type="submit" class="w-full flex items-center justify-center gap-xs px-md py-2 bg-rose-500/10 hover:bg-rose-500 hover:text-white border border-rose-500/20 text-rose-500 text-xs font-bold rounded-xl transition-all duration-300 ease-out active:scale-95 cursor-pointer">
-                    <span class="material-symbols-outlined text-[16px] align-middle">logout</span>
-                    Keluar Sesi
+            @else
+            <div class="px-md py-4 border-t border-slate-200 dark:border-slate-800/60">
+                <button id="theme-toggle" class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer">
+                    <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
+                    <span class="text-xs font-semibold">Ubah Tema</span>
                 </button>
-            </form>
-        </div>
-        @endauth
-
-        {{-- Theme Switcher --}}
-        <div class="px-md mb-sm {{ auth()->check() ? '' : 'mt-auto' }}">
-            <button id="theme-toggle" class="w-full flex items-center justify-between px-md py-3 rounded-xl bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 hover:bg-slate-200/50 dark:hover:bg-slate-800 text-slate-900 dark:text-white transition-all duration-300 ease-out active:scale-95 cursor-pointer">
-                <div class="flex items-center gap-md">
-                    <span id="theme-toggle-icon" class="material-symbols-outlined text-[20px] text-primary">dark_mode</span>
-                    <span id="theme-toggle-text" class="font-label-md">Mode Gelap</span>
-                </div>
-                <span class="text-[10px] text-primary font-bold uppercase tracking-wider">Ubah</span>
-            </button>
-        </div>
-
-        {{-- System Status CTA --}}
-        <div class="px-md">
-            <div class="bg-slate-100 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/60 rounded-xl p-md flex items-center gap-md">
-                <div class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(76,213,246,0.6)]"></div>
-                <span class="text-slate-900 dark:text-on-surface font-label-md">Status: Terhubung</span>
             </div>
-        </div>
-
-        {{-- Footer --}}
-        <div class="px-md mt-sm text-center">
-            <p class="text-[9px] text-slate-500 font-medium leading-relaxed">
-                BIO-GUARD Project &copy; 2026<br>
-                PKM-KC Program<br>
-                Politeknik Negeri Sriwijaya
-            </p>
+            @endauth
+            
+            {{-- Footer --}}
+            <div class="px-md pb-4 pt-1 text-center bg-slate-50/50 dark:bg-slate-900/20">
+                <p class="text-[9px] text-slate-400 font-medium leading-relaxed">
+                    BIO-GUARD Project &copy; 2026
+                </p>
+            </div>
         </div>
     </nav>
 
