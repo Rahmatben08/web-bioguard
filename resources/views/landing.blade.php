@@ -152,7 +152,7 @@
 
             {{-- Feature Showcase Glass Card (The Masterpiece) --}}
             <div class="lg:col-span-5 flex justify-center lg:justify-end">
-                <div class="relative w-full max-w-md bg-white/95 dark:bg-[#0d1b2e] rounded-3xl border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] overflow-hidden flex flex-col group transition-all duration-500 hover:-translate-y-2">
+                <div id="hero-widget-card" class="relative w-full max-w-md bg-white/95 dark:bg-[#0d1b2e] rounded-3xl border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] overflow-hidden flex flex-col group transition-all duration-500 hover:-translate-y-2">
                     
                     {{-- Top Header (Gradient) --}}
                     <div class="px-5 py-4 bg-gradient-to-r from-[#1565c0] to-[#0288d1] dark:from-[#0a2a5e] dark:to-[#0d3a70] border-b border-transparent dark:border-blue-500/30 flex justify-between items-center z-20 shadow-sm">
@@ -163,9 +163,12 @@
                                 <span class="text-white/80 dark:text-cyan-400/80 font-semibold text-[8px] tracking-[0.15em] leading-tight mt-0.5">SISTEM MONITORING</span>
                             </div>
                         </div>
-                        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/10 shadow-sm">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#69f0ae] animate-pulse shadow-[0_0_8px_#69f0ae]"></span>
-                            <span class="text-white font-bold text-[9px] tracking-wider">LIVE</span>
+                        <div id="live-badge-container" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/10 shadow-sm transition-colors">
+                            <span class="relative flex items-center justify-center w-2.5 h-2.5">
+                                <span id="live-badge-ping" class="absolute inline-flex w-full h-full rounded-full bg-[#69f0ae] opacity-60 animate-ping"></span>
+                                <span id="live-badge-dot" class="relative w-1.5 h-1.5 rounded-full bg-[#69f0ae] shadow-[0_0_8px_#69f0ae]"></span>
+                            </span>
+                            <span id="live-badge-text" class="text-white font-bold text-[9px] tracking-wider transition-colors">LIVE</span>
                         </div>
                     </div>
 
@@ -175,67 +178,85 @@
                         {{-- Title & Subtitle --}}
                         <div class="mb-4">
                             <h3 class="text-[#1565c0] dark:text-[#64b5f6] text-lg font-black tracking-tight">Monitoring Suhu Real-Time</h3>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs font-semibold">Rantai dingin obat termolabil &mdash; sensor aktif</p>
+                            <div class="flex items-center gap-3 mt-0.5">
+                                <p class="text-slate-500 dark:text-slate-400 text-xs font-semibold">Rantai dingin obat termolabil &mdash; sensor aktif</p>
+                                <span id="live-updated-badge" class="text-[9px] font-bold text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-800/40 tabular-nums whitespace-nowrap">Diperbarui 0d lalu</span>
+                            </div>
                         </div>
 
-                        {{-- Legend Row --}}
-                        <div class="flex items-center gap-4 mb-4 text-[9px] font-bold text-slate-600 dark:text-slate-300">
-                            <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] bg-[#1e88e5]"></div> Suhu Aktual</div>
-                            <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] bg-[#ef5350] border-t border-dashed border-[#ef5350]"></div> Batas Atas 8°C</div>
-                            <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] border-t border-dashed border-blue-400 dark:border-cyan-400"></div> Batas Bawah 2°C</div>
+                        {{-- Data Content Wrapper --}}
+                        <div id="widget-data-content" class="flex flex-col">
+                            {{-- Legend Row --}}
+                            <div class="flex items-center gap-4 mb-4 text-[9px] font-bold text-slate-600 dark:text-slate-300">
+                                <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] bg-[#1e88e5]"></div> Suhu Aktual</div>
+                                <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] bg-[#ef5350] border-t border-dashed border-[#ef5350]"></div> Batas Atas 8°C</div>
+                                <div class="flex items-center gap-1.5"><div class="w-3 h-[2px] border-t border-dashed border-blue-400 dark:border-cyan-400"></div> Batas Bawah 2°C</div>
+                            </div>
+
+                            {{-- Main Graphic Chart Area --}}
+                            <div class="relative w-full h-32 mb-4 bg-slate-50/50 dark:bg-transparent rounded-xl border border-slate-100 dark:border-transparent overflow-hidden">
+                                {{-- Chart Grid --}}
+                                <div class="absolute inset-0 flex flex-col justify-between py-2 px-1">
+                                    <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">10°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
+                                    <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-[#ef5350] font-bold font-mono w-5 text-right">8°</span><div class="flex-1 h-[1px] border-t border-dashed border-[#ef5350]/60"></div></div>
+                                    <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">5°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
+                                    <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-blue-500 dark:text-cyan-500 font-bold font-mono w-5 text-right">2°</span><div class="flex-1 h-[1px] border-t border-dashed border-blue-400/60 dark:border-cyan-400/60"></div></div>
+                                    <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">0°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
+                                </div>
+                                
+                                {{-- SVG Line Graph with Area Fill --}}
+                                <svg class="absolute inset-0 w-full h-full drop-shadow-[0_0_8px_rgba(30,136,229,0.5)] dark:drop-shadow-[0_0_10px_rgba(30,136,229,0.8)] pl-6" preserveAspectRatio="none" viewBox="0 0 100 100">
+                                    <defs>
+                                        <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#1e88e5" stop-opacity="0.3" />
+                                            <stop offset="100%" stop-color="#1e88e5" stop-opacity="0.01" />
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Area Fill -->
+                                    <path d="M0,80 Q10,60 20,70 T40,40 T60,65 T75,25 T90,15 T100,5 L100,100 L0,100 Z" fill="url(#chartGlow)" />
+                                    
+                                    <!-- Main Blue Line -->
+                                    <path id="live-chart-line" d="M0,58 Q15,75 30,75 T60,41 T75,23 T85,50 T100,55" fill="none" stroke="#1e88e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    
+                                    <!-- Highlight the red segment (temp > 8C, which is roughly Y < 33 on this scale) -->
+                                    <path d="M71,28 Q75,23 79,28" fill="none" stroke="#ef5350" stroke-width="2.5" stroke-linecap="round" />
+                                    
+                                    <!-- Data points -->
+                                    <circle cx="30" cy="75" r="2.5" fill="#1e88e5" stroke="white" stroke-width="1.5" />
+                                    <circle cx="75" cy="23" r="3.5" fill="#ef5350" stroke="white" stroke-width="1.5" class="animate-pulse shadow-[0_0_10px_#ef5350]" />
+                                    <!-- Live tip dot: pulsing ring at current reading -->
+                                    <circle id="live-tip-ring" cx="100" cy="55" r="6" fill="none" stroke="#1e88e5" stroke-width="1" opacity="0.4">
+                                        <animate attributeName="r" values="4;9;4" dur="2s" repeatCount="indefinite" />
+                                        <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite" />
+                                    </circle>
+                                    <circle id="live-tip-dot" cx="100" cy="55" r="3" fill="#1e88e5" stroke="white" stroke-width="1.5" />
+                                </svg>
+                            </div>
+
+                            {{-- Below Chart: 3 Stat Tiles --}}
+                            <div class="grid grid-cols-3 gap-2 mb-4">
+                                <div class="bg-[#f0f7ff] dark:bg-[#0a1e38] rounded-xl p-2.5 flex flex-col items-center justify-center border border-blue-100 dark:border-blue-900/30">
+                                    <span class="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Saat Ini</span>
+                                    <span id="live-current-temp" class="text-base font-black text-[#1565c0] dark:text-[#42a5f5]">5.4°C</span>
+                                </div>
+                                <div class="bg-[#f0f7ff] dark:bg-[#0a1e38] rounded-xl p-2.5 flex flex-col items-center justify-center border border-blue-100 dark:border-blue-900/30">
+                                    <span class="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Min</span>
+                                    <span id="live-min-temp" class="text-base font-black text-[#1565c0] dark:text-[#42a5f5]">2.3°C</span>
+                                </div>
+                                <div class="bg-[#fff3f3] dark:bg-[#2c1318] rounded-xl p-2.5 flex flex-col items-center justify-center border border-red-100 dark:border-red-900/30">
+                                    <span class="text-[9px] text-red-500 dark:text-red-400 font-bold uppercase tracking-wider mb-0.5">Max</span>
+                                    <span class="text-base font-black text-[#ef5350] dark:text-[#ef5350] flex items-center gap-0.5">
+                                        <span id="live-max-temp">9.2°C</span> <span class="material-symbols-outlined text-[12px] text-[#ef5350]">warning</span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
-                        {{-- Main Graphic Chart Area --}}
-                        <div class="relative w-full h-32 mb-4 bg-slate-50/50 dark:bg-transparent rounded-xl border border-slate-100 dark:border-transparent overflow-hidden">
-                            {{-- Chart Grid --}}
-                            <div class="absolute inset-0 flex flex-col justify-between py-2 px-1">
-                                <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">10°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
-                                <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-[#ef5350] font-bold font-mono w-5 text-right">8°</span><div class="flex-1 h-[1px] border-t border-dashed border-[#ef5350]/60"></div></div>
-                                <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">5°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
-                                <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-blue-500 dark:text-cyan-500 font-bold font-mono w-5 text-right">2°</span><div class="flex-1 h-[1px] border-t border-dashed border-blue-400/60 dark:border-cyan-400/60"></div></div>
-                                <div class="flex items-center gap-2 w-full"><span class="text-[8px] text-slate-400 dark:text-slate-500 font-mono w-5 text-right">0°</span><div class="flex-1 h-[1px] bg-slate-200 dark:bg-slate-700/50"></div></div>
-                            </div>
-                            
-                            {{-- SVG Line Graph with Area Fill --}}
-                            <svg class="absolute inset-0 w-full h-full drop-shadow-[0_0_8px_rgba(30,136,229,0.5)] dark:drop-shadow-[0_0_10px_rgba(30,136,229,0.8)] pl-6" preserveAspectRatio="none" viewBox="0 0 100 100">
-                                <defs>
-                                    <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stop-color="#1e88e5" stop-opacity="0.3" />
-                                        <stop offset="100%" stop-color="#1e88e5" stop-opacity="0.01" />
-                                    </linearGradient>
-                                </defs>
-                                <!-- Area Fill -->
-                                <path d="M0,80 Q10,60 20,70 T40,40 T60,65 T75,25 T90,15 T100,5 L100,100 L0,100 Z" fill="url(#chartGlow)" />
-                                
-                                <!-- Main Blue Line -->
-                                <path id="live-chart-line" d="M0,58 Q15,75 30,75 T60,41 T75,23 T85,50 T100,55" fill="none" stroke="#1e88e5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                
-                                <!-- Highlight the red segment (temp > 8C, which is roughly Y < 33 on this scale) -->
-                                <path d="M71,28 Q75,23 79,28" fill="none" stroke="#ef5350" stroke-width="2.5" stroke-linecap="round" />
-                                
-                                <!-- Data points -->
-                                <circle cx="30" cy="75" r="2.5" fill="#1e88e5" stroke="white" stroke-width="1.5" />
-                                <circle cx="75" cy="23" r="3.5" fill="#ef5350" stroke="white" stroke-width="1.5" class="animate-pulse shadow-[0_0_10px_#ef5350]" />
-                                <circle cx="100" cy="55" r="2.5" fill="#1e88e5" stroke="white" stroke-width="1.5" />
-                            </svg>
-                        </div>
-
-                        {{-- Below Chart: 3 Stat Tiles --}}
-                        <div class="grid grid-cols-3 gap-2 mb-4">
-                            <div class="bg-[#f0f7ff] dark:bg-[#0a1e38] rounded-xl p-2.5 flex flex-col items-center justify-center border border-blue-100 dark:border-blue-900/30">
-                                <span class="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Saat Ini</span>
-                                <span id="live-current-temp" class="text-base font-black text-[#1565c0] dark:text-[#42a5f5]">5.4°C</span>
-                            </div>
-                            <div class="bg-[#f0f7ff] dark:bg-[#0a1e38] rounded-xl p-2.5 flex flex-col items-center justify-center border border-blue-100 dark:border-blue-900/30">
-                                <span class="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Min</span>
-                                <span id="live-min-temp" class="text-base font-black text-[#1565c0] dark:text-[#42a5f5]">2.3°C</span>
-                            </div>
-                            <div class="bg-[#fff3f3] dark:bg-[#2c1318] rounded-xl p-2.5 flex flex-col items-center justify-center border border-red-100 dark:border-red-900/30">
-                                <span class="text-[9px] text-red-500 dark:text-red-400 font-bold uppercase tracking-wider mb-0.5">Max</span>
-                                <span class="text-base font-black text-[#ef5350] dark:text-[#ef5350] flex items-center gap-0.5">
-                                    <span id="live-max-temp">9.2°C</span> <span class="material-symbols-outlined text-[12px] text-[#ef5350]">warning</span>
-                                </span>
-                            </div>
+                        {{-- Empty State Wrapper (Hidden by default) --}}
+                        <div id="widget-empty-state" class="hidden flex-col items-center justify-center h-[240px] text-center px-6">
+                            <span class="material-symbols-outlined text-[48px] text-slate-300 dark:text-slate-600 mb-3 drop-shadow-sm">local_shipping</span>
+                            <p class="text-sm font-bold text-slate-600 dark:text-slate-400">Belum ada pengiriman aktif</p>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-500 mt-1.5 leading-relaxed">Sistem telemetri akan menampilkan pemantauan suhu otomatis ketika armada memulai perjalanan.</p>
                         </div>
                         
                         {{-- Bottom Row: 3 Badges --}}
@@ -706,23 +727,172 @@
     </script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const curTempEl = document.getElementById('live-current-temp');
-        const minTempEl = document.getElementById('live-min-temp');
-        const maxTempEl = document.getElementById('live-max-temp');
-        const lineEl = document.getElementById('live-chart-line');
-        if(curTempEl && lineEl) {
-            setInterval(() => {
-                let current = (4.0 + Math.random() * 3.5).toFixed(1);
-                curTempEl.textContent = current + '°C';
+        // ─── References ────────────────────────────────────────────────────
+        const curTempEl      = document.getElementById('live-current-temp');
+        const minTempEl      = document.getElementById('live-min-temp');
+        const maxTempEl      = document.getElementById('live-max-temp');
+        const lineEl         = document.getElementById('live-chart-line');
+        const tipDot         = document.getElementById('live-tip-dot');
+        const tipRing        = document.getElementById('live-tip-ring');
+        const updatedBadge   = document.getElementById('live-updated-badge');
+        const widgetCard     = document.getElementById('hero-widget-card');
+
+        if (!curTempEl || !lineEl) return;
+
+        // ─── Reduced-Motion Check ───────────────────────────────────────────
+        const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // ─── State ─────────────────────────────────────────────────────────
+        let lastUpdatedAt  = Date.now();
+        let sessionMin     = 4.8;
+        let sessionMax     = 5.4;
+
+        // ─── "Updated X seconds ago" Counter ──────────────────────────────
+        function updateTimestampBadge() {
+            if (!updatedBadge) return;
+            const secs = Math.round((Date.now() - lastUpdatedAt) / 1000);
+            updatedBadge.textContent = secs < 60
+                ? `Diperbarui ${secs}d lalu`
+                : `Diperbarui ${Math.round(secs/60)}m lalu`;
+        }
+        setInterval(updateTimestampBadge, 1000);
+
+        // ─── Flash Highlight on Value Change ──────────────────────────────
+        function flashElement(el) {
+            if (noMotion || !el) return;
+            el.style.transition = 'none';
+            el.style.textShadow = '0 0 12px rgba(33,150,243,0.9)';
+            el.style.color = '#0288d1';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    el.style.transition = 'text-shadow 600ms ease, color 600ms ease';
+                    el.style.textShadow = '';
+                    el.style.color = '';
+                });
+            });
+        }
+
+        // ─── Live Data Update (every 5s) ────────────────────────────────
+        let hasActiveDataState = null;
+
+        async function updateWidget() {
+            try {
+                const response = await fetch('/api/public/stats-ringkas');
+                const result = await response.json();
                 
-                // slightly wiggle the path end
-                let yEnd = 40 + Math.random() * 30;
-                lineEl.setAttribute('d', `M0,58 Q15,75 30,75 T60,41 T75,23 T85,50 T100,${yEnd}`);
-            }, 2000);
+                if (result.success && result.data) {
+                    const data = result.data;
+                    const hasActiveData = data.has_active_data;
+                    
+                    const dataContent = document.getElementById('widget-data-content');
+                    const emptyState = document.getElementById('widget-empty-state');
+                    const badgePing = document.getElementById('live-badge-ping');
+                    const badgeDot = document.getElementById('live-badge-dot');
+                    const badgeText = document.getElementById('live-badge-text');
+
+                    if (!hasActiveData) {
+                        // Switch to empty state
+                        if (dataContent && emptyState) {
+                            dataContent.classList.add('hidden');
+                            emptyState.classList.remove('hidden');
+                            emptyState.classList.add('flex');
+                        }
+                        
+                        // Update badge to standby mode
+                        if (badgePing) badgePing.classList.add('hidden');
+                        if (badgeDot) {
+                            badgeDot.classList.remove('bg-[#69f0ae]', 'shadow-[0_0_8px_#69f0ae]');
+                            badgeDot.classList.add('bg-slate-400', 'shadow-none');
+                        }
+                        if (badgeText) {
+                            badgeText.textContent = 'STANDBY';
+                            badgeText.classList.remove('text-white');
+                            badgeText.classList.add('text-slate-400');
+                        }
+                        if (updatedBadge) {
+                            updatedBadge.textContent = 'Menunggu data...';
+                        }
+                        hasActiveDataState = false;
+                        return; // Stop further processing
+                    }
+                    
+                    // Revert from empty state if needed
+                    if (hasActiveDataState === false) {
+                        if (dataContent && emptyState) {
+                            emptyState.classList.add('hidden');
+                            emptyState.classList.remove('flex');
+                            dataContent.classList.remove('hidden');
+                        }
+                        if (badgePing) badgePing.classList.remove('hidden');
+                        if (badgeDot) {
+                            badgeDot.classList.remove('bg-slate-400', 'shadow-none');
+                            badgeDot.classList.add('bg-[#69f0ae]', 'shadow-[0_0_8px_#69f0ae]');
+                        }
+                        if (badgeText) {
+                            badgeText.textContent = 'LIVE';
+                            badgeText.classList.remove('text-slate-400');
+                            badgeText.classList.add('text-white');
+                        }
+                        lastUpdatedAt = Date.now();
+                        hasActiveDataState = true;
+                    }
+
+                    const current = parseFloat(data.avg_temp);
+                    
+                    if (current < sessionMin) sessionMin = current;
+                    if (current > sessionMax) sessionMax = current;
+
+                    // Flash & update numbers
+                    const prevCur = curTempEl.textContent;
+                    const newCurStr = current.toFixed(1) + '°C';
+                    
+                    if (prevCur !== newCurStr) {
+                        curTempEl.textContent = newCurStr;
+                        flashElement(curTempEl);
+                    }
+                    minTempEl.textContent = parseFloat(data.min_temp).toFixed(1) + '°C';
+                    maxTempEl.textContent = parseFloat(data.max_temp).toFixed(1) + '°C';
+
+                    // Update chart line endpoint
+                    const yEnd = Math.max(10, Math.min(90, 100 - ((current - 0) / 10) * 100));
+                    lineEl.setAttribute('d', `M0,58 Q15,75 30,75 T60,41 T75,23 T85,50 T100,${yEnd.toFixed(1)}`);
+
+                    // Move tip dot to new position
+                    if (tipDot) tipDot.setAttribute('cy', yEnd.toFixed(1));
+                    if (tipRing) {
+                        tipRing.setAttribute('cy', yEnd.toFixed(1));
+                    }
+
+                    // Reset "updated X seconds ago"
+                    lastUpdatedAt = Date.now();
+                    updateTimestampBadge();
+                }
+            } catch (error) {
+                console.error("Error fetching live data:", error);
+            }
+        }
+        setInterval(updateWidget, 5000);
+        updateWidget(); // run once immediately
+
+        // ─── Parallax Tilt on Hover ─────────────────────────────────────
+        if (!noMotion && widgetCard) {
+            widgetCard.addEventListener('mousemove', (e) => {
+                const rect = widgetCard.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top  + rect.height / 2;
+                const dx = (e.clientX - cx) / (rect.width  / 2); // -1 to 1
+                const dy = (e.clientY - cy) / (rect.height / 2); // -1 to 1
+                const rotX = (-dy * 4).toFixed(2);   // max ±4°
+                const rotY = ( dx * 4).toFixed(2);
+                widgetCard.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px)`;
+                widgetCard.style.transition = 'transform 80ms linear';
+            });
+            widgetCard.addEventListener('mouseleave', () => {
+                widgetCard.style.transform = '';
+                widgetCard.style.transition = 'transform 500ms ease, box-shadow 500ms ease';
+            });
         }
     });
     </script>
 </body>
 </html>
-
-

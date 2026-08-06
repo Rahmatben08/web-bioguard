@@ -43,3 +43,7 @@ Route::get('/sensors/live', [\App\Http\Controllers\AnalyticsController::class, '
     ->name('api.sensors.live');
 Route::get('/alerts/live', [\App\Http\Controllers\AlertController::class, 'liveData'])
     ->name('api.alerts.live');
+
+// Data agregat publik untuk widget landing page
+Route::get('/public/stats-ringkas', [DashboardController::class, 'publicStats'])
+    ->name('api.public.stats-ringkas');
