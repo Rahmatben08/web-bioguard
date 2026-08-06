@@ -557,7 +557,7 @@
         </div>
 
         {{-- Navigation Links --}}
-        <div class="flex-1 flex flex-col gap-sm px-md">
+        <div class="flex-1 flex flex-col gap-sm px-md overflow-y-auto pb-4">
             <a class="flex items-center gap-md px-md py-3 rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
                 <span class="material-symbols-outlined" style="{{ (request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : '' }}">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
@@ -649,7 +649,7 @@
         </div>
 
         {{-- Navigation Links --}}
-        <div class="flex-1 flex flex-col gap-sm px-md">
+        <div class="flex-1 flex flex-col gap-sm px-md overflow-y-auto pb-4">
             <a class="flex items-center gap-md px-md py-3 rounded-xl {{ (request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white' }} transition-all duration-300 ease-out active:scale-95" href="{{ route('dashboard') }}">
                 <span class="material-symbols-outlined" style="{{ (request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : '' }}">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
