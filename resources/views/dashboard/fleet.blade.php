@@ -447,12 +447,12 @@
         }
 
         let customIcon = L.divIcon({
-            html: `<div class="relative flex items-center justify-center w-8 h-8 rounded-full ${colorClass} ${pulseClass} border-2 text-white font-bold text-xs">
+            html: `<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full ${colorClass} ${pulseClass} border-2 text-white font-bold text-xs">
                      <span class="material-symbols-outlined text-[16px]">local_shipping</span>
                    </div>`,
-            className: 'custom-fleet-marker',
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
+            className: '',
+            iconSize: [0, 0],
+            iconAnchor: [0, 0]
         });
 
         let tempColor = 'text-cyan-500 dark:text-primary';

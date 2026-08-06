@@ -1179,10 +1179,13 @@ const plannedPaths = {
         }
 
         return L.divIcon({
-            className: 'custom-marker',
+            className: '',
             html: `
                 <div style="
-                    width: 28px; height: 28px;
+                    position: absolute;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 32px; height: 32px;
                     background: ${bgColor};
                     border: 2px solid ${color};
                     border-radius: 50%;
@@ -1195,9 +1198,9 @@ const plannedPaths = {
                     </svg>
                 </div>
             `,
-            iconSize: [28, 28],
-            iconAnchor: [14, 14],
-            popupAnchor: [0, -18]
+            iconSize: [0, 0],
+            iconAnchor: [0, 0],
+            popupAnchor: [0, -16]
         });
     }
 
