@@ -1,0 +1,10 @@
+echo 'BEFORE LogTelemetri: ' . \App\Models\LogTelemetri::count() . PHP_EOL;
+\ = new \App\Models\DemoTelemetri();
+\->id_rute = 1;
+\->timestamp = now();
+\->suhu_aktual = 5.2;
+\->latitude = -2.9;
+\->longitude = 104.7;
+\->save();
+echo 'AFTER LogTelemetri: ' . \App\Models\LogTelemetri::count() . PHP_EOL;
+echo 'AFTER DemoTelemetri: ' . \App\Models\DemoTelemetri::count() . PHP_EOL;
