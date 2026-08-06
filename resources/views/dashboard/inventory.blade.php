@@ -44,8 +44,8 @@
             </div>
             <div class="mt-4">
                 <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Rata-rata Suhu Kulkas</span>
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums mt-1">{{ number_format($avgTemp, 1, ',', '.') }}&deg;C</h3>
-                <p class="text-slate-500 text-[10px] mt-1 font-semibold">Standar CDOB: 2,0&deg;C - 8,0&deg;C</p>
+                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums mt-1">{{ number_format($avgTemp, 1, ',', '.') }}°C</h3>
+                <p class="text-slate-500 text-[10px] mt-1 font-semibold">Standar CDOB: 2,0°C - 8,0°C</p>
             </div>
         </x-card>
 
@@ -180,7 +180,7 @@
                 <select name="status" onchange="this.form.submit()" 
                         class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
                     <option value="Semua">Semua Status</option>
-                    <option value="Aman" {{ request('status') === 'Aman' ? 'selected' : '' }}>Aman (2&deg;C - 8&deg;C)</option>
+                    <option value="Aman" {{ request('status') === 'Aman' ? 'selected' : '' }}>Aman (2°C - 8°C)</option>
                     <option value="Bahaya" {{ request('status') === 'Bahaya' ? 'selected' : '' }}>Anomali / Bahaya</option>
                 </select>
 
@@ -248,12 +248,12 @@
                                 @if($hub['status'] === 'Aman')
                                     <x-badge color="success">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                        {{ number_format($hub['suhu_aktual'], 1, ',', '.') }}&deg;C
+                                        {{ number_format($hub['suhu_aktual'], 1, ',', '.') }}°C
                                     </x-badge>
                                 @else
                                     <x-badge color="error" class="animate-pulse">
                                         <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
-                                        {{ number_format($hub['suhu_aktual'], 1, ',', '.') }}&deg;C
+                                        {{ number_format($hub['suhu_aktual'], 1, ',', '.') }}°C
                                     </x-badge>
                                 @endif
                             </x-table.td>
@@ -373,7 +373,7 @@
                 <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-700/40 rounded-xl flex items-center justify-between">
                     <div>
                         <span class="text-xs text-slate-500 dark:text-slate-400">Temperatur Terkini</span>
-                        <div class="text-3xl font-black text-slate-850 dark:text-slate-100 font-mono-data mt-1" id="modal-suhu-aktual">4,2&deg;C</div>
+                        <div class="text-3xl font-black text-slate-850 dark:text-slate-100 font-mono-data mt-1" id="modal-suhu-aktual">4,2°C</div>
                     </div>
                     <span class="px-3 py-1.5 rounded-full text-xs font-bold" id="modal-status-badge">Aman</span>
                 </div>
@@ -509,7 +509,7 @@
         document.getElementById('modal-faskes-id').textContent = hub.id;
         document.getElementById('modal-faskes-name').textContent = hub.nama;
         document.getElementById('modal-faskes-kecamatan').textContent = hub.kecamatan;
-        document.getElementById('modal-suhu-aktual').textContent = parseFloat(hub.suhu_aktual).toFixed(1).replace('.', ',') + '&deg;C';
+        document.getElementById('modal-suhu-aktual').textContent = parseFloat(hub.suhu_aktual).toFixed(1).replace('.', ',') + '°C';
         
         // Icon handling
         const iconDiv = document.getElementById('modal-header-icon');
@@ -579,7 +579,7 @@
         let isDanger = hub.status !== 'Aman';
         var chartOptions = {
             series: [{
-                name: "Suhu Kulkas (&deg;C)",
+                name: "Suhu Kulkas (°C)",
                 data: chartData
             }],
             chart: {
@@ -619,7 +619,7 @@
                         label: {
                             borderColor: '#06b6d4',
                             style: { color: '#fff', background: '#06b6d4', fontSize: '9px' },
-                            text: 'Batas Bawah (2&deg;C)'
+                            text: 'Batas Bawah (2°C)'
                         }
                     },
                     {
@@ -628,7 +628,7 @@
                         label: {
                             borderColor: '#f43f5e',
                             style: { color: '#fff', background: '#f43f5e', fontSize: '9px' },
-                            text: 'Batas Atas (8&deg;C)'
+                            text: 'Batas Atas (8°C)'
                         }
                     }
                 ]
@@ -658,7 +658,7 @@
             btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-green-400">check_circle</span> Sukses!';
             
             // Force temperature back to safe ranges in UI
-            document.getElementById('modal-suhu-aktual').textContent = '4,5&deg;C';
+            document.getElementById('modal-suhu-aktual').textContent = '4,5°C';
             
             const badge = document.getElementById('modal-status-badge');
             badge.className = 'px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-450 border border-emerald-200/50 dark:border-emerald-900/30 text-xs font-bold rounded-full';
@@ -675,7 +675,7 @@
             setTimeout(() => {
                 btn.disabled = false;
                 btn.innerHTML = origContent;
-                alert('Kalibrasi sensor IoT dan penstabilan kulkas berhasil. Suhu dikompresi kembali ke batas aman 4,5&deg;C.');
+                alert('Kalibrasi sensor IoT dan penstabilan kulkas berhasil. Suhu dikompresi kembali ke batas aman 4,5°C.');
             }, 1000);
         }, 1500);
     };

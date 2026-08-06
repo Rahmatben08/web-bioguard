@@ -208,7 +208,7 @@
                         <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
                             <span class="font-semibold text-on-surface-variant">Suhu Luar:</span>
                             <div class="flex items-center gap-1 font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">
-                                <span>34&deg;C</span>
+                                <span>34°C</span>
                                 <span class="material-symbols-outlined text-[12px] text-red-500 font-bold animate-bounce" title="Suhu meningkat">trending_up</span>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                 <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-                        <span>Aman (2&deg;C - 8&deg;C)</span>
+                        <span>Aman (2°C - 8°C)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
@@ -363,13 +363,13 @@
                                         @if($status !== 'Aman')
                                             <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
                                         @endif
-                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '&deg;C' : '-' }}
+                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
                                     <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
                                     <p class="text-base font-bold text-on-surface-variant tabular-nums">
-                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '&deg;C' : $mkt }}
+                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt }}
                                     </p>
                                 </div>
                             </div>
@@ -509,7 +509,7 @@
                 {{-- Body --}}
                 <div class="p-6">
                     <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
-                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8&deg;C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
+                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
                     {{-- Table --}}
@@ -533,7 +533,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -548,7 +548,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -563,7 +563,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -893,7 +893,7 @@
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
                         <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
-                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0&deg;C - 8,0&deg;C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8&deg;C</span> tanpa kerusakan zat aktif terdeteksi.
+                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0°C - 8,0°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8°C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
                     <div class="col-span-2">
@@ -1221,7 +1221,7 @@ const plannedPaths = {
             statusColor = 'text-red-500 dark:text-error';
         }
 
-        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
 
         return `
             <div class="p-2 text-xs space-y-2 select-none font-sans">
@@ -1331,7 +1331,7 @@ const plannedPaths = {
             const textClass = c.text_class;
             const duration = c.excursion_duration;
             const temp = c.suhu_aktual;
-            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '°C' : '-';
             const prob = c.probabilitas_rusak;
             
             // Vibration evaluations
@@ -1345,7 +1345,7 @@ const plannedPaths = {
             const shakeClass = vibration > 1.50 ? 'animate-shake-infinite' : '';
 
             const statusIcon = status === 'Aman' ? 'check_circle' : (status === 'Peringatan' ? 'info' : 'warning');
-            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
             const durationDisplay = status === 'Aman' ? '0s (Normal)' : duration + 's';
             
             let sparklineClass = 'sparkline-cyan';
@@ -1477,7 +1477,7 @@ const plannedPaths = {
         if (window.Notification && Notification.permission === 'granted') {
             try {
                 new Notification('ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ALARM SUHU KRITIS BIO-GUARD', {
-                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`,
+                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
                     icon: '/favicon.ico'
                 });
             } catch (e) {
@@ -1716,10 +1716,10 @@ const plannedPaths = {
             // 1. Temperature Alert Gateway Logs
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C!`, 'danger');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C. Pindahkan kargo segera!`, 'danger');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
+                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C. Pindahkan kargo segera!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`, 'warning');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
                     logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Notifikasi dikirim ke Kurir ${c.nama_kurir}. Harap periksa kerapatan penutup Boks ${c.id_box}.`, 'warning');
                 }
             }
@@ -1745,9 +1745,9 @@ const plannedPaths = {
 
             // Notification Center Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
-                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C melebihi batas cold chain!`, 'danger');
+                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C melebihi batas cold chain!`, 'danger');
             } else if (c.excursion_status === 'Peringatan') {
-                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`, 'warning');
+                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
             }
 
             if (c.battery_level < 20) {
@@ -2005,7 +2005,7 @@ const plannedPaths = {
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
                         <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
-                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-'}</span></div>
+                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-'}</span></div>
                             <div>Status: <span class="text-green-500 font-bold">Selesai</span></div>
                         </div>
                     </div>
@@ -2075,7 +2075,7 @@ const plannedPaths = {
         const destCoord = coordinatesLookup[p.lokasi_tujuan] || {lat: -6.2000, lng: 106.8400};
 
         let status = 'Aman';
-        let statusLabel = 'Aman (Sesuai Standar 2&deg;C - 8&deg;C)';
+        let statusLabel = 'Aman (Sesuai Standar 2°C - 8°C)';
         let badgeClass = 'bg-primary/10 text-primary border border-primary/30';
         let textClass = 'text-cyan-500 font-bold';
         let duration = 0;
@@ -2322,14 +2322,14 @@ const plannedPaths = {
         let message = '';
         if (type === 'suhu') {
             temp = 9.8;
-            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}&deg;C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'deviasi') {
             lat = lat - 0.008; 
             lng = lng + 0.012;
             message = `Simulasi deviasi koordinat rute dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'reset') {
             temp = 4.2;
-            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}&deg;C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
         }
 
         const payload = {
@@ -2670,7 +2670,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yaxis: {
             labels: {
                 formatter: function (val) {
-                    return val.toFixed(1).replace('.', ',') + '&deg;C';
+                    return val.toFixed(1).replace('.', ',') + '°C';
                 },
                 style: {
                     colors: themeColors.textColor,
@@ -2693,7 +2693,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#ef4444',
                         style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Max (8&deg;C)',
+                        text: 'Max (8°C)',
                         offsetY: -3
                     }
                 },
@@ -2704,7 +2704,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#3b82f6',
                         style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Min (2&deg;C)',
+                        text: 'Min (2°C)',
                         offsetY: 0
                     }
                 }

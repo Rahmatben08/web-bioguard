@@ -1,1 +1,11 @@
-<?php $tokens = token_get_all(file_get_contents('compiled.php')); $ifs = []; foreach ($tokens as $i => $t) { if (is_array($t)) { if ($t[0] == T_IF) $ifs[] = $t[2]; elseif ($t[0] == T_ENDIF) array_pop($ifs); } } print_r($ifs);
+<?php 
+require 'vendor/autoload.php'; 
+$app = require_once 'bootstrap/app.php'; 
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); 
+
+echo 'LogTelemetri count: ' . App\Models\LogTelemetri::count() . "\n"; 
+if (\Illuminate\Support\Facades\Schema::hasTable('demo_telemetri')) {
+    echo 'DemoTelemetri count: ' . DB::table('demo_telemetri')->count() . "\n"; 
+} else {
+    echo "demo_telemetri table does not exist.\n";
+}

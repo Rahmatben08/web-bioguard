@@ -42,7 +42,7 @@
                     
                     <div class="bg-red-900/30 border border-red-500/40 rounded-2xl p-4 w-full mb-8">
                         <div class="text-xs text-red-300 uppercase font-bold tracking-wider mb-1">Suhu Sensor Saat Ini</div>
-                        <div id="overlay-temp-display" class="text-xl font-bold text-white">8.6&deg;C</div>
+                        <div id="overlay-temp-display" class="text-xl font-bold text-white">8.6°C</div>
                         <div class="text-[10px] text-red-400 mt-2 font-bold uppercase">Melebihi Ambang Toleransi 30 Detik</div>
                     </div>
 
@@ -82,8 +82,8 @@
                                 <div class="flex flex-col">
                                     <span id="telemetry-card-title" class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Suhu Aktual Boks</span>
                                     <div class="flex items-baseline gap-1.5">
-                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5&deg;C</span>
-                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8&deg;C</span></span>
+                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5°C</span>
+                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8°C</span></span>
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-end">
@@ -262,16 +262,16 @@
             
             <!-- Temperature Range Info -->
             <div class="flex justify-between text-[11px] bg-slate-900/50 p-2 rounded-xl border border-outline-variant/30">
-                <span class="text-cyan-400">Aman: 2.0&deg;C - 8.0&deg;C</span>
-                <span class="text-amber-500">Warning: 8.1&deg;C - 8.5&deg;C</span>
-                <span class="text-red-500">Kritis: > 8.5&deg;C</span>
+                <span class="text-cyan-400">Aman: 2.0°C - 8.0°C</span>
+                <span class="text-amber-500">Warning: 8.1°C - 8.5°C</span>
+                <span class="text-red-500">Kritis: > 8.5°C</span>
             </div>
 
             <!-- Temperature Slider -->
             <div class="flex flex-col gap-xs mt-2">
                 <div class="flex justify-between items-baseline">
                     <span class="text-xs text-slate-400">Atur Suhu Aktual:</span>
-                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5&deg;C</span>
+                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5°C</span>
                 </div>
                 <input id="temp-slider" type="range" min="0.0" max="15.0" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
             </div>
@@ -279,16 +279,16 @@
             <!-- Preset Buttons -->
             <div class="grid grid-cols-2 gap-2 mt-2">
                 <button onclick="setTempPreset(4.5)" class="py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 text-cyan-400 text-xs font-bold transition-all cursor-pointer">
-                    Suhu Aman (4.5&deg;C)
+                    Suhu Aman (4.5°C)
                 </button>
                 <button onclick="setTempPreset(8.3)" class="py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-400 text-xs font-bold transition-all cursor-pointer">
-                    Warning (8.3&deg;C)
+                    Warning (8.3°C)
                 </button>
                 <button onclick="setTempPreset(9.5)" class="py-2 rounded-xl bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 text-xs font-bold transition-all cursor-pointer">
-                    Kritis (9.5&deg;C)
+                    Kritis (9.5°C)
                 </button>
                 <button onclick="setTempPreset(1.5)" class="py-2 rounded-xl bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs font-bold transition-all cursor-pointer">
-                    Beku (1.5&deg;C)
+                    Beku (1.5°C)
                 </button>
             </div>
         </div>
@@ -810,9 +810,9 @@
         currentTemp = parseFloat(val);
         mktTemp = parseFloat((currentTemp * 1.05 + 0.1).toFixed(1));
         
-        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}&deg;C`;
-        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}&deg;C`;
-        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}&deg;C`;
+        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}°C`;
+        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}°C`;
+        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}°C`;
 
         evaluateTemperatureConstraints();
     }
@@ -872,13 +872,13 @@
             mapCourier.classList.add('border-2', 'border-white', 'flex', 'items-center', 'justify-center', 'text-white', 'shadow-lg');
         }
 
-        // Batas instan kritis (> 8.5&deg;C)
+        // Batas instan kritis (> 8.5°C)
         if (currentTemp > 8.5) {
             triggerCriticalAlert();
             return;
         }
 
-        // Batas fluktuasi / warning (8.1&deg;C s.d. 8.5&deg;C)
+        // Batas fluktuasi / warning (8.1°C s.d. 8.5°C)
         if (currentTemp > 8.0 && currentTemp <= 8.5) {
             isWarning = true;
             isCritical = false;
@@ -896,7 +896,7 @@
             if (!anomalyTimer) {
                 anomalySeconds = 30;
                 document.getElementById('countdown-display').textContent = `${anomalySeconds}s`;
-                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}&deg;C. Memulai timer toleransi 30 detik!`, 'warning');
+                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}°C. Memulai timer toleransi 30 detik!`, 'warning');
                 
                 anomalyTimer = setInterval(function() {
                     if (anomalySeconds > 0) {
@@ -914,7 +914,7 @@
                 }, 1000);
             }
         } else {
-            // Suhu AMAN (2&deg;C s.d. 8&deg;C atau beku < 2&deg;C tapi di luar warning 8.1 - 8.5)
+            // Suhu AMAN (2°C s.d. 8°C atau beku < 2°C tapi di luar warning 8.1 - 8.5)
             if (currentTemp >= 2.0 && currentTemp <= 8.0) {
                 isWarning = false;
                 isCritical = false;
@@ -922,7 +922,7 @@
                 if (anomalyTimer) {
                     clearInterval(anomalyTimer);
                     anomalyTimer = null;
-                    logConsole(`Suhu kembali stabil ke ${currentTemp}&deg;C. Timer toleransi di-reset.`, 'success');
+                    logConsole(`Suhu kembali stabil ke ${currentTemp}°C. Timer toleransi di-reset.`, 'success');
                 }
 
                 floatCard.classList.add('border-cyan-500');
@@ -935,7 +935,7 @@
                     mapCourier.classList.add('bg-cyan-500', 'animate-bio-pulse');
                 }
             } else {
-                // Di bawah 2.0&deg;C (Beku / Bahaya Dingin) -> Warning langsung
+                // Di bawah 2.0°C (Beku / Bahaya Dingin) -> Warning langsung
                 floatCard.classList.add('border-amber-500');
                 tempText.classList.add('text-amber-400');
                 viabilityBadge.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
@@ -986,7 +986,7 @@
         }
 
         // Tampilkan layar merah penuh di mockup HP
-        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}&deg;C`;
+        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}°C`;
         document.getElementById('critical-overlay').classList.remove('hidden');
 
         // Mainkan getar
@@ -994,7 +994,7 @@
             navigator.vibrate([800, 400, 800, 400, 800]);
         }
 
-        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}&deg;C)`, 'danger');
+        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}°C)`, 'danger');
     }
 
     // Reset Simulasi
@@ -1105,7 +1105,7 @@
             // Buffer offline
             offlineBuffer.push(telemetryRecord);
             updateOfflineCacheCount();
-            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}&deg;C, Cache: ${offlineBuffer.length} log`, 'warning');
+            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}°C, Cache: ${offlineBuffer.length} log`, 'warning');
             return;
         }
 
@@ -1144,7 +1144,7 @@
                         }
                     }
                 }
-                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}&deg;C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
+                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}°C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
                 if (vibrationLevel > 1.0) {
                     vibrationLevel = 0.05;
                     document.getElementById('vibration-badge').textContent = '0,05G';
