@@ -150,7 +150,7 @@
                         <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
                     </div>
                     <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono">
-                        {{ number_format($mktVal, 1, ',', '.') }}Ã‚Â°C MKT
+                        {{ number_format($mktVal, 1, ',', '.') }}Ãƒâ€š°C MKT
                     </span>
                 </div>
 
@@ -263,7 +263,7 @@
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead>
-                    <x-table.tr>
+                    <tr>
                         <x-table.th scope="col">ID Rute (Box)</x-table.th>
                         <x-table.th scope="col">Mitra Kurir / Tujuan</x-table.th>
                         <x-table.th scope="col" class="text-center">Peringkat Stabilitas (Indeks)</x-table.th>
@@ -274,8 +274,8 @@
                 </thead>
                 <tbody class="divide-y divide-outline-variant/30">
                     @forelse($routesData as $route)
-                    <x-table.tr data-box="BOX-{{ $route['id_box'] }}">
-                        <x-table.td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</x-table.td>
+                    <tr data-box="BOX-{{ $route['id_box'] }}">
+                        <td class="font-bold text-primary">BOX-{{ $route['id_box'] }}</td>
                         <td class="px-lg py-4 text-on-surface transition-colors duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center border border-outline-variant/40 text-xs font-black text-primary transition-colors duration-300">
@@ -309,7 +309,7 @@
                                 $deviation = abs($route['avg_temp'] - 5.0);
                             @endphp
                             <span class="px-2 py-0.5 rounded-full {{ $deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-primary/10 border-primary/20 text-primary') }} text-[10px] font-black font-data-mono transition-colors duration-300">
-                                Ã‚Â±{{ number_format($deviation, 2, ',', '.') }}Ã‚Â°C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C</span>)
+                                ±{{ number_format($deviation, 2, ',', '.') }}Ãƒâ€š°C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}Ãƒâ€š°C</span>)
                             </span>
                         </td>
                         <td class="px-lg py-4 text-right font-data-mono text-on-surface-variant transition-colors duration-300">
@@ -322,7 +322,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ãƒâ€š°C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     TINDAK LANJUT
                                 </button>
@@ -332,7 +332,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ã‚Â°C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Ãƒâ€š°C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     Analisis
                                 </button>
@@ -716,7 +716,7 @@
 
             var modalChartOpts = {
                 series: [{
-                    name: "Suhu Sensor (Ã‚Â°C)",
+                    name: "Suhu Sensor (Ãƒâ€š°C)",
                     data: mockTemps
                 }],
                 chart: {
@@ -781,7 +781,7 @@
                 calibrateBtn.disabled = true;
                 setTimeout(() => {
                     calibrateBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle text-green-400">check_circle</span> Terkalibrasi';
-                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar Ã‚Â±0,02Ã‚Â°C.`);
+                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar ±0,02Ãƒâ€š°C.`);
                     if (currentActiveBtn) {
                         currentActiveBtn.innerHTML = 'Analisis';
                         currentActiveBtn.className = 'btn-analisis text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 text-xs font-bold uppercase tracking-tighter active:scale-95 transition-all duration-300';
@@ -807,7 +807,7 @@
 
         function openProjModal(data) {
             projBox.textContent = `${data.box} - ${data.kargo}`;
-            projMkt.textContent = `${data.mkt}Ã‚Â°C`;
+            projMkt.textContent = `${data.mkt}Ãƒâ€š°C`;
             projShelfLife.textContent = data.shelflife;
             
             projModal.classList.remove('hidden');
@@ -924,7 +924,7 @@
                     const boxId = 'BOX-' + route.id_box;
                     const tempEl = document.getElementById('temp-' + boxId);
                     if (tempEl) {
-                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + 'Ã‚Â°C';
+                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + 'Ãƒâ€š°C';
                     }
                     const riskEl = document.getElementById('risk-' + boxId);
                     if (riskEl) {
