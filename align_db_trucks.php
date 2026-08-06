@@ -21,6 +21,19 @@ foreach($rutes as $rute) {
     $logs = LogTelemetri::where('id_rute', $rute->id_rute)->orderBy('timestamp', 'asc')->get();
     
     $path = $paths[$rute->lokasi_tujuan] ?? null;
+    
+    $isRerouted = \App\Models\IncidentLog::where('id_rute', $rute->id_rute)
+        ->where('jenis_insiden', 'Peringatan Dini')
+        ->where('status', 'resolved')
+        ->exists();
+        
+    if ($isRerouted) {
+        if ($rute->lokasi_tujuan == 'RSUD Palembang BARI') {
+            $path = json_decode(file_get_contents(__DIR__.'/alternative_rsud.json'), true);
+        } elseif ($rute->lokasi_tujuan == 'RSUP Dr. Mohammad Hoesin') {
+            $path = json_decode(file_get_contents(__DIR__.'/alternative_rsup.json'), true);
+        }
+    }
     if (!$path || count($path) == 0) {
         echo "No path found for " . $rute->lokasi_tujuan . "\n";
         continue;
