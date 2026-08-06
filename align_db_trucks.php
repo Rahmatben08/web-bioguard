@@ -9,36 +9,42 @@ $response = $kernel->handle(
 use App\Models\PerjalananRute;
 use App\Models\LogTelemetri;
 
-// OSRM route for RSUP
-$rsupRoute = [
-    [-2.973283, 104.755628],
-    [-2.973121, 104.755632],
-    [-2.972322, 104.755291],
-    [-2.970878, 104.752538],
-    [-2.969057, 104.752524]
-];
+$json = file_get_contents(__DIR__.'/planned_paths.json');
+$paths = json_decode($json, true);
 
-// OSRM route for RSUD BARI (approx from Dinkes)
-$rsudRoute = [
-    [-2.973283, 104.755628],
-    [-2.9880, 104.7560],
-    [-2.9912, 104.7592],
-    [-2.9961, 104.7628]
-];
+if (!$paths) {
+    die("Failed to load planned_paths.json\n");
+}
 
 $rutes = PerjalananRute::where('status_perjalanan', 'aktif')->get();
 foreach($rutes as $rute) {
     $logs = LogTelemetri::where('id_rute', $rute->id_rute)->orderBy('timestamp', 'asc')->get();
     
-    $path = ($rute->lokasi_tujuan == 'RSUP Dr. Mohammad Hoesin') ? $rsupRoute : $rsudRoute;
-    $step = 0;
+    $path = $paths[$rute->lokasi_tujuan] ?? null;
+    if (!$path || count($path) == 0) {
+        echo "No path found for " . $rute->lokasi_tujuan . "\n";
+        continue;
+    }
     
-    foreach($logs as $log) {
-        $point = $path[min($step, count($path) - 1)];
+    $totalPoints = count($path);
+    $totalLogs = count($logs);
+    
+    if ($totalLogs == 0) continue;
+    
+    // Spread the logs evenly along the path (up to halfway to simulate they are currently traveling)
+    // Actually, in the screenshot they were about halfway. Let's just put them at 50% of the route.
+    $middleIndex = floor($totalPoints / 2);
+    
+    $step = 0;
+    foreach($logs as $index => $log) {
+        // Just linearly interpolate the logs up to the middle of the route
+        $targetIndex = floor(($index / max(1, $totalLogs - 1)) * $middleIndex);
+        if ($targetIndex >= $totalPoints) $targetIndex = $totalPoints - 1;
+        
+        $point = $path[$targetIndex];
         $log->latitude = $point[0];
         $log->longitude = $point[1];
         $log->save();
-        $step++;
     }
 }
-echo "Updated truck locations in DB to match roads.\n";
+echo "Truck locations fully aligned with OSRM arrays.\n";
