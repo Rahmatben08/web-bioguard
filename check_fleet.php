@@ -341,40 +341,6 @@
             ];
         })->toArray();
     @endphp
-    
-    // Cache for routes
-    const routeCache = {};
-    
-    async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
-        const cacheKey = destinationName + (isAlternative ? "_alt" : "");
-        if (routeCache[cacheKey]) return routeCache[cacheKey];
-
-        try {
-            // OSRM coordinates are lng,lat
-            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.code === 'Ok' && data.routes.length > 0) {
-                // Get the route (alternative route if requested and available, else primary)
-                const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
-                // GeoJSON coordinates are [lng, lat], Leaflet expects [lat, lng]
-                const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
-                routeCache[cacheKey] = coordinates;
-                
-                // Save to plannedPaths
-                if (isAlternative) {
-                    alternativePaths[destinationName] = coordinates;
-                } else {
-                    plannedPaths[destinationName] = coordinates;
-                }
-                return coordinates;
-            }
-        } catch (e) {
-            console.error("OSRM Fetch Error", e);
-        }
-        return null;
-    }
-
     let activeRoutes = {!! json_encode($activeRoutesData) !!};
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -416,77 +382,9 @@
         return '#06b6d4';
     }
 
-    
-    
-    async function triggerReroute() {
-        const select = document.getElementById('ai-courier-select');
-        const ruteId = select.value;
-        if (!ruteId) {
-            showToast("Pilih Kurir", "Silakan pilih armada terlebih dahulu.");
-            return;
-        }
-
-        const route = activeRoutes.find(r => r.id_rute == ruteId);
-        if (!route) return;
-        
-        showToast("AI Spatial-Thermal", `Mencari rute alternatif untuk ${route.nama_kurir}...`);
-        
-        // Force use alternative route
-        activeReroutes[ruteId] = true;
-        
-        // Send async POST request to backend to log this reroute
-        try {
-            await fetch('/api/monitoring/incident', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_rute: ruteId,
-                    jenis_insiden: 'Peringatan Dini',
-                    deskripsi: 'AI mendeteksi kemacetan/cuaca ekstrim. Rute dialihkan secara manual.',
-                    severity: 'warning'
-                })
-            });
-        } catch(e) {}
-        
-        // Trigger map update
-        createOrUpdateMarker(route);
-        document.getElementById('ai-lokasi-text').innerText = "Rute dialihkan.";
-    }
-
-    document.getElementById('ai-courier-select').addEventListener('change', function(e) {
-        const route = activeRoutes.find(r => r.id_rute == e.target.value);
-        if (route) {
-            document.getElementById('ai-lokasi-text').innerText = "Menuju: " + route.lokasi_tujuan;
-        }
-    });
-
-    async function createOrUpdateMarker(route) {
+    function createOrUpdateMarker(route) {
         const ruteId = route.id_rute;
-        const currentLatLng = [parseFloat(route.latitude), parseFloat(route.longitude)];
-        
-        // Ensure route exists
-        if (!plannedPaths[route.lokasi_tujuan]) {
-            // We need origin coords. We assume -2.9880, 104.7560 as fallback if not in activeRoutes
-            const originLat = route.origin_latitude || -2.9880;
-            const originLng = route.origin_longitude || 104.7560;
-            const destLat = route.dest_latitude || currentLatLng[0];
-            const destLng = route.dest_longitude || currentLatLng[1];
-            
-            await fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, false);
-            // Pre-fetch alternative
-            fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, true);
-        }
-
         // Dynamically update reroute state if modified on server
-        if (route.is_rerouted) {
-            activeReroutes[ruteId] = true;
-            if (alternativePaths[route.lokasi_tujuan]) {
-                plannedPaths[route.lokasi_tujuan] = alternativePaths[route.lokasi_tujuan];
-            }
-        }
         if (route.is_rerouted) {
             activeReroutes[ruteId] = true;
             if (alternativePaths[route.lokasi_tujuan]) {
@@ -501,40 +399,11 @@
             currentLatLng = [route.latitude - 0.005, route.longitude + 0.009];
         }
 
-
-        // Deviation & Trimming check
+        // Deviation check
         const plannedRoute = plannedPaths[route.lokasi_tujuan];
         let isDeviated = false;
-        let futureRoute = [];
-        let pastRoute = [];
-        
         if (plannedRoute) {
             const dist = getDistanceToPolyline(currentLatLng, plannedRoute);
-            if (dist > 300) {
-                isDeviated = true;
-            }
-            
-            // Trimming logic: Find closest point index
-            let minDistance = Infinity;
-            let closestIdx = 0;
-            for (let i = 0; i < plannedRoute.length; i++) {
-                const pointDist = getDistanceMeters(currentLatLng, plannedRoute[i]);
-                if (pointDist < minDistance) {
-                    minDistance = pointDist;
-                    closestIdx = i;
-                }
-            }
-            
-            // Split route
-            pastRoute = plannedRoute.slice(0, closestIdx + 1);
-            futureRoute = plannedRoute.slice(closestIdx);
-            
-            // Add current pos as connection
-            pastRoute.push(currentLatLng);
-            futureRoute.unshift(currentLatLng);
-        }
-
-        if (!markers[ruteId]) {
             if (dist > 300) {
                 isDeviated = true;
             }

@@ -62,13 +62,8 @@ class FleetController extends Controller
                 $health = $perjalanan->getDeviceHealth();
                 $battery = $health['battery'];
                 $signal = $health['signal'];
-                if ($perjalanan->id_box !== 'BOX-003') {
-                    $battery = min(100, $battery + (time() % 3) - 1);
-                    $signal = min(-50, $signal + (time() % 5) - 2);
-                } else {
-                    $battery = 11 + (time() % 3);
-                    $signal = -100 - (time() % 4);
-                }
+                $battery = $health['battery'];
+                $signal = $health['signal'];
 
                 $isRerouted = \App\Models\IncidentLog::where('id_rute', $perjalanan->id_rute)
                     ->where('jenis_insiden', 'Peringatan Dini')
@@ -89,7 +84,6 @@ class FleetController extends Controller
                     'signal_strength' => $signal,
                     'calibration_status' => $health['calibration'],
                     
-                    // Coordinates (Palembang Context)
                     'latitude' => $log->latitude,
                     'longitude' => $log->longitude,
                     'origin_latitude' => -2.9880, // Dinas Kesehatan Palembang
