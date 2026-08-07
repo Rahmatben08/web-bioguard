@@ -457,6 +457,9 @@
         const cacheKey = destinationName + (isAlternative ? "_alt" : "");
         if (routeCache[cacheKey]) return routeCache[cacheKey];
 
+        // Mark as fetching to prevent spam
+        routeCache[cacheKey] = 'fetching';
+
         try {
             // OSRM coordinates are lng,lat
             const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
@@ -476,6 +479,12 @@
             }
         } catch (e) {
             console.error("OSRM Fetch Error", e);
+        }
+        
+        // On failure, mark as empty array so we don't spam
+        routeCache[cacheKey] = [];
+        if (!isAlternative) {
+            plannedPaths[destinationName] = [];
         }
         return null;
     }

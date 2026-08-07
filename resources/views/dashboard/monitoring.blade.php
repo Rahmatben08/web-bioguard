@@ -993,6 +993,42 @@ const plannedPaths = {
         }
         return minDistance;
     }
+
+    let routeCache = {};
+    async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
+        const cacheKey = destinationName + (isAlternative ? "_alt" : "");
+        if (routeCache[cacheKey]) return routeCache[cacheKey];
+
+        // Mark as fetching to prevent spam
+        routeCache[cacheKey] = 'fetching';
+
+        try {
+            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.code === 'Ok' && data.routes.length > 0) {
+                const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
+                const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
+                routeCache[cacheKey] = coordinates;
+                
+                if (isAlternative) {
+                    alternativePaths[destinationName] = coordinates;
+                } else {
+                    plannedPaths[destinationName] = coordinates;
+                }
+                return coordinates;
+            }
+        } catch (e) {
+            console.error("OSRM Fetch Error", e);
+        }
+        
+        // On failure, mark as empty array so we don't spam
+        routeCache[cacheKey] = [];
+        if (!isAlternative) {
+            plannedPaths[destinationName] = [];
+        }
+        return null;
+    }
     // Request permission for push notifications
     if (window.Notification && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
         Notification.requestPermission();
