@@ -217,6 +217,9 @@
     let activePolylines = {};
     let activeDeviationCircles = {};
     let initialLoad = true;
+    let activeRoutes = [];
+    let routeLayer = {};
+    let pastRouteLayer = {};
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
@@ -358,18 +361,10 @@
         })->toArray();
     @endphp
 
-    let activeRoutes = {!! json_encode($activeRoutesData) !!};
-    let map;
-    let markers = {};
-    let routeLayer = {}; // solid
-    let pastRouteLayer = {}; // dashed
-    let initialLoad = true;
-    let activeReroutes = {};
+    activeRoutes = {!! json_encode($activeRoutesData) !!};
 
     // routeCache for OSRM fetch deduplication
     const routeCache = {};
-    // NOTE: plannedPaths and alternativePaths are declared above (hardcoded pre-fetched routes)
-    // They are NOT redeclared here to avoid SyntaxError
 
     async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
         const cacheKey = destinationName + (isAlternative ? "_alt" : "");
@@ -422,83 +417,6 @@
         updateMapData(activeRoutes);
         setInterval(pollLiveLocation, 2000);
     });
-
-    function getDistanceMeters(p1, p2) {
-        const R = 6371e3;
-        const phi1 = p1[0] * Math.PI / 180;
-        const phi2 = p2[0] * Math.PI / 180;
-        const deltaPhi = (p2[0] - p1[0]) * Math.PI / 180;
-        const deltaLambda = (p2[1] - p1[1]) * Math.PI / 180;
-
-        const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-                  Math.cos(phi1) * Math.cos(phi2) *
-                  Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    function getDistanceToSegment(p, a, b) {
-        const x = p[0], y = p[1];
-        const x1 = a[0], y1 = a[1];
-        const x2 = b[0], y2 = b[1];
-
-        const A = x - x1;
-        const B = y - y1;
-        const C = x2 - x1;
-        const D = y2 - y1;
-
-        const dot = A * C + B * D;
-        const lenSq = C * C + D * D;
-        let param = -1;
-        if (lenSq !== 0) {
-            param = dot / lenSq;
-        }
-
-        let xx, yy;
-        if (param < 0) {
-            xx = x1;
-            yy = y1;
-        } else if (param > 1) {
-            xx = x2;
-            yy = y2;
-        } else {
-            xx = x1 + param * C;
-            yy = y1 + param * D;
-        }
-        return getDistanceMeters(p, [xx, yy]);
-    }
-
-    function getDistanceToPolyline(p, polyline) {
-        let minDistance = Infinity;
-        for (let i = 0; i < polyline.length - 1; i++) {
-            const dist = getDistanceToSegment(p, polyline[i], polyline[i+1]);
-            if (dist < minDistance) {
-                minDistance = dist;
-            }
-        }
-        return minDistance;
-    }
-
-    function animateMarker(marker, startLatLng, endLatLng, durationMs) {
-        const start = performance.now();
-        const startLat = startLatLng.lat;
-        const startLng = startLatLng.lng;
-        const endLat = endLatLng[0];
-        const endLng = endLatLng[1];
-
-        function step(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / durationMs, 1);
-            const currentLat = startLat + (endLat - startLat) * progress;
-            const currentLng = startLng + (endLng - startLng) * progress;
-            marker.setLatLng([currentLat, currentLng]);
-
-            if (progress < 1) {
-                requestAnimationFrame(step);
-            }
-        }
-        requestAnimationFrame(step);
-    }
 
     function getPolylineColor(status) {
         if (status === 'Peringatan') return '#ffb95f';
