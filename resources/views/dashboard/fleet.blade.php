@@ -75,8 +75,8 @@
     <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 dark:bg-slate-900" id="map-container">
         <!-- Floating Persistent Summary Overlay (z-[1000]) -->
         <div class="absolute top-4 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">
-            <div class="pointer-events-auto flex items-center gap-2">
-                <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer" title="Toggle Sidebar">
+            <div class="pointer-events-auto flex items-center gap-2 flex-wrap">
+                <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer shrink-0" title="Toggle Sidebar">
                     <span id="sidebar-icon" class="material-symbols-outlined text-[20px]">menu_open</span>
                 </button>
                 <x-card noPadding="true" class="shadow-lg backdrop-blur-md bg-surface/90 border border-outline-variant/30 flex items-center p-2 rounded-full px-4 gap-4 transition-all duration-300">
@@ -90,14 +90,107 @@
                         <span id="summary-alert">-- Peringatan</span>
                     </div>
                 </x-card>
+                
+                <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="h-10 px-4 bg-surface-container-highest border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors cursor-pointer rounded-full font-semibold text-xs gap-1.5">
+                    <span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+                    Kelola QR Box
+                </button>
             </div>
         </div>
 
         <div class="w-full h-full overflow-hidden">
             <div id="fleet-map" class="w-full h-full"></div>
         </div>
+
+        <!-- Modal Kelola QR Box -->
+        <div id="modal-qr-box" class="hidden fixed inset-0 z-[2000] flex items-center justify-center pointer-events-auto bg-black/60 backdrop-blur-sm p-4 transition-opacity">
+            <div class="bg-surface rounded-2xl border border-outline-variant/30 shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+                <div class="p-lg border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+                    <div class="flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-primary text-2xl">qr_code_scanner</span>
+                        <div>
+                            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Manajemen QR Smart Box</h3>
+                            <p class="text-xs text-on-surface-variant">Cetak identitas boks fisik untuk proses pairing BLE kurir.</p>
+                        </div>
+                    </div>
+                    <button onclick="document.getElementById('modal-qr-box').classList.add('hidden')" class="w-8 h-8 flex justify-center items-center rounded-full hover:bg-surface-variant text-on-surface-variant transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">close</span>
+                    </button>
+                </div>
+                
+                <div class="p-lg overflow-y-auto flex-1 bg-surface flex flex-col gap-xl">
+                    <!-- Section: Input Manual -->
+                    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-md">
+                        <h4 class="font-bold text-sm text-on-surface mb-2">Generate Box Baru (Manual Input)</h4>
+                        <p class="text-xs text-on-surface-variant mb-4">Ketik ID Box berformat <code class="bg-surface-variant px-1 rounded">BOX-XXX</code> jika box tersebut benar-benar baru dan belum pernah masuk ke database perjalanan.</p>
+                        <div class="flex gap-2">
+                            <input type="text" id="manual-box-id" placeholder="Contoh: BOX-NEW01" class="flex-1 bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all uppercase">
+                            <button onclick="printManualQr()" class="px-md py-2 bg-primary text-on-primary font-bold text-sm rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-1 shrink-0 shadow-md shadow-primary/20">
+                                <span class="material-symbols-outlined text-[16px]">print</span> Cetak
+                            </button>
+                        </div>
+                        <p id="manual-error" class="text-error text-xs mt-2 hidden">ID Box harus diawali dengan "BOX-".</p>
+                    </div>
+
+                    <!-- Section: Daftar Box Terdahulu -->
+                    <div>
+                        <h4 class="font-bold text-sm text-on-surface mb-3 flex justify-between items-center">
+                            Daftar Box Terdaftar
+                            <span class="text-[10px] font-normal px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant">{{ count($boxes) }} Box Ditemukan</span>
+                        </h4>
+                        
+                        <div class="border border-outline-variant/30 rounded-xl overflow-hidden">
+                            <x-table class="w-full text-xs">
+                                <thead>
+                                    <tr class="bg-surface-container-low border-b border-outline-variant/30 text-left text-on-surface-variant">
+                                        <th class="p-3 font-semibold w-1/3">ID Box</th>
+                                        <th class="p-3 font-semibold w-1/3">Kurir Terakhir</th>
+                                        <th class="p-3 font-semibold text-right">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($boxes as $b)
+                                    <tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
+                                        <td class="p-3 font-mono font-bold text-primary">{{ $b->id_box }}</td>
+                                        <td class="p-3 text-on-surface">{{ $b->last_kurir ?? '-' }}</td>
+                                        <td class="p-3 text-right">
+                                            <a href="{{ route('dashboard.qr', $b->id_box) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-variant hover:bg-primary hover:text-on-primary text-on-surface transition-all">
+                                                <span class="material-symbols-outlined text-[16px]">print</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="3" class="p-6 text-center text-on-surface-variant italic">Belum ada data perjalanan/box.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </x-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function printManualQr() {
+                const input = document.getElementById('manual-box-id');
+                const error = document.getElementById('manual-error');
+                let val = input.value.trim().toUpperCase();
+                
+                if (!val.startsWith('BOX-')) {
+                    error.classList.remove('hidden');
+                    input.classList.add('border-error');
+                    return;
+                }
+                
+                error.classList.add('hidden');
+                input.classList.remove('border-error');
+                window.open('/dashboard/qr/' + encodeURIComponent(val), '_blank');
+            }
+        </script>
     </main>
 </div>
+
 @endsection
 
 @push('scripts')

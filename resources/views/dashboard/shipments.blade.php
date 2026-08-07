@@ -140,7 +140,7 @@
                         <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">
                             <div class="flex items-center gap-2">
                                 <span>#{{ $drug->no_batch }}</span>
-                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
+                                <a href="{{ route('dashboard.qr_batch', $drug->no_batch) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Batch">
                                     <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
                                 </a>
                             </div>
@@ -207,7 +207,7 @@
                                 <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
                                     <span class="material-symbols-outlined text-[18px]">outbound</span>
                                 </button>
-                                <a href="{{ route('dashboard.qr', $drug->no_batch) }}" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Code Boks">
+                                <a href="{{ route('dashboard.qr_batch', $drug->no_batch) }}" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Batch">
                                     <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
                                 </a>
                                 <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">

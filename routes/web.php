@@ -60,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/qr/{id_box}', [DashboardController::class, 'generateBoxQr'])
         ->name('dashboard.qr');
 
+    Route::get('/dashboard/qr-batch/{batch_id}', [DashboardController::class, 'generateBatchQr'])
+        ->name('dashboard.qr_batch');
+
     Route::get('/pengiriman', [ShipmentController::class, 'index'])
         ->name('shipments');
 
