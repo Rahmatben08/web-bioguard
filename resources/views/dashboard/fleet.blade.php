@@ -96,6 +96,60 @@
             </div>
         </div>
 
+
+        <!-- AI SPATIAL-THERMAL Widget -->
+        <div class="absolute top-4 right-4 z-[1000] pointer-events-none">
+            <x-card class="pointer-events-auto shadow-2xl backdrop-blur-md bg-surface/95 border border-outline-variant/30 w-72 transition-all duration-300">
+                <div class="flex items-center gap-2 mb-4 border-b border-outline-variant/20 pb-2">
+                    <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
+                    <h3 class="text-xs font-extrabold text-on-surface tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
+                        <span class="text-xs font-semibold text-on-surface-variant">Suhu Luar:</span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-bold text-primary">34°C</span>
+                            <span class="material-symbols-outlined text-error text-[14px]">trending_up</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
+                        <span class="text-xs font-semibold text-on-surface-variant">Kelembaban:</span>
+                        <span class="text-sm font-bold text-primary">80%</span>
+                    </div>
+
+                    <div class="p-3 rounded-lg border border-outline-variant/50 bg-surface-container mt-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-semibold text-on-surface-variant">Pilih Kurir:</span>
+                        </div>
+                        <select id="ai-courier-select" class="w-full bg-background border border-outline-variant/50 rounded p-1.5 text-xs text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none mb-3">
+                            <option value="">-- Pilih Armada --</option>
+                            @foreach($perjalananAktif as $p)
+                                <option value="{{ $p->id_rute }}">{{ $p->kurir->nama_lengkap }} ({{ $p->lokasi_tujuan }})</option>
+                            @endforeach
+                        </select>
+
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-semibold text-on-surface-variant">Lalu Lintas:</span>
+                            <span class="text-xs font-bold text-warning flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warning"></span>
+                                Padat Tinggi
+                            </span>
+                        </div>
+                        <p class="text-[10px] text-on-surface-variant mb-3 truncate" id="ai-lokasi-text">Menunggu pilihan...</p>
+                        
+                        <button onclick="triggerReroute()" class="w-full py-1.5 bg-warning/10 text-warning border border-warning/30 rounded-lg hover:bg-warning/20 transition-colors text-xs font-semibold flex items-center justify-center gap-1">
+                            Rekomendasikan Rute Baru
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-[9px] text-on-surface-variant mt-3 text-center leading-tight">
+                    * Data cuaca & kemacetan Palembang dianalisis oleh AI untuk memproyeksikan risiko secara prediktif.
+                </p>
+            </x-card>
+        </div>
+
         <div class="w-full h-full overflow-hidden">
             <div id="fleet-map" class="w-full h-full"></div>
         </div>
@@ -355,9 +409,19 @@
             ];
         })->toArray();
     @endphp
-    
+
+    let activeRoutes = {!! json_encode($activeRoutesData) !!};
+    let map;
+    let markers = {};
+    let routeLayer = {}; // solid
+    let pastRouteLayer = {}; // dashed
+    let initialLoad = true;
+    let activeReroutes = {};
+
     // Cache for routes
     const routeCache = {};
+    const plannedPaths = {};
+    const alternativePaths = {};
     
     async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
         const cacheKey = destinationName + (isAlternative ? "_alt" : "");
@@ -369,13 +433,10 @@
             const response = await fetch(url);
             const data = await response.json();
             if (data.code === 'Ok' && data.routes.length > 0) {
-                // Get the route (alternative route if requested and available, else primary)
                 const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
-                // GeoJSON coordinates are [lng, lat], Leaflet expects [lat, lng]
                 const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
                 routeCache[cacheKey] = coordinates;
                 
-                // Save to plannedPaths
                 if (isAlternative) {
                     alternativePaths[destinationName] = coordinates;
                 } else {
@@ -389,66 +450,22 @@
         return null;
     }
 
-    let activeRoutes = {!! json_encode($activeRoutesData) !!};
-
-    document.addEventListener("DOMContentLoaded", function () {
-        // Initialize Leaflet Map centered on Palembang
-        map = L.map('fleet-map', {
-            zoomControl: false
-        }).setView([-2.99, 104.756], 13);
-
-        L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-        // Dynamic Theme Map Tiles Setup
-        let isDarkTheme = document.documentElement.classList.contains('dark');
-        let tileUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-
-        const tileLayer = L.tileLayer(tileUrl, {
-            maxZoom: 20,
-            attribution: '&copy; CartoDB'
-        }).addTo(map);
-
-        window.addEventListener('theme-changed', (e) => {
-            isDarkTheme = e.detail.theme === 'dark';
-            const newUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-            tileLayer.setUrl(newUrl);
-        });
-
-        // Render initial data and center map
-        updateMapData(activeRoutes);
-
-        // Start 2-second location polling
-        setInterval(pollLiveLocation, 2000);
-    });
-
-    function getPolylineColor(status) {
-        if (status === 'Peringatan') {
-            return '#ffb95f';
-        } else if (status === 'Tidak Layak Pakai') {
-            return '#ffb4ab';
-        }
-        return '#06b6d4';
-    }
-
-    
-    
+    // AI Widget Logic
     async function triggerReroute() {
         const select = document.getElementById('ai-courier-select');
         const ruteId = select.value;
         if (!ruteId) {
-            showToast("Pilih Kurir", "Silakan pilih armada terlebih dahulu.");
+            // we don't have showToast defined in this file, use basic alert or console
+            alert("Silakan pilih armada terlebih dahulu.");
             return;
         }
 
         const route = activeRoutes.find(r => r.id_rute == ruteId);
         if (!route) return;
         
-        showToast("AI Spatial-Thermal", `Mencari rute alternatif untuk ${route.nama_kurir}...`);
-        
         // Force use alternative route
         activeReroutes[ruteId] = true;
         
-        // Send async POST request to backend to log this reroute
         try {
             await fetch('/api/monitoring/incident', {
                 method: 'POST',
@@ -465,70 +482,165 @@
             });
         } catch(e) {}
         
-        // Trigger map update
         createOrUpdateMarker(route);
         document.getElementById('ai-lokasi-text').innerText = "Rute dialihkan.";
     }
 
-    document.getElementById('ai-courier-select').addEventListener('change', function(e) {
+    document.getElementById('ai-courier-select')?.addEventListener('change', function(e) {
         const route = activeRoutes.find(r => r.id_rute == e.target.value);
         if (route) {
             document.getElementById('ai-lokasi-text').innerText = "Menuju: " + route.lokasi_tujuan;
         }
     });
 
+    document.addEventListener("DOMContentLoaded", function () {
+        map = L.map('fleet-map', {
+            zoomControl: false
+        }).setView([-2.99, 104.756], 13);
+
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+        let isDarkTheme = document.documentElement.classList.contains('dark');
+        let tileUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+
+        const tileLayer = L.tileLayer(tileUrl, {
+            maxZoom: 20,
+            attribution: '&copy; CartoDB'
+        }).addTo(map);
+
+        window.addEventListener('theme-changed', (e) => {
+            isDarkTheme = e.detail.theme === 'dark';
+            const newUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            tileLayer.setUrl(newUrl);
+        });
+
+        updateMapData(activeRoutes);
+        setInterval(pollLiveLocation, 2000);
+    });
+
+    function getDistanceMeters(p1, p2) {
+        const R = 6371e3;
+        const phi1 = p1[0] * Math.PI / 180;
+        const phi2 = p2[0] * Math.PI / 180;
+        const deltaPhi = (p2[0] - p1[0]) * Math.PI / 180;
+        const deltaLambda = (p2[1] - p1[1]) * Math.PI / 180;
+
+        const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+                  Math.cos(phi1) * Math.cos(phi2) *
+                  Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    function getDistanceToSegment(p, a, b) {
+        const x = p[0], y = p[1];
+        const x1 = a[0], y1 = a[1];
+        const x2 = b[0], y2 = b[1];
+
+        const A = x - x1;
+        const B = y - y1;
+        const C = x2 - x1;
+        const D = y2 - y1;
+
+        const dot = A * C + B * D;
+        const lenSq = C * C + D * D;
+        let param = -1;
+        if (lenSq !== 0) {
+            param = dot / lenSq;
+        }
+
+        let xx, yy;
+        if (param < 0) {
+            xx = x1;
+            yy = y1;
+        } else if (param > 1) {
+            xx = x2;
+            yy = y2;
+        } else {
+            xx = x1 + param * C;
+            yy = y1 + param * D;
+        }
+        return getDistanceMeters(p, [xx, yy]);
+    }
+
+    function getDistanceToPolyline(p, polyline) {
+        let minDistance = Infinity;
+        for (let i = 0; i < polyline.length - 1; i++) {
+            const dist = getDistanceToSegment(p, polyline[i], polyline[i+1]);
+            if (dist < minDistance) {
+                minDistance = dist;
+            }
+        }
+        return minDistance;
+    }
+
+    function animateMarker(marker, startLatLng, endLatLng, durationMs) {
+        const start = performance.now();
+        const startLat = startLatLng.lat;
+        const startLng = startLatLng.lng;
+        const endLat = endLatLng[0];
+        const endLng = endLatLng[1];
+
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / durationMs, 1);
+            const currentLat = startLat + (endLat - startLat) * progress;
+            const currentLng = startLng + (endLng - startLng) * progress;
+            marker.setLatLng([currentLat, currentLng]);
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        }
+        requestAnimationFrame(step);
+    }
+
+    function getPolylineColor(status) {
+        if (status === 'Peringatan') return '#ffb95f';
+        if (status === 'Tidak Layak Pakai') return '#ffb4ab';
+        return '#06b6d4';
+    }
+
     async function createOrUpdateMarker(route) {
         const ruteId = route.id_rute;
         const currentLatLng = [parseFloat(route.latitude), parseFloat(route.longitude)];
         
-        // Ensure route exists
+        // Auto-reroute if temp is abnormal
+        if (route.suhu_aktual < 2 || route.suhu_aktual > 8) {
+            activeReroutes[ruteId] = true;
+        }
+
+        if (route.is_rerouted) {
+            activeReroutes[ruteId] = true;
+        }
+
+        // Fetch OSRM if not loaded
         if (!plannedPaths[route.lokasi_tujuan]) {
-            // We need origin coords. We assume -2.9880, 104.7560 as fallback if not in activeRoutes
             const originLat = route.origin_latitude || -2.9880;
             const originLng = route.origin_longitude || 104.7560;
             const destLat = route.dest_latitude || currentLatLng[0];
             const destLng = route.dest_longitude || currentLatLng[1];
             
             await fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, false);
-            // Pre-fetch alternative
             fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, true);
         }
 
-        // Dynamically update reroute state if modified on server
-        if (route.is_rerouted) {
-            activeReroutes[ruteId] = true;
-            if (alternativePaths[route.lokasi_tujuan]) {
-                plannedPaths[route.lokasi_tujuan] = alternativePaths[route.lokasi_tujuan];
-            }
+        let plannedRoute = plannedPaths[route.lokasi_tujuan];
+        if (activeReroutes[ruteId] && alternativePaths[route.lokasi_tujuan]) {
+            plannedRoute = alternativePaths[route.lokasi_tujuan];
         }
-        if (route.is_rerouted) {
-            activeReroutes[ruteId] = true;
-            if (alternativePaths[route.lokasi_tujuan]) {
-                plannedPaths[route.lokasi_tujuan] = alternativePaths[route.lokasi_tujuan];
-            }
-        }
-
-        let currentLatLng = [route.latitude, route.longitude];
         
-        // For BOX-002, simulate deviation
-        if (route.id_box === 'BOX-002' && !activeReroutes[ruteId]) {
-            currentLatLng = [route.latitude - 0.005, route.longitude + 0.009];
-        }
-
-
-        // Deviation & Trimming check
-        const plannedRoute = plannedPaths[route.lokasi_tujuan];
         let isDeviated = false;
         let futureRoute = [];
         let pastRoute = [];
-        
-        if (plannedRoute) {
+
+        if (plannedRoute && plannedRoute.length > 0) {
             const dist = getDistanceToPolyline(currentLatLng, plannedRoute);
             if (dist > 300) {
                 isDeviated = true;
             }
             
-            // Trimming logic: Find closest point index
+            // Slice route to past and future
             let minDistance = Infinity;
             let closestIdx = 0;
             for (let i = 0; i < plannedRoute.length; i++) {
@@ -538,132 +650,72 @@
                     closestIdx = i;
                 }
             }
-            
-            // Split route
             pastRoute = plannedRoute.slice(0, closestIdx + 1);
             futureRoute = plannedRoute.slice(closestIdx);
             
-            // Add current pos as connection
             pastRoute.push(currentLatLng);
             futureRoute.unshift(currentLatLng);
         }
 
-        if (!markers[ruteId]) {
-            if (dist > 300) {
-                isDeviated = true;
-            }
-        }
-
-        // 1. Draw/Update Planned Route Polyline
-        if (plannedRoute) {
-            const polylineColor = isDeviated ? '#ef4444' : getPolylineColor(route.status);
-            const weight = isDeviated ? 5 : 4;
-            const dashArray = isDeviated ? '8, 8' : (route.status === 'Tidak Layak Pakai' ? '8, 8' : null);
-
-            if (activePolylines[ruteId]) {
-                activePolylines[ruteId].setLatLngs(plannedRoute);
-                activePolylines[ruteId].setStyle({
-                    color: polylineColor,
-                    weight: weight,
-                    dashArray: dashArray
-                });
+        // Render polylines
+        if (futureRoute.length > 0) {
+            const dashType = activeReroutes[ruteId] ? '8, 8' : (route.status === 'Tidak Layak Pakai' ? '8, 8' : null);
+            const polyColor = activeReroutes[ruteId] ? '#ef4444' : getPolylineColor(route.status);
+            
+            if (routeLayer[ruteId]) {
+                routeLayer[ruteId].setLatLngs(futureRoute);
+                routeLayer[ruteId].setStyle({ color: polyColor, dashArray: dashType, weight: 4 });
             } else {
-                activePolylines[ruteId] = L.polyline(plannedRoute, {
-                    color: polylineColor,
-                    weight: weight,
-                    opacity: 0.65,
-                    dashArray: dashArray
-                }).addTo(map);
+                routeLayer[ruteId] = L.polyline(futureRoute, { color: polyColor, dashArray: dashType, weight: 4 }).addTo(map);
             }
-        }
-
-        // 2. Draw/Update Deviation Radar Circle
-        if (isDeviated) {
-            if (activeDeviationCircles[ruteId]) {
-                activeDeviationCircles[ruteId].setLatLng(currentLatLng);
+            
+            if (pastRouteLayer[ruteId]) {
+                pastRouteLayer[ruteId].setLatLngs(pastRoute);
             } else {
-                const circle = L.circle(currentLatLng, {
-                    radius: 120,
-                    color: '#ef4444',
-                    fillColor: '#ef4444',
-                    fillOpacity: 0.15,
-                    weight: 1.5
-                }).addTo(map);
-                
-                let growing = true;
-                const intervalId = setInterval(() => {
-                    if (!circle || !map.hasLayer(circle)) {
-                        clearInterval(intervalId);
-                        return;
-                    }
-                    let r = circle.getRadius();
-                    if (growing) {
-                        r += 5;
-                        if (r > 160) growing = false;
-                    } else {
-                        r -= 5;
-                        if (r < 100) growing = true;
-                    }
-                    circle.setRadius(r);
-                }, 80);
-                
-                activeDeviationCircles[ruteId] = circle;
-            }
-        } else {
-            if (activeDeviationCircles[ruteId]) {
-                map.removeLayer(activeDeviationCircles[ruteId]);
-                delete activeDeviationCircles[ruteId];
+                pastRouteLayer[ruteId] = L.polyline(pastRoute, { color: '#94a3b8', weight: 3, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
             }
         }
 
-        // 3. Style and create/update marker icon
-        let colorClass = 'bg-primary border-primary shadow-[0_0_10px_rgba(6,182,212,0.6)]';
-        let pulseClass = '';
-
-        if (isDeviated) {
-            colorClass = 'bg-error border-error shadow-[0_0_10px_rgba(239,68,68,0.8)]';
-            pulseClass = 'marker-danger-pulse';
-        } else if (route.status === 'Peringatan') {
-            colorClass = 'bg-tertiary border-tertiary shadow-[0_0_10px_rgba(255,185,95,0.6)]';
-            pulseClass = 'animate-pulse';
+        let iconColor = 'text-primary';
+        let bgRing = 'bg-primary/20';
+        let tempColor = 'text-primary';
+        
+        if (route.status === 'Peringatan') {
+            iconColor = 'text-warning';
+            bgRing = 'bg-warning/20';
+            tempColor = 'text-warning';
         } else if (route.status === 'Tidak Layak Pakai') {
-            colorClass = 'bg-error border-error shadow-[0_0_10px_rgba(239,68,68,0.8)]';
-            pulseClass = 'marker-danger-pulse';
+            iconColor = 'text-error';
+            bgRing = 'bg-error/20';
+            tempColor = 'text-error';
         }
 
-        let customIcon = L.divIcon({
-            html: `<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full ${colorClass} ${pulseClass} border-2 text-white font-bold text-xs">
-                     <span class="material-symbols-outlined text-[16px]">local_shipping</span>
-                   </div>`,
-            className: '',
-            iconSize: [0, 0],
-            iconAnchor: [0, 0]
+        const customIcon = L.divIcon({
+            className: 'custom-fleet-marker',
+            html: `
+                <div class="relative flex items-center justify-center">
+                    <div class="absolute w-12 h-12 rounded-full ${bgRing} animate-ping"></div>
+                    <div class="absolute w-8 h-8 rounded-full bg-surface shadow-lg border-2 border-surface flex items-center justify-center">
+                        <span class="material-symbols-outlined ${iconColor} text-[18px]">local_shipping</span>
+                    </div>
+                </div>
+            `,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
         });
 
-        let tempColor = 'text-cyan-500 dark:text-primary';
-        if (route.status === 'Peringatan') {
-            tempColor = 'text-amber-500 dark:text-tertiary';
-        } else if (route.status === 'Tidak Layak Pakai') {
-            tempColor = 'text-red-500 dark:text-error';
-        }
-
-        let popupContent = `
-            <div class="p-2 text-xs space-y-2 select-none font-sans">
-                <div class="flex items-center justify-between border-b border-white/10 pb-1.5 mb-1.5">
-                    <span class="font-bold text-sm text-white truncate">${route.nama_kurir}</span>
-                    <span class="text-[9px] px-1.5 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary font-mono font-bold">${route.id_box}</span>
+        const popupContent = `
+            <div class="p-1 min-w-[200px]">
+                <div class="flex items-center gap-2 mb-2 border-b border-outline-variant/30 pb-2">
+                    <span class="material-symbols-outlined ${iconColor} text-[20px]">package</span>
+                    <div>
+                        <div class="font-extrabold text-xs text-on-surface tracking-wider">${route.id_box}</div>
+                        <div class="text-[10px] font-mono text-on-surface-variant">${route.nama_kargo}</div>
+                    </div>
                 </div>
                 <p class="flex items-center gap-1 text-slate-400">
-                    <span class="material-symbols-outlined text-[14px] text-primary">local_shipping</span>
-                    Armada: <strong class="text-slate-250 font-semibold">${route.nomor_kendaraan}</strong>
-                </p>
-                <p class="flex items-center gap-1 text-slate-400">
-                    <span class="material-symbols-outlined text-[14px] text-primary">call</span>
-                    WhatsApp: <strong class="text-slate-250 font-semibold">${route.no_wa || '-'}</strong>
-                </p>
-                <p class="flex items-center gap-1 text-slate-400">
-                    <span class="material-symbols-outlined text-[14px] text-primary">package_2</span>
-                    Kargo: <strong class="text-slate-250 font-semibold">${route.nama_kargo || 'Obat Termolabil'}</strong>
+                    <span class="material-symbols-outlined text-[14px] text-primary">person</span>
+                    Kurir: <strong class="text-slate-250 font-semibold">${route.nama_kurir}</strong>
                 </p>
                 <p class="flex items-center gap-1 text-slate-400">
                     <span class="material-symbols-outlined text-[14px] text-primary">pin_drop</span>
@@ -674,14 +726,13 @@
                     Suhu Aktual: <span class="font-black text-sm ${tempColor}">${route.suhu_aktual.toFixed(1).replace('.', ',')}°C</span>
                 </p>
                 ${isDeviated ? `
-                <div class="p-1 px-2 border border-red-500/30 bg-red-500/10 text-red-500 font-bold text-[9px] rounded uppercase tracking-wider animate-pulse flex items-center gap-1">
+                <div class="p-1 px-2 border border-red-500/30 bg-red-500/10 text-red-500 font-bold text-[9px] rounded uppercase tracking-wider animate-pulse flex items-center gap-1 mt-2">
                     <span class="material-symbols-outlined text-[12px]">warning</span> Deviasi Rute > 300m
                 </div>` : ''}
             </div>
         `;
 
         if (markers[ruteId]) {
-            // Update Marker coordinates smoothly if changed
             const oldLatLng = markers[ruteId].getLatLng();
             if (oldLatLng.lat !== currentLatLng[0] || oldLatLng.lng !== currentLatLng[1]) {
                 animateMarker(markers[ruteId], oldLatLng, currentLatLng, 1000);
@@ -689,32 +740,24 @@
             markers[ruteId].setIcon(customIcon);
             markers[ruteId].setPopupContent(popupContent);
         } else {
-            // Create New Marker
             let marker = L.marker(currentLatLng, { icon: customIcon }).addTo(map);
-            marker.bindPopup(popupContent, {
-                maxWidth: 280,
-                closeButton: false
-            });
-            
-            // Open on hover, close on mouseout
-            marker.on('mouseover', function() {
-                this.openPopup();
-            });
-            marker.on('mouseout', function() {
-                this.closePopup();
-            });
-
+            marker.bindPopup(popupContent, { maxWidth: 280, closeButton: false });
+            marker.on('mouseover', function() { this.openPopup(); });
+            marker.on('mouseout', function() { this.closePopup(); });
             markers[ruteId] = marker;
         }
     }
 
     function updateMapData(routesList) {
         let bounds = [];
+        // Important: Update activeRoutes globally so search/widget can use the latest array!
+        activeRoutes = routesList;
+        
         routesList.forEach(route => {
             if (route.latitude && route.longitude) {
                 let currentLatLng = [route.latitude, route.longitude];
                 bounds.push(currentLatLng);
-                createOrUpdateMarker(route);
+                createOrUpdateMarker(route); // Will asynchronously fetch OSRM and draw
             }
         });
 
@@ -729,7 +772,6 @@
             .then(response => response.json())
             .then(res => {
                 if (res.success && res.data) {
-                    // Update Map
                     updateMapData(res.data.map(route => {
                         return {
                             id_rute: route.id_rute,
@@ -746,11 +788,11 @@
                             dest_latitude: parseFloat(route.dest_latitude),
                             dest_longitude: parseFloat(route.dest_longitude),
                             suhu_aktual: parseFloat(route.suhu_aktual),
-                            status: route.excursion_status
+                            status: route.excursion_status,
+                            is_rerouted: route.is_rerouted
                         };
                     }));
 
-                    // Update Sidebar values dynamically
                     if (res.stats) {
                         const aktifEl = document.getElementById('summary-aktif');
                         const alertEl = document.getElementById('summary-alert');
@@ -797,7 +839,6 @@
             markers[id_rute].openPopup();
         }
     }
-
     document.getElementById('searchFleetInput')?.addEventListener('keyup', function() {
         let filter = this.value.toLowerCase();
         let cards = document.querySelectorAll('.fleet-driver-card');
