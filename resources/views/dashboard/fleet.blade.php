@@ -12,6 +12,9 @@
                 <div>
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Armada Kurir</span>
                 </div>
+                <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary/20 transition-colors text-xs flex items-center gap-1" title="Kelola QR Box">
+                    <span class="material-symbols-outlined text-[14px]">qr_code_2</span> QR Box
+                </button>
             </nav>
             <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pelacakan Armada Aktif</h2>
             <p class="text-xs text-on-surface-variant mt-1 mb-3">Telemetri GPS & Status Rantai Dingin aktual.</p>
@@ -90,11 +93,6 @@
                         <span id="summary-alert">-- Peringatan</span>
                     </div>
                 </x-card>
-                
-                <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="h-10 px-4 bg-surface-container-highest border border-outline-variant/50 shadow-lg flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors cursor-pointer rounded-full font-semibold text-xs gap-1.5">
-                    <span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
-                    Kelola QR Box
-                </button>
             </div>
         </div>
 
