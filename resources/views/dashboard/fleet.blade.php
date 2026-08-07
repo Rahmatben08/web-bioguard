@@ -336,6 +336,20 @@
                 'lokasi_tujuan' => $p->lokasi_tujuan,
                 'latitude' => $p->latestLog ? (float)$p->latestLog->latitude : -2.99,
                 'longitude' => $p->latestLog ? (float)$p->latestLog->longitude : 104.75,
+                'origin_latitude' => -2.9880,
+                'origin_longitude' => 104.7560,
+                'dest_latitude' => [
+                    'RSUP Dr. Mohammad Hoesin' => -2.9666,
+                    'RSUD Palembang BARI' => -3.0185,
+                    'RS Charitas' => -2.9772,
+                    'Puskesmas Dempo' => -2.9865,
+                ][$p->lokasi_tujuan] ?? -2.9865,
+                'dest_longitude' => [
+                    'RSUP Dr. Mohammad Hoesin' => 104.7505,
+                    'RSUD Palembang BARI' => 104.7645,
+                    'RS Charitas' => 104.7522,
+                    'Puskesmas Dempo' => 104.7630,
+                ][$p->lokasi_tujuan] ?? 104.7630,
                 'suhu_aktual' => $p->latestLog ? (float)$p->latestLog->suhu_aktual : 5.0,
                 'status' => $p->getExcursionInfo()['status']
             ];
@@ -699,9 +713,6 @@
         routesList.forEach(route => {
             if (route.latitude && route.longitude) {
                 let currentLatLng = [route.latitude, route.longitude];
-                if (route.id_box === 'BOX-002') {
-                    currentLatLng = [route.latitude - 0.005, route.longitude + 0.009];
-                }
                 bounds.push(currentLatLng);
                 createOrUpdateMarker(route);
             }
@@ -730,6 +741,10 @@
                             lokasi_tujuan: route.lokasi_tujuan,
                             latitude: parseFloat(route.latitude),
                             longitude: parseFloat(route.longitude),
+                            origin_latitude: parseFloat(route.origin_latitude),
+                            origin_longitude: parseFloat(route.origin_longitude),
+                            dest_latitude: parseFloat(route.dest_latitude),
+                            dest_longitude: parseFloat(route.dest_longitude),
                             suhu_aktual: parseFloat(route.suhu_aktual),
                             status: route.excursion_status
                         };
