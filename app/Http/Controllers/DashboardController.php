@@ -83,10 +83,28 @@ class DashboardController extends Controller
         
         // Koordinat tujuan & asal default (Palembang)
         $coordinatesLookup = [
-            'RSUP Dr. Mohammad Hoesin' => ['lat' => -2.9666, 'lng' => 104.7505],
+            'RSUP Dr. Mohammad Hoesin' => ['lat' => -2.9662628, 'lng' => 104.7498217],
             'RSUD Palembang BARI' => ['lat' => -3.0185, 'lng' => 104.7645],
             'RS Charitas' => ['lat' => -2.9772, 'lng' => 104.7522],
-            'Puskesmas Dempo' => ['lat' => -2.9865, 'lng' => 104.7630],
+            'RS RK Charitas' => ['lat' => -2.9759693, 'lng' => 104.7528599],
+            'Puskesmas Dempo' => ['lat' => -2.9818201, 'lng' => 104.7589042],
+            'RSUD Siti Fatimah' => ['lat' => -2.9482931, 'lng' => 104.7345504],
+            'RS Hermina' => ['lat' => -2.9559237, 'lng' => 104.74846],
+            'RS Siloam Sriwijaya' => ['lat' => -2.9776129, 'lng' => 104.7422702],
+            'RS Bhayangkara' => ['lat' => -2.9587303, 'lng' => 104.7374268],
+            'RS Muhammadiyah' => ['lat' => -3.0003649, 'lng' => 104.8163221],
+            'RS Myria' => ['lat' => -2.9398741, 'lng' => 104.7269887],
+            'RS Ernaldi Bahar' => ['lat' => -2.922228, 'lng' => 104.6846093],
+            'RS Pelabuhan' => ['lat' => -2.978579, 'lng' => 104.7766276],
+            'Puskesmas Merdeka' => ['lat' => -2.9904511, 'lng' => 104.7528331],
+            'Puskesmas Plaju' => ['lat' => -2.9957835, 'lng' => 104.8136447],
+            'Puskesmas 7 Ulu' => ['lat' => -2.9967184, 'lng' => 104.7639636],
+            'Puskesmas 11 Ilir' => ['lat' => -2.9811521, 'lng' => 104.7673696],
+            'Puskesmas Kalidoni' => ['lat' => -2.9404873, 'lng' => 104.7674479],
+            'Puskesmas Kenten' => ['lat' => -2.9404873, 'lng' => 104.7674479],
+            'Puskesmas Boom Baru' => ['lat' => -2.9754512, 'lng' => 104.7824651],
+            'Puskesmas Kampus' => ['lat' => -2.9754956, 'lng' => 104.7382453],
+            'Dinas Kesehatan Kota Palembang' => ['lat' => -2.9901778, 'lng' => 104.7573614],
         ];
         
         $originCoordinates = ['lat' => -2.9880, 'lng' => 104.7560]; // Dinas Kesehatan Palembang
@@ -115,11 +133,10 @@ class DashboardController extends Controller
         }
         $totalPendingSync = $pendingQuery->count();
 
-        $mappedData = $perjalananList->filter(fn ($p) => $p->latestLog !== null)
-            ->map(function ($perjalanan) use ($coordinatesLookup, $originCoordinates) {
+        $mappedData = $perjalananList->map(function ($perjalanan) use ($coordinatesLookup, $originCoordinates) {
                 $log = $perjalanan->latestLog;
                 $excursion = $perjalanan->getExcursionInfo();
-                $prediksi = $log->prediksiAi;
+                $prediksi = $log ? $log->prediksiAi : null;
                 $probabilitas = $prediksi ? (float) $prediksi->probabilitas_rusak : 0.0;
                 $destCoord = $coordinatesLookup[$perjalanan->lokasi_tujuan] ?? ['lat' => -2.9900, 'lng' => 104.7500];
                 $health = $perjalanan->getDeviceHealth();
@@ -153,8 +170,8 @@ class DashboardController extends Controller
                     'calibration_status' => $health['calibration'],
                     
                     // Koordinat kurir aktual
-                    'latitude' => $log->latitude,
-                    'longitude' => $log->longitude,
+                    'latitude' => $log ? $log->latitude : -2.9880,
+                    'longitude' => $log ? $log->longitude : 104.7560,
                     
                     // Koordinat asal & tujuan untuk polyline rute
                     'origin_latitude' => $originCoordinates['lat'],
@@ -162,10 +179,10 @@ class DashboardController extends Controller
                     'dest_latitude' => $destCoord['lat'],
                     'dest_longitude' => $destCoord['lng'],
                     
-                    'suhu_aktual' => (float) $log->suhu_aktual,
-                    'nilai_mkt' => $log->nilai_mkt ? (float) $log->nilai_mkt : null,
-                    'gaya_guncangan' => $log->gaya_guncangan ? (float) $log->gaya_guncangan : 0.05,
-                    'timestamp' => $log->timestamp->toIso8601String(),
+                    'suhu_aktual' => $log ? (float) $log->suhu_aktual : 5.0,
+                    'nilai_mkt' => ($log && $log->nilai_mkt) ? (float) $log->nilai_mkt : null,
+                    'gaya_guncangan' => ($log && $log->gaya_guncangan) ? (float) $log->gaya_guncangan : 0.05,
+                    'timestamp' => $log ? $log->timestamp->toIso8601String() : now()->toIso8601String(),
                     'excursion_duration' => $excursion['duration'],
                     'excursion_status' => $excursion['status'],
                     'status_label' => $excursion['status_label'],
