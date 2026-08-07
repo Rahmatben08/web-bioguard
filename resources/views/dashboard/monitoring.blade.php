@@ -1576,6 +1576,8 @@ const plannedPaths = {
             const lat = c.latitude;
             const lng = c.longitude;
             if (lat === null || lng === null) return;
+            
+            let currentLatLng = [lat, lng];
 
             // Fetch OSRM if not loaded
             if (!plannedPaths[c.lokasi_tujuan]) {
@@ -1594,7 +1596,6 @@ const plannedPaths = {
                 plannedRoute = alternativePaths[c.lokasi_tujuan];
             }
             let isDeviated = false;
-            let currentLatLng = [lat, lng];
 
             if (plannedRoute) {
                 const distanceToPlanned = getDistanceToPolyline(currentLatLng, plannedRoute);
