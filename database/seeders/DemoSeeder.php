@@ -91,7 +91,7 @@ class DemoSeeder extends Seeder
             PrediksiAi::create([
                 'id_log' => $log->id_log,
                 'probabilitas_rusak' => 0.5 + ($i * 0.1),
-                'rekomendasi_tindakan' => 'Suhu optimal. Pertahankan kondisi saat ini.',
+                'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini.',
             ]);
         }
 
@@ -121,7 +121,7 @@ class DemoSeeder extends Seeder
             PrediksiAi::create([
                 'id_log' => $log->id_log,
                 'probabilitas_rusak' => 1.2 + ($i * 0.2),
-                'rekomendasi_tindakan' => 'Suhu optimal. Pertahankan kondisi saat ini.',
+                'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini.',
             ]);
         }
 
@@ -140,7 +140,7 @@ class DemoSeeder extends Seeder
         PrediksiAi::create([
             'id_log' => $log2_last->id_log,
             'probabilitas_rusak' => 12.50,
-            'rekomendasi_tindakan' => 'Peringatan dini: Periksa insulasi wadah obat termolabil.',
+            'instruksi_mitigasi' => 'Peringatan dini: Periksa insulasi wadah obat termolabil.',
         ]);
 
 
@@ -170,7 +170,7 @@ class DemoSeeder extends Seeder
             PrediksiAi::create([
                 'id_log' => $log->id_log,
                 'probabilitas_rusak' => 4.5 + ($i * 0.5),
-                'rekomendasi_tindakan' => 'Suhu optimal. Pertahankan kondisi saat ini.',
+                'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini.',
             ]);
         }
 
@@ -189,7 +189,7 @@ class DemoSeeder extends Seeder
         PrediksiAi::create([
             'id_log' => $log3_out1->id_log,
             'probabilitas_rusak' => 48.20,
-            'rekomendasi_tindakan' => 'Peringatan: Obat Termolabil mendekati batas atas kelayakan.',
+            'instruksi_mitigasi' => 'Peringatan: Obat Termolabil mendekati batas atas kelayakan.',
         ]);
 
         // Out of bounds log 5 (10s ago)
@@ -207,7 +207,7 @@ class DemoSeeder extends Seeder
         PrediksiAi::create([
             'id_log' => $log3_out2->id_log,
             'probabilitas_rusak' => 91.50, // Spoiled prediction!
-            'rekomendasi_tindakan' => 'BAHAYA: Obat Termolabil tidak layak pakai. Tarik dari peredaran.',
+            'instruksi_mitigasi' => 'BAHAYA: Obat Termolabil tidak layak pakai. Tarik dari peredaran.',
         ]);
 
 
@@ -234,7 +234,7 @@ class DemoSeeder extends Seeder
             PrediksiAi::create([
                 'id_log' => $log->id_log,
                 'probabilitas_rusak' => 0.2 + ($i * 0.1),
-                'rekomendasi_tindakan' => 'Suhu optimal. Pertahankan kondisi saat ini.',
+                'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini.',
             ]);
         }
 
