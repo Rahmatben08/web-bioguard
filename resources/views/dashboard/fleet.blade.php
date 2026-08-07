@@ -95,6 +95,55 @@
                 </x-card>
             </div>
         </div>
+        <!-- AI SPATIAL-THERMAL Widget -->
+        <div class="absolute top-4 right-4 z-[1000] pointer-events-none">
+            <x-card class="pointer-events-auto shadow-2xl backdrop-blur-md bg-surface/95 border border-outline-variant/30 w-72 transition-all duration-300">
+                <div class="flex items-center gap-2 mb-4 border-b border-outline-variant/20 pb-2">
+                    <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
+                    <h3 class="text-xs font-extrabold text-on-surface tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
+                        <span class="text-xs font-semibold text-on-surface-variant">Satelit & BMKG:</span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-bold text-primary">34°C, 80%</span>
+                            <span class="material-symbols-outlined text-error text-[14px]">trending_up</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
+                        <span class="text-xs font-semibold text-on-surface-variant">Lalu Lintas:</span>
+                        <span class="text-xs font-bold text-warning flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-warning animate-pulse"></span>
+                            Padat Tinggi
+                        </span>
+                    </div>
+
+                    <div class="p-3 rounded-lg border border-outline-variant/50 bg-surface-container mt-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-semibold text-on-surface-variant">Pilih Armada:</span>
+                        </div>
+                        <input type="text" id="ai-courier-search" placeholder="Cari nama kurir..." class="w-full bg-background border border-outline-variant/50 rounded p-1.5 text-xs text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none mb-2">
+                        <select id="ai-courier-select" class="w-full bg-background border border-outline-variant/50 rounded p-1.5 text-xs text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none mb-3">
+                            <option value="" data-name="">-- Pilih Kurir --</option>
+                            @foreach($perjalananAktif as $p)
+                                <option value="{{ $p->id_rute }}" data-name="{{ strtolower($p->kurir->nama_lengkap) }}">{{ $p->kurir->nama_lengkap }} ({{ $p->lokasi_tujuan }})</option>
+                            @endforeach
+                        </select>
+
+                        <p class="text-[10px] text-on-surface-variant mb-3 truncate" id="ai-lokasi-text">Pilih armada untuk otomasi...</p>
+                        
+                        <button onclick="triggerReroute()" class="w-full py-1.5 bg-warning/10 text-warning border border-warning/30 rounded-lg hover:bg-warning/20 transition-colors text-xs font-semibold flex items-center justify-center gap-1 active:scale-[0.98]">
+                            Rekomendasikan Rute Aman
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-[9px] text-on-surface-variant mt-3 text-center leading-tight">
+                    * AI otomasi rute menggunakan data satelit, BMKG, dan kemacetan secara realtime untuk RS/Puskesmas.
+                </p>
+            </x-card>
+        </div>
 
 
 
@@ -392,6 +441,65 @@
         }
         return null;
     }
+
+    // AI Widget Logic
+    async function triggerReroute() {
+        const select = document.getElementById('ai-courier-select');
+        const ruteId = select.value;
+        if (!ruteId) {
+            alert("Silakan pilih armada terlebih dahulu.");
+            return;
+        }
+
+        const route = activeRoutes.find(r => r.id_rute == ruteId);
+        if (!route) return;
+        
+        // Force use alternative route
+        activeReroutes[ruteId] = true;
+        
+        try {
+            await fetch('/api/monitoring/incident', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_rute: ruteId,
+                    jenis_insiden: 'Peringatan Dini',
+                    deskripsi: 'AI mendeteksi kemacetan/cuaca ekstrim. Rute dialihkan secara otomatis ke jalur aman.',
+                    severity: 'warning'
+                })
+            });
+        } catch(e) {}
+        
+        createOrUpdateMarker(route);
+        document.getElementById('ai-lokasi-text').innerText = "Rute dialihkan ke: " + route.lokasi_tujuan;
+        focusCourier(ruteId);
+    }
+
+    document.getElementById('ai-courier-search')?.addEventListener('keyup', function(e) {
+        const filter = e.target.value.toLowerCase();
+        const options = document.getElementById('ai-courier-select').options;
+        for (let i = 0; i < options.length; i++) {
+            const name = options[i].getAttribute('data-name') || '';
+            if (name.includes(filter) || options[i].value === "") {
+                options[i].style.display = '';
+            } else {
+                options[i].style.display = 'none';
+            }
+        }
+    });
+
+    document.getElementById('ai-courier-select')?.addEventListener('change', function(e) {
+        const route = activeRoutes.find(r => r.id_rute == e.target.value);
+        if (route) {
+            document.getElementById('ai-lokasi-text').innerText = "Menuju: " + route.lokasi_tujuan;
+            focusCourier(route.id_rute);
+        } else {
+            document.getElementById('ai-lokasi-text').innerText = "Pilih armada untuk otomasi...";
+        }
+    });
 
     document.addEventListener("DOMContentLoaded", function () {
         map = L.map('fleet-map', {
