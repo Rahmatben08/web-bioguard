@@ -11,6 +11,7 @@ use App\Models\ThermolabileDrug;
 use App\Models\IncidentLog;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class DemoSeeder extends Seeder
