@@ -178,68 +178,16 @@
                 {{-- Leaflet Map Container --}}
                 <div id="map" class="w-full" style="min-height: 440px; height: 58vh;"></div>
 
-                {{-- Widget AI Spatial-Thermal --}}
-                <div class="absolute top-4 right-4 z-[1000] w-52 bg-white/95 dark:bg-slate-900/95 border border-outline-variant/30 p-3 rounded-xl shadow-sm backdrop-blur-sm transition-all duration-300 group">
-                    <div class="flex items-center justify-between mb-3 border-b border-outline-variant/30 pb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-teal-600 dark:text-teal-400 text-[20px] animate-pulse">insights</span>
-                            <h3 class="text-xs font-extrabold text-on-surface tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
-                        </div>
-                        <button id="btn-toggle-layers" class="text-slate-400 hover:text-teal-500 transition-colors cursor-pointer" title="Pengaturan Lapisan Peta">
-                            <span class="material-symbols-outlined text-[16px] align-middle">layers</span>
+                {{-- Map Layer Toggle --}}
+                <div class="absolute top-4 right-4 z-[1000]">
+                    <div class="flex flex-col gap-1">
+                        <button id="btn-map-vector" type="button" class="w-9 h-9 rounded-full bg-surface/95 backdrop-blur-sm border border-outline-variant/40 shadow-md flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" title="Peta Vektor">
+                            <span class="material-symbols-outlined text-[18px]">map</span>
+                        </button>
+                        <button id="btn-map-sat" type="button" class="w-9 h-9 rounded-full bg-surface/95 backdrop-blur-sm border border-outline-variant/40 shadow-md flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all" title="Peta Satelit">
+                            <span class="material-symbols-outlined text-[18px]">satellite_alt</span>
                         </button>
                     </div>
-
-                    <!-- Floating Layer Options -->
-                    <div id="layers-options-panel" class="hidden mt-2 p-3 bg-slate-100/90 dark:bg-slate-950/90 rounded-xl border border-slate-250 dark:border-slate-800/50 space-y-2 mb-3 text-[11px] text-left select-none">
-                        <div>
-                            <span class="font-bold text-slate-700 dark:text-on-surface-variant block mb-1 uppercase tracking-wider text-[9px]">Gaya Peta</span>
-                            <div class="grid grid-cols-2 gap-1">
-                                <button type="button" id="btn-map-vector" class="px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all">VEKTOR</button>
-                                <button type="button" id="btn-map-sat" class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all">SATELIT</button>
-                            </div>
-                        </div>
-                        <div class="pt-1 border-t border-outline-variant/30/60">
-                            <span class="font-bold text-slate-700 dark:text-on-surface-variant block mb-1 uppercase tracking-wider text-[9px]">Overlay Spasial</span>
-                            <label class="flex items-center gap-2 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-risk-heatmap" class="rounded border-slate-350 dark:border-slate-800 text-primary focus:ring-primary/50 h-3.5 w-3.5">
-                                <span class="font-semibold text-slate-600 dark:text-on-surface-variant">Peta Panas Risiko (AI)</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="space-y-2 text-[11px]">
-                        {{-- Suhu Luar --}}
-                        <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-on-surface-variant">Suhu Luar:</span>
-                            <div class="flex items-center gap-1 font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">
-                                <span>34°C</span>
-                                <span class="material-symbols-outlined text-[12px] text-red-500 font-bold animate-bounce" title="Suhu meningkat">trending_up</span>
-                            </div>
-                        </div>
-                        {{-- Kelembaban --}}
-                        <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-on-surface-variant">Kelembaban:</span>
-                            <span class="font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">80%</span>
-                        </div>
-                        {{-- Status Lalu Lintas --}}
-                        <div class="flex flex-col gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <div class="flex justify-between items-start">
-                                <span class="font-semibold text-on-surface-variant">Lalu Lintas:</span>
-                                <span class="text-amber-600 dark:text-amber-400 font-extrabold flex items-center gap-1 text-[11px]">
-                                    <span class="h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse shrink-0"></span>
-                                    Padat Tinggi
-                                </span>
-                            </div>
-                            <p class="text-[10px] text-on-surface-variant font-medium">Jl. Jend. Sudirman</p>
-                            <button onclick="alert('Mencari rute alternatif tercepat untuk menghindari kemacetan Jl. Jend. Sudirman...')" 
-                                    class="w-full mt-1 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500 hover:text-white border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold transition-all active:scale-[0.98]">
-                                Rekomendasikan Rute Baru
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-[9px] text-on-surface-variant mt-3 leading-relaxed border-t border-outline-variant/30 pt-2">
-                        * Data cuaca & kemacetan Palembang dianalisis oleh AI untuk memproyeksikan risiko kerusakan kargo secara prediktif.
-                    </p>
                 </div>
 
                 {{-- Map Legend --}}
