@@ -487,6 +487,11 @@
             [-2.9887, 104.7565], // Air Mancur Masjid Agung
             [-2.9868, 104.7561], // Sudirman St near IP
             [-2.9865, 104.7630]  // Puskesmas Dempo
+        ],
+        'Puskesmas Alang-Alang Lebar': [
+            [-2.9880, 104.7560],
+            [-2.9887, 104.7565],
+            [-2.9394, 104.7000]
         ]
     };
 

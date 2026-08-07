@@ -415,6 +415,7 @@
                     'Puskesmas Boom Baru' => -2.9754512,
                     'Puskesmas Kampus' => -2.9754956,
                     'Dinas Kesehatan Kota Palembang' => -2.9901778,
+                    'Puskesmas Alang-Alang Lebar' => -2.9394,
                 ][$p->lokasi_tujuan] ?? -2.9865,
                 'dest_longitude' => [
                     'RSUP Dr. Mohammad Hoesin' => 104.7498217,
@@ -439,6 +440,7 @@
                     'Puskesmas Boom Baru' => 104.7824651,
                     'Puskesmas Kampus' => 104.7382453,
                     'Dinas Kesehatan Kota Palembang' => 104.7573614,
+                    'Puskesmas Alang-Alang Lebar' => 104.7000,
                 ][$p->lokasi_tujuan] ?? 104.7630,
                 'suhu_aktual' => $p->latestLog ? (float)$p->latestLog->suhu_aktual : 5.0,
                 'status' => $p->getExcursionInfo()['status']
