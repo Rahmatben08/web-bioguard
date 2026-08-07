@@ -1526,7 +1526,7 @@ const plannedPaths = {
         const currentActiveIds = new Set();
         const bounds = [];
 
-        filteredList.forEach(c => {
+        filteredList.forEach(async c => {
             const ruteId = c.id_rute;
             currentActiveIds.add(ruteId);
 
@@ -1541,8 +1541,22 @@ const plannedPaths = {
             const lng = c.longitude;
             if (lat === null || lng === null) return;
 
+            // Fetch OSRM if not loaded
+            if (!plannedPaths[c.lokasi_tujuan]) {
+                const originLat = c.origin_latitude || -2.9880;
+                const originLng = c.origin_longitude || 104.7560;
+                const destLat = c.dest_latitude || currentLatLng[0];
+                const destLng = c.dest_longitude || currentLatLng[1];
+                
+                await fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, false);
+                fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, true);
+            }
+
             // Route Deviation Calculation
-            const plannedRoute = plannedPaths[c.lokasi_tujuan];
+            let plannedRoute = plannedPaths[c.lokasi_tujuan];
+            if (activeReroutes[ruteId] && alternativePaths[c.lokasi_tujuan]) {
+                plannedRoute = alternativePaths[c.lokasi_tujuan];
+            }
             let isDeviated = false;
             let currentLatLng = [lat, lng];
 
@@ -1623,7 +1637,7 @@ const plannedPaths = {
             }
 
             // Route Polyline (following planned road network)
-            const routeCoords = plannedPaths[c.lokasi_tujuan] || [
+            const routeCoords = plannedRoute || [
                 [c.origin_latitude, c.origin_longitude],
                 currentLatLng
             ];

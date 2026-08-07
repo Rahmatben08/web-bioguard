@@ -109,6 +109,7 @@ class FleetController extends Controller
                         'Puskesmas Kenten' => -2.9404873,
                         'Puskesmas Boom Baru' => -2.9754512,
                         'Puskesmas Kampus' => -2.9754956,
+                        'Puskesmas Alang-Alang Lebar' => -2.9394118,
                         'Dinas Kesehatan Kota Palembang' => -2.9901778,
                     ][$perjalanan->lokasi_tujuan] ?? -2.9865,
                     'dest_longitude' => [
@@ -133,6 +134,7 @@ class FleetController extends Controller
                         'Puskesmas Kenten' => 104.7674479,
                         'Puskesmas Boom Baru' => 104.7824651,
                         'Puskesmas Kampus' => 104.7382453,
+                        'Puskesmas Alang-Alang Lebar' => 104.7000131,
                         'Dinas Kesehatan Kota Palembang' => 104.7573614,
                     ][$perjalanan->lokasi_tujuan] ?? 104.7630,
                     

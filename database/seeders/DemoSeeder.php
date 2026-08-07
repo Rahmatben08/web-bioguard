@@ -59,8 +59,8 @@ class DemoSeeder extends Seeder
             'id_kurir' => $kurir4->id_kurir,
             'id_box' => 'BOX-004',
             'nama_kargo' => 'Serum Albumin',
-            'lokasi_tujuan' => 'Puskesmas Dempo',
-            'status_perjalanan' => 'selesai',
+            'lokasi_tujuan' => 'Puskesmas Alang-Alang Lebar',
+            'status_perjalanan' => 'aktif',
         ]);
 
         $now = Carbon::now();

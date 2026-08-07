@@ -104,6 +104,7 @@ class DashboardController extends Controller
             'Puskesmas Kenten' => ['lat' => -2.9404873, 'lng' => 104.7674479],
             'Puskesmas Boom Baru' => ['lat' => -2.9754512, 'lng' => 104.7824651],
             'Puskesmas Kampus' => ['lat' => -2.9754956, 'lng' => 104.7382453],
+            'Puskesmas Alang-Alang Lebar' => ['lat' => -2.9394118, 'lng' => 104.7000131],
             'Dinas Kesehatan Kota Palembang' => ['lat' => -2.9901778, 'lng' => 104.7573614],
         ];
         
