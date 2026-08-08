@@ -879,7 +879,7 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
 <script>
-    let html5QrcodeScanner = null;
+    let html5QrCode = null;
     let currentScannedBatch = null;
 
     function openQrScannerModal() {
@@ -889,11 +889,14 @@
 
     function closeQrScannerModal() {
         document.getElementById('modalQrScanner').classList.add('hidden');
-        if (html5QrcodeScanner) {
-            html5QrcodeScanner.clear().catch(error => {
-                console.error("Failed to clear html5QrcodeScanner. ", error);
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                html5QrCode.clear();
+                html5QrCode = null;
+            }).catch(error => {
+                console.error("Failed to stop html5QrCode. ", error);
+                html5QrCode = null;
             });
-            html5QrcodeScanner = null;
         }
     }
 
@@ -902,11 +905,12 @@
         document.getElementById('qr-reader-results').classList.add('hidden');
         currentScannedBatch = null;
         
-        if (html5QrcodeScanner) {
-            html5QrcodeScanner.clear().then(() => {
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
                 startScanner();
             }).catch(error => {
-                console.error("Failed to clear html5QrcodeScanner. ", error);
+                console.error("Failed to stop html5QrCode. ", error);
+                startScanner();
             });
         } else {
             startScanner();
@@ -914,23 +918,37 @@
     }
 
     function startScanner() {
-        html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: {width: 250, height: 250} }, false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        if (!html5QrCode) {
+            html5QrCode = new Html5Qrcode("qr-reader");
+        }
+        html5QrCode.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: { width: 250, height: 250 }
+            },
+            onScanSuccess,
+            onScanFailure
+        ).catch((err) => {
+            console.error("Gagal memulai kamera", err);
+            alert("Gagal mengakses kamera. Pastikan browser memiliki izin kamera.");
+        });
     }
 
     function onScanSuccess(decodedText, decodedResult) {
         if (!decodedText.startsWith('BTCH-')) {
-            alert('Format QR tidak valid. Harap scan QR Batch (dimulai dengan BTCH-).');
-            return;
+            return; // Ignore invalid formats
         }
 
         // Stop scanner to prevent multiple requests
-        html5QrcodeScanner.clear().then(() => {
-            document.getElementById('qr-reader').classList.add('hidden');
-            fetchBatchDetail(decodedText);
-        }).catch(error => {
-            console.error("Failed to stop scanner.", error);
-        });
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                document.getElementById('qr-reader').classList.add('hidden');
+                fetchBatchDetail(decodedText);
+            }).catch(error => {
+                console.error("Failed to stop scanner.", error);
+            });
+        }
     }
 
     function onScanFailure(error) {
