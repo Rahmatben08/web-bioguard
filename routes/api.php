@@ -31,6 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('api.sync.telemetri');
     Route::post('/telemetry/sync', [SyncController::class, 'upsertTelemetri'])
         ->name('api.telemetry.sync');
+        
+    Route::post('/pairing/validate', [SyncController::class, 'validatePairing'])
+        ->name('api.pairing.validate');
 });
 
 // Data marker peta (untuk AJAX refresh)

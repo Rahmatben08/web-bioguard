@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SyncTelemetriRequest;
 use App\Models\LogTelemetri;
+use App\Models\PerjalananRute;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -211,5 +213,61 @@ class SyncController extends Controller
                 'message' => 'Gagal menyinkronkan data telemetri demo.',
             ], 500);
         }
+    }
+
+    /**
+     * Validasi Pemasangan Kurir dan Box (Pairing).
+     * Mencegah 1 box dipakai 2 kurir dan mengecek kesesuaian rute.
+     */
+    public function validatePairing(Request $request): JsonResponse
+    {
+        $request->validate([
+            'box_id' => 'required|string'
+        ]);
+
+        $boxId = $request->box_id;
+        $idKurir = auth()->user()->id_kurir;
+
+        // 1. Cek apakah box ini sedang dipakai kurir lain
+        $boxUsedByOther = PerjalananRute::where('id_box', $boxId)
+            ->whereIn('status_perjalanan', ['Aktif', 'Sedang Berjalan'])
+            ->where('id_kurir', '!=', $idKurir)
+            ->first();
+
+        if ($boxUsedByOther) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Box ini sedang digunakan kurir lain.'
+            ], 403);
+        }
+
+        // 2. Cek apakah kurir ini punya rute aktif
+        $activeRoute = PerjalananRute::where('id_kurir', $idKurir)
+            ->whereIn('status_perjalanan', ['Aktif', 'Sedang Berjalan'])
+            ->first();
+
+        if (!$activeRoute) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda tidak memiliki rute aktif saat ini. Hubungi admin.'
+            ], 403);
+        }
+
+        // 3. Cek apakah box_id yang di-scan sama dengan box di rute aktif
+        if ($activeRoute->id_box !== $boxId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Box ini bukan bagian dari rute aktif Anda. Silakan scan box yang sesuai penugasan (' . $activeRoute->id_box . ').'
+            ], 403);
+        }
+
+        // Jika semua lolos
+        return response()->json([
+            'success' => true,
+            'message' => 'Validasi berhasil. Lanjutkan koneksi.',
+            'data' => [
+                'rute' => $activeRoute
+            ]
+        ]);
     }
 }

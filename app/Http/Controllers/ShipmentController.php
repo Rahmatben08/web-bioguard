@@ -170,6 +170,52 @@ class ShipmentController extends Controller
         return back()->with('success', "Batch {$validated['no_batch']} berhasil ditambahkan.");
     }
 
+    public function getBatchDetail($batch_id)
+    {
+        $batch = ThermolabileDrug::where('no_batch', $batch_id)->first();
+        
+        if (!$batch) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Batch tidak ditemukan.'
+            ], 404);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'data' => $batch
+        ]);
+    }
+
+    public function konfirmasiTerima($batch_id)
+    {
+        $batch = ThermolabileDrug::where('no_batch', $batch_id)->first();
+        
+        if (!$batch) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Batch tidak ditemukan.'
+            ], 404);
+        }
+        
+        if ($batch->diterima_oleh !== null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Batch ini sudah dikonfirmasi terima sebelumnya.'
+            ], 400);
+        }
+        
+        $batch->diterima_oleh = auth()->id();
+        $batch->diterima_pada = now();
+        $batch->status = 'Aman'; // Reset status if it was in warning/transit
+        $batch->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => "Batch {$batch_id} berhasil dikonfirmasi terima."
+        ]);
+    }
+
     public function auditStok(Request $request)
     {
         $validated = $request->validate([

@@ -105,6 +105,13 @@ Route::middleware(['auth'])->group(function () {
     // Quick Actions Routes
     Route::post('/pengiriman/terima', [ShipmentController::class, 'terimaPengiriman'])
         ->name('shipments.terima');
+        
+    // Batch QR Scanner Routes
+    Route::get('/pengiriman/batch/{batch_id}', [ShipmentController::class, 'getBatchDetail'])
+        ->name('shipments.batch.detail');
+    Route::post('/pengiriman/batch/{batch_id}/konfirmasi', [ShipmentController::class, 'konfirmasiTerima'])
+        ->name('shipments.batch.konfirmasi');
+
     Route::post('/pengiriman/audit', [ShipmentController::class, 'auditStok'])
         ->name('shipments.audit');
     Route::post('/pengiriman/transfer', [ShipmentController::class, 'transferBatch'])
