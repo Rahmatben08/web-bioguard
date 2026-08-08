@@ -309,31 +309,35 @@ class DashboardController extends Controller
      */
     public function publicStats(): JsonResponse
     {
-        $activeRoutes = PerjalananRute::with('latestLog')->aktif()->get();
-        
-        $hasActiveData = false;
-        $avgTemp = null;
-        $minTemp = null;
-        $maxTemp = null;
+        $data = \Illuminate\Support\Facades\Cache::remember('public_stats_ringkas', 10, function () {
+            $activeRoutes = PerjalananRute::with('latestLog')->aktif()->get();
+            
+            $hasActiveData = false;
+            $avgTemp = null;
+            $minTemp = null;
+            $maxTemp = null;
 
-        if ($activeRoutes->isNotEmpty()) {
-            $latestLogs = $activeRoutes->map(fn($r) => $r->latestLog)->filter();
-            if ($latestLogs->isNotEmpty()) {
-                $hasActiveData = true;
-                $avgTemp = $latestLogs->avg('suhu_aktual');
-                $minTemp = $latestLogs->min('suhu_aktual');
-                $maxTemp = $latestLogs->max('suhu_aktual');
+            if ($activeRoutes->isNotEmpty()) {
+                $latestLogs = $activeRoutes->map(fn($r) => $r->latestLog)->filter();
+                if ($latestLogs->isNotEmpty()) {
+                    $hasActiveData = true;
+                    $avgTemp = $latestLogs->avg('suhu_aktual');
+                    $minTemp = $latestLogs->min('suhu_aktual');
+                    $maxTemp = $latestLogs->max('suhu_aktual');
+                }
             }
-        }
 
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'has_active_data' => $hasActiveData,
-                'avg_temp' => $hasActiveData ? round((float) $avgTemp, 1) : null,
-                'min_temp' => $hasActiveData ? round((float) $minTemp, 1) : null,
-                'max_temp' => $hasActiveData ? round((float) $maxTemp, 1) : null,
-            ]
-        ]);
+            return [
+                'success' => true,
+                'data' => [
+                    'has_active_data' => $hasActiveData,
+                    'avg_temp' => $hasActiveData ? round((float)$avgTemp, 1) : null,
+                    'min_temp' => $hasActiveData ? round((float)$minTemp, 1) : null,
+                    'max_temp' => $hasActiveData ? round((float)$maxTemp, 1) : null,
+                ]
+            ];
+        });
+
+        return response()->json($data);
     }
 }
