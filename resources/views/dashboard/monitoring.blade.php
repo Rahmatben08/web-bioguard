@@ -741,7 +741,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">hub</span>
                         BIO-GUARD Gateway Hub
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log simulasi notifikasi otomatis Bot Telegram & WhatsApp Gateway</p>
+                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
                 </div>
                 
                 <div class="mt-4 flex flex-col gap-2">
@@ -1752,10 +1752,8 @@ const plannedPaths = {
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
                     logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C. Pindahkan kargo segera!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
                     logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Notifikasi dikirim ke Kurir ${c.nama_kurir}. Harap periksa kerapatan penutup Boks ${c.id_box}.`, 'warning');
                 }
             }
 
@@ -1763,7 +1761,6 @@ const plannedPaths = {
             if (isDeviated !== previousDeviations[ruteId]) {
                 if (isDeviated) {
                     logGatewayActivity('TG', 'Deviasi', `Bot Telegram: Alert deviasi dikirim ke Dispatcher. Kurir ${c.nama_kurir} keluar dari rute ${c.lokasi_tujuan}.`, 'danger');
-                    logGatewayActivity('WA', 'Deviasi', `WhatsApp Gateway (${c.no_wa}): Re-routing otomatis dikirim ke Kurir ${c.nama_kurir}. Ikuti petunjuk alternatif menuju ${c.lokasi_tujuan}.`, 'warning');
                 }
                 previousDeviations[ruteId] = isDeviated;
             }
@@ -1772,7 +1769,6 @@ const plannedPaths = {
             const vibeVal = c.gaya_guncangan !== undefined ? parseFloat(c.gaya_guncangan) : 0.05;
             if (vibeVal > 1.50 && (!previousVibrations[ruteId] || previousVibrations[ruteId] <= 1.50)) {
                 logGatewayActivity('TG', 'Guncangan', `Bot Telegram: Alert guncangan ekstrem ${vibeVal.toFixed(2).replace('.', ',')}G pada Boks ${c.id_box} dikirim ke Dispatcher.`, 'danger');
-                logGatewayActivity('WA', 'Guncangan', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Guncangan terdeteksi ${vibeVal.toFixed(2).replace('.', ',')}G. Harap berkendara lebih perlahan.`, 'warning');
             }
             previousVibrations[ruteId] = vibeVal;
 
@@ -1986,9 +1982,7 @@ const plannedPaths = {
         const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         
         let platformBadge = '';
-        if (platform === 'WA') {
-            platformBadge = `<span class="bg-green-500/10 text-green-400 border border-green-500/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">WhatsApp</span>`;
-        } else if (platform === 'TG') {
+        if (platform === 'TG') {
             platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
             
             // Forward to Backend Notification Controller
@@ -2110,7 +2104,6 @@ const plannedPaths = {
                 new Audio('/alarm.mp3').play().catch(e => console.warn(e));
 
                 logGatewayActivity('TG', 'Kedatangan', `Bot Telegram: Notifikasi pengiriman BOX-${boxId} selesai dikirim ke Dispatcher.`, 'success');
-                logGatewayActivity('WA', 'Kedatangan', `WhatsApp Gateway (${noWa}): Tanda terima digital BOX-${boxId} dikirim ke ${courierName} & ${destination}.`, 'success');
                 
                 pollLiveData();
             } else {
