@@ -9,6 +9,7 @@ use App\Http\Controllers\FleetController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NotificationController;
 
 use App\Models\Kurir;
 use App\Models\PerjalananRute;
@@ -62,6 +63,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/qr-batch/{batch_id}', [DashboardController::class, 'generateBatchQr'])
         ->name('dashboard.qr_batch');
+
+    // Route Notifikasi
+    Route::post('/dashboard/notifications/send', [NotificationController::class, 'sendTelegramAlert'])
+        ->name('dashboard.notifications.send');
 
     Route::get('/pengiriman', [ShipmentController::class, 'index'])
         ->name('shipments');

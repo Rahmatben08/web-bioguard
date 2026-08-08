@@ -1990,6 +1990,21 @@ const plannedPaths = {
             platformBadge = `<span class="bg-green-500/10 text-green-400 border border-green-500/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">WhatsApp</span>`;
         } else if (platform === 'TG') {
             platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
+            
+            // Forward to Backend Notification Controller
+            fetch('{{ route("dashboard.notifications.send") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: platform,
+                    category: type,
+                    message: text
+                })
+            }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
         }
         
         let typeBadge = '';
