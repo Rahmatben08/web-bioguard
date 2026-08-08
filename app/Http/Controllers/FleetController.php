@@ -39,12 +39,24 @@ class FleetController extends Controller
     public function liveLocation(\Illuminate\Http\Request $request): JsonResponse
     {
         $date = $request->input('date');
+        $initialLoad = $request->input('initial_load') === 'true';
         
-        $query = PerjalananRute::with(['kurir', 'latestLog' => function($q) use ($date) {
+        $with = ['kurir', 'latestLog' => function($q) use ($date) {
             if ($date) {
                 $q->whereDate('timestamp', $date);
             }
-        }]);
+        }];
+
+        if ($initialLoad) {
+            $with['logTelemetri'] = function($q) use ($date) {
+                $q->select('id', 'id_rute', 'latitude', 'longitude', 'timestamp')->orderBy('timestamp', 'asc');
+                if ($date) {
+                    $q->whereDate('timestamp', $date);
+                }
+            };
+        }
+
+        $query = PerjalananRute::with($with);
 
         if ($date) {
             $query->whereHas('logTelemetri', function($q) use ($date) {
@@ -151,6 +163,9 @@ class FleetController extends Controller
                     'probabilitas_rusak' => ($log && $log->prediksiAi) ? (float) $log->prediksiAi->probabilitas_rusak : 0.0,
                     'is_safe' => $excursion['status'] === 'Aman' || $excursion['status'] === 'Peringatan',
                     'is_rerouted' => $isRerouted,
+                    'path_history' => $initialLoad && $perjalanan->relationLoaded('logTelemetri')
+                        ? $perjalanan->logTelemetri->map(fn($l) => [(float)$l->latitude, (float)$l->longitude])->toArray()
+                        : null,
                 ];
             })
             ->values();

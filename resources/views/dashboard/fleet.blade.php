@@ -269,6 +269,7 @@
     let activeRoutes = [];
     let routeLayer = {};
     let pastRouteLayer = {};
+    let actualPolylines = {}; // New layer for real GPS history
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
@@ -635,23 +636,39 @@
             futureRoute.unshift(currentLatLng);
         }
 
-        // Render polylines
+        // ----------------------------------------------------
+        // Route Polyline (Planned Road Network OSRM)
+        // ----------------------------------------------------
         if (futureRoute.length > 0) {
-            const dashType = activeReroutes[ruteId] ? '8, 8' : (route.status === 'Tidak Layak Pakai' ? '8, 8' : null);
-            const polyColor = activeReroutes[ruteId] ? '#ef4444' : getPolylineColor(route.status);
+            const dashType = '5, 10';
+            const polyColor = activeReroutes[ruteId] ? '#ef4444' : '#94a3b8'; // Fade future planned route
             
             if (routeLayer[ruteId]) {
                 routeLayer[ruteId].setLatLngs(futureRoute);
-                routeLayer[ruteId].setStyle({ color: polyColor, dashArray: dashType, weight: 4 });
+                routeLayer[ruteId].setStyle({ color: polyColor, dashArray: dashType, weight: 3, opacity: 0.5 });
             } else {
-                routeLayer[ruteId] = L.polyline(futureRoute, { color: polyColor, dashArray: dashType, weight: 4 }).addTo(map);
+                routeLayer[ruteId] = L.polyline(futureRoute, { color: polyColor, dashArray: dashType, weight: 3, opacity: 0.5 }).addTo(map);
             }
             
             if (pastRouteLayer[ruteId]) {
                 pastRouteLayer[ruteId].setLatLngs(pastRoute);
             } else {
-                pastRouteLayer[ruteId] = L.polyline(pastRoute, { color: '#94a3b8', weight: 3, opacity: 0.5, dashArray: '5, 5' }).addTo(map);
+                pastRouteLayer[ruteId] = L.polyline(pastRoute, { color: '#94a3b8', weight: 3, opacity: 0.3, dashArray: '5, 10' }).addTo(map);
             }
+        }
+
+        // ----------------------------------------------------
+        // Actual Polyline (Real GPS History)
+        // ----------------------------------------------------
+        if (route.path_history && route.path_history.length > 0 && !actualPolylines[ruteId]) {
+            actualPolylines[ruteId] = L.polyline(route.path_history, {
+                color: '#3b82f6', // Solid bright blue
+                weight: 4.5,
+                opacity: 0.9,
+                dashArray: null
+            }).addTo(map);
+        } else if (actualPolylines[ruteId]) {
+            actualPolylines[ruteId].addLatLng(currentLatLng);
         }
 
         let iconColor = 'text-primary';
@@ -758,6 +775,10 @@
                     map.removeLayer(pastRouteLayer[ruteId]);
                     delete pastRouteLayer[ruteId];
                 }
+                if (actualPolylines[ruteId]) {
+                    map.removeLayer(actualPolylines[ruteId]);
+                    delete actualPolylines[ruteId];
+                }
             }
         });
 
@@ -786,8 +807,16 @@
         }
     }
 
+    let isInitialFetch = true;
+
     function pollLiveLocation() {
-        fetch('{{ route("fleet.live") }}')
+        let url = '{{ route("fleet.live") }}';
+        if (isInitialFetch) {
+            url += '?initial_load=true';
+            isInitialFetch = false;
+        }
+
+        fetch(url)
             .then(response => response.json())
             .then(res => {
                 if (res.success && res.data) {

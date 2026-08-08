@@ -892,6 +892,7 @@
     // 1. Map state variables
     const activeMarkers = {};
     const activePolylines = {};
+    const actualPolylines = {}; // New layer for real GPS history
     const activeDeviationCircles = {};
     const previousStatuses = {}; // id_rute -> excursion_status
     const previousDeviations = {}; // id_rute -> isDeviated
@@ -1681,37 +1682,51 @@ const plannedPaths = {
                 activeMarkers[ruteId] = marker;
             }
 
-            // Route Polyline (following planned road network)
+            // ----------------------------------------------------
+            // Route Polyline (Planned Road Network OSRM)
+            // ----------------------------------------------------
             const routeCoords = plannedRoute || [
                 [c.origin_latitude, c.origin_longitude],
                 currentLatLng
             ];
 
-            let polylineColor = getPolylineColor(c.excursion_status);
-            let polylineDashArray = null;
-            let polylineWeight = 3.5;
-            
-            if (isDeviated) {
-                polylineColor = '#ef4444';
-                polylineDashArray = '5, 10';
-                polylineWeight = 4.5;
-            }
+            let polylineColor = '#94a3b8'; // Faded gray for planned route
+            let polylineDashArray = '5, 10';
+            let polylineWeight = 3;
+            let polylineOpacity = 0.5;
 
             if (activePolylines[ruteId]) {
                 activePolylines[ruteId].setLatLngs(routeCoords);
                 activePolylines[ruteId].setStyle({ 
                     color: polylineColor,
                     dashArray: polylineDashArray,
-                    weight: polylineWeight
+                    weight: polylineWeight,
+                    opacity: polylineOpacity
                 });
             } else {
                 const polyline = L.polyline(routeCoords, {
                     color: polylineColor,
                     dashArray: polylineDashArray,
                     weight: polylineWeight,
-                    opacity: 0.85
+                    opacity: polylineOpacity
                 }).addTo(map);
                 activePolylines[ruteId] = polyline;
+            }
+
+            // ----------------------------------------------------
+            // Actual Polyline (Real GPS History)
+            // ----------------------------------------------------
+            if (c.path_history && c.path_history.length > 0 && !actualPolylines[ruteId]) {
+                // Initial load: create the full path history
+                actualPolylines[ruteId] = L.polyline(c.path_history, {
+                    color: '#3b82f6', // Solid bright blue
+                    weight: 4.5,
+                    opacity: 0.9,
+                    dashArray: null
+                }).addTo(map);
+            } else if (actualPolylines[ruteId]) {
+                // Subsequent polls: append the latest point
+                actualPolylines[ruteId].addLatLng(currentLatLng);
             }
 
             // Excursion Alarm Triggers
@@ -1795,6 +1810,11 @@ const plannedPaths = {
                     delete activePolylines[id];
                 }
                 
+                if (actualPolylines[id]) {
+                    map.removeLayer(actualPolylines[id]);
+                    delete actualPolylines[id];
+                }
+                
                 if (activeDeviationCircles[id]) {
                     map.removeLayer(activeDeviationCircles[id]);
                     delete activeDeviationCircles[id];
@@ -1814,13 +1834,23 @@ const plannedPaths = {
     /**
      * Poll GET /api/fleet/live-location every 2 seconds.
      */
+    let isInitialFetch = true;
+
     function pollLiveData() {
         const datepickerEl = document.getElementById('datepicker');
         const selectedDate = datepickerEl ? datepickerEl.value : '';
         
         let url = '/dashboard/fleet/live-location';
+        let params = new URLSearchParams();
         if (isHistoricalMode && selectedDate) {
-            url += `?date=${selectedDate}`;
+            params.append('date', selectedDate);
+        }
+        if (isInitialFetch) {
+            params.append('initial_load', 'true');
+            isInitialFetch = false;
+        }
+        if (params.toString()) {
+            url += '?' + params.toString();
         }
 
         fetch(url, {
@@ -2198,7 +2228,9 @@ const plannedPaths = {
 
         showTelemetryShimmer();
 
-        fetch(`/dashboard/fleet/live-location?date=${dateStr}`, {
+        isInitialFetch = true; // Refresh initial path history when changing date
+
+        fetch(`/dashboard/fleet/live-location?initial_load=true&date=${dateStr}`, {
             headers: {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
@@ -2217,6 +2249,10 @@ const plannedPaths = {
                     Object.keys(activePolylines).forEach(id => {
                         map.removeLayer(activePolylines[id]);
                         delete activePolylines[id];
+                    });
+                    Object.keys(actualPolylines).forEach(id => {
+                        map.removeLayer(actualPolylines[id]);
+                        delete actualPolylines[id];
                     });
                 }
 
