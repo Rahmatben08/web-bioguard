@@ -220,7 +220,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">device_thermostat</span>
                         <h2 class="text-lg font-bold text-on-surface">Telemetri & Prediksi AI</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">{{ count($perjalananAktif ?? []) }} aktif</span>
+                    <span id="stat-active-couriers-title" class="text-xs font-semibold text-slate-500 uppercase tracking-widest">{{ count($perjalananAktif ?? []) }} aktif</span>
                 </div>
 
                 {{-- Telemetry Cards Scroll Container --}}
@@ -1498,9 +1498,17 @@ const plannedPaths = {
         const activeStat = document.getElementById('stat-active-couriers');
         const pendingStat = document.getElementById('stat-pending-sync');
         const alertsValue = document.getElementById('stat-alerts-value');
+        const activeTitle = document.getElementById('stat-active-couriers-title');
         
-        if (activeStat && stats) activeStat.textContent = stats.total_kurir_aktif;
-        if (pendingStat && stats) pendingStat.textContent = stats.total_pending_sync;
+        if (activeStat && stats && stats.total_kurir_aktif !== undefined) {
+            activeStat.textContent = stats.total_kurir_aktif;
+        }
+        if (activeTitle && stats && stats.total_kurir_aktif !== undefined) {
+            activeTitle.textContent = stats.total_kurir_aktif + ' aktif';
+        }
+        if (pendingStat && stats && stats.total_pending_sync !== undefined) {
+            pendingStat.textContent = stats.total_pending_sync;
+        }
         if (alertsValue && stats) {
             alertsValue.textContent = stats.alert_count + ' Alarm';
             if (stats.alert_count > 0) {

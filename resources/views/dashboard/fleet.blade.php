@@ -731,13 +731,54 @@
         // Important: Update activeRoutes globally so search/widget can use the latest array!
         activeRoutes = routesList;
         
+        const currentActiveIds = new Set();
+
         routesList.forEach(route => {
+            currentActiveIds.add(route.id_rute);
             if (route.latitude && route.longitude) {
                 let currentLatLng = [route.latitude, route.longitude];
                 bounds.push(currentLatLng);
                 createOrUpdateMarker(route); // Will asynchronously fetch OSRM and draw
             }
         });
+
+        // Cleanup Inactive Markers/Polylines
+        Object.keys(markers).forEach(ruteId => {
+            const id = parseInt(ruteId);
+            if (!currentActiveIds.has(id)) {
+                if (markers[ruteId]) {
+                    map.removeLayer(markers[ruteId]);
+                    delete markers[ruteId];
+                }
+                if (activePolylines[ruteId]) {
+                    map.removeLayer(activePolylines[ruteId]);
+                    delete activePolylines[ruteId];
+                }
+                if (activeDeviationCircles[ruteId]) {
+                    map.removeLayer(activeDeviationCircles[ruteId]);
+                    delete activeDeviationCircles[ruteId];
+                }
+            }
+        });
+
+        // Update the dropdown selector to remove inactive routes
+        const courierSelect = document.getElementById('ai-courier-select');
+        if (courierSelect) {
+            Array.from(courierSelect.options).forEach(option => {
+                if (option.value !== "") {
+                    const id = parseInt(option.value);
+                    if (!currentActiveIds.has(id)) {
+                        option.style.display = 'none';
+                        if (courierSelect.value === option.value) {
+                            courierSelect.value = "";
+                            document.getElementById('ai-lokasi-text').textContent = 'Pilih armada untuk otomasi...';
+                        }
+                    } else {
+                        option.style.display = '';
+                    }
+                }
+            });
+        }
 
         if (bounds.length > 0 && initialLoad) {
             map.fitBounds(bounds, { padding: [50, 50], maxZoom: 15 });
