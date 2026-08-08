@@ -319,7 +319,7 @@
         </div>
         
         <!-- Modal Form -->
-        <form id="quick-action-form" method="POST">
+        <form id="quick-action-form" method="POST" onsubmit="return handleFormSubmit(this)">
             @csrf
             <div class="p-lg space-y-md" id="quick-modal-body">
                 <!-- Dynamic form fields injected here -->
@@ -358,7 +358,7 @@
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <form action="{{ route('shipments.store') }}" method="POST" class="p-5 space-y-4">
+        <form action="{{ route('shipments.store') }}" method="POST" class="p-5 space-y-4" onsubmit="return handleFormSubmit(this)">
             @csrf
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Kurir</label>
@@ -931,7 +931,12 @@
             onScanFailure
         ).catch((err) => {
             console.error("Gagal memulai kamera", err);
-            alert("Gagal mengakses kamera. Pastikan browser memiliki izin kamera.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: 'Gagal mengakses kamera. Pastikan browser memiliki izin kamera.',
+                confirmButtonColor: '#0ea5e9'
+            });
         });
     }
 
@@ -953,6 +958,15 @@
 
     function onScanFailure(error) {
         // Handle scan failure, usually better to ignore and keep scanning
+    }
+
+    function handleFormSubmit(form) {
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Memproses...';
+        }
+        return true;
     }
 
     async function fetchBatchDetail(batchId) {
@@ -979,12 +993,22 @@
                 
                 document.getElementById('qr-reader-results').classList.remove('hidden');
             } else {
-                alert(result.message || 'Batch tidak ditemukan.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: result.message || 'Batch tidak ditemukan.',
+                    confirmButtonColor: '#0ea5e9'
+                });
                 resetQrScanner();
             }
         } catch (error) {
             console.error('Error fetching batch detail:', error);
-            alert('Terjadi kesalahan saat mengambil data batch.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Koneksi Gagal',
+                text: 'Terjadi kesalahan saat mengambil data batch.',
+                confirmButtonColor: '#0ea5e9'
+            });
             resetQrScanner();
         }
     }
@@ -994,7 +1018,7 @@
         
         const btn = document.getElementById('btn-konfirmasi-qr');
         btn.disabled = true;
-        btn.innerText = 'Memproses...';
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Memproses...';
         
         try {
             const response = await fetch(`/pengiriman/batch/${currentScannedBatch}/konfirmasi`, {
@@ -1007,17 +1031,34 @@
             const result = await response.json();
             
             if (result.success) {
-                alert(result.message);
-                closeQrScannerModal();
-                window.location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: result.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    closeQrScannerModal();
+                    window.location.reload();
+                });
             } else {
-                alert(result.message || 'Gagal mengonfirmasi batch.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: result.message || 'Gagal mengonfirmasi batch.',
+                    confirmButtonColor: '#0ea5e9'
+                });
                 btn.disabled = false;
                 btn.innerText = 'Konfirmasi Terima';
             }
         } catch (error) {
             console.error('Error confirming batch:', error);
-            alert('Terjadi kesalahan saat memproses konfirmasi.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi kesalahan jaringan saat memproses konfirmasi.',
+                confirmButtonColor: '#0ea5e9'
+            });
             btn.disabled = false;
             btn.innerText = 'Konfirmasi Terima';
         }

@@ -534,6 +534,31 @@
             transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease !important;
         }
     </style>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        /* Custom SweetAlert2 Dark/Light Mode adaptions */
+        .swal2-popup.swal2-toast {
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+        }
+        .dark .swal2-popup {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .dark .swal2-title, .dark .swal2-content, .dark .swal2-html-container {
+            color: #f8fafc !important;
+        }
+        .dark .swal2-icon.swal2-success [class^=swal2-success-line] {
+            background-color: #22c55e !important;
+        }
+        .dark .swal2-icon.swal2-success .swal2-success-ring {
+            border-color: rgba(34, 197, 94, 0.3) !important;
+        }
+    </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex h-screen overflow-hidden font-body-md antialiased selection:bg-primary/30 selection:text-primary">
 

@@ -913,5 +913,18 @@
         }
     });
     </script>
+    
+    {{-- VanillaTilt.js for 3D Hover Effects --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            VanillaTilt.init(document.querySelectorAll(".group.hover\\:-translate-y-2"), {
+                max: 5,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.15,
+            });
+        });
+    </script>
 </body>
 </html>
