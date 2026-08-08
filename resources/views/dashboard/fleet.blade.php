@@ -750,13 +750,13 @@
                     map.removeLayer(markers[ruteId]);
                     delete markers[ruteId];
                 }
-                if (activePolylines[ruteId]) {
-                    map.removeLayer(activePolylines[ruteId]);
-                    delete activePolylines[ruteId];
+                if (routeLayer[ruteId]) {
+                    map.removeLayer(routeLayer[ruteId]);
+                    delete routeLayer[ruteId];
                 }
-                if (activeDeviationCircles[ruteId]) {
-                    map.removeLayer(activeDeviationCircles[ruteId]);
-                    delete activeDeviationCircles[ruteId];
+                if (pastRouteLayer[ruteId]) {
+                    map.removeLayer(pastRouteLayer[ruteId]);
+                    delete pastRouteLayer[ruteId];
                 }
             }
         });
