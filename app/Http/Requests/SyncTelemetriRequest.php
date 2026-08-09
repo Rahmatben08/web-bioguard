@@ -14,6 +14,24 @@ class SyncTelemetriRequest extends FormRequest
         return true; // API auth handled by middleware/token
     }
 
+    public function prepareForValidation()
+    {
+        if ($this->has('data') && is_array($this->data)) {
+            $data = $this->data;
+            foreach ($data as &$record) {
+                if (isset($record['lat'])) {
+                    $record['latitude'] = $record['lat'];
+                    unset($record['lat']);
+                }
+                if (isset($record['lng'])) {
+                    $record['longitude'] = $record['lng'];
+                    unset($record['lng']);
+                }
+            }
+            $this->merge(['data' => $data]);
+        }
+    }
+
     public function rules(): array
     {
         return [

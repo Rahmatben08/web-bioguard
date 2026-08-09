@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/sensor', [AnalyticsController::class, 'index'])
         ->name('sensors');
+    
+    Route::get('/sensor/posisi-armada', [AnalyticsController::class, 'posisiArmada'])
+        ->name('sensors.posisiArmada');
 
     Route::get('/inventaris', [InventoryController::class, 'index'])
         ->name('inventory');
@@ -95,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('armada/akun')->group(function () {
         Route::get('/', [FleetController::class, 'accounts'])->name('fleet.accounts');
         Route::post('/{id}/buat-akun', [FleetController::class, 'buatAkun'])->name('fleet.accounts.create');
+        Route::post('/{id}/update-akun', [FleetController::class, 'updateAkun'])->name('fleet.accounts.update');
         Route::post('/{id}/reset-password', [FleetController::class, 'resetPassword'])->name('fleet.accounts.reset');
         Route::post('/{id}/toggle-status', [FleetController::class, 'toggleStatus'])->name('fleet.accounts.toggle');
     });

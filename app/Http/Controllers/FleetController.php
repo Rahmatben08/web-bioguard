@@ -205,22 +205,31 @@ class FleetController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $kurir = \App\Models\Kurir::create([
-            'nama_lengkap' => $validated['nama_lengkap'],
-            'nomor_kendaraan' => $validated['nomor_kendaraan'],
-            'no_wa' => $validated['no_wa'],
-        ]);
+        try {
+            \Illuminate\Support\Facades\DB::beginTransaction();
 
-        User::create([
-            'name' => $kurir->nama_lengkap,
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => 'kurir',
-            'id_kurir' => $kurir->id_kurir,
-            'is_active' => true,
-        ]);
+            $kurir = \App\Models\Kurir::create([
+                'nama_lengkap' => $validated['nama_lengkap'],
+                'nomor_kendaraan' => $validated['nomor_kendaraan'],
+                'no_wa' => $validated['no_wa'],
+            ]);
 
-        return back()->with('success', "Kurir dan Akun berhasil ditambahkan. Email: {$validated['email']}");
+            \App\Models\User::create([
+                'name' => $kurir->nama_lengkap,
+                'email' => $validated['email'],
+                'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+                'role' => 'kurir',
+                'id_kurir' => $kurir->id_kurir,
+                'is_active' => true,
+            ]);
+
+            \Illuminate\Support\Facades\DB::commit();
+
+            return back()->with('success', "Kurir dan Akun berhasil ditambahkan. Email: {$validated['email']}");
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\DB::rollBack();
+            return back()->withInput()->with('error', "Gagal menambahkan kurir: " . $e->getMessage());
+        }
     }
 
     /**
@@ -257,6 +266,30 @@ class FleetController extends Controller
         ]);
 
         return back()->with('success_password', "Akun berhasil dibuat. \nEmail: {$user->email} \nPassword: {$passwordAcak}\n\nCATAT SEKARANG, tidak akan ditampilkan lagi.");
+    }
+
+    public function updateAkun(\Illuminate\Http\Request $request, $id)
+    {
+        abort_if(auth()->user()->role !== 'admin', 403, 'Hanya admin yang dapat mengakses.');
+        $kurir = Kurir::findOrFail($id);
+        
+        if (!$kurir->user) {
+            return back()->with('error', 'Kurir tidak memiliki akun.');
+        }
+
+        $validated = $request->validate([
+            'email' => 'required|email|unique:users,email,' . $kurir->user->id,
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        $updateData = ['email' => $validated['email']];
+        if (!empty($validated['password'])) {
+            $updateData['password'] = \Illuminate\Support\Facades\Hash::make($validated['password']);
+        }
+
+        $kurir->user->update($updateData);
+
+        return back()->with('success', 'Email/Password akun kurir berhasil diperbarui.');
     }
 
     /**

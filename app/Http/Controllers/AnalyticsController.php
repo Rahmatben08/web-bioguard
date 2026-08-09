@@ -139,4 +139,35 @@ class AnalyticsController extends Controller
             'routes' => $routesData,
         ]);
     }
+
+    /**
+     * API endpoint untuk mendapatkan posisi realtime armada kurir aktif.
+     */
+    public function posisiArmada(): \Illuminate\Http\JsonResponse
+    {
+        $activeRoutes = PerjalananRute::with(['kurir', 'latestLog'])
+            ->whereIn('status_perjalanan', ['Aktif', 'Sedang Berjalan'])
+            ->get();
+
+        $armadaData = $activeRoutes->map(function ($route) {
+            $latestLog = $route->latestLog;
+            
+            return [
+                'id_rute' => $route->id_rute,
+                'id_box' => $route->id_box,
+                'nama_kurir' => $route->kurir->nama_lengkap ?? 'Unknown',
+                'nomor_kendaraan' => $route->kurir->nomor_kendaraan ?? 'Unknown',
+                'tujuan' => $route->lokasi_tujuan,
+                'suhu_aktual' => $latestLog ? (float) $latestLog->suhu_aktual : null,
+                'lat' => $latestLog ? (float) $latestLog->latitude : 0.0,
+                'lng' => $latestLog ? (float) $latestLog->longitude : 0.0,
+                'terakhir_update' => $latestLog ? $latestLog->timestamp->toIso8601String() : null,
+            ];
+        });
+
+        return response()->json([
+            'success' => true,
+            'data' => $armadaData
+        ]);
+    }
 }

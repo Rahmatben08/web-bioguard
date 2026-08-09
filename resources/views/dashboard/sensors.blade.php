@@ -249,7 +249,24 @@
                 </div>
             </div>
         </x-card>
+        </x-card>
     </div>
+
+    <!-- Live Tracking Map Section -->
+    <x-card noPadding="true" class="mb-md overflow-hidden relative border border-outline-variant/30 shadow-sm">
+        <div class="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container transition-colors duration-300">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">map</span>
+                <h3 class="font-bold text-on-surface">Peta Pemantauan Armada (Real-time)</h3>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="map-status-badge" class="px-2 py-1 rounded-lg text-xs font-bold bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 flex items-center gap-1 transition-colors duration-300">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Live
+                </span>
+            </div>
+        </div>
+        <div id="live-map" class="w-full h-[450px] z-10 bg-slate-100 dark:bg-slate-800"></div>
+    </x-card>
 
     <!-- Operational Efficiency Table -->
     <x-card noPadding="true" class="mb-6 overflow-hidden">
@@ -486,6 +503,10 @@
 @endsection
 
 @push('scripts')
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <style>
@@ -522,6 +543,93 @@
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // --- Leaflet Map Implementation ---
+        let map = L.map('live-map').setView([-2.9761, 104.7754], 12); // Default to Palembang
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        let markers = {};
+
+        function fetchLivePositions() {
+            fetch('{{ route("sensors.posisiArmada") }}')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success && data.data) {
+                        updateMapMarkers(data.data);
+                    }
+                })
+                .catch(err => console.error("Error fetching armada positions:", err));
+        }
+
+        function updateMapMarkers(armadaList) {
+            let activeRouteIds = new Set();
+            
+            armadaList.forEach(armada => {
+                activeRouteIds.add(armada.id_rute);
+                
+                // Cek jika GPS belum fix
+                if(armada.lat === 0 || armada.lng === 0 || (armada.lat === 0.0 && armada.lng === 0.0)) {
+                    // Jika marker ada tapi GPS tiba-tiba 0 (hilang sinyal), hapus dari map
+                    if(markers[armada.id_rute]) {
+                        map.removeLayer(markers[armada.id_rute]);
+                        delete markers[armada.id_rute];
+                    }
+                    
+                    // Update UI list di tabel jika perlu (opsional, tabel sudah punya list sendiri)
+                    return; 
+                }
+
+                let latLng = [armada.lat, armada.lng];
+                let popupContent = `
+                    <div class="p-1">
+                        <div class="font-bold text-sm mb-1 text-slate-800">${armada.nama_kurir}</div>
+                        <div class="text-xs text-slate-600 font-mono mb-2 bg-slate-100 px-1.5 py-0.5 rounded inline-block">${armada.nomor_kendaraan} | BOX-${armada.id_box}</div>
+                        <div class="text-xs flex justify-between items-center border-t pt-1.5 mt-1 border-slate-200">
+                            <span class="text-slate-500">Suhu:</span>
+                            <span class="font-bold ${armada.suhu_aktual < 2 || armada.suhu_aktual > 8 ? 'text-red-500' : 'text-sky-600'}">${armada.suhu_aktual} &deg;C</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 mt-1 text-right">
+                            Update: ${new Date(armada.terakhir_update).toLocaleTimeString('id-ID')}
+                        </div>
+                    </div>
+                `;
+
+                if(markers[armada.id_rute]) {
+                    // Update posisi marker yang sudah ada
+                    markers[armada.id_rute].setLatLng(latLng);
+                    markers[armada.id_rute].getPopup().setContent(popupContent);
+                } else {
+                    // Buat marker baru
+                    let markerIcon = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color: #0ea5e9; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
+                        iconSize: [14, 14],
+                        iconAnchor: [7, 7]
+                    });
+
+                    let marker = L.marker(latLng, {icon: markerIcon}).addTo(map);
+                    marker.bindPopup(popupContent);
+                    markers[armada.id_rute] = marker;
+                }
+            });
+
+            // Hapus marker yang rutenya sudah tidak aktif
+            Object.keys(markers).forEach(id_rute => {
+                if(!activeRouteIds.has(parseInt(id_rute))) {
+                    map.removeLayer(markers[id_rute]);
+                    delete markers[id_rute];
+                }
+            });
+        }
+
+        // Jalankan polling setiap 10 detik
+        fetchLivePositions();
+        setInterval(fetchLivePositions, 10000);
+
         if (document.getElementById('filter-box')) {
             new TomSelect('#filter-box',{
                 create: false,
