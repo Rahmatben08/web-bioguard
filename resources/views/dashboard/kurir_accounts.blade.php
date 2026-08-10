@@ -153,7 +153,12 @@
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Password Baru (Opsional)</label>
-                <input type="password" name="password" minlength="6" placeholder="Ketik password baru jika ingin diubah..." class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+                <div class="relative">
+                    <input type="password" id="edit_password" name="password" minlength="6" placeholder="Ketik password baru jika ingin diubah..." class="w-full bg-background border border-outline-variant/50 rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all pr-10">
+                    <button type="button" onclick="togglePasswordVisibility('edit_password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                        <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                    </button>
+                </div>
             </div>
             <div class="pt-2 flex justify-end gap-2">
                 <button type="button" onclick="document.getElementById('modalEditAkun').classList.add('hidden')" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container text-sm font-semibold transition-colors">Batal</button>
@@ -235,5 +240,17 @@
             row.style.display = text.includes(filter) ? '' : 'none';
         });
     });
+
+    function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility';
+        } else {
+            input.type = 'password';
+            icon.textContent = 'visibility_off';
+        }
+    }
 </script>
 @endsection
