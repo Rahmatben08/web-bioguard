@@ -15,6 +15,8 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        \Illuminate\Support\Facades\Log::info('LOGIN ATTEMPT: ' . json_encode($request->all()));
+        
         $request->validate([
             'id_kurir' => 'required',
             'password' => 'required',
