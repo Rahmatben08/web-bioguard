@@ -35,6 +35,12 @@
 
         {{-- Action Buttons --}}
         <div class="flex items-center gap-6 relative">
+            @if(request()->has('show_demo'))
+                <a href="{{ url()->current() }}" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-primary text-white hover:bg-primary/90 transition-all shadow-md shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Data Demo</a>
+            @else
+                <a href="{{ url()->current() . '?show_demo=1' }}" class="text-[11px] font-bold px-3 py-1.5 rounded-xl border-2 border-primary/30 text-primary hover:bg-primary hover:text-white transition-all hover:shadow-md hover:shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Data Demo</a>
+            @endif
+            
             {{-- Lonceng Notifikasi Dropdown --}}
             <div class="relative z-50" id="notification-hub-container">
                 <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
@@ -1844,6 +1850,10 @@ const plannedPaths = {
         if (isInitialFetch) {
             params.append('initial_load', 'true');
             isInitialFetch = false;
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('show_demo')) {
+            params.append('show_demo', '1');
         }
         if (params.toString()) {
             url += '?' + params.toString();

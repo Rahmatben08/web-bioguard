@@ -39,6 +39,11 @@ class DashboardController extends Controller
             $query->aktif();
         }
 
+        // Tampilkan Data Demo hanya jika diminta (?show_demo=1)
+        if (!$request->has('show_demo')) {
+            $query->where('is_demo', false);
+        }
+
         $perjalananAktif = $query->get();
 
         // Hitung statistik
@@ -122,6 +127,11 @@ class DashboardController extends Controller
             });
         } else {
             $query->aktif();
+        }
+
+        // Tampilkan Data Demo hanya jika diminta (?show_demo=1)
+        if (!$request->has('show_demo')) {
+            $query->where('is_demo', false);
         }
 
         $perjalananList = $query->get();
@@ -310,7 +320,7 @@ class DashboardController extends Controller
     public function publicStats(): JsonResponse
     {
         $data = \Illuminate\Support\Facades\Cache::remember('public_stats_ringkas', 10, function () {
-            $activeRoutes = PerjalananRute::with('latestLog')->aktif()->get();
+            $activeRoutes = PerjalananRute::with('latestLog')->aktif()->where('is_demo', false)->get();
             
             $hasActiveData = false;
             $avgTemp = null;
