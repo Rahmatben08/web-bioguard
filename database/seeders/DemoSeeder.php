@@ -29,10 +29,10 @@ class DemoSeeder extends Seeder
         ]);
 
         // 1. Create Kurir
-        $kurir1 = Kurir::create(['nama_lengkap' => 'Ahmad Fadillah', 'nomor_kendaraan' => 'B 1234 XYZ', 'no_wa' => '+6281234567891']);
-        $kurir2 = Kurir::create(['nama_lengkap' => 'Budi Santoso', 'nomor_kendaraan' => 'B 5678 ABC', 'no_wa' => '+6281234567892']);
-        $kurir3 = Kurir::create(['nama_lengkap' => 'Citra Dewi', 'nomor_kendaraan' => 'B 9012 DEF', 'no_wa' => '+6281234567893']);
-        $kurir4 = Kurir::create(['nama_lengkap' => 'Dedi Kurniawan', 'nomor_kendaraan' => 'B 3456 GHI', 'no_wa' => '+6281234567894']);
+        $kurir1 = Kurir::create(['nama_lengkap' => 'Ahmad Fadillah', 'nomor_kendaraan' => 'BG 1234 XYZ', 'no_wa' => '+6281234567891']);
+        $kurir2 = Kurir::create(['nama_lengkap' => 'Budi Santoso', 'nomor_kendaraan' => 'BG 5678 ABC', 'no_wa' => '+6281234567892']);
+        $kurir3 = Kurir::create(['nama_lengkap' => 'Citra Dewi', 'nomor_kendaraan' => 'BG 9012 DEF', 'no_wa' => '+6281234567893']);
+        $kurir4 = Kurir::create(['nama_lengkap' => 'Dedi Kurniawan', 'nomor_kendaraan' => 'BG 3456 GHI', 'no_wa' => '+6281234567894']);
 
         // 2. Create Perjalanan Rute
         $rute1 = PerjalananRute::create([

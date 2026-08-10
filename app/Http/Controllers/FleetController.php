@@ -199,10 +199,12 @@ class FleetController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:100',
-            'nomor_kendaraan' => 'required|string|max:20',
+            'nomor_kendaraan' => ['required', 'string', 'max:20', 'regex:/^BG/i'],
             'no_wa' => 'nullable|string|max:20',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
+        ], [
+            'nomor_kendaraan.regex' => 'Nomor kendaraan harus diawali dengan BG.',
         ]);
 
         try {
