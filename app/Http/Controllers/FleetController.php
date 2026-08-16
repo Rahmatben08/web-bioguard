@@ -67,7 +67,7 @@ class FleetController extends Controller
         }
 
         $perjalananList = $query->get()
-            ->map(function ($perjalanan) {
+            ->map(function ($perjalanan) use ($initialLoad) {
                 $log = $perjalanan->latestLog;
                 $excursion = $perjalanan->getExcursionInfo();
                 $health = $perjalanan->getDeviceHealth();

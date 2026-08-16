@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('title', 'Pusat Kendali Logistik Medis'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -32,7 +34,13 @@
         </div>
 
         
-        <div class="flex items-center gap-sm relative">
+        <div class="flex items-center gap-6 relative">
+            <?php if(request()->has('show_demo')): ?>
+                <a href="<?php echo e(url()->current()); ?>" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-primary text-white hover:bg-primary/90 transition-all shadow-md shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Data Demo</a>
+            <?php else: ?>
+                <a href="<?php echo e(url()->current() . '?show_demo=1'); ?>" class="text-[11px] font-bold px-3 py-1.5 rounded-xl border-2 border-primary/30 text-primary hover:bg-primary hover:text-white transition-all hover:shadow-md hover:shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Data Demo</a>
+            <?php endif; ?>
+            
             
             <div class="relative z-50" id="notification-hub-container">
                 <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
@@ -179,14 +187,18 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['title' => 'Status Sistem','value' => 'TERHUBUNG','icon' => 'cell_tower','color' => 'green-500','valueClass' => 'text-2xl truncate']); ?>
-            <div class="flex items-center gap-xs mt-1 absolute right-6 top-8">
+            <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-medium text-slate-500">Peringatan Aktif:</span>
                 <div class="shrink-0" id="stat-alerts-container">
                     <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider <?php echo e(($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden'); ?>">
                         <?php echo e($alertCount ?? 0); ?> Alarm
                     </span>
+                    <span id="stat-alerts-empty" class="text-[11px] font-bold text-green-600 <?php echo e(($alertCount ?? 0) == 0 ? '' : 'hidden'); ?>">
+                        Aman
+                    </span>
                 </div>
             </div>
-            <div class="absolute top-6 right-6 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse"></div>
+            <div class="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse border-2 border-white dark:border-slate-900"></div>
          <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
@@ -238,74 +250,22 @@
                 <div id="map" class="w-full" style="min-height: 440px; height: 58vh;"></div>
 
                 
-                <div class="absolute top-4 right-4 z-[1000] w-52 bg-white/95 dark:bg-slate-900/95 border border-outline-variant/30 p-3 rounded-xl shadow-sm backdrop-blur-sm transition-all duration-300 group">
-                    <div class="flex items-center justify-between mb-3 border-b border-outline-variant/30 pb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-teal-600 dark:text-teal-400 text-[20px] animate-pulse">insights</span>
-                            <h3 class="text-xs font-extrabold text-on-surface tracking-widest uppercase">AI SPATIAL-THERMAL</h3>
-                        </div>
-                        <button id="btn-toggle-layers" class="text-slate-400 hover:text-teal-500 transition-colors cursor-pointer" title="Pengaturan Lapisan Peta">
-                            <span class="material-symbols-outlined text-[16px] align-middle">layers</span>
+                <div class="absolute top-4 right-4 z-[1000]">
+                    <div class="flex flex-col gap-1">
+                        <button id="btn-map-vector" type="button" class="w-9 h-9 rounded-full bg-surface/95 backdrop-blur-sm border border-outline-variant/40 shadow-md flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all" title="Peta Vektor">
+                            <span class="material-symbols-outlined text-[18px]">map</span>
+                        </button>
+                        <button id="btn-map-sat" type="button" class="w-9 h-9 rounded-full bg-surface/95 backdrop-blur-sm border border-outline-variant/40 shadow-md flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all" title="Peta Satelit">
+                            <span class="material-symbols-outlined text-[18px]">satellite_alt</span>
                         </button>
                     </div>
-
-                    <!-- Floating Layer Options -->
-                    <div id="layers-options-panel" class="hidden mt-2 p-3 bg-slate-100/90 dark:bg-slate-950/90 rounded-xl border border-slate-250 dark:border-slate-800/50 space-y-2 mb-3 text-[11px] text-left select-none">
-                        <div>
-                            <span class="font-bold text-slate-700 dark:text-on-surface-variant block mb-1 uppercase tracking-wider text-[9px]">Gaya Peta</span>
-                            <div class="grid grid-cols-2 gap-1">
-                                <button type="button" id="btn-map-vector" class="px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all">VEKTOR</button>
-                                <button type="button" id="btn-map-sat" class="px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all">SATELIT</button>
-                            </div>
-                        </div>
-                        <div class="pt-1 border-t border-outline-variant/30/60">
-                            <span class="font-bold text-slate-700 dark:text-on-surface-variant block mb-1 uppercase tracking-wider text-[9px]">Overlay Spasial</span>
-                            <label class="flex items-center gap-2 cursor-pointer select-none">
-                                <input type="checkbox" id="chk-risk-heatmap" class="rounded border-slate-350 dark:border-slate-800 text-primary focus:ring-primary/50 h-3.5 w-3.5">
-                                <span class="font-semibold text-slate-600 dark:text-on-surface-variant">Peta Panas Risiko (AI)</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="space-y-2 text-[11px]">
-                        
-                        <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-on-surface-variant">Suhu Luar:</span>
-                            <div class="flex items-center gap-1 font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">
-                                <span>34&deg;C</span>
-                                <span class="material-symbols-outlined text-[12px] text-red-500 font-bold animate-bounce" title="Suhu meningkat">trending_up</span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-between items-center bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <span class="font-semibold text-on-surface-variant">Kelembaban:</span>
-                            <span class="font-mono text-teal-600 dark:text-teal-400 font-extrabold text-[12px]">80%</span>
-                        </div>
-                        
-                        <div class="flex flex-col gap-2 bg-slate-100/50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200/50 dark:border-slate-700/30">
-                            <div class="flex justify-between items-start">
-                                <span class="font-semibold text-on-surface-variant">Lalu Lintas:</span>
-                                <span class="text-amber-600 dark:text-amber-400 font-extrabold flex items-center gap-1 text-[11px]">
-                                    <span class="h-2 w-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse shrink-0"></span>
-                                    Padat Tinggi
-                                </span>
-                            </div>
-                            <p class="text-[10px] text-on-surface-variant font-medium">Jl. Jend. Sudirman</p>
-                            <button onclick="alert('Mencari rute alternatif tercepat untuk menghindari kemacetan Jl. Jend. Sudirman...')" 
-                                    class="w-full mt-1 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500 hover:text-white border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold transition-all active:scale-[0.98]">
-                                Rekomendasikan Rute Baru
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-[9px] text-on-surface-variant mt-3 leading-relaxed border-t border-outline-variant/30 pt-2">
-                        * Data cuaca & kemacetan Palembang dianalisis oleh AI untuk memproyeksikan risiko kerusakan kargo secara prediktif.
-                    </p>
                 </div>
 
                 
                 <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-                        <span>Aman (2&deg;C - 8&deg;C)</span>
+                        <span>Aman (2°C - 8°C)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
@@ -340,7 +300,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">device_thermostat</span>
                         <h2 class="text-lg font-bold text-on-surface">Telemetri & Prediksi AI</h2>
                     </div>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-widest"><?php echo e(count($perjalananAktif ?? [])); ?> aktif</span>
+                    <span id="stat-active-couriers-title" class="text-xs font-semibold text-slate-500 uppercase tracking-widest"><?php echo e(count($perjalananAktif ?? [])); ?> aktif</span>
                 </div>
 
                 
@@ -394,96 +354,78 @@
 
                         
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card cursor-pointer p-4 <?php echo e($bgClass); ?> <?php echo e($accentBorderClass); ?> <?php echo e($shakeClass); ?> hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group" data-rute-id="<?php echo e($perjalanan->id_rute); ?>">
+                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl <?php echo e($bgClass); ?> border border-slate-200 dark:border-slate-800/80 <?php echo e($pulseRing ?? ''); ?> <?php echo e($shakeClass); ?> hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="<?php echo e($perjalanan->id_rute); ?>">
                             
-                            <div class="flex items-start justify-between gap-sm">
+                            
+                            <div class="flex items-start justify-between gap-3 mb-4">
                                 <div class="flex items-center gap-3 min-w-0">
-                                    <div class="w-8 h-8 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-800 dark:text-slate-200 font-bold text-xs uppercase tracking-wider shrink-0 select-none">
-                                        <?php echo e(collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0])->take(2)->implode('')); ?>
+                                    <!-- Clean Avatar -->
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                                        <?php echo e(collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0] ?? '')->take(2)->implode('')); ?>
 
                                     </div>
                                     <div class="min-w-0">
-                                        <p class="text-body-sm font-bold text-on-surface truncate">
+                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="<?php echo e($perjalanan->kurir->nama_lengkap); ?>">
                                             <?php echo e($perjalanan->kurir->nama_lengkap); ?>
 
-                                        </p>
-                                        <p class="text-label-md text-slate-500 mt-0.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                            <?php echo e($perjalanan->kurir->nomor_kendaraan); ?> &bull; 
-                                            <span class="font-mono-data text-[10px]"><?php echo e($perjalanan->id_box); ?></span> &bull;
-                                            <span class="font-mono-data text-[10px]" title="WhatsApp Kurir"><?php echo e($perjalanan->kurir->no_wa ?? '-'); ?></span>
-                                            <a href="<?php echo e(route('dashboard.qr', $perjalanan->id_box)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
+                                        </h4>
+                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
+                                            <span><?php echo e($perjalanan->kurir->nomor_kendaraan); ?></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="font-mono"><?php echo e($perjalanan->id_box); ?></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span><?php echo e($perjalanan->kurir->no_wa ?? '-'); ?></span>
+                                            <a href="<?php echo e(route('dashboard.qr', $perjalanan->id_box)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
                                             </a>
-                                        </p>
+                                        </div>
                                     </div>
                                 </div>
-
-                                
-                                <!-- STITCH_AI_STATUS_BADGE: Ganti dengan gaya badge status enterprise -->
-                                <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.badge','data' => ['color' => ''.e($badgeColor).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('badge'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['color' => ''.e($badgeColor).'']); ?>
+                                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg <?php echo e($badgeColor ?? ''); ?> text-[10px] font-bold uppercase tracking-wider shrink-0">
                                     <?php if($status === 'Aman'): ?>
-                                        <span class="material-symbols-outlined text-[12px] mr-1">check_circle</span>
+                                        <span class="material-symbols-outlined text-[14px]">check_circle</span>
                                     <?php elseif($status === 'Peringatan'): ?>
-                                        <span class="material-symbols-outlined text-[12px] mr-1">info</span>
+                                        <span class="material-symbols-outlined text-[14px]">info</span>
                                     <?php else: ?>
-                                        <span class="material-symbols-outlined text-[12px] mr-1">warning</span>
+                                        <span class="material-symbols-outlined text-[14px]">warning</span>
                                     <?php endif; ?>
-                                    <?php echo e($statusLabel); ?>
+                                    <?php echo e($status); ?>
 
-                                 <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
-<?php $attributes = $__attributesOriginal2ddbc40e602c342e508ac696e52f8719; ?>
-<?php unset($__attributesOriginal2ddbc40e602c342e508ac696e52f8719); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal2ddbc40e602c342e508ac696e52f8719)): ?>
-<?php $component = $__componentOriginal2ddbc40e602c342e508ac696e52f8719; ?>
-<?php unset($__componentOriginal2ddbc40e602c342e508ac696e52f8719); ?>
-<?php endif; ?>
+                                </div>
                             </div>
 
                             
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-sm truncate">
-                                <span class="material-symbols-outlined text-[12px] align-middle mr-0.5 text-primary">pin_drop</span>
-                                <?php echo e($perjalanan->lokasi_tujuan); ?>
-
-                            </p>
+                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                                <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
+                                <span class="truncate"><?php echo e($perjalanan->lokasi_tujuan); ?></span>
+                            </div>
 
                             
-                            <div class="flex items-end justify-between mt-sm">
+                            <div class="flex items-end justify-between mb-4 px-1">
                                 <div>
-                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Suhu Aktual</p>
-                                    <p class="text-2xl font-extrabold tracking-tight <?php echo e($textClass); ?> tabular-nums">
+                                    <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Suhu Aktual</p>
+                                    <p class="text-3xl font-black tracking-tighter tabular-nums <?php echo e($textClass); ?> flex items-center gap-1">
                                         <?php if($status !== 'Aman'): ?>
-                                            <span class="material-symbols-outlined text-[16px] align-middle mr-0.5">thermostat</span>
+                                            <span class="material-symbols-outlined text-[20px]">thermostat</span>
                                         <?php endif; ?>
-                                        <?php echo e($temp !== null ? number_format($temp, 1, ',', '.') . '&deg;C' : '-'); ?>
+                                        <?php echo e($temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-'); ?>
 
                                     </p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="uppercase tracking-widest text-[9px] font-bold text-slate-500">Nilai MKT</p>
-                                    <p class="text-base font-bold text-on-surface-variant tabular-nums">
-                                        <?php echo e(is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '&deg;C' : $mkt); ?>
+                                    <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
+                                    <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
+                                        <?php echo e(is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt); ?>
 
                                     </p>
                                 </div>
                             </div>
 
                             
-                            <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
+                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
                                 <div>
-                                    <span class="block">Durasi Anomali</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($status !== 'Aman' ? $textClass : 'text-slate-700 dark:text-on-surface-variant'); ?>">
+                                    <span class="block mb-0.5">Durasi Anomali</span>
+                                    <span class="text-xs font-bold font-mono <?php echo e($status !== 'Aman' ? $textClass : 'text-slate-800 dark:text-slate-200'); ?>">
                                         <?php if($status === 'Aman'): ?>
                                             0s (Normal)
                                         <?php else: ?>
@@ -492,7 +434,7 @@
                                     </span>
                                 </div>
                                 <div class="text-center">
-                                    <span class="block">Guncangan</span>
+                                    <span class="block mb-0.5">Guncangan</span>
                                     <?php
                                         $vibeStatusClass = 'text-green-500';
                                         if ($vibration > 1.50) {
@@ -501,13 +443,13 @@
                                             $vibeStatusClass = 'text-amber-500';
                                         }
                                     ?>
-                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($vibeStatusClass); ?>">
+                                    <span class="text-xs font-bold font-mono <?php echo e($vibeStatusClass); ?>">
                                         <?php echo e(number_format($vibration, 2, ',', '.')); ?>G
                                     </span>
                                 </div>
                                 <div class="text-right" title="<?php echo e($prediksi ? $prediksi->instruksi_mitigasi : ''); ?>">
-                                    <span class="block">Risiko (AI)</span>
-                                    <span class="font-mono-data font-bold block mt-0.5 <?php echo e($probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500')); ?>">
+                                    <span class="block mb-0.5">Risiko (AI)</span>
+                                    <span class="text-xs font-bold font-mono <?php echo e($probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500')); ?>">
                                         <?php echo e(number_format($probabilitas, 1, ',', '.')); ?>%
                                     </span>
                                 </div>
@@ -686,7 +628,7 @@
                 
                 <div class="p-6">
                     <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
-                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8&deg;C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
+                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
                     
@@ -710,7 +652,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -743,7 +685,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -776,7 +718,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9&deg;C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -1101,7 +1043,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">hub</span>
                         BIO-GUARD Gateway Hub
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log simulasi notifikasi otomatis Bot Telegram & WhatsApp Gateway</p>
+                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
                 </div>
                 
                 <div class="mt-4 flex flex-col gap-2">
@@ -1206,7 +1148,7 @@
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
                         <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
-                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0&deg;C - 8,0&deg;C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8&deg;C</span> tanpa kerusakan zat aktif terdeteksi.
+                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0°C - 8,0°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8°C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
                     <div class="col-span-2">
@@ -1252,6 +1194,7 @@
     // 1. Map state variables
     const activeMarkers = {};
     const activePolylines = {};
+    const actualPolylines = {}; // New layer for real GPS history
     const activeDeviationCircles = {};
     const previousStatuses = {}; // id_rute -> excursion_status
     const previousDeviations = {}; // id_rute -> isDeviated
@@ -1275,30 +1218,13 @@
 
     // Alternative Optimized Routes
     const alternativePaths = {
-        'RSUD Palembang BARI': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9860, 104.7620], // Jl. Veteran
-            [-2.9875, 104.7680], // Jl. Slamet Riyadi
-            [-2.9920, 104.7695], // Jembatan Musi IV
-            [-2.9985, 104.7700], // Jl. KH Azhari
-            [-3.0070, 104.7670], // Jl. Gubernur Bastari approach
-            [-3.0185, 104.7645]  // RSUD Palembang BARI
-        ],
-        'RSUP Dr. Mohammad Hoesin': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9855, 104.7615], // Jl. Veteran
-            [-2.9780, 104.7650], // Simpang Veteran/Rajawali
-            [-2.9710, 104.7610], // Jl. Mayor Ruslan
-            [-2.9702, 104.7521], // Simpang Sekip
-            [-2.9669, 104.7505]  // RSUP Dr. Mohammad Hoesin
-        ]
-    };
+    'RSUD Palembang BARI': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.985001,104.751907],[-2.984972,104.751941],[-2.98497,104.751943],[-2.984837,104.752077],[-2.98483,104.752086],[-2.984634,104.752357],[-2.984591,104.752417],[-2.984569,104.752448],[-2.984443,104.752722],[-2.984425,104.752769],[-2.984205,104.753401],[-2.984092,104.753725],[-2.983942,104.754311],[-2.983934,104.754351],[-2.983913,104.754483],[-2.983895,104.754588],[-2.983726,104.755628],[-2.983634,104.756262],[-2.983576,104.756644],[-2.983438,104.757534],[-2.983429,104.757602],[-2.983418,104.757698],[-2.983399,104.757872],[-2.983398,104.757882],[-2.982986,104.757629],[-2.982557,104.757349],[-2.981433,104.756602],[-2.981198,104.75644],[-2.980765,104.756142],[-2.980619,104.756034],[-2.980509,104.755951],[-2.98031,104.755823],[-2.980011,104.755652],[-2.97986,104.755672],[-2.979825,104.755699],[-2.979796,104.755739],[-2.979782,104.755811],[-2.979891,104.755974],[-2.979987,104.755985],[-2.980131,104.755999],[-2.980277,104.756027],[-2.980419,104.756077],[-2.980904,104.756373],[-2.980933,104.756392],[-2.98172,104.756924],[-2.982047,104.757157],[-2.982566,104.757487],[-2.983352,104.758026],[-2.983451,104.758095],[-2.983874,104.758364],[-2.984167,104.758551],[-2.985115,104.759192],[-2.986093,104.759852],[-2.986551,104.760161],[-2.986877,104.760381],[-2.98721,104.760592],[-2.987564,104.760817],[-2.987621,104.760877],[-2.987656,104.760913],[-2.987698,104.760961],[-2.987733,104.760998],[-2.987755,104.761023],[-2.987773,104.761055],[-2.987807,104.761108],[-2.987815,104.761141],[-2.987826,104.761169],[-2.987837,104.761191],[-2.987859,104.761232],[-2.987894,104.761264],[-2.987929,104.761286],[-2.987968,104.761307],[-2.988011,104.761321],[-2.988055,104.761327],[-2.988126,104.761323],[-2.988177,104.761329],[-2.988241,104.761333],[-2.988298,104.761339],[-2.988352,104.761346],[-2.988397,104.761356],[-2.988443,104.761375],[-2.988476,104.761391],[-2.988527,104.76142],[-2.989124,104.761814],[-2.991408,104.763342],[-2.994889,104.765671],[-2.996376,104.766695],[-2.996417,104.76683],[-2.996582,104.766938],[-2.996874,104.767135],[-2.996974,104.767205],[-2.997505,104.767573],[-2.997593,104.767627],[-2.997629,104.767651],[-2.99769,104.767692],[-2.997789,104.767757],[-2.997908,104.76784],[-2.997993,104.767898],[-2.998187,104.768053],[-2.998462,104.768248],[-2.998813,104.768484],[-2.999229,104.768763],[-2.999283,104.768758],[-2.999325,104.768736],[-2.999366,104.768683],[-2.999388,104.768627],[-2.999393,104.76856],[-2.999389,104.768483],[-2.999283,104.768415],[-2.998985,104.768217],[-2.998471,104.767863],[-2.998177,104.767661],[-2.998021,104.767552],[-2.997816,104.76742],[-2.997701,104.767346],[-2.997604,104.767284],[-2.997529,104.767236],[-2.997066,104.766955],[-2.996833,104.766785],[-2.996554,104.766583],[-2.996289,104.76641],[-2.996194,104.766341],[-2.996106,104.766284],[-2.995836,104.766101],[-2.994848,104.765411],[-2.994763,104.765328],[-2.994616,104.765244],[-2.994549,104.765201],[-2.994302,104.765057],[-2.994269,104.765105],[-2.994116,104.765341],[-2.993944,104.765625],[-2.993937,104.765637],[-2.993798,104.765864],[-2.993742,104.76598],[-2.99368,104.766109],[-2.993477,104.766541],[-2.993315,104.766801],[-2.993237,104.766918],[-2.99312,104.767067],[-2.992992,104.767231],[-2.992846,104.767404],[-2.99282,104.767437],[-2.992809,104.767452],[-2.992772,104.767517],[-2.992768,104.767527],[-2.99255,104.767878],[-2.992469,104.768012],[-2.992411,104.7681],[-2.992372,104.768135],[-2.992337,104.768144],[-2.992288,104.768147],[-2.992197,104.768126],[-2.992109,104.76811],[-2.992011,104.768098],[-2.991863,104.768066],[-2.99178,104.768054],[-2.991674,104.768066],[-2.9916,104.768091],[-2.991541,104.768122],[-2.991417,104.768238],[-2.991351,104.76835],[-2.991316,104.76841],[-2.991246,104.768501],[-2.991184,104.768615],[-2.991096,104.768737],[-2.990985,104.768935],[-2.990882,104.769118],[-2.991393,104.76937],[-2.991412,104.769379],[-2.991509,104.769412],[-2.991695,104.769471],[-2.991844,104.769518],[-2.9919,104.76938],[-2.991903,104.769378],[-2.991906,104.769378],[-2.99191,104.769379],[-2.99203,104.769431],[-2.992068,104.769447],[-2.992089,104.769457],[-2.992195,104.769183],[-2.992097,104.769131],[-2.99181,104.768993],[-2.991718,104.768924],[-2.991615,104.768873],[-2.991453,104.768789],[-2.991316,104.76871],[-2.991184,104.768615],[-2.991246,104.768501],[-2.991316,104.76841],[-2.991351,104.76835],[-2.991417,104.768238],[-2.991541,104.768122],[-2.9916,104.768091],[-2.991674,104.768066],[-2.99178,104.768054],[-2.991863,104.768066],[-2.992011,104.768098],[-2.992109,104.76811],[-2.992197,104.768126],[-2.992288,104.768147],[-2.992337,104.768144],[-2.992372,104.768135],[-2.992411,104.7681],[-2.992469,104.768012],[-2.99255,104.767878],[-2.992768,104.767527],[-2.992772,104.767517],[-2.992809,104.767452],[-2.99282,104.767437],[-2.992846,104.767404],[-2.992992,104.767231],[-2.99312,104.767067],[-2.993237,104.766918],[-2.993315,104.766801],[-2.993477,104.766541],[-2.99368,104.766109],[-2.993742,104.76598],[-2.993798,104.765864],[-2.993937,104.765637],[-2.993944,104.765625],[-2.994116,104.765341],[-2.994502,104.765606],[-2.994699,104.765742],[-2.995141,104.766045],[-2.995335,104.766162],[-2.995668,104.766354],[-2.996,104.766565],[-2.99628,104.766744],[-2.996417,104.76683],[-2.996582,104.766938],[-2.996874,104.767135],[-2.996974,104.767205],[-2.997505,104.767573],[-2.997593,104.767627],[-2.997629,104.767651],[-2.99769,104.767692],[-2.997789,104.767757],[-2.997908,104.76784],[-2.997993,104.767898],[-2.998187,104.768053],[-2.998462,104.768248],[-2.998813,104.768484],[-2.999229,104.768763],[-2.999312,104.768819],[-2.999406,104.768881],[-2.999598,104.769012],[-2.999727,104.769101],[-2.999821,104.769161],[-2.999855,104.769094],[-2.999968,104.768884],[-3.000149,104.768515],[-3.000158,104.768497],[-3.000778,104.767261],[-3.001209,104.766395],[-3.001334,104.766176],[-3.001464,104.765997],[-3.001616,104.765834],[-3.001872,104.765581],[-3.002227,104.765235],[-3.002438,104.765032],[-3.00264,104.764836],[-3.002701,104.764778],[-3.003018,104.764503],[-3.003138,104.764409],[-3.003306,104.764361],[-3.003614,104.764285],[-3.003833,104.76422],[-3.003919,104.764196],[-3.003963,104.76418],[-3.004295,104.764056],[-3.004383,104.764021],[-3.004548,104.763949],[-3.004701,104.763864],[-3.004829,104.763793],[-3.00512,104.763611],[-3.005388,104.763434],[-3.005634,104.763255],[-3.005803,104.763132],[-3.005859,104.763091],[-3.00614,104.762838],[-3.006316,104.762679],[-3.006421,104.762941],[-3.00645,104.763002],[-3.006494,104.763072],[-3.006619,104.763201],[-3.006764,104.763334],[-3.00692,104.763487],[-3.007097,104.763658],[-3.007127,104.763695],[-3.007135,104.763705],[-3.007174,104.763764],[-3.007216,104.763853],[-3.007236,104.763911],[-3.007267,104.764015],[-3.007299,104.764158],[-3.00734,104.764338],[-3.007386,104.764524],[-3.007405,104.764583],[-3.007414,104.764811],[-3.007416,104.764895],[-3.007421,104.765068],[-3.007424,104.765153],[-3.007429,104.765293],[-3.007435,104.765422],[-3.007416,104.765604],[-3.007395,104.765761],[-3.007377,104.765837],[-3.007384,104.765892],[-3.007518,104.765993],[-3.007968,104.766285],[-3.008197,104.766443],[-3.008408,104.766583],[-3.008534,104.766665],[-3.008566,104.766695],[-3.009079,104.767049],[-3.009124,104.76708],[-3.009293,104.767183],[-3.009506,104.767321],[-3.009575,104.767364],[-3.009677,104.767429],[-3.009702,104.767445],[-3.009956,104.767587],[-3.010101,104.767669],[-3.010186,104.767715],[-3.010479,104.767879],[-3.010569,104.76793],[-3.010592,104.767943],[-3.010845,104.768089],[-3.010898,104.768118],[-3.011034,104.768201],[-3.011112,104.768246],[-3.011157,104.768272],[-3.011218,104.768309],[-3.011374,104.768401],[-3.011563,104.768526],[-3.011861,104.76872],[-3.011901,104.768748],[-3.011932,104.768775],[-3.011961,104.768805],[-3.01213,104.768776],[-3.012144,104.768772],[-3.012395,104.768717],[-3.012765,104.768623],[-3.012922,104.768583],[-3.013116,104.768533],[-3.013279,104.768492],[-3.013486,104.768439],[-3.013533,104.768418],[-3.01358,104.768385],[-3.013628,104.768343],[-3.013666,104.768297],[-3.01371,104.768205],[-3.013815,104.767916],[-3.013868,104.767776],[-3.014113,104.767928],[-3.014592,104.768282],[-3.014662,104.768333],[-3.014725,104.768367],[-3.014783,104.768391],[-3.014847,104.768409],[-3.014918,104.768415],[-3.015034,104.768421],[-3.015148,104.768417],[-3.01566,104.768382],[-3.015741,104.768378],[-3.015829,104.768381],[-3.015889,104.76839],[-3.01595,104.768409],[-3.016022,104.768437],[-3.016178,104.768505],[-3.017818,104.76941],[-3.01784,104.769414],[-3.017866,104.769415],[-3.01789,104.769407],[-3.017904,104.769395],[-3.018082,104.768982],[-3.018673,104.76757],[-3.019153,104.766518],[-3.019303,104.766165],[-3.019522,104.765688],[-3.019588,104.765476],[-3.019488,104.765443],[-3.019123,104.765241],[-3.018759,104.765132],[-3.018373,104.765043],[-3.018312,104.765021]],
+    'RSUP Dr. Mohammad Hoesin': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.985001,104.751907],[-2.984972,104.751941],[-2.98497,104.751943],[-2.984837,104.752077],[-2.98483,104.752086],[-2.984634,104.752357],[-2.984591,104.752417],[-2.984569,104.752448],[-2.984443,104.752722],[-2.984425,104.752769],[-2.984205,104.753401],[-2.984092,104.753725],[-2.983942,104.754311],[-2.983934,104.754351],[-2.983913,104.754483],[-2.983895,104.754588],[-2.983726,104.755628],[-2.983634,104.756262],[-2.983576,104.756644],[-2.983438,104.757534],[-2.983429,104.757602],[-2.983418,104.757698],[-2.983399,104.757872],[-2.983398,104.757882],[-2.982986,104.757629],[-2.982557,104.757349],[-2.981433,104.756602],[-2.981198,104.75644],[-2.980765,104.756142],[-2.980619,104.756034],[-2.980509,104.755951],[-2.98031,104.755823],[-2.980011,104.755652],[-2.979782,104.755497],[-2.979558,104.755339],[-2.979147,104.755049],[-2.978864,104.754874],[-2.978652,104.754737],[-2.978549,104.754677],[-2.978421,104.754608],[-2.978129,104.754472],[-2.977832,104.754364],[-2.977673,104.754318],[-2.977235,104.754189],[-2.97705,104.754148],[-2.97693,104.754124],[-2.976906,104.754119],[-2.976792,104.754098],[-2.976716,104.754212],[-2.976667,104.754281],[-2.976623,104.754366],[-2.976615,104.754382],[-2.976537,104.754559],[-2.97645,104.754748],[-2.976098,104.755503],[-2.975932,104.75596],[-2.975864,104.756242],[-2.975822,104.756415],[-2.975819,104.756431],[-2.975678,104.757168],[-2.975636,104.757388],[-2.97557,104.757899],[-2.975559,104.757983],[-2.975529,104.758277],[-2.975521,104.758585],[-2.975524,104.759633],[-2.975554,104.76008],[-2.975573,104.76031],[-2.975606,104.760628],[-2.97572,104.761793],[-2.975728,104.761838],[-2.975751,104.762067],[-2.975764,104.762233],[-2.97579,104.762585],[-2.975797,104.762693],[-2.975807,104.762972],[-2.975809,104.763021],[-2.975814,104.763195],[-2.975816,104.763246],[-2.975815,104.763285],[-2.975834,104.764098],[-2.975837,104.764294],[-2.975837,104.7643],[-2.975923,104.764299],[-2.976355,104.764294],[-2.976801,104.764287],[-2.977199,104.764304],[-2.977222,104.764337],[-2.977281,104.764335],[-2.97731,104.764334],[-2.97733,104.764334],[-2.977371,104.764332],[-2.977427,104.764305],[-2.977493,104.764311],[-2.977714,104.764329],[-2.977736,104.764478],[-2.977771,104.764619],[-2.977813,104.764717],[-2.977838,104.764806],[-2.977892,104.765026],[-2.977896,104.765044],[-2.977938,104.765199],[-2.977976,104.765311],[-2.977998,104.765328],[-2.978022,104.765331],[-2.97804,104.76533],[-2.978057,104.765324],[-2.978259,104.765235],[-2.978285,104.765232],[-2.978308,104.765241],[-2.978393,104.765423],[-2.978651,104.765321],[-2.978393,104.765423],[-2.978308,104.765241],[-2.978285,104.765232],[-2.978259,104.765235],[-2.978057,104.765324],[-2.97804,104.76533],[-2.978022,104.765331],[-2.977998,104.765328],[-2.977976,104.765311],[-2.977938,104.765199],[-2.977896,104.765044],[-2.977838,104.764806],[-2.977813,104.764717],[-2.977771,104.764619],[-2.977736,104.764478],[-2.977714,104.764329],[-2.977493,104.764311],[-2.977427,104.764305],[-2.977371,104.764332],[-2.97733,104.764334],[-2.97731,104.764334],[-2.977281,104.764335],[-2.977222,104.764337],[-2.977199,104.764304],[-2.976801,104.764287],[-2.976355,104.764294],[-2.975923,104.764299],[-2.975912,104.763868],[-2.975895,104.763286],[-2.97589,104.763063],[-2.975891,104.763002],[-2.97588,104.76268],[-2.975862,104.762275],[-2.975846,104.76206],[-2.975818,104.761793],[-2.975796,104.761568],[-2.975771,104.761327],[-2.975765,104.761245],[-2.975685,104.760515],[-2.975645,104.76007],[-2.975632,104.759624],[-2.975619,104.759127],[-2.975632,104.75856],[-2.975634,104.758276],[-2.97567,104.757919],[-2.975754,104.757309],[-2.975793,104.757104],[-2.975923,104.756423],[-2.976034,104.755985],[-2.976197,104.755539],[-2.976265,104.755392],[-2.976422,104.755048],[-2.976426,104.75504],[-2.976559,104.754741],[-2.976607,104.754631],[-2.976712,104.754418],[-2.976769,104.754338],[-2.976838,104.754241],[-2.97693,104.754124],[-2.976906,104.754119],[-2.976792,104.754098],[-2.97676,104.754091],[-2.976549,104.754054],[-2.976424,104.754029],[-2.976225,104.753978],[-2.975961,104.753906],[-2.975738,104.753828],[-2.975526,104.753736],[-2.975357,104.753643],[-2.975219,104.753559],[-2.975069,104.753467],[-2.974865,104.753328],[-2.974581,104.753139],[-2.97452,104.753099],[-2.974432,104.753041],[-2.974089,104.752802],[-2.97386,104.752642],[-2.973783,104.752586],[-2.973492,104.752374],[-2.973308,104.752237],[-2.972952,104.751987],[-2.972905,104.751957],[-2.972894,104.751949],[-2.972604,104.751762],[-2.972198,104.751538],[-2.972045,104.751458],[-2.971957,104.751411],[-2.971941,104.751403],[-2.971811,104.751342],[-2.971801,104.751337],[-2.971585,104.751226],[-2.971387,104.751127],[-2.970637,104.750783],[-2.970304,104.750622],[-2.969967,104.75046],[-2.969617,104.75029],[-2.969315,104.750143],[-2.969053,104.750024],[-2.968981,104.749991],[-2.968813,104.749914],[-2.968619,104.749816],[-2.968583,104.749794],[-2.968437,104.749724],[-2.968041,104.749539],[-2.967621,104.749289],[-2.967558,104.74924],[-2.967537,104.749225],[-2.967441,104.749144],[-2.967316,104.749042],[-2.967258,104.748992],[-2.96721,104.74895],[-2.967154,104.748906],[-2.967038,104.748805],[-2.966976,104.748751],[-2.966899,104.748662],[-2.966752,104.74849],[-2.966705,104.748429],[-2.966518,104.748176],[-2.966322,104.747891],[-2.966216,104.747705],[-2.965985,104.747257],[-2.965793,104.746864],[-2.965634,104.746556],[-2.965545,104.746393],[-2.96547,104.746237],[-2.965192,104.745674],[-2.965164,104.74562],[-2.965068,104.745432],[-2.964883,104.74507],[-2.964748,104.744826],[-2.964704,104.744747],[-2.964575,104.744489],[-2.964451,104.744242],[-2.964389,104.744117],[-2.964246,104.743828],[-2.964124,104.743584],[-2.964047,104.743426],[-2.963965,104.74326],[-2.963819,104.742963],[-2.963696,104.742714],[-2.963547,104.742396],[-2.96351,104.742309],[-2.963407,104.742069],[-2.963209,104.741701],[-2.96315,104.741596],[-2.962951,104.741209],[-2.962923,104.74116],[-2.962886,104.74109],[-2.962781,104.740878],[-2.962769,104.740852],[-2.962538,104.740471],[-2.962368,104.740203],[-2.962348,104.740173],[-2.962244,104.740045],[-2.96222,104.740016],[-2.962204,104.739953],[-2.962163,104.739867],[-2.961882,104.739483],[-2.961656,104.739201],[-2.961646,104.73919],[-2.961455,104.73897],[-2.961268,104.738754],[-2.961206,104.738736],[-2.961176,104.738733],[-2.961149,104.738738],[-2.961123,104.738752],[-2.961087,104.738784],[-2.961071,104.738806],[-2.961067,104.738828],[-2.961067,104.738855],[-2.961085,104.738928],[-2.96127,104.739138],[-2.961312,104.739181],[-2.961587,104.73949],[-2.961822,104.739797],[-2.961991,104.740007],[-2.962061,104.740078],[-2.962147,104.740143],[-2.962495,104.740621],[-2.96263,104.74084],[-2.962824,104.741186],[-2.962861,104.741256],[-2.962899,104.741328],[-2.962978,104.741471],[-2.963013,104.741534],[-2.963066,104.741636],[-2.963146,104.741804],[-2.963311,104.742121],[-2.963463,104.742443],[-2.963544,104.742601],[-2.96362,104.742772],[-2.963774,104.743078],[-2.96389,104.743307],[-2.963967,104.743471],[-2.964164,104.743894],[-2.964292,104.744159],[-2.964412,104.74439],[-2.964519,104.744599],[-2.964893,104.745326],[-2.965132,104.745811],[-2.96517,104.745876],[-2.965379,104.746277],[-2.965449,104.746422],[-2.965702,104.746907],[-2.965842,104.747174],[-2.966023,104.747514],[-2.966226,104.747892],[-2.966116,104.747974],[-2.965419,104.748484],[-2.965339,104.748544],[-2.965293,104.748579],[-2.965335,104.748631],[-2.965339,104.748638],[-2.965387,104.748703],[-2.965657,104.749047],[-2.965973,104.749442],[-2.966216,104.749443],[-2.966468,104.749444],[-2.966462,104.75022],[-2.966456,104.751087],[-2.966754,104.751092],[-2.966774,104.7511],[-2.966786,104.751111],[-2.966799,104.751081],[-2.966804,104.751066],[-2.966806,104.751053],[-2.966808,104.751044],[-2.966809,104.751036],[-2.966809,104.751017],[-2.966811,104.7505]]
+};
 
     // Planned Reference Routes
 const plannedPaths = {
-    'RS Charitas': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.984812,104.751645],[-2.984722,104.751568],[-2.984533,104.751362],[-2.984268,104.751074],[-2.984064,104.750884],[-2.984011,104.750829],[-2.98374,104.750548],[-2.983447,104.750252],[-2.983403,104.750197],[-2.98338,104.750177],[-2.983366,104.750166],[-2.983347,104.750148],[-2.983171,104.749961],[-2.982973,104.749712],[-2.982918,104.749645],[-2.982842,104.74956],[-2.982702,104.749402],[-2.98253,104.749218],[-2.982401,104.749069],[-2.982193,104.748836],[-2.982078,104.748718],[-2.982065,104.748705],[-2.981975,104.748611],[-2.981837,104.748468],[-2.981516,104.748139],[-2.981483,104.748098],[-2.981324,104.747909],[-2.981178,104.74772],[-2.980916,104.74734],[-2.98088,104.747288],[-2.980852,104.747249],[-2.980731,104.747089],[-2.980715,104.747075],[-2.980591,104.746899],[-2.980423,104.746686],[-2.980386,104.74663],[-2.98027,104.746454],[-2.980155,104.746286],[-2.98013,104.746226],[-2.980097,104.746146],[-2.980057,104.746206],[-2.980019,104.746265],[-2.979936,104.74641],[-2.979826,104.746601],[-2.979584,104.747024],[-2.979567,104.747054],[-2.979527,104.747126],[-2.979516,104.747144],[-2.979477,104.747189],[-2.97943,104.747297],[-2.979332,104.747453],[-2.979178,104.747721],[-2.979154,104.747761],[-2.979078,104.74791],[-2.978979,104.748073],[-2.978955,104.74811],[-2.978911,104.748186],[-2.978872,104.74825],[-2.978785,104.748382],[-2.978688,104.748546],[-2.978481,104.748895],[-2.9784,104.749033],[-2.978257,104.749288],[-2.978133,104.749501],[-2.9781,104.749556],[-2.977977,104.749763],[-2.97791,104.749911],[-2.977857,104.750079],[-2.977758,104.750416],[-2.977631,104.750964],[-2.977576,104.751244],[-2.977535,104.751414],[-2.977362,104.752244],[-2.977262,104.752223],[-2.977198,104.752209]],
+    'RS Charitas': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.984812,104.751645],[-2.984722,104.751568],[-2.984533,104.751362],[-2.984268,104.751074],[-2.984064,104.750884],[-2.984011,104.750829],[-2.98374,104.750548],[-2.983447,104.750252],[-2.983403,104.750197],[-2.98338,104.750177],[-2.983366,104.750166],[-2.983347,104.750148],[-2.983171,104.749961],[-2.982973,104.749712],[-2.982918,104.749645],[-2.982842,104.74956],[-2.982702,104.749402],[-2.98253,104.749218],[-2.982401,104.749069],[-2.982193,104.748836],[-2.982078,104.748718],[-2.982065,104.748705],[-2.981975,104.748611],[-2.981837,104.748468],[-2.981516,104.748139],[-2.981483,104.748098],[-2.981324,104.747909],[-2.981178,104.74772],[-2.980916,104.74734],[-2.98088,104.747288],[-2.980852,104.747249],[-2.980731,104.747089],[-2.980715,104.747075],[-2.980591,104.746899],[-2.980423,104.746686],[-2.980386,104.74663],[-2.98027,104.746454],[-2.980155,104.746286],[-2.98013,104.746226],[-2.980097,104.746146],[-2.980057,104.746206],[-2.980019,104.746265],[-2.979936,104.74641],[-2.979826,104.746601],[-2.979584,104.747024],[-2.979567,104.747054],[-2.979527,104.747126],[-2.979516,104.747144],[-2.979477,104.747189],[-2.97943,104.747297],[-2.979332,104.747453],[-2.979178,104.747721],[-2.979154,104.747761],[-2.979078,104.74791],[-2.978979,104.748073],[-2.978955,104.74811],[-2.978911,104.748186],[-2.978872,104.74825],[-2.978785,104.748382],[-2.978688,104.748546],[-2.978481,104.748895],[-2.9784,104.749033],[-2.978257,104.749288],[-2.978133,104.749501],[-2.9781,104.749556],[-2.977977,104.749763],[-2.97791,104.749911],[-2.977857,104.750079],[-2.977758,104.750416],[-2.977631,104.750964],[-2.977576,104.751244],[-2.977535,104.751414],[-2.977362,104.752244],[-2.977262,104.752223]],
     'Puskesmas Dempo': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.985001,104.751907],[-2.984972,104.751941],[-2.98497,104.751943],[-2.984837,104.752077],[-2.98483,104.752086],[-2.984634,104.752357],[-2.984591,104.752417],[-2.984569,104.752448],[-2.984443,104.752722],[-2.984425,104.752769],[-2.984205,104.753401],[-2.984092,104.753725],[-2.983942,104.754311],[-2.983934,104.754351],[-2.983913,104.754483],[-2.983895,104.754588],[-2.983726,104.755628],[-2.983634,104.756262],[-2.983576,104.756644],[-2.983438,104.757534],[-2.983429,104.757602],[-2.983418,104.757698],[-2.983399,104.757872],[-2.983398,104.757882],[-2.982986,104.757629],[-2.982557,104.757349],[-2.981433,104.756602],[-2.981198,104.75644],[-2.980765,104.756142],[-2.980619,104.756034],[-2.980509,104.755951],[-2.98031,104.755823],[-2.980011,104.755652],[-2.97986,104.755672],[-2.979825,104.755699],[-2.979796,104.755739],[-2.979782,104.755811],[-2.979891,104.755974],[-2.979939,104.756103],[-2.980221,104.756571],[-2.980322,104.756712],[-2.980649,104.7571],[-2.980661,104.75712],[-2.980692,104.75717],[-2.980714,104.757193],[-2.981031,104.757586],[-2.981193,104.757785],[-2.981631,104.758352],[-2.981867,104.758657],[-2.982039,104.758859],[-2.982104,104.758932],[-2.982486,104.759349],[-2.982624,104.75949],[-2.982725,104.759564],[-2.983072,104.759878],[-2.98335,104.760131],[-2.983727,104.760422],[-2.983766,104.76045],[-2.984114,104.760715],[-2.98492,104.761338],[-2.985144,104.761502],[-2.98538,104.761676],[-2.985512,104.761773],[-2.986008,104.762095],[-2.986881,104.762883],[-2.986677,104.763141]],
     'RSUP Dr. Mohammad Hoesin': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.985001,104.751907],[-2.984972,104.751941],[-2.98497,104.751943],[-2.984837,104.752077],[-2.98483,104.752086],[-2.984634,104.752357],[-2.984591,104.752417],[-2.984569,104.752448],[-2.984443,104.752722],[-2.984425,104.752769],[-2.984205,104.753401],[-2.984092,104.753725],[-2.983942,104.754311],[-2.983934,104.754351],[-2.983913,104.754483],[-2.983895,104.754588],[-2.983726,104.755628],[-2.983634,104.756262],[-2.983576,104.756644],[-2.983438,104.757534],[-2.983429,104.757602],[-2.983418,104.757698],[-2.983399,104.757872],[-2.983398,104.757882],[-2.982986,104.757629],[-2.982557,104.757349],[-2.981433,104.756602],[-2.981198,104.75644],[-2.980765,104.756142],[-2.980619,104.756034],[-2.980509,104.755951],[-2.98031,104.755823],[-2.980011,104.755652],[-2.979782,104.755497],[-2.979558,104.755339],[-2.979147,104.755049],[-2.978864,104.754874],[-2.978652,104.754737],[-2.978549,104.754677],[-2.978421,104.754608],[-2.978129,104.754472],[-2.977832,104.754364],[-2.977673,104.754318],[-2.977235,104.754189],[-2.97705,104.754148],[-2.97693,104.754124],[-2.976906,104.754119],[-2.976792,104.754098],[-2.97676,104.754091],[-2.976549,104.754054],[-2.976424,104.754029],[-2.976225,104.753978],[-2.975961,104.753906],[-2.975738,104.753828],[-2.975526,104.753736],[-2.975357,104.753643],[-2.975219,104.753559],[-2.975069,104.753467],[-2.974865,104.753328],[-2.974581,104.753139],[-2.97452,104.753099],[-2.974432,104.753041],[-2.974089,104.752802],[-2.97386,104.752642],[-2.973783,104.752586],[-2.973492,104.752374],[-2.973308,104.752237],[-2.972952,104.751987],[-2.972905,104.751957],[-2.972894,104.751949],[-2.972604,104.751762],[-2.972198,104.751538],[-2.972045,104.751458],[-2.971957,104.751411],[-2.971941,104.751403],[-2.971811,104.751342],[-2.971801,104.751337],[-2.971585,104.751226],[-2.971387,104.751127],[-2.970637,104.750783],[-2.970304,104.750622],[-2.969967,104.75046],[-2.969617,104.75029],[-2.969315,104.750143],[-2.969053,104.750024],[-2.968981,104.749991],[-2.968813,104.749914],[-2.968619,104.749816],[-2.968583,104.749794],[-2.968437,104.749724],[-2.968041,104.749539],[-2.967621,104.749289],[-2.967558,104.74924],[-2.967537,104.749225],[-2.967441,104.749144],[-2.967316,104.749042],[-2.967258,104.748992],[-2.96721,104.74895],[-2.967154,104.748906],[-2.967038,104.748805],[-2.966976,104.748751],[-2.966899,104.748662],[-2.966752,104.74849],[-2.966705,104.748429],[-2.966518,104.748176],[-2.966322,104.747891],[-2.966216,104.747705],[-2.965985,104.747257],[-2.965793,104.746864],[-2.965634,104.746556],[-2.965545,104.746393],[-2.96547,104.746237],[-2.965192,104.745674],[-2.965164,104.74562],[-2.965068,104.745432],[-2.964883,104.74507],[-2.964748,104.744826],[-2.964704,104.744747],[-2.964575,104.744489],[-2.964451,104.744242],[-2.964389,104.744117],[-2.964246,104.743828],[-2.964124,104.743584],[-2.964047,104.743426],[-2.963965,104.74326],[-2.963819,104.742963],[-2.963696,104.742714],[-2.963547,104.742396],[-2.96351,104.742309],[-2.963407,104.742069],[-2.963209,104.741701],[-2.96315,104.741596],[-2.962951,104.741209],[-2.962923,104.74116],[-2.962886,104.74109],[-2.962781,104.740878],[-2.962769,104.740852],[-2.962538,104.740471],[-2.962368,104.740203],[-2.962348,104.740173],[-2.962244,104.740045],[-2.96222,104.740016],[-2.962204,104.739953],[-2.962163,104.739867],[-2.961882,104.739483],[-2.961656,104.739201],[-2.961646,104.73919],[-2.961455,104.73897],[-2.961268,104.738754],[-2.961206,104.738736],[-2.961176,104.738733],[-2.961149,104.738738],[-2.961123,104.738752],[-2.961087,104.738784],[-2.961071,104.738806],[-2.961067,104.738828],[-2.961067,104.738855],[-2.961085,104.738928],[-2.96127,104.739138],[-2.961312,104.739181],[-2.961587,104.73949],[-2.961822,104.739797],[-2.961991,104.740007],[-2.962061,104.740078],[-2.962147,104.740143],[-2.962495,104.740621],[-2.96263,104.74084],[-2.962824,104.741186],[-2.962861,104.741256],[-2.962899,104.741328],[-2.962978,104.741471],[-2.963013,104.741534],[-2.963066,104.741636],[-2.963146,104.741804],[-2.963311,104.742121],[-2.963463,104.742443],[-2.963544,104.742601],[-2.96362,104.742772],[-2.963774,104.743078],[-2.96389,104.743307],[-2.963967,104.743471],[-2.964164,104.743894],[-2.964292,104.744159],[-2.964412,104.74439],[-2.964519,104.744599],[-2.964893,104.745326],[-2.965132,104.745811],[-2.96517,104.745876],[-2.965379,104.746277],[-2.965449,104.746422],[-2.965702,104.746907],[-2.965842,104.747174],[-2.966023,104.747514],[-2.966226,104.747892],[-2.966116,104.747974],[-2.965419,104.748484],[-2.965339,104.748544],[-2.965293,104.748579],[-2.965335,104.748631],[-2.965339,104.748638],[-2.965387,104.748703],[-2.965657,104.749047],[-2.965973,104.749442],[-2.966216,104.749443],[-2.966468,104.749444],[-2.966462,104.75022],[-2.966456,104.751087],[-2.966754,104.751092],[-2.966774,104.7511],[-2.966786,104.751111],[-2.966799,104.751081],[-2.966804,104.751066],[-2.966806,104.751053],[-2.966808,104.751044],[-2.966809,104.751036],[-2.966809,104.751017],[-2.966811,104.7505]],
     'RSUD Palembang BARI': [[-2.987967,104.756141],[-2.987799,104.756102],[-2.987812,104.756055],[-2.987852,104.755856],[-2.987904,104.755531],[-2.987959,104.755231],[-2.987991,104.755036],[-2.98803,104.754939],[-2.988083,104.754851],[-2.988408,104.754464],[-2.98843,104.754414],[-2.988441,104.754394],[-2.98852,104.754212],[-2.988521,104.75418],[-2.988531,104.753979],[-2.988499,104.753494],[-2.988016,104.753531],[-2.987885,104.753542],[-2.987635,104.753564],[-2.987549,104.753575],[-2.987418,104.753564],[-2.987337,104.753546],[-2.98728,104.753516],[-2.987182,104.753465],[-2.987068,104.753394],[-2.986826,104.753227],[-2.986606,104.753069],[-2.986393,104.752946],[-2.98599,104.752673],[-2.985838,104.75259],[-2.985683,104.752479],[-2.985541,104.752358],[-2.985345,104.752167],[-2.98512,104.751969],[-2.985086,104.751904],[-2.98504,104.751859],[-2.985001,104.751907],[-2.984972,104.751941],[-2.98497,104.751943],[-2.984837,104.752077],[-2.98483,104.752086],[-2.984634,104.752357],[-2.984591,104.752417],[-2.984569,104.752448],[-2.984443,104.752722],[-2.984425,104.752769],[-2.984205,104.753401],[-2.984092,104.753725],[-2.983942,104.754311],[-2.983934,104.754351],[-2.983913,104.754483],[-2.983895,104.754588],[-2.983726,104.755628],[-2.983634,104.756262],[-2.983576,104.756644],[-2.983438,104.757534],[-2.983429,104.757602],[-2.983418,104.757698],[-2.983399,104.757872],[-2.983398,104.757882],[-2.982986,104.757629],[-2.982557,104.757349],[-2.981433,104.756602],[-2.981198,104.75644],[-2.980765,104.756142],[-2.980619,104.756034],[-2.980509,104.755951],[-2.98031,104.755823],[-2.980011,104.755652],[-2.97986,104.755672],[-2.979825,104.755699],[-2.979796,104.755739],[-2.979782,104.755811],[-2.979891,104.755974],[-2.979987,104.755985],[-2.980131,104.755999],[-2.980277,104.756027],[-2.980419,104.756077],[-2.980904,104.756373],[-2.980933,104.756392],[-2.98172,104.756924],[-2.982047,104.757157],[-2.982566,104.757487],[-2.983352,104.758026],[-2.983451,104.758095],[-2.983874,104.758364],[-2.984167,104.758551],[-2.985115,104.759192],[-2.986093,104.759852],[-2.986551,104.760161],[-2.986877,104.760381],[-2.98721,104.760592],[-2.987564,104.760817],[-2.987621,104.760877],[-2.987656,104.760913],[-2.987698,104.760961],[-2.987733,104.760998],[-2.987755,104.761023],[-2.987773,104.761055],[-2.987807,104.761108],[-2.987815,104.761141],[-2.987826,104.761169],[-2.987837,104.761191],[-2.987859,104.761232],[-2.987894,104.761264],[-2.987929,104.761286],[-2.987968,104.761307],[-2.988011,104.761321],[-2.988055,104.761327],[-2.988126,104.761323],[-2.988177,104.761329],[-2.988241,104.761333],[-2.988298,104.761339],[-2.988352,104.761346],[-2.988397,104.761356],[-2.988443,104.761375],[-2.988476,104.761391],[-2.988527,104.76142],[-2.989124,104.761814],[-2.991408,104.763342],[-2.994889,104.765671],[-2.996376,104.766695],[-2.996417,104.76683],[-2.996582,104.766938],[-2.996874,104.767135],[-2.996974,104.767205],[-2.997505,104.767573],[-2.997593,104.767627],[-2.997629,104.767651],[-2.99769,104.767692],[-2.997789,104.767757],[-2.997908,104.76784],[-2.997993,104.767898],[-2.998187,104.768053],[-2.998462,104.768248],[-2.998813,104.768484],[-2.999229,104.768763],[-2.999312,104.768819],[-2.999406,104.768881],[-2.999598,104.769012],[-2.999727,104.769101],[-2.999821,104.769161],[-2.999855,104.769094],[-2.999968,104.768884],[-3.000149,104.768515],[-3.000158,104.768497],[-3.000778,104.767261],[-3.001209,104.766395],[-3.001334,104.766176],[-3.001464,104.765997],[-3.001616,104.765834],[-3.001872,104.765581],[-3.002227,104.765235],[-3.002438,104.765032],[-3.00264,104.764836],[-3.002701,104.764778],[-3.003018,104.764503],[-3.003138,104.764409],[-3.003306,104.764361],[-3.003614,104.764285],[-3.003833,104.76422],[-3.003919,104.764196],[-3.003963,104.76418],[-3.004295,104.764056],[-3.004383,104.764021],[-3.004548,104.763949],[-3.004701,104.763864],[-3.004829,104.763793],[-3.00512,104.763611],[-3.005388,104.763434],[-3.005634,104.763255],[-3.005803,104.763132],[-3.005859,104.763091],[-3.00614,104.762838],[-3.006316,104.762679],[-3.006421,104.762941],[-3.00645,104.763002],[-3.006494,104.763072],[-3.006619,104.763201],[-3.006764,104.763334],[-3.00692,104.763487],[-3.007097,104.763658],[-3.007127,104.763695],[-3.007135,104.763705],[-3.007174,104.763764],[-3.007216,104.763853],[-3.007236,104.763911],[-3.007267,104.764015],[-3.007299,104.764158],[-3.00734,104.764338],[-3.007386,104.764524],[-3.007405,104.764583],[-3.007414,104.764811],[-3.007416,104.764895],[-3.007421,104.765068],[-3.007424,104.765153],[-3.007429,104.765293],[-3.007435,104.765422],[-3.007416,104.765604],[-3.007395,104.765761],[-3.007377,104.765837],[-3.007384,104.765892],[-3.007518,104.765993],[-3.007968,104.766285],[-3.008197,104.766443],[-3.008408,104.766583],[-3.008534,104.766665],[-3.008566,104.766695],[-3.009079,104.767049],[-3.009124,104.76708],[-3.009293,104.767183],[-3.009506,104.767321],[-3.009575,104.767364],[-3.009677,104.767429],[-3.009702,104.767445],[-3.009956,104.767587],[-3.010101,104.767669],[-3.010186,104.767715],[-3.010479,104.767879],[-3.010569,104.76793],[-3.010592,104.767943],[-3.010845,104.768089],[-3.010898,104.768118],[-3.011034,104.768201],[-3.011112,104.768246],[-3.011157,104.768272],[-3.011218,104.768309],[-3.011374,104.768401],[-3.011563,104.768526],[-3.011861,104.76872],[-3.011901,104.768748],[-3.011932,104.768775],[-3.011961,104.768805],[-3.01213,104.768776],[-3.012144,104.768772],[-3.012395,104.768717],[-3.012765,104.768623],[-3.012922,104.768583],[-3.013116,104.768533],[-3.013279,104.768492],[-3.013486,104.768439],[-3.013533,104.768418],[-3.01358,104.768385],[-3.013628,104.768343],[-3.013666,104.768297],[-3.01371,104.768205],[-3.013815,104.767916],[-3.013868,104.767776],[-3.014113,104.767928],[-3.014592,104.768282],[-3.014662,104.768333],[-3.014725,104.768367],[-3.014783,104.768391],[-3.014847,104.768409],[-3.014918,104.768415],[-3.015034,104.768421],[-3.015148,104.768417],[-3.01566,104.768382],[-3.015741,104.768378],[-3.015829,104.768381],[-3.015889,104.76839],[-3.01595,104.768409],[-3.016022,104.768437],[-3.016178,104.768505],[-3.017818,104.76941],[-3.01784,104.769414],[-3.017866,104.769415],[-3.01789,104.769407],[-3.017904,104.769395],[-3.018082,104.768982],[-3.018673,104.76757],[-3.019153,104.766518],[-3.019303,104.766165],[-3.019522,104.765688],[-3.019588,104.765476],[-3.019488,104.765443],[-3.019123,104.765241],[-3.018759,104.765132],[-3.018373,104.765043],[-3.018312,104.765021]],
@@ -1370,6 +1296,42 @@ const plannedPaths = {
         }
         return minDistance;
     }
+
+    let routeCache = {};
+    async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
+        const cacheKey = destinationName + (isAlternative ? "_alt" : "");
+        if (routeCache[cacheKey]) return routeCache[cacheKey];
+
+        // Mark as fetching to prevent spam
+        routeCache[cacheKey] = 'fetching';
+
+        try {
+            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.code === 'Ok' && data.routes.length > 0) {
+                const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
+                const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
+                routeCache[cacheKey] = coordinates;
+                
+                if (isAlternative) {
+                    alternativePaths[destinationName] = coordinates;
+                } else {
+                    plannedPaths[destinationName] = coordinates;
+                }
+                return coordinates;
+            }
+        } catch (e) {
+            console.error("OSRM Fetch Error", e);
+        }
+        
+        // On failure, mark as empty array so we don't spam
+        routeCache[cacheKey] = [];
+        if (!isAlternative) {
+            plannedPaths[destinationName] = [];
+        }
+        return null;
+    }
     // Request permission for push notifications
     if (window.Notification && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
         Notification.requestPermission();
@@ -1430,7 +1392,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸Ãƒâ€¦Ã‚Â¡Ãƒâ€šÃ‚Â¨ AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -1492,10 +1454,13 @@ const plannedPaths = {
         }
 
         return L.divIcon({
-            className: 'custom-marker',
+            className: '',
             html: `
                 <div style="
-                    width: 28px; height: 28px;
+                    position: absolute;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 32px; height: 32px;
                     background: ${bgColor};
                     border: 2px solid ${color};
                     border-radius: 50%;
@@ -1508,9 +1473,9 @@ const plannedPaths = {
                     </svg>
                 </div>
             `,
-            iconSize: [28, 28],
-            iconAnchor: [14, 14],
-            popupAnchor: [0, -18]
+            iconSize: [0, 0],
+            iconAnchor: [0, 0],
+            popupAnchor: [0, -16]
         });
     }
 
@@ -1548,7 +1513,7 @@ const plannedPaths = {
             statusColor = 'text-red-500 dark:text-error';
         }
 
-        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
 
         return `
             <div class="p-2 text-xs space-y-2 select-none font-sans">
@@ -1658,7 +1623,7 @@ const plannedPaths = {
             const textClass = c.text_class;
             const duration = c.excursion_duration;
             const temp = c.suhu_aktual;
-            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '°C' : '-';
             const prob = c.probabilitas_rusak;
             
             // Vibration evaluations
@@ -1672,7 +1637,7 @@ const plannedPaths = {
             const shakeClass = vibration > 1.50 ? 'animate-shake-infinite' : '';
 
             const statusIcon = status === 'Aman' ? 'check_circle' : (status === 'Peringatan' ? 'info' : 'warning');
-            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-';
+            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
             const durationDisplay = status === 'Aman' ? '0s (Normal)' : duration + 's';
             
             let sparklineClass = 'sparkline-cyan';
@@ -1720,69 +1685,77 @@ const plannedPaths = {
             }
 
             html += `
-                <div class="telemetry-card ${glowClass} cursor-pointer p-6 ${bgClass} ${accentBorderClass} ${cardBorderClass} ${pulseRing} ${shakeClass} hover:bg-slate-100/50 dark:hover:bg-slate-800/30 active:scale-[0.99] border transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
-                    <div class="flex items-start justify-between gap-sm">
+                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200 dark:border-slate-800/80 ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
+                    
+                    
+                    <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3 min-w-0">
-                            <!-- Micro-Avatar dengan Inisial & Gradasi Neon -->
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 dark:from-primary dark:to-indigo-500 flex items-center justify-center text-slate-950 dark:text-white font-black text-xs uppercase tracking-wider shadow-[0_0_10px_rgba(76,213,246,0.3)] shrink-0 select-none">
+                            <!-- Clean Avatar -->
+                            <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                 ${initials}
                             </div>
                             <div class="min-w-0">
-                                <p class="text-body-sm font-bold text-on-surface truncate">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="${c.nama_kurir}">
                                     ${c.nama_kurir}
-                                </p>
-                                <p class="text-label-md text-slate-500 mt-0.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
-                                    ${c.nomor_kendaraan} &bull; 
-                                    <span class="font-mono-data text-[10px]">${c.id_box}</span> &bull; 
-                                    <span class="font-mono-data text-[10px]" title="WhatsApp Kurir">${c.no_wa || '-'}</span>
-                                    <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all active:scale-90 ml-1" title="Cetak QR Code Boks">
+                                </h4>
+                                <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
+                                    <span>${c.nomor_kendaraan}</span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="font-mono">${c.id_box}</span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span>${c.no_wa || '-'}</span>
+                                    <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                         <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
                                     </a>
-                                </p>
+                                </div>
                             </div>
                         </div>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full ${badgeClass} text-[10px] font-black uppercase tracking-wider shrink-0">
-                            <span class="material-symbols-outlined text-[12px]">${statusIcon}</span>
-                            ${status.toUpperCase()}
-                        </span>
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${badgeClass} text-[10px] font-bold uppercase tracking-wider shrink-0">
+                            <span class="material-symbols-outlined text-[14px]">${statusIcon}</span>
+                            ${status}
+                        </div>
                     </div>
 
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-sm truncate">
-                        <span class="material-symbols-outlined text-[12px] align-middle mr-0.5 text-primary">pin_drop</span>
-                        ${c.lokasi_tujuan}
-                    </p>
+                    
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                        <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
+                        <span class="truncate">${c.lokasi_tujuan}</span>
+                    </div>
 
-                    <div class="flex items-end justify-between mt-sm">
+                    
+                    <div class="flex items-end justify-between mb-4 px-1">
                         <div>
-                            <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Suhu Aktual</p>
-                            <p class="text-2xl font-extrabold tracking-tight ${textClass}">
-                                ${tempIcon}${tempDisplay}
+                            <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Suhu Aktual</p>
+                            <p class="text-3xl font-black tracking-tighter tabular-nums ${textClass} flex items-center gap-1">
+                                ${tempIcon}
+                                ${tempDisplay}
                             </p>
                         </div>
                         <div class="text-right">
-                            <p class="uppercase tracking-widest text-[10px] font-semibold text-slate-400">Nilai MKT</p>
-                            <p class="text-lg font-bold text-slate-600 dark:text-on-surface-variant font-mono">
+                            <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
+                            <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
                                 ${mkt}
                             </p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-sm mt-sm pt-sm border-t border-outline-variant/30/60 text-[10px] font-semibold text-slate-500">
+                    
+                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
                         <div>
-                            <span class="block">Durasi Anomali</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${status !== 'Aman' ? textClass : 'text-slate-700 dark:text-on-surface-variant'}">
+                            <span class="block mb-0.5">Durasi Anomali</span>
+                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 dark:text-slate-200'}">
                                 ${durationDisplay}
                             </span>
                         </div>
                         <div class="text-center">
-                            <span class="block">Guncangan</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${vibeStatusClass}">
+                            <span class="block mb-0.5">Guncangan</span>
+                            <span class="text-xs font-bold font-mono ${vibeStatusClass}">
                                 ${vibration.toFixed(2).replace('.', ',')}G
                             </span>
                         </div>
                         <div class="text-right">
-                            <span class="block">Risiko (AI)</span>
-                            <span class="font-mono-data font-bold block mt-0.5 ${probColor}">
+                            <span class="block mb-0.5">Risiko (AI)</span>
+                            <span class="text-xs font-bold font-mono ${probColor}">
                                 ${prob.toFixed(1).replace('.', ',')}%
                             </span>
                         </div>
@@ -1803,8 +1776,8 @@ const plannedPaths = {
     function triggerPushNotification(c) {
         if (window.Notification && Notification.permission === 'granted') {
             try {
-                new Notification('ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ALARM SUHU KRITIS BIO-GUARD', {
-                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`,
+                new Notification('🚨 ALARM SUHU KRITIS BIO-GUARD', {
+                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
                     icon: '/favicon.ico'
                 });
             } catch (e) {
@@ -1828,9 +1801,17 @@ const plannedPaths = {
         const activeStat = document.getElementById('stat-active-couriers');
         const pendingStat = document.getElementById('stat-pending-sync');
         const alertsValue = document.getElementById('stat-alerts-value');
+        const activeTitle = document.getElementById('stat-active-couriers-title');
         
-        if (activeStat && stats) activeStat.textContent = stats.total_kurir_aktif;
-        if (pendingStat && stats) pendingStat.textContent = stats.total_pending_sync;
+        if (activeStat && stats && stats.total_kurir_aktif !== undefined) {
+            activeStat.textContent = stats.total_kurir_aktif;
+        }
+        if (activeTitle && stats && stats.total_kurir_aktif !== undefined) {
+            activeTitle.textContent = stats.total_kurir_aktif + ' aktif';
+        }
+        if (pendingStat && stats && stats.total_pending_sync !== undefined) {
+            pendingStat.textContent = stats.total_pending_sync;
+        }
         if (alertsValue && stats) {
             alertsValue.textContent = stats.alert_count + ' Alarm';
             if (stats.alert_count > 0) {
@@ -1892,7 +1873,7 @@ const plannedPaths = {
         const currentActiveIds = new Set();
         const bounds = [];
 
-        filteredList.forEach(c => {
+        filteredList.forEach(async c => {
             const ruteId = c.id_rute;
             currentActiveIds.add(ruteId);
 
@@ -1906,11 +1887,26 @@ const plannedPaths = {
             const lat = c.latitude;
             const lng = c.longitude;
             if (lat === null || lng === null) return;
+            
+            let currentLatLng = [lat, lng];
+
+            // Fetch OSRM if not loaded
+            if (!plannedPaths[c.lokasi_tujuan]) {
+                const originLat = c.origin_latitude || -2.9880;
+                const originLng = c.origin_longitude || 104.7560;
+                const destLat = c.dest_latitude || currentLatLng[0];
+                const destLng = c.dest_longitude || currentLatLng[1];
+                
+                await fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, false);
+                fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, true);
+            }
 
             // Route Deviation Calculation
-            const plannedRoute = plannedPaths[c.lokasi_tujuan];
+            let plannedRoute = plannedPaths[c.lokasi_tujuan];
+            if (activeReroutes[ruteId] && alternativePaths[c.lokasi_tujuan]) {
+                plannedRoute = alternativePaths[c.lokasi_tujuan];
+            }
             let isDeviated = false;
-            let currentLatLng = [lat, lng];
 
             if (plannedRoute) {
                 const distanceToPlanned = getDistanceToPolyline(currentLatLng, plannedRoute);
@@ -1988,37 +1984,51 @@ const plannedPaths = {
                 activeMarkers[ruteId] = marker;
             }
 
-            // Route Polyline (following planned road network)
-            const routeCoords = plannedPaths[c.lokasi_tujuan] || [
+            // ----------------------------------------------------
+            // Route Polyline (Planned Road Network OSRM)
+            // ----------------------------------------------------
+            const routeCoords = plannedRoute || [
                 [c.origin_latitude, c.origin_longitude],
                 currentLatLng
             ];
 
-            let polylineColor = getPolylineColor(c.excursion_status);
-            let polylineDashArray = null;
-            let polylineWeight = 3.5;
-            
-            if (isDeviated) {
-                polylineColor = '#ef4444';
-                polylineDashArray = '5, 10';
-                polylineWeight = 4.5;
-            }
+            let polylineColor = '#94a3b8'; // Faded gray for planned route
+            let polylineDashArray = '5, 10';
+            let polylineWeight = 3;
+            let polylineOpacity = 0.5;
 
             if (activePolylines[ruteId]) {
                 activePolylines[ruteId].setLatLngs(routeCoords);
                 activePolylines[ruteId].setStyle({ 
                     color: polylineColor,
                     dashArray: polylineDashArray,
-                    weight: polylineWeight
+                    weight: polylineWeight,
+                    opacity: polylineOpacity
                 });
             } else {
                 const polyline = L.polyline(routeCoords, {
                     color: polylineColor,
                     dashArray: polylineDashArray,
                     weight: polylineWeight,
-                    opacity: 0.85
+                    opacity: polylineOpacity
                 }).addTo(map);
                 activePolylines[ruteId] = polyline;
+            }
+
+            // ----------------------------------------------------
+            // Actual Polyline (Real GPS History)
+            // ----------------------------------------------------
+            if (c.path_history && c.path_history.length > 0 && !actualPolylines[ruteId]) {
+                // Initial load: create the full path history
+                actualPolylines[ruteId] = L.polyline(c.path_history, {
+                    color: '#3b82f6', // Solid bright blue
+                    weight: 4.5,
+                    opacity: 0.9,
+                    dashArray: null
+                }).addTo(map);
+            } else if (actualPolylines[ruteId]) {
+                // Subsequent polls: append the latest point
+                actualPolylines[ruteId].addLatLng(currentLatLng);
             }
 
             // Excursion Alarm Triggers
@@ -2043,11 +2053,9 @@ const plannedPaths = {
             // 1. Temperature Alert Gateway Logs
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C!`, 'danger');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Boks ${c.id_box} melebihi batas aman: ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C. Pindahkan kargo segera!`, 'danger');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`, 'warning');
-                    logGatewayActivity('WA', 'Suhu', `WhatsApp Gateway (${c.no_wa}): Notifikasi dikirim ke Kurir ${c.nama_kurir}. Harap periksa kerapatan penutup Boks ${c.id_box}.`, 'warning');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
                 }
             }
 
@@ -2055,7 +2063,6 @@ const plannedPaths = {
             if (isDeviated !== previousDeviations[ruteId]) {
                 if (isDeviated) {
                     logGatewayActivity('TG', 'Deviasi', `Bot Telegram: Alert deviasi dikirim ke Dispatcher. Kurir ${c.nama_kurir} keluar dari rute ${c.lokasi_tujuan}.`, 'danger');
-                    logGatewayActivity('WA', 'Deviasi', `WhatsApp Gateway (${c.no_wa}): Re-routing otomatis dikirim ke Kurir ${c.nama_kurir}. Ikuti petunjuk alternatif menuju ${c.lokasi_tujuan}.`, 'warning');
                 }
                 previousDeviations[ruteId] = isDeviated;
             }
@@ -2064,7 +2071,6 @@ const plannedPaths = {
             const vibeVal = c.gaya_guncangan !== undefined ? parseFloat(c.gaya_guncangan) : 0.05;
             if (vibeVal > 1.50 && (!previousVibrations[ruteId] || previousVibrations[ruteId] <= 1.50)) {
                 logGatewayActivity('TG', 'Guncangan', `Bot Telegram: Alert guncangan ekstrem ${vibeVal.toFixed(2).replace('.', ',')}G pada Boks ${c.id_box} dikirim ke Dispatcher.`, 'danger');
-                logGatewayActivity('WA', 'Guncangan', `WhatsApp Gateway (${c.no_wa}): Peringatan dikirim ke Kurir ${c.nama_kurir}. Guncangan terdeteksi ${vibeVal.toFixed(2).replace('.', ',')}G. Harap berkendara lebih perlahan.`, 'warning');
             }
             previousVibrations[ruteId] = vibeVal;
 
@@ -2072,9 +2078,9 @@ const plannedPaths = {
 
             // Notification Center Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
-                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C melebihi batas cold chain!`, 'danger');
+                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C melebihi batas cold chain!`, 'danger');
             } else if (c.excursion_status === 'Peringatan') {
-                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C.`, 'warning');
+                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
             }
 
             if (c.battery_level < 20) {
@@ -2102,6 +2108,11 @@ const plannedPaths = {
                     delete activePolylines[id];
                 }
                 
+                if (actualPolylines[id]) {
+                    map.removeLayer(actualPolylines[id]);
+                    delete actualPolylines[id];
+                }
+                
                 if (activeDeviationCircles[id]) {
                     map.removeLayer(activeDeviationCircles[id]);
                     delete activeDeviationCircles[id];
@@ -2121,13 +2132,27 @@ const plannedPaths = {
     /**
      * Poll GET /api/fleet/live-location every 2 seconds.
      */
+    let isInitialFetch = true;
+
     function pollLiveData() {
         const datepickerEl = document.getElementById('datepicker');
         const selectedDate = datepickerEl ? datepickerEl.value : '';
         
         let url = '/dashboard/fleet/live-location';
+        let params = new URLSearchParams();
         if (isHistoricalMode && selectedDate) {
-            url += `?date=${selectedDate}`;
+            params.append('date', selectedDate);
+        }
+        if (isInitialFetch) {
+            params.append('initial_load', 'true');
+            isInitialFetch = false;
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('show_demo')) {
+            params.append('show_demo', '1');
+        }
+        if (params.toString()) {
+            url += '?' + params.toString();
         }
 
         fetch(url, {
@@ -2263,10 +2288,23 @@ const plannedPaths = {
         const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         
         let platformBadge = '';
-        if (platform === 'WA') {
-            platformBadge = `<span class="bg-green-500/10 text-green-400 border border-green-500/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">WhatsApp</span>`;
-        } else if (platform === 'TG') {
+        if (platform === 'TG') {
             platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
+            
+            // Forward to Backend Notification Controller
+            fetch('<?php echo e(route("dashboard.notifications.send")); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: platform,
+                    category: type,
+                    message: text
+                })
+            }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
         }
         
         let typeBadge = '';
@@ -2332,7 +2370,7 @@ const plannedPaths = {
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
                         <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
-                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '&deg;C' : '-'}</span></div>
+                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-'}</span></div>
                             <div>Status: <span class="text-green-500 font-bold">Selesai</span></div>
                         </div>
                     </div>
@@ -2372,7 +2410,6 @@ const plannedPaths = {
                 new Audio('/alarm.mp3').play().catch(e => console.warn(e));
 
                 logGatewayActivity('TG', 'Kedatangan', `Bot Telegram: Notifikasi pengiriman BOX-${boxId} selesai dikirim ke Dispatcher.`, 'success');
-                logGatewayActivity('WA', 'Kedatangan', `WhatsApp Gateway (${noWa}): Tanda terima digital BOX-${boxId} dikirim ke ${courierName} & ${destination}.`, 'success');
                 
                 pollLiveData();
             } else {
@@ -2396,13 +2433,14 @@ const plannedPaths = {
             'RSUP Dr. Mohammad Hoesin': {lat: -2.9666, lng: 104.7505},
             'RSUD Palembang BARI': {lat: -3.0185, lng: 104.7645},
             'RS Charitas': {lat: -2.9772, lng: 104.7522},
-            'Puskesmas Dempo': {lat: -2.9865, lng: 104.7630}
+            'Puskesmas Dempo': {lat: -2.9865, lng: 104.7630},
+            'Puskesmas Alang-Alang Lebar': {lat: -2.9394, lng: 104.7000}
         };
         const originCoord = {lat: -2.9880, lng: 104.7560};
         const destCoord = coordinatesLookup[p.lokasi_tujuan] || {lat: -6.2000, lng: 106.8400};
 
         let status = 'Aman';
-        let statusLabel = 'Aman (Sesuai Standar 2&deg;C - 8&deg;C)';
+        let statusLabel = 'Aman (Sesuai Standar 2°C - 8°C)';
         let badgeClass = 'bg-primary/10 text-primary border border-primary/30';
         let textClass = 'text-cyan-500 font-bold';
         let duration = 0;
@@ -2505,7 +2543,9 @@ const plannedPaths = {
 
         showTelemetryShimmer();
 
-        fetch(`/dashboard/fleet/live-location?date=${dateStr}`, {
+        isInitialFetch = true; // Refresh initial path history when changing date
+
+        fetch(`/dashboard/fleet/live-location?initial_load=true&date=${dateStr}`, {
             headers: {
                 'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
@@ -2524,6 +2564,10 @@ const plannedPaths = {
                     Object.keys(activePolylines).forEach(id => {
                         map.removeLayer(activePolylines[id]);
                         delete activePolylines[id];
+                    });
+                    Object.keys(actualPolylines).forEach(id => {
+                        map.removeLayer(actualPolylines[id]);
+                        delete actualPolylines[id];
                     });
                 }
 
@@ -2650,14 +2694,14 @@ const plannedPaths = {
         let message = '';
         if (type === 'suhu') {
             temp = 9.8;
-            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}&deg;C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'deviasi') {
             lat = lat - 0.008; 
             lng = lng + 0.012;
             message = `Simulasi deviasi koordinat rute dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'reset') {
             temp = 4.2;
-            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}&deg;C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
         }
 
         const payload = {
@@ -2998,7 +3042,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yaxis: {
             labels: {
                 formatter: function (val) {
-                    return val.toFixed(1).replace('.', ',') + '&deg;C';
+                    return val.toFixed(1).replace('.', ',') + '°C';
                 },
                 style: {
                     colors: themeColors.textColor,
@@ -3021,7 +3065,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#ef4444',
                         style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Max (8&deg;C)',
+                        text: 'Max (8°C)',
                         offsetY: -3
                     }
                 },
@@ -3032,7 +3076,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#3b82f6',
                         style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Min (2&deg;C)',
+                        text: 'Min (2°C)',
                         offsetY: 0
                     }
                 }

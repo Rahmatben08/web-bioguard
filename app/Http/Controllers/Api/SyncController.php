@@ -230,7 +230,7 @@ class SyncController extends Controller
 
         // 1. Cek apakah box ini sedang dipakai kurir lain
         $boxUsedByOther = PerjalananRute::where('id_box', $boxId)
-            ->whereIn('status_perjalanan', ['Aktif', 'Sedang Berjalan'])
+            ->whereIn('status_perjalanan', ['aktif', 'Aktif', 'sedang berjalan', 'Sedang Berjalan'])
             ->where('id_kurir', '!=', $idKurir)
             ->first();
 
@@ -243,7 +243,7 @@ class SyncController extends Controller
 
         // 2. Cek apakah kurir ini punya rute aktif
         $activeRoute = PerjalananRute::where('id_kurir', $idKurir)
-            ->whereIn('status_perjalanan', ['Aktif', 'Sedang Berjalan'])
+            ->whereIn('status_perjalanan', ['aktif', 'Aktif', 'sedang berjalan', 'Sedang Berjalan'])
             ->first();
 
         if (!$activeRoute) {

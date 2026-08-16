@@ -631,7 +631,7 @@
         @auth
         <div class="px-md border-t border-slate-200 dark:border-slate-800/60 pt-md mt-auto flex flex-col gap-sm">
             <div class="flex items-center gap-md bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 rounded-xl p-md">
-                <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
+                <img src="{{ auth()->user()->photo && file_exists(public_path(auth()->user()->photo)) ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
                 <div class="min-w-0 flex-1">
                     <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
                     <p class="text-[9px] text-slate-500 font-mono font-bold mt-0.5 truncate">{{ auth()->user()->dispatcher_id }}</p>
@@ -726,7 +726,7 @@
             <div class="px-md py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/20">
                 <div class="flex items-center gap-3 mb-3">
                     <div class="relative shrink-0">
-                        <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/20 shadow-sm">
+                        <img src="{{ auth()->user()->photo && file_exists(public_path(auth()->user()->photo)) ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true' }}" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/20 shadow-sm">
                         <div class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-white dark:border-slate-950"></div>
                     </div>
                     <div class="min-w-0 flex-1">

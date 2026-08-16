@@ -17,7 +17,7 @@
             $selectedDate = request()->input('date');
             $selectedBox = request()->input('id_box');
         @endphp
-        <div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
+        <div class="relative z-20 flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
             <!-- Filter Inputs -->
             <div class="flex gap-2 items-center flex-wrap">
                 <input type="date" id="filter-date" value="{{ $selectedDate }}" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
@@ -44,7 +44,7 @@
             <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
                 <span class="material-symbols-outlined text-[18px] align-middle">description</span>
             </button>
-            <button class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
+            <button onclick="window.open('/dashboard/audit-pdf', '_blank')" class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
                 <span class="material-symbols-outlined text-[18px] align-middle">picture_as_pdf</span>
             </button>
         </div>
@@ -248,7 +248,6 @@
                     </div>
                 </div>
             </div>
-        </x-card>
         </x-card>
     </div>
 

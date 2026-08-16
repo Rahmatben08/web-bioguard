@@ -67,6 +67,13 @@
         .animate-mascot-float {
             animation: custom-float 4s infinite ease-in-out;
         }
+        @keyframes custom-breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.8); opacity: 0.1; }
+        }
+        .animate-breathe {
+            animation: custom-breathe 2s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="min-h-screen text-on-surface antialiased relative overflow-x-hidden bg-slate-50 dark:bg-slate-950">
@@ -165,7 +172,7 @@
                         </div>
                         <div id="live-badge-container" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/10 shadow-sm transition-colors">
                             <span class="relative flex items-center justify-center w-2.5 h-2.5">
-                                <span id="live-badge-ping" class="absolute inline-flex w-full h-full rounded-full bg-[#69f0ae] opacity-60 animate-ping"></span>
+                                <span id="live-badge-ping" class="absolute inline-flex w-full h-full rounded-full bg-[#69f0ae] opacity-80 animate-breathe"></span>
                                 <span id="live-badge-dot" class="relative w-1.5 h-1.5 rounded-full bg-[#69f0ae] shadow-[0_0_8px_#69f0ae]"></span>
                             </span>
                             <span id="live-badge-text" class="text-white font-bold text-[9px] tracking-wider transition-colors">LIVE</span>
@@ -761,11 +768,13 @@
         function flashElement(el) {
             if (noMotion || !el) return;
             el.style.transition = 'none';
+            el.style.transform = 'scale(1.1)';
             el.style.textShadow = '0 0 12px rgba(33,150,243,0.9)';
             el.style.color = '#0288d1';
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    el.style.transition = 'text-shadow 600ms ease, color 600ms ease';
+                    el.style.transition = 'transform 300ms ease-out, text-shadow 600ms ease, color 600ms ease';
+                    el.style.transform = 'scale(1)';
                     el.style.textShadow = '';
                     el.style.color = '';
                 });
@@ -850,8 +859,18 @@
                         curTempEl.textContent = newCurStr;
                         flashElement(curTempEl);
                     }
-                    minTempEl.textContent = parseFloat(data.min_temp).toFixed(1) + '°C';
-                    maxTempEl.textContent = parseFloat(data.max_temp).toFixed(1) + '°C';
+                    
+                    const newMinStr = parseFloat(data.min_temp).toFixed(1) + '°C';
+                    if (minTempEl.textContent !== newMinStr) {
+                        minTempEl.textContent = newMinStr;
+                        flashElement(minTempEl);
+                    }
+                    
+                    const newMaxStr = parseFloat(data.max_temp).toFixed(1) + '°C';
+                    if (maxTempEl.textContent !== newMaxStr) {
+                        maxTempEl.textContent = newMaxStr;
+                        flashElement(maxTempEl);
+                    }
 
                     // Update chart line endpoint
                     const yEnd = Math.max(10, Math.min(90, 100 - ((current - 0) / 10) * 100));
@@ -871,7 +890,7 @@
                 console.error("Error fetching live data:", error);
             }
         }
-        setInterval(updateWidget, 5000);
+        setInterval(updateWidget, 15000);
         updateWidget(); // run once immediately
 
         // ─── Parallax Tilt on Hover ─────────────────────────────────────
@@ -893,6 +912,19 @@
             });
         }
     });
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            VanillaTilt.init(document.querySelectorAll(".group.hover\\:-translate-y-2"), {
+                max: 5,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.15,
+            });
+        });
     </script>
 </body>
 </html>

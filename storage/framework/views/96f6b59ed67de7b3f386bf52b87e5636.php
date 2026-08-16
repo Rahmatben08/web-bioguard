@@ -30,21 +30,19 @@
                 </div>
 
                 <!-- Simulation Overlay: Full-Screen Red Alert (Core PKM Logic) -->
-                <div id="critical-overlay" class="hidden absolute inset-0 bg-red-950/95 z-50 flex flex-col justify-center items-center p-6 text-center select-none animate-pulse">
-                    <div class="w-24 h-24 rounded-full bg-red-900/50 border-4 border-red-500 flex items-center justify-center mb-6 animate-ping">
-                        <span class="material-symbols-outlined text-red-500 text-3xl">warning</span>
+                <div id="critical-overlay" class="hidden absolute inset-0 bg-red-950/95 z-50 flex flex-col justify-center items-center p-6 text-center select-none animate-pulse transition-colors duration-500">
+                    <div id="critical-img-container" class="w-40 h-40 mb-4 animate-bounce relative">
+                        <img id="critical-penguin-img" src="<?php echo e(asset('images/penguin_hot.png')); ?>" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]">
                     </div>
-                    <span class="material-symbols-outlined text-red-500 text-3xl mb-4">gavel</span>
-                    <h1 class="text-lg font-bold text-white tracking-wide uppercase leading-tight mb-2">CRITICAL ALERT</h1>
-                    <h2 class="text-base font-bold text-red-400 uppercase tracking-widest mb-6">EKSKURSI SUHU - KARANTINA KARGO SEKARANG!</h2>
+                    <h1 id="critical-title" class="text-lg font-bold text-white tracking-wide uppercase leading-tight mb-2">CRITICAL ALERT</h1>
+                    <h2 id="critical-sub" class="text-xs font-bold text-red-400 uppercase tracking-widest mb-6 px-4 leading-relaxed">EKSKURSI SUHU - KARANTINA KARGO SEKARANG!</h2>
                     
-                    <div class="bg-red-900/30 border border-red-500/40 rounded-2xl p-4 w-full mb-8">
-                        <div class="text-xs text-red-300 uppercase font-bold tracking-wider mb-1">Suhu Sensor Saat Ini</div>
-                        <div id="overlay-temp-display" class="text-xl font-bold text-white">8.6&deg;C</div>
-                        <div class="text-[10px] text-red-400 mt-2 font-bold uppercase">Melebihi Ambang Toleransi 30 Detik</div>
+                    <div id="critical-info-box" class="bg-red-900/30 border border-red-500/40 rounded-2xl p-4 w-full mb-8 transition-colors duration-500">
+                        <div id="critical-temp-label" class="text-xs text-red-300 uppercase font-bold tracking-wider mb-1">Suhu Sensor Saat Ini</div>
+                        <div id="overlay-temp-display" class="text-3xl font-black text-white">8.6°C</div>
                     </div>
 
-                    <button onclick="resetSimulation()" class="px-6 py-3 rounded-full bg-white text-red-950 font-black tracking-wider hover:bg-slate-100 transition-transform active:scale-95 text-xs shadow-lg uppercase">
+                    <button id="critical-reset-btn" onclick="resetSimulation()" class="px-6 py-3 rounded-full bg-white text-red-950 font-black tracking-wider hover:bg-slate-200 transition-transform active:scale-95 text-xs shadow-[0_0_20px_rgba(255,255,255,0.4)] uppercase">
                         Reset Status & Alarm
                     </button>
                 </div>
@@ -80,8 +78,8 @@
                                 <div class="flex flex-col">
                                     <span id="telemetry-card-title" class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Suhu Aktual Boks</span>
                                     <div class="flex items-baseline gap-1.5">
-                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5&deg;C</span>
-                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8&deg;C</span></span>
+                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5°C</span>
+                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8°C</span></span>
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-end">
@@ -261,16 +259,16 @@
             
             <!-- Temperature Range Info -->
             <div class="flex justify-between text-[11px] bg-slate-900/50 p-2 rounded-xl border border-outline-variant/30">
-                <span class="text-cyan-400">Aman: 2.0&deg;C - 8.0&deg;C</span>
-                <span class="text-amber-500">Warning: 8.1&deg;C - 8.5&deg;C</span>
-                <span class="text-red-500">Kritis: > 8.5&deg;C</span>
+                <span class="text-cyan-400">Aman: 2.0°C - 8.0°C</span>
+                <span class="text-amber-500">Warning: 8.1°C - 8.5°C</span>
+                <span class="text-red-500">Kritis: > 8.5°C</span>
             </div>
 
             <!-- Temperature Slider -->
             <div class="flex flex-col gap-xs mt-2">
                 <div class="flex justify-between items-baseline">
                     <span class="text-xs text-slate-400">Atur Suhu Aktual:</span>
-                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5&deg;C</span>
+                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5°C</span>
                 </div>
                 <input id="temp-slider" type="range" min="0.0" max="15.0" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
             </div>
@@ -278,16 +276,16 @@
             <!-- Preset Buttons -->
             <div class="grid grid-cols-2 gap-2 mt-2">
                 <button onclick="setTempPreset(4.5)" class="py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 text-cyan-400 text-xs font-bold transition-all cursor-pointer">
-                    Suhu Aman (4.5&deg;C)
+                    Suhu Aman (4.5°C)
                 </button>
                 <button onclick="setTempPreset(8.3)" class="py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-400 text-xs font-bold transition-all cursor-pointer">
-                    Warning (8.3&deg;C)
+                    Warning (8.3°C)
                 </button>
                 <button onclick="setTempPreset(9.5)" class="py-2 rounded-xl bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 text-xs font-bold transition-all cursor-pointer">
-                    Kritis (9.5&deg;C)
+                    Kritis (9.5°C)
                 </button>
                 <button onclick="setTempPreset(1.5)" class="py-2 rounded-xl bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs font-bold transition-all cursor-pointer">
-                    Beku (1.5&deg;C)
+                    Beku (1.5°C)
                 </button>
             </div>
         </div>
@@ -533,6 +531,49 @@
     let anomalySeconds = 30;
     let isWarning = false;
     let isCritical = false;
+
+    class HospitalAlarm {
+        constructor() {
+            this.ctx = null;
+            this.isPlaying = false;
+            this.interval = null;
+        }
+        play() {
+            if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            this.isPlaying = true;
+            if(this.ctx.state === 'suspended') this.ctx.resume();
+            this.beepSequence();
+            this.interval = setInterval(() => {
+                if (this.isPlaying) this.beepSequence();
+            }, 2000);
+        }
+        stop() {
+            this.isPlaying = false;
+            if(this.interval) clearInterval(this.interval);
+        }
+        beepSequence() {
+            if(!this.ctx) return;
+            const time = this.ctx.currentTime;
+            [0, 0.15, 0.3, 0.7, 0.85].forEach((offset) => {
+                this.beep(time + offset);
+            });
+        }
+        beep(time) {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = 900;
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            gain.gain.setValueAtTime(0, time);
+            gain.gain.linearRampToValueAtTime(1, time + 0.02);
+            gain.gain.setValueAtTime(1, time + 0.08);
+            gain.gain.linearRampToValueAtTime(0, time + 0.1);
+            osc.start(time);
+            osc.stop(time + 0.1);
+        }
+    }
+    let criticalAlarmAudio = new HospitalAlarm();
 
     // Database state
     let activeRouteId = '';
@@ -809,9 +850,9 @@
         currentTemp = parseFloat(val);
         mktTemp = parseFloat((currentTemp * 1.05 + 0.1).toFixed(1));
         
-        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}&deg;C`;
-        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}&deg;C`;
-        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}&deg;C`;
+        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}°C`;
+        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}°C`;
+        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}°C`;
 
         evaluateTemperatureConstraints();
     }
@@ -871,13 +912,13 @@
             mapCourier.classList.add('border-2', 'border-white', 'flex', 'items-center', 'justify-center', 'text-white', 'shadow-lg');
         }
 
-        // Batas instan kritis (> 8.5&deg;C)
-        if (currentTemp > 8.5) {
+        // Batas instan kritis (> 8.5°C atau < 2.0°C)
+        if (currentTemp > 8.5 || currentTemp < 2.0) {
             triggerCriticalAlert();
             return;
         }
 
-        // Batas fluktuasi / warning (8.1&deg;C s.d. 8.5&deg;C)
+        // Batas fluktuasi / warning (8.1°C s.d. 8.5°C)
         if (currentTemp > 8.0 && currentTemp <= 8.5) {
             isWarning = true;
             isCritical = false;
@@ -895,7 +936,7 @@
             if (!anomalyTimer) {
                 anomalySeconds = 30;
                 document.getElementById('countdown-display').textContent = `${anomalySeconds}s`;
-                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}&deg;C. Memulai timer toleransi 30 detik!`, 'warning');
+                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}°C. Memulai timer toleransi 30 detik!`, 'warning');
                 
                 anomalyTimer = setInterval(function() {
                     if (anomalySeconds > 0) {
@@ -913,42 +954,24 @@
                 }, 1000);
             }
         } else {
-            // Suhu AMAN (2&deg;C s.d. 8&deg;C atau beku < 2&deg;C tapi di luar warning 8.1 - 8.5)
-            if (currentTemp >= 2.0 && currentTemp <= 8.0) {
-                isWarning = false;
-                isCritical = false;
-                
-                if (anomalyTimer) {
-                    clearInterval(anomalyTimer);
-                    anomalyTimer = null;
-                    logConsole(`Suhu kembali stabil ke ${currentTemp}&deg;C. Timer toleransi di-reset.`, 'success');
-                }
+            // Suhu AMAN (2°C s.d. 8°C)
+            isWarning = false;
+            isCritical = false;
+            
+            if (anomalyTimer) {
+                clearInterval(anomalyTimer);
+                anomalyTimer = null;
+                logConsole(`Suhu kembali stabil ke ${currentTemp}°C. Timer toleransi di-reset.`, 'success');
+            }
 
-                floatCard.classList.add('border-cyan-500');
-                tempText.classList.add('text-cyan-400');
-                viabilityBadge.classList.add('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20');
-                viabilityBadge.textContent = 'AMAN';
-                timerBox.classList.add('hidden');
+            floatCard.classList.add('border-cyan-500');
+            tempText.classList.add('text-cyan-400');
+            viabilityBadge.classList.add('bg-cyan-500/10', 'text-cyan-400', 'border', 'border-cyan-500/20');
+            viabilityBadge.textContent = 'AMAN';
+            timerBox.classList.add('hidden');
 
-                if (mapCourier) {
-                    mapCourier.classList.add('bg-cyan-500', 'animate-bio-pulse');
-                }
-            } else {
-                // Di bawah 2.0&deg;C (Beku / Bahaya Dingin) -> Warning langsung
-                floatCard.classList.add('border-amber-500');
-                tempText.classList.add('text-amber-400');
-                viabilityBadge.classList.add('bg-amber-500/10', 'text-amber-400', 'border', 'border-amber-500/20');
-                viabilityBadge.textContent = 'AWAS BEKU';
-                timerBox.classList.add('hidden');
-
-                if (mapCourier) {
-                    mapCourier.classList.add('bg-amber-500');
-                }
-                
-                if (anomalyTimer) {
-                    clearInterval(anomalyTimer);
-                    anomalyTimer = null;
-                }
+            if (mapCourier) {
+                mapCourier.classList.add('bg-cyan-500', 'animate-bio-pulse');
             }
         }
     }
@@ -985,20 +1008,67 @@
         }
 
         // Tampilkan layar merah penuh di mockup HP
-        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}&deg;C`;
-        document.getElementById('critical-overlay').classList.remove('hidden');
+        const overlay = document.getElementById('critical-overlay');
+        const title = document.getElementById('critical-title');
+        const sub = document.getElementById('critical-sub');
+        const img = document.getElementById('critical-penguin-img');
+        const imgContainer = document.getElementById('critical-img-container');
+        const infoBox = document.getElementById('critical-info-box');
+        const tempLabel = document.getElementById('critical-temp-label');
+        const resetBtn = document.getElementById('critical-reset-btn');
+
+        // Reset theme classes
+        overlay.className = overlay.className.replace(/(bg-cyan-950|bg-red-950)/g, '').trim();
+        imgContainer.className = imgContainer.className.replace(/(drop-shadow-\[0_0_15px_rgba\(6,182,212,0\.8\)\]|drop-shadow-\[0_0_15px_rgba\(239,68,68,0\.8\)\])/g, '').trim();
+        sub.className = sub.className.replace(/(text-cyan-400|text-red-400)/g, '').trim();
+        infoBox.className = infoBox.className.replace(/(bg-cyan-900|bg-red-900|border-cyan-500|border-red-500)/g, '').trim();
+        tempLabel.className = tempLabel.className.replace(/(text-cyan-300|text-red-300)/g, '').trim();
+        resetBtn.className = resetBtn.className.replace(/(text-cyan-950|text-red-950)/g, '').trim();
+
+        if (currentTemp < 2.0) {
+            // BEKU
+            title.textContent = 'CRITICAL ALERT: BEKU!';
+            title.className = 'text-xl font-black text-cyan-100 tracking-wider uppercase leading-tight mb-2 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]';
+            sub.textContent = 'SUHU TERLALU DINGIN - VAKSIN TERANCAM BEKU!';
+            sub.classList.add('text-cyan-400');
+            img.src = "<?php echo e(asset('images/penguin_cold.png')); ?>";
+            img.className = 'w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]';
+            overlay.classList.add('bg-cyan-950/95');
+            infoBox.classList.add('bg-cyan-900/30', 'border-cyan-500/40');
+            tempLabel.classList.add('text-cyan-300');
+            resetBtn.classList.add('text-cyan-950');
+        } else {
+            // PANAS
+            title.textContent = 'CRITICAL ALERT: PANAS!';
+            title.className = 'text-xl font-black text-white tracking-wider uppercase leading-tight mb-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]';
+            sub.textContent = 'EKSKURSI SUHU - KARANTINA KARGO SEKARANG!';
+            sub.classList.add('text-red-400');
+            img.src = "<?php echo e(asset('images/penguin_hot.png')); ?>";
+            img.className = 'w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]';
+            overlay.classList.add('bg-red-950/95');
+            infoBox.classList.add('bg-red-900/30', 'border-red-500/40');
+            tempLabel.classList.add('text-red-300');
+            resetBtn.classList.add('text-red-950');
+        }
+
+        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}°C`;
+        overlay.classList.remove('hidden');
+        
+        // Mainkan alarm audio keras (Siren Medis)
+        try { criticalAlarmAudio.play(); } catch(e) { console.warn('Audio play failed:', e); }
 
         // Mainkan getar
         if (navigator.vibrate) {
             navigator.vibrate([800, 400, 800, 400, 800]);
         }
 
-        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}&deg;C)`, 'danger');
+        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}°C)`, 'danger');
     }
 
     // Reset Simulasi
     function resetSimulation() {
         document.getElementById('critical-overlay').classList.add('hidden');
+        criticalAlarmAudio.stop();
         setTempPreset(4.5);
         logConsole(`Simulasi status kelayakan di-reset ke kondisi normal.`, 'info');
     }
@@ -1104,7 +1174,7 @@
             // Buffer offline
             offlineBuffer.push(telemetryRecord);
             updateOfflineCacheCount();
-            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}&deg;C, Cache: ${offlineBuffer.length} log`, 'warning');
+            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}°C, Cache: ${offlineBuffer.length} log`, 'warning');
             return;
         }
 
@@ -1143,7 +1213,7 @@
                         }
                     }
                 }
-                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}&deg;C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
+                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}°C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
                 if (vibrationLevel > 1.0) {
                     vibrationLevel = 0.05;
                     document.getElementById('vibration-badge').textContent = '0,05G';

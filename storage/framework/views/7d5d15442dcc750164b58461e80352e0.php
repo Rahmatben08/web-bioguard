@@ -15,7 +15,7 @@
             $selectedDate = request()->input('date');
             $selectedBox = request()->input('id_box');
         ?>
-        <div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
+        <div class="relative z-20 flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
             <!-- Filter Inputs -->
             <div class="flex gap-2 items-center flex-wrap">
                 <input type="date" id="filter-date" value="<?php echo e($selectedDate); ?>" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
@@ -42,7 +42,7 @@
             <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
                 <span class="material-symbols-outlined text-[18px] align-middle">description</span>
             </button>
-            <button class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
+            <button onclick="window.open('/dashboard/audit-pdf', '_blank')" class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
                 <span class="material-symbols-outlined text-[18px] align-middle">picture_as_pdf</span>
             </button>
         </div>
@@ -211,7 +211,7 @@
                         <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: <?php echo e($route['nama_kurir']); ?></p>
                     </div>
                     <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide <?php echo e($shelfBg); ?> border font-mono">
-                        <?php echo e(number_format($mktVal, 1, ',', '.')); ?>&deg;C MKT
+                        <?php echo e(number_format($mktVal, 1, ',', '.')); ?>°C MKT
                     </span>
                 </div>
 
@@ -357,6 +357,40 @@
 <?php endif; ?>
     </div>
 
+    <!-- Live Tracking Map Section -->
+    <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['noPadding' => 'true','class' => 'mb-md overflow-hidden relative border border-outline-variant/30 shadow-sm']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['noPadding' => 'true','class' => 'mb-md overflow-hidden relative border border-outline-variant/30 shadow-sm']); ?>
+        <div class="p-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container transition-colors duration-300">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">map</span>
+                <h3 class="font-bold text-on-surface">Peta Pemantauan Armada (Real-time)</h3>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="map-status-badge" class="px-2 py-1 rounded-lg text-xs font-bold bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 flex items-center gap-1 transition-colors duration-300">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Live
+                </span>
+            </div>
+        </div>
+        <div id="live-map" class="w-full h-[450px] z-10 bg-slate-100 dark:bg-slate-800"></div>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $attributes = $__attributesOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__attributesOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal53747ceb358d30c0105769f8471417f6)): ?>
+<?php $component = $__componentOriginal53747ceb358d30c0105769f8471417f6; ?>
+<?php unset($__componentOriginal53747ceb358d30c0105769f8471417f6); ?>
+<?php endif; ?>
+
     <!-- Operational Efficiency Table -->
     <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
@@ -425,7 +459,7 @@
                                 $deviation = abs($route['avg_temp'] - 5.0);
                             ?>
                             <span class="px-2 py-0.5 rounded-full <?php echo e($deviation > 3.0 ? 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400' : ($deviation > 1.5 ? 'bg-amber-50 dark:bg-amber-500/10 border-amber-100 dark:border-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-primary/10 border-primary/20 text-primary')); ?> text-[10px] font-black font-data-mono transition-colors duration-300">
-                                &plusmn;<?php echo e(number_format($deviation, 2, ',', '.')); ?>&deg;C (Rerata: <span id="temp-BOX-<?php echo e($route['id_box']); ?>"><?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C</span>)
+                                &plusmn;<?php echo e(number_format($deviation, 2, ',', '.')); ?>°C (Rerata: <span id="temp-BOX-<?php echo e($route['id_box']); ?>"><?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>°C</span>)
                             </span>
                         </td>
                         <td class="px-lg py-4 text-right font-data-mono text-on-surface-variant transition-colors duration-300">
@@ -438,7 +472,7 @@
                                         data-kurir="<?php echo e($route['nama_kurir']); ?>" 
                                         data-tujuan="<?php echo e($route['tujuan']); ?>" 
                                         data-stabilitas="<?php echo e(number_format($route['efficiency_index'], 1, ',', '.')); ?>%" 
-                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C" 
+                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>°C" 
                                         data-risiko="<?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%">
                                     TINDAK LANJUT
                                 </button>
@@ -448,7 +482,7 @@
                                         data-kurir="<?php echo e($route['nama_kurir']); ?>" 
                                         data-tujuan="<?php echo e($route['tujuan']); ?>" 
                                         data-stabilitas="<?php echo e(number_format($route['efficiency_index'], 1, ',', '.')); ?>%" 
-                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>&deg;C" 
+                                        data-suhu="<?php echo e(number_format($route['avg_temp'], 1, ',', '.')); ?>°C" 
                                         data-risiko="<?php echo e(number_format($route['ai_risk'], 2, ',', '.')); ?>%">
                                     Analisis
                                 </button>
@@ -611,6 +645,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <style>
@@ -647,6 +685,93 @@
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // --- Leaflet Map Implementation ---
+        let map = L.map('live-map').setView([-2.9761, 104.7754], 12); // Default to Palembang
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        let markers = {};
+
+        function fetchLivePositions() {
+            fetch('<?php echo e(route("sensors.posisiArmada")); ?>')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success && data.data) {
+                        updateMapMarkers(data.data);
+                    }
+                })
+                .catch(err => console.error("Error fetching armada positions:", err));
+        }
+
+        function updateMapMarkers(armadaList) {
+            let activeRouteIds = new Set();
+            
+            armadaList.forEach(armada => {
+                activeRouteIds.add(armada.id_rute);
+                
+                // Cek jika GPS belum fix
+                if(armada.lat === 0 || armada.lng === 0 || (armada.lat === 0.0 && armada.lng === 0.0)) {
+                    // Jika marker ada tapi GPS tiba-tiba 0 (hilang sinyal), hapus dari map
+                    if(markers[armada.id_rute]) {
+                        map.removeLayer(markers[armada.id_rute]);
+                        delete markers[armada.id_rute];
+                    }
+                    
+                    // Update UI list di tabel jika perlu (opsional, tabel sudah punya list sendiri)
+                    return; 
+                }
+
+                let latLng = [armada.lat, armada.lng];
+                let popupContent = `
+                    <div class="p-1">
+                        <div class="font-bold text-sm mb-1 text-slate-800">${armada.nama_kurir}</div>
+                        <div class="text-xs text-slate-600 font-mono mb-2 bg-slate-100 px-1.5 py-0.5 rounded inline-block">${armada.nomor_kendaraan} | BOX-${armada.id_box}</div>
+                        <div class="text-xs flex justify-between items-center border-t pt-1.5 mt-1 border-slate-200">
+                            <span class="text-slate-500">Suhu:</span>
+                            <span class="font-bold ${armada.suhu_aktual < 2 || armada.suhu_aktual > 8 ? 'text-red-500' : 'text-sky-600'}">${armada.suhu_aktual} &deg;C</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 mt-1 text-right">
+                            Update: ${new Date(armada.terakhir_update).toLocaleTimeString('id-ID')}
+                        </div>
+                    </div>
+                `;
+
+                if(markers[armada.id_rute]) {
+                    // Update posisi marker yang sudah ada
+                    markers[armada.id_rute].setLatLng(latLng);
+                    markers[armada.id_rute].getPopup().setContent(popupContent);
+                } else {
+                    // Buat marker baru
+                    let markerIcon = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color: #0ea5e9; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
+                        iconSize: [14, 14],
+                        iconAnchor: [7, 7]
+                    });
+
+                    let marker = L.marker(latLng, {icon: markerIcon}).addTo(map);
+                    marker.bindPopup(popupContent);
+                    markers[armada.id_rute] = marker;
+                }
+            });
+
+            // Hapus marker yang rutenya sudah tidak aktif
+            Object.keys(markers).forEach(id_rute => {
+                if(!activeRouteIds.has(parseInt(id_rute))) {
+                    map.removeLayer(markers[id_rute]);
+                    delete markers[id_rute];
+                }
+            });
+        }
+
+        // Jalankan polling setiap 10 detik
+        fetchLivePositions();
+        setInterval(fetchLivePositions, 10000);
+
         if (document.getElementById('filter-box')) {
             new TomSelect('#filter-box',{
                 create: false,
@@ -841,7 +966,7 @@
 
             var modalChartOpts = {
                 series: [{
-                    name: "Suhu Sensor (&deg;C)",
+                    name: "Suhu Sensor (°C)",
                     data: mockTemps
                 }],
                 chart: {
@@ -906,7 +1031,7 @@
                 calibrateBtn.disabled = true;
                 setTimeout(() => {
                     calibrateBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle text-green-400">check_circle</span> Terkalibrasi';
-                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar &plusmn;0,02&deg;C.`);
+                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar &plusmn;0,02°C.`);
                     if (currentActiveBtn) {
                         currentActiveBtn.innerHTML = 'Analisis';
                         currentActiveBtn.className = 'btn-analisis text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 text-xs font-bold uppercase tracking-tighter active:scale-95 transition-all duration-300';
@@ -932,7 +1057,7 @@
 
         function openProjModal(data) {
             projBox.textContent = `${data.box} - ${data.kargo}`;
-            projMkt.textContent = `${data.mkt}&deg;C`;
+            projMkt.textContent = `${data.mkt}°C`;
             projShelfLife.textContent = data.shelflife;
             
             projModal.classList.remove('hidden');
@@ -1049,7 +1174,7 @@
                     const boxId = 'BOX-' + route.id_box;
                     const tempEl = document.getElementById('temp-' + boxId);
                     if (tempEl) {
-                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + '&deg;C';
+                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + '°C';
                     }
                     const riskEl = document.getElementById('risk-' + boxId);
                     if (riskEl) {

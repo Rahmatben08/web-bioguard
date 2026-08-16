@@ -15,9 +15,13 @@
                 <span class="material-symbols-outlined text-[18px]">local_shipping</span>
                 Buat Pengiriman
             </button>
+            <button onclick="openQrScannerModal()" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-sky-500 text-white font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+                <span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+                Scan QR Faskes
+            </button>
             <button onclick="openQuickModal('terima')" class="inline-flex items-center gap-2 px-lg py-md rounded-xl font-label-md text-label-md bg-primary text-on-primary font-medium hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)]">
                 <span class="material-symbols-outlined text-[18px]">add_box</span>
-                Terima Pengiriman
+                Input Manual
             </button>
         </div>
     </div>
@@ -229,7 +233,7 @@
                         <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">
                             <div class="flex items-center gap-2">
                                 <span>#<?php echo e($drug->no_batch); ?></span>
-                                <a href="<?php echo e(route('dashboard.qr', $drug->no_batch)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Code Boks">
+                                <a href="<?php echo e(route('dashboard.qr_batch', $drug->no_batch)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Batch">
                                     <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
                                 </a>
                             </div>
@@ -315,7 +319,7 @@
                                 <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
                                     <span class="material-symbols-outlined text-[18px]">outbound</span>
                                 </button>
-                                <a href="<?php echo e(route('dashboard.qr', $drug->no_batch)); ?>" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Code Boks">
+                                <a href="<?php echo e(route('dashboard.qr_batch', $drug->no_batch)); ?>" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Batch">
                                     <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
                                 </a>
                                 <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">
@@ -441,7 +445,7 @@
         </div>
         
         <!-- Modal Form -->
-        <form id="quick-action-form" method="POST">
+        <form id="quick-action-form" method="POST" onsubmit="return handleFormSubmit(this)">
             <?php echo csrf_field(); ?>
             <div class="p-lg space-y-md" id="quick-modal-body">
                 <!-- Dynamic form fields injected here -->
@@ -480,7 +484,7 @@
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <form action="<?php echo e(route('shipments.store')); ?>" method="POST" class="p-5 space-y-4">
+        <form action="<?php echo e(route('shipments.store')); ?>" method="POST" class="p-5 space-y-4" onsubmit="return handleFormSubmit(this)">
             <?php echo csrf_field(); ?>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Kurir</label>
@@ -527,6 +531,39 @@
                 <button type="submit" class="px-4 py-2 rounded-lg bg-primary text-on-primary hover:bg-primary/90 text-sm font-bold shadow-[0_4px_12px_rgba(6,182,212,0.3)] transition-all active:scale-95">Buat Pengiriman</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Scan QR Batch -->
+<div id="modalQrScanner" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[2500] hidden flex items-center justify-center">
+    <div class="bg-surface border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative">
+        <div class="p-4 border-b border-outline-variant/20 bg-surface-container flex justify-between items-center">
+            <h3 class="font-bold text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+                Scan QR Konfirmasi Terima
+            </h3>
+            <button type="button" onclick="closeQrScannerModal()" class="text-on-surface-variant hover:text-error transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="p-4 bg-surface-container-lowest">
+            <!-- Container for html5-qrcode -->
+            <div id="qr-reader" class="w-full bg-black rounded-lg overflow-hidden border border-outline-variant/50"></div>
+            
+            <div id="qr-reader-results" class="hidden mt-4 p-4 rounded-xl border">
+                <h4 class="text-sm font-bold text-on-surface mb-2" id="qr-batch-title">Detail Batch</h4>
+                <div class="space-y-1 mb-4 text-sm text-on-surface-variant">
+                    <p>Produk: <span id="qr-batch-product" class="font-mono text-primary font-bold"></span></p>
+                    <p>Stok Tersedia: <span id="qr-batch-qty" class="font-bold"></span> vial</p>
+                    <p>Suhu Rekomendasi: <span id="qr-batch-temp" class="font-bold"></span>°C</p>
+                    <p>Status: <span id="qr-batch-status" class="font-bold"></span></p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="btn-konfirmasi-qr" onclick="konfirmasiTerimaBatch()" class="flex-1 py-2 rounded-lg bg-green-500 text-white font-bold hover:bg-green-600 transition-colors">Konfirmasi Terima</button>
+                    <button onclick="resetQrScanner()" class="px-4 py-2 rounded-lg border border-outline-variant hover:bg-surface-container transition-colors">Scan Ulang</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
@@ -965,6 +1002,194 @@
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script>
+    let html5QrCode = null;
+    let currentScannedBatch = null;
+
+    function openQrScannerModal() {
+        document.getElementById('modalQrScanner').classList.remove('hidden');
+        resetQrScanner();
+    }
+
+    function closeQrScannerModal() {
+        document.getElementById('modalQrScanner').classList.add('hidden');
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                html5QrCode.clear();
+                html5QrCode = null;
+            }).catch(error => {
+                console.error("Failed to stop html5QrCode. ", error);
+                html5QrCode = null;
+            });
+        }
+    }
+
+    function resetQrScanner() {
+        document.getElementById('qr-reader').classList.remove('hidden');
+        document.getElementById('qr-reader-results').classList.add('hidden');
+        currentScannedBatch = null;
+        
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                startScanner();
+            }).catch(error => {
+                console.error("Failed to stop html5QrCode. ", error);
+                startScanner();
+            });
+        } else {
+            startScanner();
+        }
+    }
+
+    function startScanner() {
+        if (!html5QrCode) {
+            html5QrCode = new Html5Qrcode("qr-reader");
+        }
+        html5QrCode.start(
+            { facingMode: "environment" },
+            {
+                fps: 10,
+                qrbox: { width: 250, height: 250 }
+            },
+            onScanSuccess,
+            onScanFailure
+        ).catch((err) => {
+            console.error("Gagal memulai kamera", err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: 'Gagal mengakses kamera. Pastikan browser memiliki izin kamera.',
+                confirmButtonColor: '#0ea5e9'
+            });
+        });
+    }
+
+    function onScanSuccess(decodedText, decodedResult) {
+        if (!decodedText.startsWith('BTCH-')) {
+            return; // Ignore invalid formats
+        }
+
+        // Stop scanner to prevent multiple requests
+        if (html5QrCode) {
+            html5QrCode.stop().then(() => {
+                document.getElementById('qr-reader').classList.add('hidden');
+                fetchBatchDetail(decodedText);
+            }).catch(error => {
+                console.error("Failed to stop scanner.", error);
+            });
+        }
+    }
+
+    function onScanFailure(error) {
+        // Handle scan failure, usually better to ignore and keep scanning
+    }
+
+    function handleFormSubmit(form) {
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Memproses...';
+        }
+        return true;
+    }
+
+    async function fetchBatchDetail(batchId) {
+        try {
+            const response = await fetch(`/pengiriman/batch/${batchId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                currentScannedBatch = result.data.no_batch;
+                document.getElementById('qr-batch-title').innerText = `Batch: ${result.data.no_batch}`;
+                document.getElementById('qr-batch-product').innerText = result.data.nama_produk;
+                document.getElementById('qr-batch-qty').innerText = result.data.stok;
+                document.getElementById('qr-batch-temp').innerText = result.data.suhu_penyimpanan;
+                document.getElementById('qr-batch-status').innerText = result.data.status;
+                
+                if (result.data.diterima_oleh !== null) {
+                    document.getElementById('qr-batch-status').innerText = 'SUDAH DITERIMA';
+                    document.getElementById('qr-batch-status').className = 'text-error font-bold';
+                    document.getElementById('btn-konfirmasi-qr').classList.add('hidden');
+                } else {
+                    document.getElementById('qr-batch-status').className = 'text-success font-bold';
+                    document.getElementById('btn-konfirmasi-qr').classList.remove('hidden');
+                }
+                
+                document.getElementById('qr-reader-results').classList.remove('hidden');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: result.message || 'Batch tidak ditemukan.',
+                    confirmButtonColor: '#0ea5e9'
+                });
+                resetQrScanner();
+            }
+        } catch (error) {
+            console.error('Error fetching batch detail:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Koneksi Gagal',
+                text: 'Terjadi kesalahan saat mengambil data batch.',
+                confirmButtonColor: '#0ea5e9'
+            });
+            resetQrScanner();
+        }
+    }
+
+    async function konfirmasiTerimaBatch() {
+        if (!currentScannedBatch) return;
+        
+        const btn = document.getElementById('btn-konfirmasi-qr');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Memproses...';
+        
+        try {
+            const response = await fetch(`/pengiriman/batch/${currentScannedBatch}/konfirmasi`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+            const result = await response.json();
+            
+            if (result.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: result.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    closeQrScannerModal();
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: result.message || 'Gagal mengonfirmasi batch.',
+                    confirmButtonColor: '#0ea5e9'
+                });
+                btn.disabled = false;
+                btn.innerText = 'Konfirmasi Terima';
+            }
+        } catch (error) {
+            console.error('Error confirming batch:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Terjadi kesalahan jaringan saat memproses konfirmasi.',
+                confirmButtonColor: '#0ea5e9'
+            });
+            btn.disabled = false;
+            btn.innerText = 'Konfirmasi Terima';
+        }
+    }
+</script>
 
 <?php $__env->stopPush(); ?>
 
