@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 set -e
 
 # Clone repository
@@ -30,7 +30,7 @@ npm run build
 
 # Laravel setup
 php artisan key:generate
-php artisan migrate:fresh --seed --force
+php artisan migrate --force
 php artisan storage:link || true
 php artisan optimize:clear
 php artisan config:cache
