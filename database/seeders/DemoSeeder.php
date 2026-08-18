@@ -34,10 +34,19 @@ class DemoSeeder extends Seeder
         $kurir3 = Kurir::create(['nama_lengkap' => 'Citra Dewi', 'nomor_kendaraan' => 'BG 9012 DEF', 'no_wa' => '+6281234567893']);
         $kurir4 = Kurir::create(['nama_lengkap' => 'Dedi Kurniawan', 'nomor_kendaraan' => 'BG 3456 GHI', 'no_wa' => '+6281234567894']);
 
+        // 1.5 Create User Login for Kurir 1
+        User::create([
+            'name' => 'Ahmad Fadillah',
+            'email' => 'ahmad@bioguard.id',
+            'password' => Hash::make('password'),
+            'id_kurir' => $kurir1->id_kurir,
+        ]);
+
         // 2. Create Perjalanan Rute
         $rute1 = PerjalananRute::create([
             'id_kurir' => $kurir1->id_kurir,
-            'id_box' => 'BOX-001',
+            'id_box' => 'BOX-1', // Disesuaikan dengan ESP32 fisik
+
             'nama_kargo' => 'Vaksin Sinovac',
             'lokasi_tujuan' => 'RSUP Dr. Mohammad Hoesin',
             'status_perjalanan' => 'aktif',
