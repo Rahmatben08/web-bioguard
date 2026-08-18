@@ -1,9 +1,9 @@
 {
-    "koef_sisa_jarak": 0.0009658383289677157,
-    "koef_kemacetan": 0.0009657284114096465,
-    "koef_fluktuasi_mkt": 0.0017777774892626039,
-    "intercept": -0.00020560820044051924,
-    "trained_at": "2026-08-02",
+    "koef_sisa_jarak": 0.0012856289121561603,
+    "koef_kemacetan": 0.0017265925173636347,
+    "koef_fluktuasi_mkt": 0.029383324888585704,
+    "intercept": -0.0328715773127364,
+    "trained_at": "2026-08-18",
     "training_data": "synthetic_v1",
-    "mse": 0.025796541397187747
+    "mse": 0.019740520487292804
 }

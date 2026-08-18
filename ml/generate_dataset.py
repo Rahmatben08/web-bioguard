@@ -6,7 +6,7 @@ import numpy as np
 # jarak, kemacetan, fluktuasi MKT, dan risiko kerusakan vaksin. 
 # Jika data riil lapangan sudah terkumpul, model harus dilatih ulang menggunakan data tersebut.
 
-def generate_synthetic_data(n_samples=2000):
+def generate_synthetic_data(n_samples=500000):
     np.random.seed(42)
     
     # 1. sisa_jarak_km: 0 hingga 500 km
@@ -43,6 +43,6 @@ def generate_synthetic_data(n_samples=2000):
 
 if __name__ == "__main__":
     print("Generating synthetic dataset...")
-    df = generate_synthetic_data(2000)
+    df = generate_synthetic_data(500000)
     df.to_csv("dataset_sintetis.csv", index=False)
-    print("Berhasil membuat ml/dataset_sintetis.csv dengan 2000 baris data.")
+    print("Berhasil membuat ml/dataset_sintetis.csv dengan 500000 baris data.")
