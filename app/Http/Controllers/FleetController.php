@@ -15,12 +15,16 @@ class FleetController extends Controller
     /**
      * Menampilkan halaman manajemen armada kurir.
      */
-    public function index(): View
+    public function index(\Illuminate\Http\Request $request): View
     {
         // Ambil data perjalanan aktif beserta kurir dan telemetry log terbarunya
-        $perjalananAktif = PerjalananRute::with(['kurir', 'latestLog'])
-            ->aktif()
-            ->get();
+        $query = PerjalananRute::with(['kurir', 'latestLog'])->aktif();
+
+        if (!$request->has('show_demo')) {
+            $query->where('is_demo', false);
+        }
+
+        $perjalananAktif = $query->get();
 
         // Ambil daftar unik Smart Box dari history perjalanan (beserta nama kurir terakhir)
         $boxes = \Illuminate\Support\Facades\DB::table('perjalanan_rute')

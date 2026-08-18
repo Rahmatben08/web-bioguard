@@ -44,8 +44,15 @@ class DemoSeeder extends Seeder
         ]);
 
         // 2. Create Perjalanan Rute
-        // Rute untuk Kurir 1 (ESP32) TIDAK DIBUAT OTOMATIS di sini.
-        // User (Admin) harus membuat pengiriman baru dari Dashboard Web untuk menginput Lokasi Tujuan.
+        // Rute untuk Kurir 1 (ESP32) DIBUAT OTOMATIS agar langsung muncul di dashboard sebagai data ASLI.
+        $rute5 = PerjalananRute::create([
+            'id_kurir' => $kurir1->id_kurir,
+            'id_box' => 'BOX-1', // HARDWARE ESP32
+            'nama_kargo' => 'Vaksin Uji Fisik',
+            'lokasi_tujuan' => 'Puskesmas Sukarami',
+            'status_perjalanan' => 'aktif',
+            'is_demo' => false,
+        ]);
 
         $rute1 = PerjalananRute::create([
             'id_kurir' => $kurir2->id_kurir,
@@ -53,6 +60,7 @@ class DemoSeeder extends Seeder
             'nama_kargo' => 'Vaksin Sinovac',
             'lokasi_tujuan' => 'RSUP Dr. Mohammad Hoesin',
             'status_perjalanan' => 'aktif',
+            'is_demo' => true,
         ]);
         $rute2 = PerjalananRute::create([
             'id_kurir' => $kurir3->id_kurir,
@@ -60,6 +68,7 @@ class DemoSeeder extends Seeder
             'nama_kargo' => 'Insulin Humalog',
             'lokasi_tujuan' => 'RSUD Bari',
             'status_perjalanan' => 'aktif',
+            'is_demo' => true,
         ]);
         $rute3 = PerjalananRute::create([
             'id_kurir' => $kurir4->id_kurir,
@@ -67,13 +76,15 @@ class DemoSeeder extends Seeder
             'nama_kargo' => 'Serum Albumin',
             'lokasi_tujuan' => 'Klinik Pratama Palembang',
             'status_perjalanan' => 'aktif',
+            'is_demo' => true,
         ]);
         $rute4 = PerjalananRute::create([
             'id_kurir' => $kurir5->id_kurir,
             'id_box' => 'BOX-004',
             'nama_kargo' => 'Vaksin Bio Farma Flu',
             'lokasi_tujuan' => 'Puskesmas Merdeka',
-            'status_perjalanan' => 'selesai', // Route selesai untuk history
+            'status_perjalanan' => 'selesai',
+            'is_demo' => true,
         ]);
 
         $now = Carbon::now();
