@@ -60,7 +60,7 @@ class AnalyticsController extends Controller
                 'id_box' => $r->id_box,
                 'nama_kargo' => $r->nama_kargo ?? 'Vaksin Pentabio',
                 'tujuan' => $r->lokasi_tujuan,
-                'nama_kurir' => $r->kurir->nama_lengkap,
+                'nama_kurir' => $r->kurir?->nama_lengkap ?? 'Tanpa Kurir',
                 'avg_temp' => $avgTemp,
                 'mkt' => ($latestLog && $latestLog->nilai_mkt) ? (float) $latestLog->nilai_mkt : $avgTemp,
                 'excursion_logs' => $excursionCount,
@@ -116,7 +116,7 @@ class AnalyticsController extends Controller
                 'id_box' => $r->id_box,
                 'nama_kargo' => $r->nama_kargo ?? 'Vaksin Pentabio',
                 'tujuan' => $r->lokasi_tujuan,
-                'nama_kurir' => $r->kurir->nama_lengkap,
+                'nama_kurir' => $r->kurir?->nama_lengkap ?? 'Tanpa Kurir',
                 'avg_temp' => round($avgTemp, 1),
                 'mkt' => ($latestLog && $latestLog->nilai_mkt) ? (float) $latestLog->nilai_mkt : round($avgTemp, 1),
                 'excursion_logs' => $excursionCount,
@@ -155,13 +155,13 @@ class AnalyticsController extends Controller
             return [
                 'id_rute' => $route->id_rute,
                 'id_box' => $route->id_box,
-                'nama_kurir' => $route->kurir->nama_lengkap ?? 'Unknown',
-                'nomor_kendaraan' => $route->kurir->nomor_kendaraan ?? 'Unknown',
+                'nama_kurir' => $route->kurir?->nama_lengkap ?? 'Unknown',
+                'nomor_kendaraan' => $route->kurir?->nomor_kendaraan ?? 'Unknown',
                 'tujuan' => $route->lokasi_tujuan,
                 'suhu_aktual' => $latestLog ? (float) $latestLog->suhu_aktual : null,
                 'lat' => $latestLog ? (float) $latestLog->latitude : 0.0,
                 'lng' => $latestLog ? (float) $latestLog->longitude : 0.0,
-                'terakhir_update' => $latestLog ? $latestLog->timestamp->toIso8601String() : null,
+                'terakhir_update' => ($latestLog && $latestLog->timestamp) ? $latestLog->timestamp->toIso8601String() : null,
             ];
         });
 

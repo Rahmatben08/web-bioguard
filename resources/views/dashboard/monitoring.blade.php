@@ -1490,6 +1490,78 @@ const plannedPaths = {
         }
     }
 
+    // ===== ALARM BEEP via Web Audio API (menggantikan alarm.mp3 yang hilang) =====
+    let _alarmAudioCtx = null;
+    function playAlarmBeep() {
+        try {
+            if (!_alarmAudioCtx) _alarmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const ctx = _alarmAudioCtx;
+            const now = ctx.currentTime;
+
+            // IEC 60601-1-8 inspired: 3 rapid beeps
+            for (let i = 0; i < 3; i++) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(880, now + i * 0.22);    // A5
+                gain.gain.setValueAtTime(0.35, now + i * 0.22);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.22 + 0.15);
+
+                osc.start(now + i * 0.22);
+                osc.stop(now + i * 0.22 + 0.15);
+            }
+        } catch (e) {
+            console.warn('[BIO-GUARD] Alarm beep failed:', e);
+        }
+    }
+
+    // ===== Telegram Notification Throttle (max 1 request per 15 seconds) =====
+    let _lastTelegramSendTime = 0;
+    let _telegramQueue = [];
+    let _telegramSendTimer = null;
+
+    function _sendTelegramThrottled(platform, type, text) {
+        const now = Date.now();
+        const cooldown = 15000; // 15 seconds
+
+        if (now - _lastTelegramSendTime >= cooldown) {
+            _doSendTelegram(platform, type, text);
+        } else {
+            // Queue the latest message, overwriting previous queued
+            _telegramQueue = [{ platform, type, text }];
+            if (!_telegramSendTimer) {
+                const wait = cooldown - (now - _lastTelegramSendTime);
+                _telegramSendTimer = setTimeout(() => {
+                    _telegramSendTimer = null;
+                    if (_telegramQueue.length > 0) {
+                        const msg = _telegramQueue.shift();
+                        _doSendTelegram(msg.platform, msg.type, msg.text);
+                    }
+                }, wait);
+            }
+        }
+    }
+
+    function _doSendTelegram(platform, type, text) {
+        _lastTelegramSendTime = Date.now();
+        fetch('{{ route("dashboard.notifications.send") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                type: platform,
+                category: type,
+                message: text
+            })
+        }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
+    }
+
     function processLiveData(list, stats) {
         if (list && list !== latestCourierData) {
             latestCourierData = list;
@@ -1738,7 +1810,7 @@ const plannedPaths = {
             // Excursion Alarm Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
                 if (previousStatuses[ruteId] !== 'Tidak Layak Pakai') {
-                    new Audio('/alarm.mp3').play().catch(e => console.warn('Audio play blocked/failed:', e));
+                    playAlarmBeep();
                     triggerPushNotification(c);
                 }
             }
@@ -1995,20 +2067,8 @@ const plannedPaths = {
         if (platform === 'TG') {
             platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
             
-            // Forward to Backend Notification Controller
-            fetch('{{ route("dashboard.notifications.send") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    type: platform,
-                    category: type,
-                    message: text
-                })
-            }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
+            // Forward to Backend Notification Controller (debounced to prevent 429)
+            _sendTelegramThrottled(platform, type, text);
         }
         
         let typeBadge = '';
@@ -2111,7 +2171,7 @@ const plannedPaths = {
         .then(result => {
             if (result.success) {
                 showArrivalModal(courierName, boxId, destination, temp);
-                new Audio('/alarm.mp3').play().catch(e => console.warn(e));
+                playAlarmBeep();
 
                 logGatewayActivity('TG', 'Kedatangan', `Bot Telegram: Notifikasi pengiriman BOX-${boxId} selesai dikirim ke Dispatcher.`, 'success');
                 

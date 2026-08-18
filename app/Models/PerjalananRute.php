@@ -122,7 +122,9 @@ class PerjalananRute extends Model
             }
         }
 
-        $duration = abs($latestLog->timestamp->diffInSeconds($firstOutLog->timestamp));
+        $duration = ($latestLog->timestamp && $firstOutLog->timestamp)
+            ? abs($latestLog->timestamp->diffInSeconds($firstOutLog->timestamp))
+            : 0;
 
         if ($duration <= 30) {
             return [

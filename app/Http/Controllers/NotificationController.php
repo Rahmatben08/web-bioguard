@@ -29,13 +29,12 @@ class NotificationController extends Controller
             ]);
         }
 
-        // Simple rate limiting: max 5 alerts per minute per IP to prevent spam if sensors go crazy
+        // Simple rate limiting: max 10 alerts per minute per IP
         $executed = RateLimiter::attempt(
             'send-telegram-alert:' . $request->ip(),
-            $perMinute = 5,
-            function() use ($validated) {
-                // Send to telegram
-                return TelegramService::sendMessage($validated['message']);
+            $perMinute = 10,
+            function() {
+                return true; // Mark as executed, actual send below
             }
         );
 
@@ -47,9 +46,16 @@ class NotificationController extends Controller
             ], 429);
         }
 
+        try {
+            $sent = TelegramService::sendMessage($validated['message']);
+        } catch (\Exception $e) {
+            Log::error('Telegram send exception: ' . $e->getMessage());
+            $sent = false;
+        }
+
         return response()->json([
-            'success' => true,
-            'message' => 'Pesan Telegram berhasil diproses.'
+            'success' => $sent,
+            'message' => $sent ? 'Pesan Telegram berhasil diproses.' : 'Pengiriman Telegram gagal, cek konfigurasi bot.'
         ]);
     }
 }
