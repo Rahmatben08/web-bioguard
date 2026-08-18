@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/var/www/bioguard/bio_guard_backend
+WorkingDirectory=/var/www/bioguard
 ExecStart=/usr/bin/php artisan queue:work database --sleep=3 --tries=3 --max-time=3600
 Restart=always
 RestartSec=5

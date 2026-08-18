@@ -93,24 +93,44 @@ def generate_dataset(num_samples=5000):
         suhu_saat_ini = temps[pred_time_idx]
         mkt_sejauh_ini = calculate_mkt(temps[:pred_time_idx+1])
         
-        # Calculate FINAL metrics (for labeling only)
-        mkt_final = calculate_mkt(temps)
-        excursion_mask = (temps < 2) | (temps > 8)
-        durasi_ekskursi_menit_final = np.sum(excursion_mask)
+        # We model probabilitas_rusak as Accumulated Kinetic Degradation
+        # According to Arrhenius, reaction rate k = A * exp(-Ea/RT)
+        # Let's define a "baseline" safe rate at 5C (278.15K)
+        T_safe = 278.15
+        k_safe = np.exp(-DELTA_H / (R * T_safe))
         
-        # Calculate label (probabilitas_rusak)
-        prob_rusak = 0.0
+        # 1. Accumulated degradation so far based on MKT
+        T_mkt_now = mkt_sejauh_ini + 273.15
+        k_now = np.exp(-DELTA_H / (R * T_mkt_now))
         
-        # Effect of MKT
-        if mkt_final > 8:
-            prob_rusak += (mkt_final - 8) * 0.15
-        elif mkt_final < 2:
-            prob_rusak += (2 - mkt_final) * 0.25 # Freezing is more critical
+        # Degradation is relative to safe rate. If MKT is 8C, rate is higher.
+        # Let's say max allowable degradation is 1.0 (100% rusak).
+        # We accumulate over `pred_time_idx` minutes.
+        # We scale it such that 45 mins at 9C gives ~0.6 degradation, and 120 mins at 5C gives ~0.1
+        degrad_rate_per_min = k_now * 5.0e13 # Arbitrary scaling factor to map to 0-1 range
+        degrad_so_far = degrad_rate_per_min * pred_time_idx
+        
+        # 2. Expected future degradation
+        # Assume remaining time is (total_waktu - pred_time_idx)
+        remaining_time = total_waktu - pred_time_idx
+        # Future temp will likely be similar to current temp if it's already excursion, but tending towards ambient
+        # For simplicity, let's assume future rate is based on suhu_saat_ini (since we want the model to learn the risk of current temp)
+        T_future = suhu_saat_ini + 273.15
+        k_future = np.exp(-DELTA_H / (R * T_future))
+        future_degrad_rate_per_min = k_future * 5.0e13
+        expected_future_degrad = future_degrad_rate_per_min * remaining_time
+        
+        # 3. Freezing damage (Protein denaturation / adjuvant damage)
+        # Freezing damage is often immediate and catastrophic
+        freezing_damage = 0.0
+        if np.min(temps[:pred_time_idx+1]) < 2.0:
+            # If it dropped below 2C at any point, risk jumps
+            min_temp = np.min(temps[:pred_time_idx+1])
+            freezing_damage = (2.0 - min_temp) * 0.4 # up to 0.8 extra risk
             
-        # Effect of duration
-        prob_rusak += (durasi_ekskursi_menit_final / total_waktu) * 0.6
+        prob_rusak = degrad_so_far + expected_future_degrad + freezing_damage
         
-        # Add some irreducible noise to label
+        # Add irreducible physical variation/noise
         prob_rusak += np.random.normal(0, 0.05)
         
         # Clip to 0-1
@@ -122,8 +142,8 @@ def generate_dataset(num_samples=5000):
             'suhu_saat_ini': round(suhu_saat_ini, 2),
             'nilai_mkt_sejauh_ini': round(mkt_sejauh_ini, 2),
             'probabilitas_rusak': round(prob_rusak, 4),
-            'durasi_ekskursi_menit_final': int(durasi_ekskursi_menit_final), # REFERENCE ONLY
-            'nilai_mkt_final': round(mkt_final, 2) # REFERENCE ONLY
+            'durasi_ekskursi_menit_final': int(np.sum((temps < 2) | (temps > 8))),
+            'nilai_mkt_final': round(calculate_mkt(temps), 2)
         })
         
     df = pd.DataFrame(data)
