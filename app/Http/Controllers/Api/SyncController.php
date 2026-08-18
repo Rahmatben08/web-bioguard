@@ -79,20 +79,8 @@ class SyncController extends Controller
 
                 $mkt = $log->nilai_mkt ? (float) $log->nilai_mkt : $suhu;
                 
-                // Panggil PredictionService dengan try-catch ada di dalam service,
-                // sehingga tidak membatalkan transaksi telemetri utama jika API down.
-                $aiResult = $predictionService->predictRisk($sisaJarak, 0.0, $suhu, $mkt);
-                $prob = $aiResult['probabilitas_rusak'];
-                $rekomendasi = $aiResult['instruksi_mitigasi'];
-
-                $prediksiData[] = [
-                    'id_log' => $log->id_log,
-                    'sisa_jarak_km' => $sisaJarak,
-                    'probabilitas_rusak' => $prob,
-                    'instruksi_mitigasi' => $rekomendasi,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
+                // Panggil Model ML untuk evaluasi prediktif secara asynchronous (Non-Blocking)
+                \App\Jobs\ProcessAiPrediction::dispatch($log->id_log, $sisaJarak, $suhu, $mkt);
 
                 // Check if this log violates Rule 3 (Temp > 8°C for > 30s or Temp < 2°C) and log it
                 if ($rute) {
@@ -127,13 +115,7 @@ class SyncController extends Controller
                 }
             }
 
-            if (!empty($prediksiData)) {
-                \App\Models\PrediksiAi::upsert(
-                    $prediksiData,
-                    ['id_log'],
-                    ['sisa_jarak_km', 'probabilitas_rusak', 'instruksi_mitigasi', 'updated_at']
-                );
-            }
+
 
             DB::commit();
 

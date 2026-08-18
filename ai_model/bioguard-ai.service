@@ -1,0 +1,13 @@
+[Unit]
+Description=BioGuard FastAPI AI Prediction Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/var/www/bioguard/ai_model
+Environment="PATH=/var/www/bioguard/ai_model/venv/bin"
+ExecStart=/var/www/bioguard/ai_model/venv/bin/uvicorn api:app --host 127.0.0.1 --port 8001
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

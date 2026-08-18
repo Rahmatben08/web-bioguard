@@ -36,9 +36,10 @@ class PredictionService
         }
 
         // Fallback rule-based jika API gagal dipanggil (mencegah error 500)
+        // Probabilitas null agar terdeteksi sebagai "Tidak Tersedia" di dashboard
         return [
-            'probabilitas_rusak' => 0.0,
-            'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini. (Fallback)'
+            'probabilitas_rusak' => null,
+            'instruksi_mitigasi' => 'Layanan AI Tidak Tersedia'
         ];
     }
 

@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $id_prediksi
  * @property int $id_log
- * @property float $probabilitas_rusak
- * @property string|null $rekomendasi_tindakan
+ * @property float|null $probabilitas_rusak
+ * @property string|null $instruksi_mitigasi
  */
 class PrediksiAi extends Model
 {

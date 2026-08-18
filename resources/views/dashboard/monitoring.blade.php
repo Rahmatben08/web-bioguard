@@ -239,7 +239,7 @@
                             $temp = $log ? (float) $log->suhu_aktual : null;
                             $mkt = $log && $log->nilai_mkt ? (float) $log->nilai_mkt : '-';
                             $prediksi = $log ? $log->prediksiAi : null;
-                            $probabilitas = $prediksi ? $prediksi->probabilitas_rusak : 0.0;
+                            $probabilitas = $prediksi ? $prediksi->probabilitas_rusak : null;
                             
                             $exInfo = $perjalanan->getExcursionInfo();
                             $status = $exInfo['status'];
@@ -361,9 +361,13 @@
                                 </div>
                                 <div class="text-right" title="{{ $prediksi ? $prediksi->instruksi_mitigasi : '' }}">
                                     <span class="block mb-0.5">Risiko (AI)</span>
-                                    <span class="text-xs font-bold font-mono {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
-                                        {{ number_format($probabilitas, 1, ',', '.') }}%
-                                    </span>
+                                    @if(is_null($probabilitas))
+                                        <span class="text-xs font-bold font-mono text-slate-400">N/A</span>
+                                    @else
+                                        <span class="text-xs font-bold font-mono {{ $probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500') }}">
+                                            {{ number_format($probabilitas, 1, ',', '.') }}%
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 

@@ -48,9 +48,9 @@ class AnalyticsController extends Controller
             })->count();
             
             $latestLog = $r->latestLog;
-            $aiRisk = ($latestLog && $latestLog->prediksiAi) 
+            $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) 
                 ? (float) $latestLog->prediksiAi->probabilitas_rusak 
-                : 0.0;
+                : null;
             
             // Indeks Efisiensi: 100 - (rasio ekskursi * 0,5) - (risiko AI * 0,4)
             $excursionRate = $totalLogs > 0 ? ($excursionCount / $totalLogs) * 100 : 0;
@@ -64,8 +64,9 @@ class AnalyticsController extends Controller
                 'avg_temp' => $avgTemp,
                 'mkt' => ($latestLog && $latestLog->nilai_mkt) ? (float) $latestLog->nilai_mkt : $avgTemp,
                 'excursion_logs' => $excursionCount,
-                'ai_risk' => $aiRisk,
-                'efficiency_index' => $efficiencyIndex,
+                'ai_risk' => is_null($aiRisk) ? null : $aiRisk,
+                'efficiency_index' => is_null($aiRisk) ? $efficiencyIndex : $efficiencyIndex, // If aiRisk is null, we could use a fallback efficiency formula or just use 0 for ai_risk in efficiency formula.
+
                 'status_perjalanan' => $r->status_perjalanan
             ];
         });
@@ -83,8 +84,8 @@ class AnalyticsController extends Controller
         foreach ($recentRoutes as $r) {
             $chartCategories[] = 'BOX-' . $r->id_box;
             $latestLog = $r->latestLog;
-            $aiRisk = ($latestLog && $latestLog->prediksiAi) ? (float) $latestLog->prediksiAi->probabilitas_rusak : 0.0;
-            $aiRisks[] = $aiRisk;
+            $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
+            $aiRisks[] = is_null($aiRisk) ? 0 : $aiRisk; // For charts, 0 or skip? Usually 0 is fine for chart visual.
             
             $exInfo = $r->getExcursionInfo();
             $actualDamaged[] = $exInfo['status'] === 'Tidak Layak Pakai' ? 100 : ($exInfo['status'] === 'Peringatan' ? 30 : 0);
@@ -108,9 +109,9 @@ class AnalyticsController extends Controller
             $avgTemp = $totalLogs > 0 ? $logs->avg('suhu_aktual') : 5.0;
             $excursionCount = $logs->filter(fn($log) => (float) $log->suhu_aktual < 2.0 || (float) $log->suhu_aktual > 8.0)->count();
             $latestLog = $r->latestLog;
-            $aiRisk = ($latestLog && $latestLog->prediksiAi) ? (float) $latestLog->prediksiAi->probabilitas_rusak : 0.0;
+            $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
             $excursionRate = $totalLogs > 0 ? ($excursionCount / $totalLogs) * 100 : 0;
-            $efficiencyIndex = max(15, min(100, 100 - ($excursionRate * 0.6) - ($aiRisk * 0.35)));
+            $efficiencyIndex = max(15, min(100, 100 - ($excursionRate * 0.6) - ((is_null($aiRisk) ? 0 : $aiRisk) * 0.35)));
 
             return [
                 'id_box' => $r->id_box,
@@ -120,7 +121,7 @@ class AnalyticsController extends Controller
                 'avg_temp' => round($avgTemp, 1),
                 'mkt' => ($latestLog && $latestLog->nilai_mkt) ? (float) $latestLog->nilai_mkt : round($avgTemp, 1),
                 'excursion_logs' => $excursionCount,
-                'ai_risk' => round($aiRisk, 2),
+                'ai_risk' => is_null($aiRisk) ? null : round($aiRisk, 2),
                 'efficiency_index' => round($efficiencyIndex, 1),
                 'status_perjalanan' => $r->status_perjalanan,
             ];
