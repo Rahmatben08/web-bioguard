@@ -14,11 +14,11 @@
                 </div>
                 <div class="flex gap-2">
                     @if(request()->has('show_demo'))
-                        <a href="{{ route('fleet.index') }}" class="px-2 py-1 bg-primary text-white border border-primary/20 rounded hover:bg-primary/90 transition-colors text-[10px] font-bold flex items-center gap-1" title="Sembunyikan Demo">
+                        <a href="{{ route('fleet') }}" class="px-2 py-1 bg-primary text-white border border-primary/20 rounded hover:bg-primary/90 transition-colors text-[10px] font-bold flex items-center gap-1" title="Sembunyikan Demo">
                             <span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Demo
                         </a>
                     @else
-                        <a href="{{ route('fleet.index', ['show_demo' => 1]) }}" class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 rounded hover:bg-primary hover:text-white transition-colors text-[10px] font-bold flex items-center gap-1" title="Tampilkan Demo">
+                        <a href="{{ route('fleet', ['show_demo' => 1]) }}" class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 rounded hover:bg-primary hover:text-white transition-colors text-[10px] font-bold flex items-center gap-1" title="Tampilkan Demo">
                             <span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Demo
                         </a>
                     @endif
