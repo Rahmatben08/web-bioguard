@@ -20,7 +20,10 @@ class FleetController extends Controller
         // Ambil data perjalanan aktif beserta kurir dan telemetry log terbarunya
         $query = PerjalananRute::with(['kurir', 'latestLog'])->aktif();
 
-        if (!$request->has('show_demo')) {
+        // Pisahkan Data Demo dan Asli secara eksklusif
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
             $query->where('is_demo', false);
         }
 

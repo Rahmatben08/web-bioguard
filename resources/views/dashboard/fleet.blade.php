@@ -12,9 +12,20 @@
                 <div>
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Armada Kurir</span>
                 </div>
-                <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary/20 transition-colors text-xs flex items-center gap-1" title="Kelola QR Box">
-                    <span class="material-symbols-outlined text-[14px]">qr_code_2</span> QR Box
-                </button>
+                <div class="flex gap-2">
+                    @if(request()->has('show_demo'))
+                        <a href="{{ route('fleet.index') }}" class="px-2 py-1 bg-primary text-white border border-primary/20 rounded hover:bg-primary/90 transition-colors text-[10px] font-bold flex items-center gap-1" title="Sembunyikan Demo">
+                            <span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Demo
+                        </a>
+                    @else
+                        <a href="{{ route('fleet.index', ['show_demo' => 1]) }}" class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 rounded hover:bg-primary hover:text-white transition-colors text-[10px] font-bold flex items-center gap-1" title="Tampilkan Demo">
+                            <span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Demo
+                        </a>
+                    @endif
+                    <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary/20 transition-colors text-xs flex items-center gap-1" title="Kelola QR Box">
+                        <span class="material-symbols-outlined text-[14px]">qr_code_2</span> QR Box
+                    </button>
+                </div>
             </nav>
             <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pelacakan Armada Aktif</h2>
             <p class="text-xs text-on-surface-variant mt-1 mb-3">Telemetri GPS & Status Rantai Dingin aktual.</p>

@@ -39,8 +39,10 @@ class DashboardController extends Controller
             $query->aktif();
         }
 
-        // Tampilkan Data Demo hanya jika diminta (?show_demo=1)
-        if (!$request->has('show_demo')) {
+        // Pisahkan Data Demo dan Asli secara eksklusif
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
             $query->where('is_demo', false);
         }
 
@@ -130,8 +132,10 @@ class DashboardController extends Controller
             $query->aktif();
         }
 
-        // Tampilkan Data Demo hanya jika diminta (?show_demo=1)
-        if (!$request->has('show_demo')) {
+        // Pisahkan Data Demo dan Asli secara eksklusif
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
             $query->where('is_demo', false);
         }
 
