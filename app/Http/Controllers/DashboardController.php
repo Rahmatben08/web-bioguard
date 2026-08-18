@@ -113,7 +113,8 @@ class DashboardController extends Controller
             'Dinas Kesehatan Kota Palembang' => ['lat' => -2.9901778, 'lng' => 104.7573614],
         ];
         
-        $originCoordinates = ['lat' => -2.9880, 'lng' => 104.7560]; // Dinas Kesehatan Palembang
+        // Titik awal rute (kalibrasi jarak): Instalasi Farmasi Dinas Kesehatan Kota Palembang, Suka Bangun, Sukarami
+        $originCoordinates = ['lat' => -2.9378, 'lng' => 104.7344];
 
         $query = PerjalananRute::with(['kurir', 'latestLog' => function($q) use ($date) {
             if ($date) {

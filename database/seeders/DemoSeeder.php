@@ -44,13 +44,8 @@ class DemoSeeder extends Seeder
         ]);
 
         // 2. Create Perjalanan Rute
-        $rute5 = PerjalananRute::create([
-            'id_kurir' => $kurir1->id_kurir,
-            'id_box' => 'BOX-1', // HARDWARE ESP32
-            'nama_kargo' => 'Vaksin Uji Fisik',
-            'lokasi_tujuan' => 'Titik Pengujian Hardware',
-            'status_perjalanan' => 'aktif',
-        ]);
+        // Rute untuk Kurir 1 (ESP32) TIDAK DIBUAT OTOMATIS di sini.
+        // User (Admin) harus membuat pengiriman baru dari Dashboard Web untuk menginput Lokasi Tujuan.
 
         $rute1 = PerjalananRute::create([
             'id_kurir' => $kurir2->id_kurir,
