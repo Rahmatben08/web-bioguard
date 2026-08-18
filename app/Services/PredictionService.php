@@ -8,62 +8,38 @@ use Illuminate\Support\Facades\Log;
 class PredictionService
 {
     /**
-     * Memprediksi probabilitas kerusakan menggunakan bobot model SGDRegressor yang telah dilatih.
-     * 
-     * @param float $sisaJarakKm
-     * @param float $durasiKemacetanMenit
-     * @param float $fluktuasiMkt (selisih antara MKT saat ini dengan ambang batas 8.0)
-     * @return array [ 'probabilitas_rusak' => float (0-100), 'instruksi_mitigasi' => string ]
+     * Memprediksi probabilitas kerusakan memanggil API FastAPI model SGD.
+     * Menggunakan try-catch agar tidak memutus flow utama telemetri jika API down.
      */
-    public function predictRisk(float $sisaJarakKm, float $durasiKemacetanMenit, float $fluktuasiMkt): array
+    public function predictRisk(float $sisaJarakKm, float $durasiKemacetanMenit, float $suhuSaatIni, float $mktSejauhIni): array
     {
-        $weights = $this->loadModelWeights();
+        try {
+            // Panggil API Python (FastAPI) dengan timeout singkat agar tidak nge-hang jika mati
+            $response = \Illuminate\Support\Facades\Http::timeout(3)->post('http://127.0.0.1:8001/predict', [
+                'jarak_tempuh_km' => $sisaJarakKm,
+                'durasi_kemacetan_menit' => $durasiKemacetanMenit,
+                'suhu_saat_ini' => $suhuSaatIni,
+                'nilai_mkt_sejauh_ini' => $mktSejauhIni
+            ]);
 
-        // 1. Hitung persamaan regresi linier
-        $z = ($weights['koef_sisa_jarak'] * $sisaJarakKm) + 
-             ($weights['koef_kemacetan'] * $durasiKemacetanMenit) + 
-             ($weights['koef_fluktuasi_mkt'] * max(0, $fluktuasiMkt)) + 
-             $weights['intercept'];
-
-        // SGDRegressor kita melatih data yang probabilitasnya adalah float 0-1
-        $probabilitas = max(0, min(1, $z)); // clamp between 0 and 1
-        $probabilitasPersen = $probabilitas * 100;
-        
-        // 2. Tentukan Instruksi Mitigasi Berdasarkan Probabilitas
-        $instruksi = 'Suhu optimal. Pertahankan kondisi saat ini.';
-        if ($probabilitasPersen > 70) {
-            $instruksi = 'Segera cari lokasi pendingin terdekat, risiko kerusakan sangat tinggi!';
-        } elseif ($probabilitasPersen > 30) {
-            $instruksi = 'Peringatan dini: Periksa insulasi boks pendingin atau percepat pengiriman.';
+            if ($response->successful()) {
+                $data = $response->json();
+                return [
+                    'probabilitas_rusak' => round($data['probabilitas_rusak'] * 100, 2), // DB expects 0-100 float
+                    'instruksi_mitigasi' => $data['instruksi_mitigasi'] ?? 'Kondisi aman, lanjutkan perjalanan.'
+                ];
+            } else {
+                Log::warning('API Prediksi AI merespons dengan error', ['status' => $response->status()]);
+            }
+        } catch (\Exception $e) {
+            Log::warning('Gagal memanggil API Prediksi AI: ' . $e->getMessage());
         }
 
+        // Fallback rule-based jika API gagal dipanggil (mencegah error 500)
         return [
-            'probabilitas_rusak' => round($probabilitasPersen, 2),
-            'instruksi_mitigasi' => $instruksi
+            'probabilitas_rusak' => 0.0,
+            'instruksi_mitigasi' => 'Suhu optimal. Pertahankan kondisi saat ini. (Fallback)'
         ];
-    }
-
-    /**
-     * Memuat bobot dari file ml/model_weights.json. Hasilnya di-cache agar tidak membaca file terus menerus.
-     */
-    private function loadModelWeights(): array
-    {
-        return Cache::remember('ml_model_weights', 3600, function () {
-            $path = base_path('ml/model_weights.json');
-            
-            if (!file_exists($path)) {
-                Log::warning('Model weights not found. Using default heuristic weights.');
-                return [
-                    'koef_sisa_jarak' => 0.0001,
-                    'koef_kemacetan' => 0.0002,
-                    'koef_fluktuasi_mkt' => 0.015,
-                    'intercept' => 0.02
-                ];
-            }
-
-            $json = file_get_contents($path);
-            return json_decode($json, true);
-        });
     }
 
     /**

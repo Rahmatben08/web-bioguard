@@ -77,9 +77,11 @@ class SyncController extends Controller
                     $sisaJarak = $predictionService->getEstimatedRemainingDistance($rute->lokasi_tujuan, $log->latitude, $log->longitude);
                 }
 
-                $fluktuasiMkt = $log->nilai_mkt ? ((float) $log->nilai_mkt - 8.0) : ($suhu - 8.0);
+                $mkt = $log->nilai_mkt ? (float) $log->nilai_mkt : $suhu;
                 
-                $aiResult = $predictionService->predictRisk($sisaJarak, 0, $fluktuasiMkt);
+                // Panggil PredictionService dengan try-catch ada di dalam service,
+                // sehingga tidak membatalkan transaksi telemetri utama jika API down.
+                $aiResult = $predictionService->predictRisk($sisaJarak, 0.0, $suhu, $mkt);
                 $prob = $aiResult['probabilitas_rusak'];
                 $rekomendasi = $aiResult['instruksi_mitigasi'];
 
