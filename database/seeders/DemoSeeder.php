@@ -29,23 +29,23 @@ class DemoSeeder extends Seeder
         ]);
 
         // 1. Create Kurir
-        $kurir1 = Kurir::create(['nama_lengkap' => 'Ahmad Fadillah', 'nomor_kendaraan' => 'BG 1234 XYZ', 'no_wa' => '+6281234567891']);
-        $kurir2 = Kurir::create(['nama_lengkap' => 'Budi Santoso', 'nomor_kendaraan' => 'BG 5678 ABC', 'no_wa' => '+6281234567892']);
-        $kurir3 = Kurir::create(['nama_lengkap' => 'Citra Dewi', 'nomor_kendaraan' => 'BG 9012 DEF', 'no_wa' => '+6281234567893']);
-        $kurir4 = Kurir::create(['nama_lengkap' => 'Dedi Kurniawan', 'nomor_kendaraan' => 'BG 3456 GHI', 'no_wa' => '+6281234567894']);
-        $kurir5 = Kurir::create(['nama_lengkap' => 'Kurir ESP32 Asli', 'nomor_kendaraan' => 'BG 9999 ESP', 'no_wa' => '+6280000000000']);
+        $kurir1 = Kurir::create(['nama_lengkap' => 'Kurir ESP32 Asli', 'nomor_kendaraan' => 'BG 9999 ESP', 'no_wa' => '+6280000000000']);
+        $kurir2 = Kurir::create(['nama_lengkap' => 'Ahmad Fadillah', 'nomor_kendaraan' => 'BG 1234 XYZ', 'no_wa' => '+6281234567891']);
+        $kurir3 = Kurir::create(['nama_lengkap' => 'Budi Santoso', 'nomor_kendaraan' => 'BG 5678 ABC', 'no_wa' => '+6281234567892']);
+        $kurir4 = Kurir::create(['nama_lengkap' => 'Citra Dewi', 'nomor_kendaraan' => 'BG 9012 DEF', 'no_wa' => '+6281234567893']);
+        $kurir5 = Kurir::create(['nama_lengkap' => 'Dedi Kurniawan', 'nomor_kendaraan' => 'BG 3456 GHI', 'no_wa' => '+6281234567894']);
 
-        // Akun Login untuk Kurir ESP32
+        // Akun Login untuk Kurir ESP32 (ID Kurir = 1)
         User::create([
             'name' => 'Kurir ESP32 Asli',
             'email' => 'kurir@bioguard.id',
             'password' => Hash::make('password'),
-            'id_kurir' => $kurir5->id_kurir,
+            'id_kurir' => $kurir1->id_kurir,
         ]);
 
         // 2. Create Perjalanan Rute
         $rute5 = PerjalananRute::create([
-            'id_kurir' => $kurir5->id_kurir,
+            'id_kurir' => $kurir1->id_kurir,
             'id_box' => 'BOX-1', // HARDWARE ESP32
             'nama_kargo' => 'Vaksin Uji Fisik',
             'lokasi_tujuan' => 'Titik Pengujian Hardware',
@@ -53,32 +53,32 @@ class DemoSeeder extends Seeder
         ]);
 
         $rute1 = PerjalananRute::create([
-            'id_kurir' => $kurir1->id_kurir,
+            'id_kurir' => $kurir2->id_kurir,
             'id_box' => 'BOX-001',
             'nama_kargo' => 'Vaksin Sinovac',
             'lokasi_tujuan' => 'RSUP Dr. Mohammad Hoesin',
             'status_perjalanan' => 'aktif',
         ]);
         $rute2 = PerjalananRute::create([
-            'id_kurir' => $kurir2->id_kurir,
+            'id_kurir' => $kurir3->id_kurir,
             'id_box' => 'BOX-002',
-            'nama_kargo' => 'PRC Blood',
-            'lokasi_tujuan' => 'RSUD Palembang BARI',
+            'nama_kargo' => 'Insulin Humalog',
+            'lokasi_tujuan' => 'RSUD Bari',
             'status_perjalanan' => 'aktif',
         ]);
         $rute3 = PerjalananRute::create([
-            'id_kurir' => $kurir3->id_kurir,
+            'id_kurir' => $kurir4->id_kurir,
             'id_box' => 'BOX-003',
-            'nama_kargo' => 'Insulin Humalog',
-            'lokasi_tujuan' => 'RS Charitas',
+            'nama_kargo' => 'Serum Albumin',
+            'lokasi_tujuan' => 'Klinik Pratama Palembang',
             'status_perjalanan' => 'aktif',
         ]);
         $rute4 = PerjalananRute::create([
-            'id_kurir' => $kurir4->id_kurir,
+            'id_kurir' => $kurir5->id_kurir,
             'id_box' => 'BOX-004',
-            'nama_kargo' => 'Serum Albumin',
-            'lokasi_tujuan' => 'Puskesmas Alang-Alang Lebar',
-            'status_perjalanan' => 'aktif',
+            'nama_kargo' => 'Vaksin Bio Farma Flu',
+            'lokasi_tujuan' => 'Puskesmas Merdeka',
+            'status_perjalanan' => 'selesai', // Route selesai untuk history
         ]);
 
         $now = Carbon::now();
