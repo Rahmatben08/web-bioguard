@@ -787,7 +787,9 @@
                     delete pastRouteLayer[ruteId];
                 }
                 if (actualPolylines[ruteId]) {
-                    map.removeLayer(actualPolylines[ruteId]);
+                    if (actualPolylines[ruteId] !== 'loading') {
+                        map.removeLayer(actualPolylines[ruteId]);
+                    }
                     delete actualPolylines[ruteId];
                 }
             }
@@ -825,6 +827,11 @@
         if (isInitialFetch) {
             url += '?initial_load=true';
             isInitialFetch = false;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('show_demo')) {
+            url += (url.includes('?') ? '&' : '?') + 'show_demo=1';
         }
 
         fetch(url)

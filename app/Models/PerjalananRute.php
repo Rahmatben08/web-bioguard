@@ -55,7 +55,9 @@ class PerjalananRute extends Model
      */
     public function latestLog(): HasOne
     {
-        return $this->hasOne(LogTelemetri::class, 'id_rute', 'id_rute')->latestOfMany('timestamp');
+        return $this->hasOne(LogTelemetri::class, 'id_rute', 'id_rute')
+                    ->where('is_outlier', false)
+                    ->latestOfMany('timestamp');
     }
 
     /**

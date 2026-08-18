@@ -56,7 +56,9 @@ class FleetController extends Controller
 
         if ($initialLoad) {
             $with['logTelemetri'] = function($q) use ($date) {
-                $q->select('id', 'id_rute', 'latitude', 'longitude', 'timestamp')->orderBy('timestamp', 'asc');
+                $q->select('id_log', 'id_rute', 'latitude', 'longitude', 'timestamp')
+                  ->where('is_outlier', false)
+                  ->orderBy('timestamp', 'asc');
                 if ($date) {
                     $q->whereDate('timestamp', $date);
                 }
@@ -71,6 +73,13 @@ class FleetController extends Controller
             });
         } else {
             $query->aktif();
+        }
+
+        // Pisahkan Data Demo dan Asli secara eksklusif untuk API
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
+            $query->where('is_demo', false);
         }
 
         $perjalananList = $query->get()
@@ -170,6 +179,7 @@ class FleetController extends Controller
                     'probabilitas_rusak' => ($log && $log->prediksiAi) ? (float) $log->prediksiAi->probabilitas_rusak : 0.0,
                     'is_safe' => $excursion['status'] === 'Aman' || $excursion['status'] === 'Peringatan',
                     'is_rerouted' => $isRerouted,
+                    'is_demo' => (bool)$perjalanan->is_demo,
                     'path_history' => $initialLoad && $perjalanan->relationLoaded('logTelemetri')
                         ? $perjalanan->logTelemetri->map(fn($l) => [(float)$l->latitude, (float)$l->longitude])->toArray()
                         : null,

@@ -17,6 +17,17 @@ use Illuminate\Support\Facades\Log;
 class SyncController extends Controller
 {
     /**
+     * Menghitung jarak antar dua titik kordinat dalam kilometer (Haversine Formula)
+     */
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2) {
+        $earthRadius = 6371; // km
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+        $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon/2) * sin($dLon/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+        return $earthRadius * $c;
+    }
+    /**
      * Upsert massal data telemetri dan prediksi AI.
      */
     public function upsertTelemetri(SyncTelemetriRequest $request): JsonResponse
@@ -35,24 +46,63 @@ class SyncController extends Controller
             DB::beginTransaction();
 
             // Prepare records for upsert
-            $upsertData = collect($records)->map(function ($record) {
-                return [
-                    'id_rute' => $record['id_rute'],
-                    'timestamp' => $record['timestamp'],
-                    'suhu_aktual' => $record['suhu_aktual'],
-                    'nilai_mkt' => $record['nilai_mkt'] ?? null,
-                    'latitude' => $record['latitude'],
-                    'longitude' => $record['longitude'],
-                    'is_synced_from_offline' => $record['is_synced_from_offline'] ?? true,
-                    'gaya_guncangan' => $record['gaya_guncangan'] ?? 0.05,
-                ];
-            })->toArray();
+            // Prepare records for upsert with outlier detection
+            $recordsCollection = collect($records)->sortBy('timestamp')->groupBy('id_rute');
+            $upsertData = [];
+
+            foreach ($recordsCollection as $idRute => $routeRecords) {
+                // Get the last valid log for this route before these new records
+                $lastLog = LogTelemetri::where('id_rute', $idRute)
+                    ->where('is_outlier', false)
+                    ->orderBy('timestamp', 'desc')
+                    ->first();
+                
+                $lastLat = $lastLog ? (float) $lastLog->latitude : null;
+                $lastLng = $lastLog ? (float) $lastLog->longitude : null;
+                $lastTime = $lastLog ? \Carbon\Carbon::parse($lastLog->timestamp) : null;
+
+                foreach ($routeRecords as $record) {
+                    $isOutlier = false;
+                    $currentTime = \Carbon\Carbon::parse($record['timestamp']);
+                    
+                    if ($lastLat !== null && $lastLng !== null && $lastTime !== null) {
+                        $distance = $this->calculateDistance($lastLat, $lastLng, (float) $record['latitude'], (float) $record['longitude']);
+                        $timeDiffHours = $lastTime->diffInSeconds($currentTime) / 3600;
+                        
+                        if ($timeDiffHours > 0) {
+                            $speed = $distance / $timeDiffHours;
+                            if ($speed > 80) { // Limit kecepatan wajar kendaraan kota: 80 km/jam
+                                $isOutlier = true;
+                            }
+                        }
+                    }
+                    
+                    // Jika data wajar, update referensi last log ke titik ini
+                    if (!$isOutlier) {
+                        $lastLat = (float) $record['latitude'];
+                        $lastLng = (float) $record['longitude'];
+                        $lastTime = $currentTime;
+                    }
+
+                    $upsertData[] = [
+                        'id_rute' => $record['id_rute'],
+                        'timestamp' => $record['timestamp'],
+                        'suhu_aktual' => $record['suhu_aktual'],
+                        'nilai_mkt' => $record['nilai_mkt'] ?? null,
+                        'latitude' => $record['latitude'],
+                        'longitude' => $record['longitude'],
+                        'is_synced_from_offline' => $record['is_synced_from_offline'] ?? true,
+                        'gaya_guncangan' => $record['gaya_guncangan'] ?? 0.05,
+                        'is_outlier' => $isOutlier,
+                    ];
+                }
+            }
 
             // Mass upsert: insert or update based on id_rute + timestamp combination
             $upserted = LogTelemetri::upsert(
                 $upsertData,
                 ['id_rute', 'timestamp'], // Unique columns for matching
-                ['suhu_aktual', 'nilai_mkt', 'latitude', 'longitude', 'is_synced_from_offline', 'gaya_guncangan'] // Columns to update
+                ['suhu_aktual', 'nilai_mkt', 'latitude', 'longitude', 'is_synced_from_offline', 'gaya_guncangan', 'is_outlier'] // Columns to update
             );
 
             // Fetch the updated/inserted logs to generate corresponding AI predictions
