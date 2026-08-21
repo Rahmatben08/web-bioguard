@@ -18,7 +18,7 @@ class FleetController extends Controller
     public function index(\Illuminate\Http\Request $request): View
     {
         // Ambil data perjalanan aktif beserta kurir dan telemetry log terbarunya
-        $query = PerjalananRute::with(['kurir', 'latestLog'])->aktif();
+        $query = PerjalananRute::with(['kurir', 'device', 'latestLog'])->aktif();
 
         // Pisahkan Data Demo dan Asli secara eksklusif
         if ($request->has('show_demo')) {
@@ -32,8 +32,14 @@ class FleetController extends Controller
         // Ambil daftar unik Smart Box dari history perjalanan (beserta nama kurir terakhir)
         $boxes = \Illuminate\Support\Facades\DB::table('perjalanan_rute')
             ->join('kurir', 'perjalanan_rute.id_kurir', '=', 'kurir.id_kurir')
-            ->select('id_box', \Illuminate\Support\Facades\DB::raw('MAX(perjalanan_rute.created_at) as last_used'), \Illuminate\Support\Facades\DB::raw('MAX(kurir.nama_lengkap) as last_kurir'))
-            ->groupBy('id_box')
+            ->leftJoin('devices', 'perjalanan_rute.id_box', '=', 'devices.id_box')
+            ->select(
+                'perjalanan_rute.id_box', 
+                \Illuminate\Support\Facades\DB::raw('MAX(perjalanan_rute.created_at) as last_used'), 
+                \Illuminate\Support\Facades\DB::raw('MAX(kurir.nama_lengkap) as last_kurir'),
+                \Illuminate\Support\Facades\DB::raw('MAX(devices.is_validated) as is_validated')
+            )
+            ->groupBy('perjalanan_rute.id_box')
             ->orderBy('last_used', 'desc')
             ->get();
 
@@ -48,7 +54,7 @@ class FleetController extends Controller
         $date = $request->input('date');
         $initialLoad = $request->input('initial_load') === 'true';
         
-        $with = ['kurir', 'latestLog' => function($q) use ($date) {
+        $with = ['kurir', 'device', 'latestLog' => function($q) use ($date) {
             if ($date) {
                 $q->whereDate('timestamp', $date);
             }
@@ -110,6 +116,8 @@ class FleetController extends Controller
                     'battery_level' => $battery,
                     'signal_strength' => $signal,
                     'calibration_status' => $health['calibration'],
+                    'is_validated' => $perjalanan->device ? $perjalanan->device->is_validated : false,
+                    'validation_expiration' => $perjalanan->device && $perjalanan->device->validation_expiration ? \Carbon\Carbon::parse($perjalanan->device->validation_expiration)->format('Y-m-d') : null,
                     
                     'latitude' => $log ? $log->latitude : -2.9880,
                     'longitude' => $log ? $log->longitude : 104.7560,

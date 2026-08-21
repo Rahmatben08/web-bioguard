@@ -17,18 +17,23 @@
             $selectedDate = request()->input('date');
             $selectedBox = request()->input('id_box');
         @endphp
-        <div class="relative z-20 flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
+        <form method="GET" action="{{ route('sensors') }}" class="relative z-50 pointer-events-auto flex items-center gap-3 bg-surface-container-low border border-outline-variant/30 p-1.5 rounded-xl flex-wrap transition-colors duration-300">
             <!-- Filter Inputs -->
             <div class="flex gap-2 items-center flex-wrap">
-                <input type="date" id="filter-date" value="{{ $selectedDate }}" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
-                <select id="filter-box" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 pr-8 transition-colors duration-300">
+                <input type="date" name="date" id="filter-date" value="{{ $selectedDate }}" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 px-3 transition-colors duration-300">
+                <select name="id_box" id="filter-box" class="bg-surface-container border-none text-xs font-semibold text-on-surface focus:ring-1 focus:ring-primary rounded-lg py-1.5 pr-8 transition-colors duration-300">
                     <option value="">Semua Boks</option>
                     <option value="BOX-001" {{ $selectedBox === 'BOX-001' ? 'selected' : '' }}>BOX-001</option>
                     <option value="BOX-002" {{ $selectedBox === 'BOX-002' ? 'selected' : '' }}>BOX-002</option>
                     <option value="BOX-003" {{ $selectedBox === 'BOX-003' ? 'selected' : '' }}>BOX-003</option>
                     <option value="BOX-004" {{ $selectedBox === 'BOX-004' ? 'selected' : '' }}>BOX-004</option>
                 </select>
-                <button onclick="applyFilters()" class="bg-primary hover:bg-primary/90 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 duration-100 shadow-md shadow-primary/20 cursor-pointer">
+                @if(request()->has('show_demo'))
+                    <a href="{{ url()->current() }}" class="text-[11px] font-bold px-3 py-1.5 rounded-xl bg-primary text-white hover:bg-primary/90 transition-all shadow-md shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Data Demo</a>
+                @else
+                    <a href="{{ url()->current() . '?show_demo=1' }}" class="text-[11px] font-bold px-3 py-1.5 rounded-xl border-2 border-primary/30 text-primary hover:bg-primary hover:text-white transition-all hover:shadow-md hover:shadow-primary/20 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Data Demo</a>
+                @endif
+                <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95 duration-100 shadow-md shadow-primary/20 cursor-pointer">
                     Filter
                 </button>
             </div>
@@ -44,10 +49,10 @@
             <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
                 <span class="material-symbols-outlined text-[18px] align-middle">description</span>
             </button>
-            <button onclick="window.open('/dashboard/audit-pdf', '_blank')" class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
+            <button type="button" onclick="window.open('/dashboard/audit-pdf', '_blank')" class="bg-white hover:bg-surface-container-high dark:hover:bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
                 <span class="material-symbols-outlined text-[18px] align-middle">picture_as_pdf</span>
             </button>
-        </div>
+        </form>
     </div>
 
     <!-- KPI Overview Grid -->
@@ -95,12 +100,16 @@
         <!-- Metric 4 -->
         <div class="bg-surface-container-low border border-outline-variant/30 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
-                <span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Penghematan Operasional</span>
+                <span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Penghematan Operasional (Estimasi)</span>
                 <span class="text-primary transition-colors duration-300 material-symbols-outlined">payments</span>
             </div>
             <div class="flex items-baseline gap-2 z-10">
-                <span class="font-headline-lg text-headline-lg text-on-surface font-bold transition-colors duration-300"><span id="live-penghematan">Rp 680 Jt</span></span>
-                <span class="text-on-surface-variant font-body-md text-body-md transition-colors duration-300">Diatribusikan oleh AI</span>
+                @php
+                    $safeRoutes = collect($routesData)->filter(fn($r) => $r['is_safe'])->count();
+                    $savings = $safeRoutes * 8.5; // in Juta
+                @endphp
+                <span class="font-headline-lg text-headline-lg text-on-surface font-bold transition-colors duration-300"><span id="live-penghematan">Rp {{ number_format($savings, 1, ',', '.') }} Jt</span></span>
+                <span class="text-on-surface-variant font-body-md text-body-md transition-colors duration-300 tooltip" title="Diasumsikan rata-rata nilai kargo vaksin per boks mencapai Rp 8,5 Juta. Nilai ini dikalikan dengan rute tanpa insiden suhu ({{ $safeRoutes }} rute aman).">Est. Rp 8,5Jt/Boks Terselamatkan</span>
             </div>
             <div class="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity">
                 <span class="material-symbols-outlined text-6xl text-sky-600/10 dark:text-sky-400/10 transition-colors duration-300">psychology</span>
@@ -145,7 +154,12 @@
                 
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-outline-variant/40">BOX-{{ $route['id_box'] }}</span>
+                        <div class="flex items-center gap-1">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 border border-outline-variant/40">BOX-{{ $route['id_box'] }}</span>
+                            @if(isset($route['is_demo']) && $route['is_demo'])
+                            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-700/50">DEMO</span>
+                            @endif
+                        </div>
                         <h4 class="font-bold text-base text-on-surface mt-1.5">{{ $route['nama_kargo'] }}</h4>
                         <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
                     </div>
@@ -179,10 +193,10 @@
         </div>
     </div>
 
-    <!-- Middle Section: Map and Risk Trends -->
+    <!-- Middle Section: Main Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-md">
-        <!-- Predictive Risk Trends Chart -->
-        <x-card class="lg:col-span-8 flex flex-col min-h-[400px]">
+        <!-- Chart 1: Prediksi Risiko -->
+        <x-card class="lg:col-span-8 flex flex-col min-h-[400px] overflow-hidden min-w-0">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h3 class="font-bold text-on-surface">Tren Risiko Prediktif</h3>
@@ -206,47 +220,31 @@
         <!-- Regional Heatmap / Hub Performance -->
         <x-card class="lg:col-span-4 flex flex-col h-full overflow-hidden">
             <h3 class="font-bold text-on-surface mb-1">Kinerja Hub</h3>
-            <p class="text-slate-500 text-xs mb-4">Efisiensi distribusi regional.</p>
+            <p class="text-slate-500 text-xs mb-4">Efisiensi distribusi tujuan rute.</p>
             <div class="flex-1 space-y-3 overflow-y-auto pr-2">
-                <!-- Hub Card -->
-                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-on-surface">Palembang Pusat Hub (PLB-01)</span>
-                        <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
+                @if($topHubs->isEmpty())
+                    <div class="flex flex-col items-center justify-center h-40 text-center space-y-2">
+                        <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">route</span>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Belum ada rute nyata</p>
+                        <p class="text-xs text-slate-400 dark:text-slate-500">Mulai pengiriman pertama untuk melihat analitik tujuan.</p>
                     </div>
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 99,2%</span>
-                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
-                            <div class="h-full bg-primary" style="width: 99%"></div>
+                @else
+                    @foreach($topHubs as $hub)
+                    <!-- Hub Card -->
+                    <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-{{ $hub['color'] }} bg-slate-50 dark:bg-slate-900">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-sm text-on-surface">{{ $hub['nama'] }}</span>
+                            <span class="text-{{ $hub['color'] }} text-[10px] font-black tracking-wider bg-{{ $hub['color'] }}/10 px-2 py-0.5 rounded">{{ $hub['status'] }}</span>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-xs text-slate-500 font-bold">Efisiensi: {{ number_format($hub['efisiensi'], 1, ',', '.') }}%</span>
+                            <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
+                                <div class="h-full bg-{{ $hub['color'] }}" style="width: {{ $hub['efisiensi'] }}%"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Hub Card -->
-                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-amber-500 bg-slate-50 dark:bg-slate-900">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-on-surface">Jakabaring Outpost (PLB-02)</span>
-                        <span class="text-amber-500 text-[10px] font-black tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">PERINGATAN RISIKO</span>
-                    </div>
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 84,5%</span>
-                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
-                            <div class="h-full bg-amber-500" style="width: 84%"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Hub Card -->
-                <div class="p-4 rounded border border-outline-variant/20 border-l-4 border-l-primary bg-slate-50 dark:bg-slate-900">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-bold text-sm text-on-surface">Plaju Outpost (PLB-03)</span>
-                        <span class="text-primary text-[10px] font-black tracking-wider bg-primary/10 px-2 py-0.5 rounded">OPTIMAL</span>
-                    </div>
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs text-slate-500 font-bold">Efisiensi: 97,8%</span>
-                        <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden mb-1">
-                            <div class="h-full bg-primary" style="width: 97%"></div>
-                        </div>
-                    </div>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </x-card>
     </div>
@@ -1024,6 +1022,16 @@
 
             const anomaliEl = document.getElementById('live-anomali');
             if (anomaliEl) anomaliEl.textContent = data.kpi.totalAnomali;
+
+            const kepatuhanEl = document.getElementById('live-kepatuhan');
+            if (kepatuhanEl && data.kpi.kepatuhan !== undefined) {
+                kepatuhanEl.textContent = data.kpi.kepatuhan.toFixed(1).replace('.', ',') + '%';
+            }
+
+            const penghematanEl = document.getElementById('live-penghematan');
+            if (penghematanEl && data.kpi.penghematan !== undefined) {
+                penghematanEl.textContent = 'Rp ' + data.kpi.penghematan + ' Jt';
+            }
 
             // Update table rows
             if (data.routes) {

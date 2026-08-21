@@ -11,7 +11,12 @@
                 <span>BIO-GUARD</span> / <span class="text-sky-600 dark:text-sky-400 font-semibold transition-colors duration-300">Inventaris Cold Storage</span>
             </nav>
             <h1 class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 transition-colors duration-300">Inventaris & Cold Chain Hub</h1>
-            <p class="text-slate-500 dark:text-slate-400 font-body-md text-body-md transition-colors duration-300">Manajemen kapasitas penyimpanan, suhu kulkas farmasi, dan distribusi vaksin di 60 faskes Palembang.</p>
+            <p class="text-slate-500 dark:text-slate-400 font-body-md text-body-md transition-colors duration-300">Manajemen kapasitas penyimpanan, suhu kulkas farmasi, dan distribusi vaksin di faskes Palembang.</p>
+        </div>
+        <div>
+            <button onclick="document.getElementById('add-hub-modal').classList.remove('hidden')" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition-all duration-200 active:scale-95 shadow-sm shadow-sky-500/10 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">add</span> Tambah Faskes Manual
+            </button>
         </div>
     </div>
 
@@ -302,9 +307,17 @@
                         </x-table.tr>
                     @empty
                         <x-table.tr>
-                            <x-table.td colspan="7" class="py-8 text-center text-slate-500">
-                                <span class="material-symbols-outlined text-[36px] mb-2 block">database_off</span>
-                                Tidak ada data hub faskes yang sesuai dengan filter pencarian.
+                            <x-table.td colspan="7" class="py-12 text-center">
+                                <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                    <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                                        <span class="material-symbols-outlined text-[32px] text-slate-400">inventory_2</span>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Data Faskes</h3>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Data inventaris cold storage faskes masih kosong. Tambahkan faskes secara manual untuk memulai pemantauan.</p>
+                                    <button onclick="document.getElementById('add-hub-modal').classList.remove('hidden')" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">add_circle</span> Tambah Faskes Pertama
+                                    </button>
+                                </div>
                             </x-table.td>
                         </x-table.tr>
                     @endforelse
@@ -340,6 +353,84 @@
             </div>
         </div>
     </x-card>
+</div>
+
+<!-- Add Hub Modal -->
+<div id="add-hub-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm hidden">
+    <div class="relative w-full max-w-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-2xl shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white">Tambah Faskes Manual</h3>
+            <button onclick="document.getElementById('add-hub-modal').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form action="{{ route('inventory.store') }}" method="POST" class="space-y-4">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Faskes</label>
+                    <input type="text" name="nama" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
+                    <select name="kategori" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                        <option value="Rumah Sakit">Rumah Sakit</option>
+                        <option value="Puskesmas">Puskesmas</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kecamatan</label>
+                    <select name="kecamatan" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                        @foreach($allKecamatan as $kec)
+                            <option value="{{ $kec }}">{{ $kec }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Model Kulkas Farmasi</label>
+                    <input type="text" name="kulkas_farmasi" required placeholder="Contoh: B Medical TCW 4000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kapasitas Total (Vial)</label>
+                    <input type="number" name="kapasitas_total" required min="1" value="10000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Suhu Aktual (°C)</label>
+                    <input type="number" step="0.1" name="suhu_aktual" required value="4.5" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                </div>
+            </div>
+            <hr class="border-slate-200 dark:border-slate-700 my-4">
+            <h4 class="text-sm font-bold text-slate-800 dark:text-slate-200">Alokasi Stok Saat Ini (Vial)</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Pfizer</label>
+                    <input type="number" name="pfizer" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Polio</label>
+                    <input type="number" name="polio" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Sinovac</label>
+                    <input type="number" name="sinovac" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">Insulin</label>
+                    <input type="number" name="insulin" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                </div>
+            </div>
+            <div class="pt-2">
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Total Stok (Wajib diisi total dari atas)</label>
+                <input type="number" name="totalStok" required min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+            </div>
+            
+            <div class="flex justify-end pt-4">
+                <button type="submit" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 shadow-md">
+                    Simpan Faskes
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- Detailed Analytics Modal (Glassmorphism Modal UI) -->

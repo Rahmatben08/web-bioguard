@@ -211,7 +211,12 @@
                                 <tbody>
                                     @forelse($boxes as $b)
                                     <tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
-                                        <td class="p-3 font-mono font-bold text-primary">{{ $b->id_box }}</td>
+                                        <td class="p-3 font-mono font-bold text-primary flex items-center gap-2">
+                                            {{ $b->id_box }}
+                                            @if($b->is_validated)
+                                                <span class="material-symbols-outlined text-success text-[16px]" title="Validated">verified</span>
+                                            @endif
+                                        </td>
                                         <td class="p-3 text-on-surface">{{ $b->last_kurir ?? '-' }}</td>
                                         <td class="p-3 text-right">
                                             <a href="{{ route('dashboard.qr', $b->id_box) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-variant hover:bg-primary hover:text-on-primary text-on-surface transition-all">

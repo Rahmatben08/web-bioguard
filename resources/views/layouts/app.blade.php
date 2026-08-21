@@ -16,8 +16,8 @@
         }
     </script>
 
-    {{-- Tailwind CSS & Plugins from CDN --}}
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    {{-- Tailwind CSS & Plugins from Vite (Compiled) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- Flatpickr (Interactive Calendar) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     {{-- Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     {{-- Leaflet.js (Map Library) --}}

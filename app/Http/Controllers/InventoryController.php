@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use App\Models\InventoryHub;
 
 class InventoryController extends Controller
 {
@@ -14,14 +13,15 @@ class InventoryController extends Controller
      */
     public function index(Request $request): View
     {
-        $hubs = $this->getMockHubs();
+        $query = InventoryHub::query();
 
         // Search Filter
         if ($request->filled('search')) {
             $search = strtolower($request->input('search'));
-            $hubs = $hubs->filter(function ($item) use ($search) {
-                return str_contains(strtolower($item['nama']), $search) || 
-                       str_contains(strtolower($item['kulkas_farmasi']), $search);
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'LIKE', "%{$search}%")
+                  ->orWhere('kulkas_farmasi', 'LIKE', "%{$search}%")
+                  ->orWhere('id_faskes', 'LIKE', "%{$search}%");
             });
         }
 
@@ -29,68 +29,119 @@ class InventoryController extends Controller
         if ($request->filled('kecamatan')) {
             $kecamatan = $request->input('kecamatan');
             if ($kecamatan !== 'Semua') {
-                $hubs = $hubs->filter(function ($item) use ($kecamatan) {
-                    return $item['kecamatan'] === $kecamatan;
-                });
+                $query->where('kecamatan', $kecamatan);
             }
         }
 
         // Status Filter
         if ($request->filled('status')) {
             $status = $request->input('status');
-            if ($status !== 'Semua') {
-                $hubs = $hubs->filter(function ($item) use ($status) {
-                    return $item['status'] === $status;
-                });
+            if ($status === 'Aman') {
+                $query->whereBetween('suhu_aktual', [2.0, 8.0]);
+            } elseif ($status === 'Bahaya') {
+                $query->whereNotBetween('suhu_aktual', [2.0, 8.0]);
             }
         }
 
         // Sorting
-        $sort = $request->input('sort', 'nama');
-        $order = $request->input('order', 'asc');
-        
-        $hubs = $hubs->sortBy(function ($item) use ($sort) {
-            switch ($sort) {
-                case 'suhu':
-                    return $item['suhu_aktual'];
-                case 'kapasitas':
-                    return $item['kapasitas_persen'];
-                case 'stok_total':
-                    return $item['stok_total'];
-                default:
-                    return ($item['jenis'] === 'Rumah Sakit' ? '0_' : '1_') . $item['nama'];
-            }
-        }, SORT_REGULAR, $order === 'desc');
+        $sort = $request->input('sort');
+        if ($sort === 'status') {
+            // Urutkan berdasarkan suhu yang keluar batas (Bahaya) ke atas
+            $query->orderByRaw('CASE WHEN suhu_aktual < 2.0 OR suhu_aktual > 8.0 THEN 0 ELSE 1 END, suhu_aktual DESC');
+        } elseif ($sort === 'suhu_tinggi') {
+            $query->orderBy('suhu_aktual', 'desc');
+        } elseif ($sort === 'suhu_rendah') {
+            $query->orderBy('suhu_aktual', 'asc');
+        } else {
+            // Default sort: Nama Faskes asc
+            $query->orderBy('nama', 'asc');
+        }
 
-        // Stats calculation before pagination
-        $totalHubs = $hubs->count();
-        $avgTemp = round($hubs->avg('suhu_aktual'), 2);
-        $alertCount = $hubs->where('status', 'Bahaya')->count();
-        
-        $totalPfizer = $hubs->sum(fn($h) => $h['stok']['pfizer']);
-        $totalPolio = $hubs->sum(fn($h) => $h['stok']['polio']);
-        $totalSinovac = $hubs->sum(fn($h) => $h['stok']['sinovac']);
-        $totalInsulin = $hubs->sum(fn($h) => $h['stok']['insulin']);
-        $totalVaccines = $totalPfizer + $totalPolio + $totalSinovac + $totalInsulin;
-        
-        $totalCapacity = $hubs->sum('kapasitas_total');
-        $avgCapacityUtil = $totalCapacity > 0 ? round(($totalVaccines / $totalCapacity) * 100, 1) : 0;
+        $allRecords = InventoryHub::all(); // for KPIs
+        $hubsPaginatedDb = $query->paginate(15)->withQueryString();
 
-        // Pagination
-        $page = $request->input('page', 1);
-        $perPage = 10;
-        $paginatedItems = $hubs->forPage($page, $perPage)->values();
+        // Transform DB models to match view's expected array format
+        $hubsPaginated = [];
+        foreach ($hubsPaginatedDb as $hub) {
+            $stok = $hub->stok_vaksin ?? [];
+            if (is_string($stok)) $stok = json_decode($stok, true) ?? [];
+            $suhu = (float) $hub->suhu_aktual;
+            $status = ($suhu < 2.0 || $suhu > 8.0) ? 'Bahaya' : 'Aman';
+            $stok_total = $stok['totalStok'] ?? 0;
+            $kapasitas = $stok['kapasitas_total'] ?? 10000;
+
+            $hubsPaginated[] = [
+                'id' => $hub->id_faskes,
+                'nama' => $hub->nama,
+                'jenis' => $hub->kategori,
+                'kecamatan' => $hub->kecamatan,
+                'kulkas_farmasi' => $hub->kulkas_farmasi,
+                'kapasitas_total' => $kapasitas,
+                'kapasitas_persen' => $hub->kapasitas_terisi,
+                'suhu_aktual' => $suhu,
+                'status' => $status,
+                'last_sync' => $hub->last_sync ? \Carbon\Carbon::parse($hub->last_sync)->diffForHumans() : 'Baru saja',
+                'stok' => $stok,
+                'stok_total' => $stok_total
+            ];
+        }
+
+        // Paginator needs to be replaced with a LengthAwarePaginator wrapper if we transform, 
+        // or we can just transform the items on the paginator itself
+        $hubsPaginatedDb->getCollection()->transform(function ($hub) {
+            $stok = $hub->stok_vaksin ?? [];
+            if (is_string($stok)) $stok = json_decode($stok, true) ?? [];
+            $suhu = (float) $hub->suhu_aktual;
+            $status = ($suhu < 2.0 || $suhu > 8.0) ? 'Bahaya' : 'Aman';
+            $stok_total = $stok['totalStok'] ?? 0;
+            $kapasitas = $stok['kapasitas_total'] ?? 10000;
+
+            return [
+                'id' => $hub->id_faskes,
+                'nama' => $hub->nama,
+                'jenis' => $hub->kategori,
+                'kecamatan' => $hub->kecamatan,
+                'kulkas_farmasi' => $hub->kulkas_farmasi,
+                'kapasitas_total' => $kapasitas,
+                'kapasitas_persen' => $hub->kapasitas_terisi,
+                'suhu_aktual' => $suhu,
+                'status' => $status,
+                'last_sync' => $hub->last_sync ? \Carbon\Carbon::parse($hub->last_sync)->diffForHumans() : 'Baru saja',
+                'stok' => $stok,
+                'stok_total' => $stok_total
+            ];
+        });
+
+        $hubsPaginated = $hubsPaginatedDb;
+
+        // Calculate KPIs from all DB records
+        $totalHubs = $allRecords->count();
+        $avgTemp = $totalHubs > 0 ? $allRecords->avg('suhu_aktual') : 0;
         
-        $hubsPaginated = new LengthAwarePaginator(
-            $paginatedItems,
-            $hubs->count(),
-            $perPage,
-            $page,
-            [
-                'path' => $request->url(),
-                'query' => $request->query(),
-            ]
-        );
+        $alertCount = $allRecords->filter(function($h) {
+            return $h->suhu_aktual < 2.0 || $h->suhu_aktual > 8.0;
+        })->count();
+
+        $totalCapacity = 0;
+        $totalVaccines = 0;
+        
+        $totalPfizer = 0;
+        $totalPolio = 0;
+        $totalSinovac = 0;
+        $totalInsulin = 0;
+
+        foreach ($allRecords as $hub) {
+            $stok = $hub->stok_vaksin ?? [];
+            if (is_string($stok)) $stok = json_decode($stok, true) ?? [];
+            $totalCapacity += $stok['kapasitas_total'] ?? 10000;
+            $totalVaccines += $stok['totalStok'] ?? 0;
+            $totalPfizer += $stok['pfizer'] ?? 0;
+            $totalPolio += $stok['polio'] ?? 0;
+            $totalSinovac += $stok['sinovac'] ?? 0;
+            $totalInsulin += $stok['insulin'] ?? 0;
+        }
+
+        $avgCapacityUtil = $totalCapacity > 0 ? ($totalVaccines / $totalCapacity) * 100 : 0;
 
         // List of all Kecamatan for dropdown
         $allKecamatan = $this->getKecamatanList();
@@ -100,156 +151,63 @@ class InventoryController extends Controller
             'totalHubs',
             'avgTemp',
             'alertCount',
+            'avgCapacityUtil',
+            'totalVaccines',
+            'totalCapacity',
             'totalPfizer',
             'totalPolio',
             'totalSinovac',
             'totalInsulin',
-            'totalVaccines',
-            'totalCapacity',
-            'avgCapacityUtil',
             'allKecamatan'
         ));
     }
 
-    /**
-     * Membangun daftar 60 Faskes Hubs mock di Palembang.
-     */
-    private function getMockHubs(): Collection
-    {
-        $hubs = [];
-        $kecamatanList = $this->getKecamatanList();
-        
-        $devices = ['TCW 3000 AC', 'Dometic HT20', 'Vestfrost VLS 024', 'B Medical TCW 80 AC', 'GEA YS-150'];
-        
-        // Seeders: 10 Hospitals + 50 Puskesmas = 60 total
-        $hospitals = [
-            'RSUP Dr. Mohammad Hoesin', 'RSUD Palembang BARI', 'RSUD Siti Fatimah', 
-            'RS Hermina Palembang', 'RS RK Charitas', 'RS Siloam Sriwijaya', 
-            'RS Muhammadiyah Palembang', 'RS Bhayangkara M. Hasan', 'RS AK Gani', 
-            'RS Pertamina Plaju'
-        ];
-        
-        $puskesmasNames = [
-            'Dempo', 'Merdeka', 'Sekip', 'Kampus', 'Sabokingking', 'Pakjo', '23 Ilir', 
-            'Pembina', 'Plaju', '7 Ulu', 'OPI', 'Jakabaring', 'Kertapati', '1 Ulu', 
-            '4 Ulu', 'Gandus', 'Karang Anyar', 'Padang Selasa', 'Makrayu', 'Bukit Sangkal', 
-            'Kalidoni', 'Sako', 'Kenten', 'Talang Ratu', 'Sukarami', 'Talang Betutu', 
-            'Alang-Alang Lebar', 'Sematang Borang', 'Karya Jaya', 'Talang Kelapa',
-            '5 Ulu', '11 Ulu', 'Sei Selayur', 'Boom Baru', 'Basuki Rahmat', 'Punti Kayu',
-            'Srijaya', 'Talang Jambe', 'Bukit Baru', 'Nag Swidak', 'Taman Bacaan',
-            'Multi Wahana', 'Sako Kenten', 'Kebun Bunga', 'Simpang Periuk', 'Tanjung Api-Api',
-            'Kenten Laut', 'Komperta Plaju', 'Semarang', 'Duku'
-        ];
-
-        // 1. Generate Hospital Hubs (larger capacity)
-        foreach ($hospitals as $index => $hospital) {
-            $kec = $kecamatanList[$index % count($kecamatanList)];
-            
-            // Randomize stock values
-            $pfizer = rand(800, 2500);
-            $polio = rand(1500, 4500);
-            $sinovac = rand(2000, 6000);
-            $insulin = rand(400, 1200);
-            $totalStok = $pfizer + $polio + $sinovac + $insulin;
-            $kapasitas = rand(15000, 20000);
-            
-            // Generate temperature: hospitals usually very stable, let's keep it safe
-            $suhu = round(2.5 + ($index * 0.4) % 5.0, 1);
-            $status = 'Aman';
-
-            $hubs[] = [
-                'id' => 'HOSP-' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'nama' => $hospital,
-                'jenis' => 'Rumah Sakit',
-                'kecamatan' => $kec,
-                'kulkas_farmasi' => 'B Medical TCW 4000 SDD',
-                'kapasitas_total' => $kapasitas,
-                'kapasitas_persen' => round(($totalStok / $kapasitas) * 100, 1),
-                'suhu_aktual' => $suhu,
-                'status' => $status,
-                'last_sync' => rand(1, 15) . ' menit lalu',
-                'stok' => [
-                    'pfizer' => $pfizer,
-                    'polio' => $polio,
-                    'sinovac' => $sinovac,
-                    'insulin' => $insulin
-                ],
-                'stok_total' => $totalStok
-            ];
-        }
-
-        // 2. Generate Puskesmas Hubs (medium capacity)
-        foreach ($puskesmasNames as $index => $name) {
-            $kec = $kecamatanList[($index + 3) % count($kecamatanList)];
-            $device = $devices[$index % count($devices)];
-            
-            $pfizer = rand(100, 600);
-            $polio = rand(300, 1200);
-            $sinovac = rand(500, 2000);
-            $insulin = rand(50, 400);
-            $totalStok = $pfizer + $polio + $sinovac + $insulin;
-            $kapasitas = rand(4500, 6000);
-            
-            // Introduce occasional warning temperatures (between 2-8 is safe. Let's make index 7 and 23 warning/danger)
-            if ($index === 7) {
-                $suhu = 8.9; // Excursion too high
-                $status = 'Bahaya';
-            } elseif ($index === 23) {
-                $suhu = 1.4; // Excursion too low
-                $status = 'Bahaya';
-            } else {
-                $suhu = round(3.0 + (sin($index) * 2.0) + 1.5, 1);
-                $status = 'Aman';
-            }
-
-            $hubs[] = [
-                'id' => 'PKM-' . str_pad($index + 1, 3, '0', STR_PAD_LEFT),
-                'nama' => 'Puskesmas ' . $name,
-                'jenis' => 'Puskesmas',
-                'kecamatan' => $kec,
-                'kulkas_farmasi' => $device,
-                'kapasitas_total' => $kapasitas,
-                'kapasitas_persen' => round(($totalStok / $kapasitas) * 100, 1),
-                'suhu_aktual' => $suhu,
-                'status' => $status,
-                'last_sync' => rand(1, 45) . ' menit lalu',
-                'stok' => [
-                    'pfizer' => $pfizer,
-                    'polio' => $polio,
-                    'sinovac' => $sinovac,
-                    'insulin' => $insulin
-                ],
-                'stok_total' => $totalStok
-            ];
-        }
-
-        return collect($hubs);
-    }
-
-    /**
-     * Daftar Kecamatan di Palembang.
-     */
     private function getKecamatanList(): array
     {
         return [
-            'Ilir Timur I',
-            'Ilir Timur II',
-            'Ilir Timur III',
-            'Ilir Barat I',
-            'Ilir Barat II',
-            'Kalidoni',
-            'Sukarami',
-            'Sako',
-            'Plaju',
-            'Jakabaring',
-            'Kertapati',
-            'Gandus',
-            'Alang-Alang Lebar',
-            'Bukit Kecil',
-            'Seberang Ulu I',
-            'Seberang Ulu II',
-            'Sematang Borang',
-            'Kemuning'
+            'Ilir Timur I', 'Ilir Timur II', 'Ilir Timur III', 'Ilir Barat I', 'Ilir Barat II',
+            'Seberang Ulu I', 'Seberang Ulu II', 'Plaju', 'Kertapati', 'Kemuning', 
+            'Sako', 'Sukarami', 'Kalidoni', 'Alang-Alang Lebar', 'Bukit Kecil', 
+            'Gandus', 'Jakabaring', 'Sematang Borang'
         ];
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'kategori' => 'required|string|max:100',
+            'kecamatan' => 'required|string|max:100',
+            'kulkas_farmasi' => 'required|string|max:100',
+            'kapasitas_total' => 'required|numeric|min:1',
+            'totalStok' => 'required|numeric|min:0',
+            'pfizer' => 'nullable|numeric|min:0',
+            'polio' => 'nullable|numeric|min:0',
+            'sinovac' => 'nullable|numeric|min:0',
+            'insulin' => 'nullable|numeric|min:0',
+            'suhu_aktual' => 'required|numeric',
+        ]);
+
+        $stok_vaksin = [
+            'kapasitas_total' => (int) $validated['kapasitas_total'],
+            'totalStok' => (int) $validated['totalStok'],
+            'pfizer' => (int) ($validated['pfizer'] ?? 0),
+            'polio' => (int) ($validated['polio'] ?? 0),
+            'sinovac' => (int) ($validated['sinovac'] ?? 0),
+            'insulin' => (int) ($validated['insulin'] ?? 0),
+        ];
+
+        InventoryHub::create([
+            'id_faskes' => 'F-' . strtoupper(substr(uniqid(), -5)),
+            'nama' => $validated['nama'],
+            'kategori' => $validated['kategori'],
+            'kecamatan' => $validated['kecamatan'],
+            'kulkas_farmasi' => $validated['kulkas_farmasi'],
+            'stok_vaksin' => json_encode($stok_vaksin),
+            'kapasitas_terisi' => round(($stok_vaksin['totalStok'] / $stok_vaksin['kapasitas_total']) * 100),
+            'suhu_aktual' => $validated['suhu_aktual'],
+            'last_sync' => now(),
+        ]);
+
+        return redirect()->route('inventory')->with('success', 'Data stok faskes berhasil ditambahkan secara manual.');
     }
 }

@@ -41,6 +41,14 @@ class PerjalananRute extends Model
     }
 
     /**
+     * Relasi: Boks IoT yang digunakan.
+     */
+    public function device(): BelongsTo
+    {
+        return $this->belongsTo(Device::class, 'id_box', 'id_box');
+    }
+
+    /**
      * Relasi: Perjalanan ini memiliki banyak log telemetri.
      */
     public function logTelemetri(): HasMany

@@ -133,26 +133,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
 
         {{-- Card 1: Active Couriers --}}
-        <x-metric-card title="Kurir Aktif" value="{{ $totalKurirAktif ?? 0 }}" valueId="stat-active-couriers" icon="local_shipping" color="primary" valueClass="text-xl" />
+        <x-kpi-card title="Kurir Aktif" value="{{ $totalKurirAktif ?? 0 }}" icon="local_shipping" color="sky" subtitle="Rute Perjalanan Aktif" />
 
         {{-- Card 2: Pending Sync --}}
-        <x-metric-card title="Sinkronisasi Tertunda" value="{{ $totalPendingSync ?? 0 }}" valueId="stat-pending-sync" icon="sync" color="tertiary" valueClass="text-xl" />
+        <x-kpi-card title="Sinkronisasi Offline" value="{{ $totalPendingSync ?? 0 }}" icon="sync_problem" color="amber" subtitle="Menunggu Sinyal" />
 
         {{-- Card 3: System Status --}}
-        <x-metric-card title="Status Sistem" value="TERHUBUNG" icon="cell_tower" color="green-500" valueClass="text-2xl truncate">
-            <div class="flex items-center justify-between w-full">
-                <span class="text-[11px] font-medium text-slate-500">Peringatan Aktif:</span>
-                <div class="shrink-0" id="stat-alerts-container">
-                    <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider {{ ($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden' }}">
-                        {{ $alertCount ?? 0 }} Alarm
-                    </span>
-                    <span id="stat-alerts-empty" class="text-[11px] font-bold text-green-600 {{ ($alertCount ?? 0) == 0 ? '' : 'hidden' }}">
-                        Aman
-                    </span>
-                </div>
-            </div>
-            <div class="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse border-2 border-white dark:border-slate-900"></div>
-        </x-metric-card>
+        <x-kpi-card title="Status Peringatan" value="{{ $alertCount ?? 0 }}" icon="{{ ($alertCount ?? 0) > 0 ? 'warning' : 'verified_user' }}" color="{{ ($alertCount ?? 0) > 0 ? 'rose' : 'emerald' }}" subtitle="{{ ($alertCount ?? 0) > 0 ? 'Segera Tindak Lanjuti!' : 'Semua Sistem Aman' }}" />
     </div>
 
     {{-- ================================================================= --}}
@@ -200,7 +187,7 @@
                 <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-                        <span>Aman (2°C - 8°C)</span>
+                        <span>Aman (2┬░C - 8┬░C)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
@@ -322,13 +309,13 @@
                                         @if($status !== 'Aman')
                                             <span class="material-symbols-outlined text-[20px]">thermostat</span>
                                         @endif
-                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-' }}
+                                        {{ $temp !== null ? number_format($temp, 1, ',', '.') . '┬░C' : '-' }}
                                     </p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
                                     <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
-                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt }}
+                                        {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '┬░C' : $mkt }}
                                     </p>
                                 </div>
                             </div>
@@ -380,9 +367,15 @@
                         </div>
                     @empty
                         {{-- Empty State --}}
-                        <div class="p-xl text-center text-slate-500">
-                            <span class="material-symbols-outlined text-[40px] text-outline">sensors_off</span>
-                            <p class="text-body-sm text-on-surface-variant mt-sm">Tidak ada pengiriman aktif</p>
+                        <div class="flex flex-col items-center justify-center p-10 text-center">
+                            <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                                <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Rute Aktif</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                            <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
+                            </a>
                         </div>
                     @endforelse
                 </div>
@@ -472,7 +465,7 @@
                 {{-- Body --}}
                 <div class="p-6">
                     <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
-                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
+                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8┬░C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
                     {{-- Table --}}
@@ -496,7 +489,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -511,7 +504,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -526,7 +519,7 @@
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <x-badge color="error" class="animate-pulse">
                                             Tidak Layak Pakai
@@ -856,7 +849,7 @@
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
                         <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
-                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0°C - 8,0°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8°C</span> tanpa kerusakan zat aktif terdeteksi.
+                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0┬░C - 8,0┬░C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8┬░C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
                     <div class="col-span-2">
@@ -1100,7 +1093,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">≡ƒÜ¿ AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -1221,7 +1214,7 @@ const plannedPaths = {
             statusColor = 'text-red-500 dark:text-error';
         }
 
-        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-';
 
         return `
             <div class="p-2 text-xs space-y-2 select-none font-sans">
@@ -1251,7 +1244,7 @@ const plannedPaths = {
                 </p>
                 <div class="border-t border-white/10 pt-1.5 mt-1.5 flex justify-between items-center text-[10px]">
                     <span class="font-semibold text-slate-400">Risiko Kerusakan:</span>
-                    <span class="font-bold ${prob > 50 ? 'text-red-400 animate-pulse' : 'text-primary'}">${prob.toFixed(1).replace('.', ',')}%</span>
+                    <span class="font-bold ${prob === null ? 'text-slate-400' : (prob > 50 ? 'text-red-400 animate-pulse' : 'text-primary')}">${prob === null ? 'N/A' : prob.toFixed(1).replace('.', ',') + '%'}</span>
                 </div>
             </div>
         `;
@@ -1315,9 +1308,15 @@ const plannedPaths = {
 
         if (list.length === 0) {
             container.innerHTML = `
-                <div class="p-8 text-center text-slate-500">
-                    <span class="material-symbols-outlined text-[40px] text-slate-400">sensors_off</span>
-                    <p class="text-body-sm text-slate-400 mt-sm">Tidak ada pengiriman aktif</p>
+                <div class="flex flex-col items-center justify-center p-10 text-center">
+                    <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Rute Aktif</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                    <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
+                    </a>
                 </div>
             `;
             return;
@@ -1331,7 +1330,7 @@ const plannedPaths = {
             const textClass = c.text_class;
             const duration = c.excursion_duration;
             const temp = c.suhu_aktual;
-            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '°C' : '-';
+            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '┬░C' : '-';
             const prob = c.probabilitas_rusak;
             
             // Vibration evaluations
@@ -1345,7 +1344,7 @@ const plannedPaths = {
             const shakeClass = vibration > 1.50 ? 'animate-shake-infinite' : '';
 
             const statusIcon = status === 'Aman' ? 'check_circle' : (status === 'Peringatan' ? 'info' : 'warning');
-            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-';
             const durationDisplay = status === 'Aman' ? '0s (Normal)' : duration + 's';
             
             let sparklineClass = 'sparkline-cyan';
@@ -1358,10 +1357,18 @@ const plannedPaths = {
             const tempIcon = status !== 'Aman' ? `<span class="material-symbols-outlined text-[18px] align-middle mr-0.5">thermostat</span>` : '';
 
             let probColor = 'text-primary';
-            if (prob > 50) {
-                probColor = 'text-error font-bold';
-            } else if (prob > 10) {
-                probColor = 'text-tertiary';
+            let probDisplay = '';
+            
+            if (prob === null) {
+                probColor = 'text-slate-400';
+                probDisplay = 'N/A';
+            } else {
+                probDisplay = prob.toFixed(1).replace('.', ',') + '%';
+                if (prob > 50) {
+                    probColor = 'text-error font-bold';
+                } else if (prob > 10) {
+                    probColor = 'text-tertiary';
+                }
             }
 
             const qrRoute = `/dashboard/qr/${encodeURIComponent(c.id_box)}`;
@@ -1464,7 +1471,7 @@ const plannedPaths = {
                         <div class="text-right">
                             <span class="block mb-0.5">Risiko (AI)</span>
                             <span class="text-xs font-bold font-mono ${probColor}">
-                                ${prob.toFixed(1).replace('.', ',')}%
+                              ${probDisplay}
                             </span>
                         </div>
                     </div>
@@ -1484,8 +1491,8 @@ const plannedPaths = {
     function triggerPushNotification(c) {
         if (window.Notification && Notification.permission === 'granted') {
             try {
-                new Notification('🚨 ALARM SUHU KRITIS BIO-GUARD', {
-                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
+                new Notification('≡ƒÜ¿ ALARM SUHU KRITIS BIO-GUARD', {
+                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`,
                     icon: '/favicon.ico'
                 });
             } catch (e) {
@@ -1833,9 +1840,9 @@ const plannedPaths = {
             // 1. Temperature Alert Gateway Logs
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`, 'warning');
                 }
             }
 
@@ -1858,9 +1865,9 @@ const plannedPaths = {
 
             // Notification Center Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
-                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C melebihi batas cold chain!`, 'danger');
+                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C melebihi batas cold chain!`, 'danger');
             } else if (c.excursion_status === 'Peringatan') {
-                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`, 'warning');
             }
 
             if (c.battery_level < 20) {
@@ -1925,7 +1932,13 @@ const plannedPaths = {
         }
         if (isInitialFetch) {
             params.append('initial_load', 'true');
+            showTelemetryShimmer();
             isInitialFetch = false;
+        } else {
+            const updateIndicator = document.getElementById('map-last-update');
+            if (updateIndicator && !isHistoricalMode) {
+                updateIndicator.innerHTML = '<span class="material-symbols-outlined text-[10px] animate-spin inline-block align-middle mr-1">sync</span><span class="align-middle">Sinkronisasi...</span>';
+            }
         }
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('show_demo')) {
@@ -1948,9 +1961,9 @@ const plannedPaths = {
                 const ts = document.getElementById('map-last-update');
                 if (ts) {
                     if (isHistoricalMode) {
-                        ts.textContent = `Arsip Data: ${selectedDate} (Jeda Polling)`;
+                        ts.innerHTML = `Arsip Data: ${selectedDate} (Jeda Polling)`;
                     } else {
-                        ts.textContent = 'Pembaruan Otomatis: 2 detik &bull; Diperbarui: ' + new Date().toLocaleTimeString('id-ID');
+                        ts.innerHTML = `Pembaruan Otomatis: 2 detik &bull; Diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
                     }
                 }
             }
@@ -2138,7 +2151,7 @@ const plannedPaths = {
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
                         <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
-                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-'}</span></div>
+                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-'}</span></div>
                             <div>Status: <span class="text-green-500 font-bold">Selesai</span></div>
                         </div>
                     </div>
@@ -2208,7 +2221,7 @@ const plannedPaths = {
         const destCoord = coordinatesLookup[p.lokasi_tujuan] || {lat: -6.2000, lng: 106.8400};
 
         let status = 'Aman';
-        let statusLabel = 'Aman (Sesuai Standar 2°C - 8°C)';
+        let statusLabel = 'Aman (Sesuai Standar 2┬░C - 8┬░C)';
         let badgeClass = 'bg-primary/10 text-primary border border-primary/30';
         let textClass = 'text-cyan-500 font-bold';
         let duration = 0;
@@ -2461,14 +2474,14 @@ const plannedPaths = {
         let message = '';
         if (type === 'suhu') {
             temp = 9.8;
-            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}┬░C) dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'deviasi') {
             lat = lat - 0.008; 
             lng = lng + 0.012;
             message = `Simulasi deviasi koordinat rute dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'reset') {
             temp = 4.2;
-            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}┬░C) dikirim untuk Boks ${activeBoxId}`;
         }
 
         const payload = {
@@ -2573,7 +2586,8 @@ const plannedPaths = {
     };
 
     window.downloadOfficialPdf = function () {
-        window.open('{{ route("dashboard.audit-pdf") }}', '_blank');
+        const currentSearch = window.location.search;
+        window.open('{{ route("dashboard.audit-pdf") }}' + currentSearch, '_blank');
         closeAuditPreviewModal();
     };
 
@@ -2809,7 +2823,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yaxis: {
             labels: {
                 formatter: function (val) {
-                    return val.toFixed(1).replace('.', ',') + '°C';
+                    return val.toFixed(1).replace('.', ',') + '┬░C';
                 },
                 style: {
                     colors: themeColors.textColor,
@@ -2832,7 +2846,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#ef4444',
                         style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Max (8°C)',
+                        text: 'Max (8┬░C)',
                         offsetY: -3
                     }
                 },
@@ -2843,7 +2857,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#3b82f6',
                         style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Min (2°C)',
+                        text: 'Min (2┬░C)',
                         offsetY: 0
                     }
                 }

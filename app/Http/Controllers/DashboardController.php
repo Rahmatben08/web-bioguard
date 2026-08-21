@@ -63,11 +63,24 @@ class DashboardController extends Controller
             return $info['status'] !== 'Aman';
         })->count();
 
+        // Ambil data insiden aktif untuk SOS Center (hardcode dummy text diganti ini)
+        $sosIncidents = \App\Models\IncidentLog::with('rute.kurir')
+            ->where('status', 'aktif')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Ambil list karantina kargo (perjalanan aktif yang statusnya peringatan / tidak layak pakai)
+        $karantinaList = $perjalananAktif->filter(function ($p) {
+            return $p->getExcursionInfo()['status'] !== 'Aman';
+        });
+
         return view('dashboard.monitoring', compact(
             'perjalananAktif',
             'totalKurirAktif',
             'totalPendingSync',
-            'alertCount'
+            'alertCount',
+            'sosIncidents',
+            'karantinaList'
         ));
     }
 

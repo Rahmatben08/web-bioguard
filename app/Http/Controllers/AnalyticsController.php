@@ -32,6 +32,13 @@ class AnalyticsController extends Controller
             });
         }
 
+        // Pisahkan Data Demo dan Asli secara eksklusif (default: false)
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
+            $query->where('is_demo', false);
+        }
+
         $perjalanan = $query->orderBy('id_rute', 'desc')->get();
 
         $routesData = $perjalanan->map(function ($r) {
@@ -66,13 +73,19 @@ class AnalyticsController extends Controller
                 'excursion_logs' => $excursionCount,
                 'ai_risk' => is_null($aiRisk) ? null : $aiRisk,
                 'efficiency_index' => is_null($aiRisk) ? $efficiencyIndex : $efficiencyIndex, // If aiRisk is null, we could use a fallback efficiency formula or just use 0 for ai_risk in efficiency formula.
-
-                'status_perjalanan' => $r->status_perjalanan
+                'status_perjalanan' => $r->status_perjalanan,
+                'is_demo' => (bool) $r->is_demo
             ];
         });
 
-        $recentRoutes = PerjalananRute::with(['logTelemetri', 'latestLog.prediksiAi'])
-            ->orderBy('id_rute', 'desc')
+        $recentQuery = PerjalananRute::with(['logTelemetri', 'latestLog.prediksiAi']);
+        if ($request->has('show_demo')) {
+            $recentQuery->where('is_demo', true);
+        } else {
+            $recentQuery->where('is_demo', false);
+        }
+
+        $recentRoutes = $recentQuery->orderBy('id_rute', 'desc')
             ->take(6)
             ->get()
             ->reverse();
@@ -91,7 +104,29 @@ class AnalyticsController extends Controller
             $actualDamaged[] = $exInfo['status'] === 'Tidak Layak Pakai' ? 100 : ($exInfo['status'] === 'Peringatan' ? 30 : 0);
         }
 
-        return view('dashboard.sensors', compact('routesData', 'chartCategories', 'aiRisks', 'actualDamaged'));
+        // Hitung Kinerja Hub dari data perjalanan rute nyata
+        $topHubs = collect($routesData)->groupBy('tujuan')->map(function ($rutes, $namaHub) {
+            $avgEfisiensi = $rutes->avg('efficiency_index');
+            
+            $status = 'OPTIMAL';
+            $color = 'primary';
+            if ($avgEfisiensi < 70) {
+                $status = 'KRITIS';
+                $color = 'rose-500';
+            } elseif ($avgEfisiensi < 85) {
+                $status = 'PERINGATAN RISIKO';
+                $color = 'amber-500';
+            }
+
+            return [
+                'nama' => $namaHub,
+                'efisiensi' => round($avgEfisiensi, 1),
+                'status' => $status,
+                'color' => $color
+            ];
+        })->sortByDesc('efisiensi')->take(5)->values();
+
+        return view('dashboard.sensors', compact('routesData', 'chartCategories', 'aiRisks', 'actualDamaged', 'topHubs'));
     }
 
     /**
@@ -99,9 +134,16 @@ class AnalyticsController extends Controller
      */
     public function liveData(): \Illuminate\Http\JsonResponse
     {
-        $perjalanan = PerjalananRute::with(['kurir', 'logTelemetri', 'latestLog.prediksiAi'])
-            ->orderBy('id_rute', 'desc')
-            ->get();
+        $query = PerjalananRute::with(['kurir', 'logTelemetri', 'latestLog.prediksiAi']);
+        
+        // Pisahkan Data Demo dan Asli secara eksklusif (default: false)
+        if (request()->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
+            $query->where('is_demo', false);
+        }
+
+        $perjalanan = $query->orderBy('id_rute', 'desc')->get();
 
         $routesData = $perjalanan->map(function ($r) {
             $logs = $r->logTelemetri;
@@ -124,11 +166,22 @@ class AnalyticsController extends Controller
                 'ai_risk' => is_null($aiRisk) ? null : round($aiRisk, 2),
                 'efficiency_index' => round($efficiencyIndex, 1),
                 'status_perjalanan' => $r->status_perjalanan,
+                'is_demo' => (bool) $r->is_demo,
             ];
         });
 
         $totalAnomalies = $routesData->sum('excursion_logs');
         $avgEfficiency = $routesData->count() > 0 ? round($routesData->avg('efficiency_index'), 1) : 100;
+
+        // Hitung Kepatuhan Regulasi: Persentase rute tanpa anomali suhu
+        $totalRoutes = $routesData->count();
+        $perfectRoutes = $routesData->filter(function($r) {
+            return $r['excursion_logs'] === 0;
+        })->count();
+        $kepatuhan = $totalRoutes > 0 ? round(($perfectRoutes / $totalRoutes) * 100, 1) : 100;
+
+        // Hitung Penghematan Operasional: Simulasi Rp 8,5 Jt untuk setiap rute yang aman berkat AI
+        $penghematan = $perfectRoutes * 8.5; // dalam Juta Rupiah
 
         return response()->json([
             'success' => true,
@@ -136,6 +189,8 @@ class AnalyticsController extends Controller
             'kpi' => [
                 'integritas' => $avgEfficiency,
                 'totalAnomali' => $totalAnomalies,
+                'kepatuhan' => $kepatuhan,
+                'penghematan' => number_format($penghematan, 0, ',', '.')
             ],
             'routes' => $routesData,
         ]);

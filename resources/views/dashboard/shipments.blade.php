@@ -222,7 +222,18 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center text-slate-500 py-8">Tidak ada data obat termolabil ditemukan.</td>
+                        <td colspan="7" class="py-12 text-center text-slate-500">
+                            <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                                    <span class="material-symbols-outlined text-[32px] text-slate-400">inventory_2</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Data Pengiriman / Inventaris</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Data batch obat termolabil masih kosong. Tambahkan batch baru secara manual untuk memulai pelacakan stok dan kedaluwarsa.</p>
+                                <button onclick="openQuickModal('terima')" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">add_box</span> Terima Batch Baru
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     @endforelse
                 </tbody>
