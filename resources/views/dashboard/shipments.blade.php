@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Pengiriman & Inventaris')
 
@@ -936,7 +936,8 @@
             { facingMode: "environment" },
             {
                 fps: 10,
-                qrbox: { width: 250, height: 250 }
+                qrbox: { width: 300, height: 300 },
+                aspectRatio: 1.0
             },
             onScanSuccess,
             onScanFailure
@@ -952,8 +953,9 @@
     }
 
     function onScanSuccess(decodedText, decodedResult) {
-        if (!decodedText.startsWith('BTCH-')) {
-            return; // Ignore invalid formats
+        // Allow all scanned text, or you can add specific logic here if needed.
+        if (!decodedText || decodedText.trim() === '') {
+            return; 
         }
 
         // Stop scanner to prevent multiple requests
