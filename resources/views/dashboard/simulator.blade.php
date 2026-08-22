@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Simulator Kurir Telemetri')
 
@@ -41,7 +41,7 @@
                     
                     <div id="critical-info-box" class="bg-red-900/30 border border-red-500/40 rounded-2xl p-4 w-full mb-8 transition-colors duration-500">
                         <div id="critical-temp-label" class="text-xs text-red-300 uppercase font-bold tracking-wider mb-1">Suhu Sensor Saat Ini</div>
-                        <div id="overlay-temp-display" class="text-3xl font-black text-white">8.6Â&deg;C</div>
+                        <div id="overlay-temp-display" class="text-3xl font-black text-white">8.6&deg;C</div>
                     </div>
 
                     <button id="critical-reset-btn" onclick="resetSimulation()" class="px-6 py-3 rounded-full bg-white text-red-950 font-black tracking-wider hover:bg-slate-200 transition-transform active:scale-95 text-xs shadow-[0_0_20px_rgba(255,255,255,0.4)] uppercase">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div id="route-indicator-badge" class="px-2 py-0.5 rounded-full bg-slate-800 text-[8px] text-slate-300 font-bold uppercase">
-                                    DINKES Ã¢â€ â€™ RSUP
+                                    DINKES &rarr; RSUP
                                 </div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
                                 <div class="flex flex-col">
                                     <span id="telemetry-card-title" class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Suhu Aktual Boks</span>
                                     <div class="flex items-baseline gap-1.5">
-                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5Â&deg;C</span>
-                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8Â&deg;C</span></span>
+                                        <span id="float-temp" class="text-xl font-bold text-cyan-400">4.5&deg;C</span>
+                                        <span id="float-mkt-container" class="text-xs text-slate-500 font-bold">MKT: <span id="float-mkt">4.8&deg;C</span></span>
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-end">
@@ -260,16 +260,16 @@
             
             <!-- Temperature Range Info -->
             <div class="flex justify-between text-[11px] bg-slate-900/50 p-2 rounded-xl border border-outline-variant/30">
-                <span class="text-cyan-400">Aman: 2.0Â&deg;C - 8.0Â&deg;C</span>
-                <span class="text-amber-500">Warning: 8.1Â&deg;C - 8.5Â&deg;C</span>
-                <span class="text-red-500">Kritis: > 8.5Â&deg;C</span>
+                <span class="text-cyan-400">Aman: 2.0&deg;C - 8.0&deg;C</span>
+                <span class="text-amber-500">Warning: 8.1&deg;C - 8.5&deg;C</span>
+                <span class="text-red-500">Kritis: > 8.5&deg;C</span>
             </div>
 
             <!-- Temperature Slider -->
             <div class="flex flex-col gap-xs mt-2">
                 <div class="flex justify-between items-baseline">
                     <span class="text-xs text-slate-400">Atur Suhu Aktual:</span>
-                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5Â&deg;C</span>
+                    <span id="slider-val" class="text-xl font-black text-cyan-400">4.5&deg;C</span>
                 </div>
                 <input id="temp-slider" type="range" min="0.0" max="15.0" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
             </div>
@@ -277,16 +277,16 @@
             <!-- Preset Buttons -->
             <div class="grid grid-cols-2 gap-2 mt-2">
                 <button onclick="setTempPreset(4.5)" class="py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 text-cyan-400 text-xs font-bold transition-all cursor-pointer">
-                    Suhu Aman (4.5Â&deg;C)
+                    Suhu Aman (4.5&deg;C)
                 </button>
                 <button onclick="setTempPreset(8.3)" class="py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-400 text-xs font-bold transition-all cursor-pointer">
-                    Warning (8.3Â&deg;C)
+                    Warning (8.3&deg;C)
                 </button>
                 <button onclick="setTempPreset(9.5)" class="py-2 rounded-xl bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-400 text-xs font-bold transition-all cursor-pointer">
-                    Kritis (9.5Â&deg;C)
+                    Kritis (9.5&deg;C)
                 </button>
                 <button onclick="setTempPreset(1.5)" class="py-2 rounded-xl bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs font-bold transition-all cursor-pointer">
-                    Beku (1.5Â&deg;C)
+                    Beku (1.5&deg;C)
                 </button>
             </div>
         </div>
@@ -690,7 +690,7 @@
         const destAbbr = activeDestination.includes('Mohammad Hoesin') ? 'RSMH' :
                          (activeDestination.includes('BARI') ? 'RSUD BARI' :
                          (activeDestination.includes('Charitas') ? 'CHARITAS' : 'DEMPO'));
-        document.getElementById('route-indicator-badge').textContent = `DINKES Ã¢â€ â€™ ${destAbbr}`;
+        document.getElementById('route-indicator-badge').textContent = `DINKES \u2192 ${destAbbr}`;
 
         // Swap coordinates
         const isRerouted = activeReroutes[activeRouteId];
@@ -772,7 +772,7 @@
         isCargoScanned = true;
         
         // Update status di UI Scanner
-        document.getElementById('scan-status-text').textContent = 'Status Kargo: TERVERIFIKASI Ã¢Å“â€œ';
+        document.getElementById('scan-status-text').textContent = 'Status Kargo: TERVERIFIKASI \u2713';
         document.getElementById('scan-status-text').className = 'text-[9px] text-green-400 font-extrabold uppercase tracking-wider';
         document.getElementById('scan-result-id').textContent = `Kargo #${activeBoxId} Terverifikasi`;
         document.getElementById('scan-result-id').className = 'text-xs font-black text-green-400 mt-1';
@@ -851,9 +851,9 @@
         currentTemp = parseFloat(val);
         mktTemp = parseFloat((currentTemp * 1.05 + 0.1).toFixed(1));
         
-        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}Â&deg;C`;
-        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}Â&deg;C`;
-        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}Â&deg;C`;
+        document.getElementById('slider-val').textContent = `${currentTemp.toFixed(1)}&deg;C`;
+        document.getElementById('float-temp').textContent = `${currentTemp.toFixed(1)}&deg;C`;
+        document.getElementById('float-mkt').textContent = `${mktTemp.toFixed(1)}&deg;C`;
 
         evaluateTemperatureConstraints();
     }
@@ -913,13 +913,13 @@
             mapCourier.classList.add('border-2', 'border-white', 'flex', 'items-center', 'justify-center', 'text-white', 'shadow-lg');
         }
 
-        // Batas instan kritis (> 8.5Â&deg;C atau < 2.0Â&deg;C)
+        // Batas instan kritis (> 8.5&deg;C atau < 2.0&deg;C)
         if (currentTemp > 8.5 || currentTemp < 2.0) {
             triggerCriticalAlert();
             return;
         }
 
-        // Batas fluktuasi / warning (8.1Â&deg;C s.d. 8.5Â&deg;C)
+        // Batas fluktuasi / warning (8.1&deg;C s.d. 8.5&deg;C)
         if (currentTemp > 8.0 && currentTemp <= 8.5) {
             isWarning = true;
             isCritical = false;
@@ -937,7 +937,7 @@
             if (!anomalyTimer) {
                 anomalySeconds = 30;
                 document.getElementById('countdown-display').textContent = `${anomalySeconds}s`;
-                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}Â&deg;C. Memulai timer toleransi 30 detik!`, 'warning');
+                logConsole(`Peringatan: Suhu naik menjadi ${currentTemp}&deg;C. Memulai timer toleransi 30 detik!`, 'warning');
                 
                 anomalyTimer = setInterval(function() {
                     if (anomalySeconds > 0) {
@@ -955,14 +955,14 @@
                 }, 1000);
             }
         } else {
-            // Suhu AMAN (2Â&deg;C s.d. 8Â&deg;C)
+            // Suhu AMAN (2&deg;C s.d. 8&deg;C)
             isWarning = false;
             isCritical = false;
             
             if (anomalyTimer) {
                 clearInterval(anomalyTimer);
                 anomalyTimer = null;
-                logConsole(`Suhu kembali stabil ke ${currentTemp}Â&deg;C. Timer toleransi di-reset.`, 'success');
+                logConsole(`Suhu kembali stabil ke ${currentTemp}&deg;C. Timer toleransi di-reset.`, 'success');
             }
 
             floatCard.classList.add('border-cyan-500');
@@ -1052,7 +1052,7 @@
             resetBtn.classList.add('text-red-950');
         }
 
-        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}Â&deg;C`;
+        document.getElementById('overlay-temp-display').textContent = `${currentTemp.toFixed(1)}&deg;C`;
         overlay.classList.remove('hidden');
         
         // Mainkan alarm audio keras (Siren Medis)
@@ -1063,7 +1063,7 @@
             navigator.vibrate([800, 400, 800, 400, 800]);
         }
 
-        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}Â&deg;C)`, 'danger');
+        logConsole(`BAHAYA: Vaksin dinyatakan RUSAK akibat ekskursi suhu berkelanjutan! (${currentTemp}&deg;C)`, 'danger');
     }
 
     // Reset Simulasi
@@ -1175,7 +1175,7 @@
             // Buffer offline
             offlineBuffer.push(telemetryRecord);
             updateOfflineCacheCount();
-            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}Â&deg;C, Cache: ${offlineBuffer.length} log`, 'warning');
+            logConsole(`[Offline Cache] Telemetri disimpan lokal: ${currentTemp}&deg;C, Cache: ${offlineBuffer.length} log`, 'warning');
             return;
         }
 
@@ -1214,7 +1214,7 @@
                         }
                     }
                 }
-                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}Â&deg;C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
+                logConsole(`Sync Telemetri Sukses: Suhu ${currentTemp}&deg;C, Getaran ${vibrationLevel}G, Koordinat ${coords[0].toFixed(4)}, ${coords[1].toFixed(4)}`, 'success');
                 if (vibrationLevel > 1.0) {
                     vibrationLevel = 0.05;
                     document.getElementById('vibration-badge').textContent = '0,05G';

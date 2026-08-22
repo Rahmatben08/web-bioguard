@@ -164,7 +164,7 @@
                         <p class="text-xs text-slate-500 font-semibold mt-0.5">Kurir: {{ $route['nama_kurir'] }}</p>
                     </div>
                     <span class="px-2.5 py-1 rounded-full text-xs font-black tracking-wide {{ $shelfBg }} border font-mono">
-                        {{ number_format($mktVal, 1, ',', '.') }}Â&deg;C MKT
+                        {{ number_format($mktVal, 1, ',', '.') }}&deg;C MKT
                     </span>
                 </div>
 
@@ -323,7 +323,7 @@
                                 $deviation = abs($route['avg_temp'] - 5.0);
                             @endphp
                             <span class="px-2 py-0.5 rounded-full {{ $deviation > 3.0 ? 'bg-red-50  border-red-100  text-red-600 ' : ($deviation > 1.5 ? 'bg-amber-50  border-amber-100  text-amber-600 ' : 'bg-primary/10 border-primary/20 text-primary') }} text-[10px] font-black font-data-mono transition-colors duration-300">
-                                &plusmn;{{ number_format($deviation, 2, ',', '.') }}Â&deg;C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}Â&deg;C</span>)
+                                &plusmn;{{ number_format($deviation, 2, ',', '.') }}&deg;C (Rerata: <span id="temp-BOX-{{ $route['id_box'] }}">{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C</span>)
                             </span>
                         </td>
                         <td class="px-lg py-4 text-right font-data-mono text-on-surface-variant transition-colors duration-300">
@@ -336,7 +336,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Â&deg;C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     TINDAK LANJUT
                                 </button>
@@ -346,7 +346,7 @@
                                         data-kurir="{{ $route['nama_kurir'] }}" 
                                         data-tujuan="{{ $route['tujuan'] }}" 
                                         data-stabilitas="{{ number_format($route['efficiency_index'], 1, ',', '.') }}%" 
-                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}Â&deg;C" 
+                                        data-suhu="{{ number_format($route['avg_temp'], 1, ',', '.') }}&deg;C" 
                                         data-risiko="{{ number_format($route['ai_risk'], 2, ',', '.') }}%">
                                     Analisis
                                 </button>
@@ -821,7 +821,7 @@
 
             var modalChartOpts = {
                 series: [{
-                    name: "Suhu Sensor (Â&deg;C)",
+                    name: "Suhu Sensor (&deg;C)",
                     data: mockTemps
                 }],
                 chart: {
@@ -886,7 +886,7 @@
                 calibrateBtn.disabled = true;
                 setTimeout(() => {
                     calibrateBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] align-middle text-green-400">check_circle</span> Terkalibrasi';
-                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar &plusmn;0,02Â&deg;C.`);
+                    showToast('Sensor Kalibrasi Sukses', `${modalBoxId.textContent} telah dikalibrasi ke standar &plusmn;0,02&deg;C.`);
                     if (currentActiveBtn) {
                         currentActiveBtn.innerHTML = 'Analisis';
                         currentActiveBtn.className = 'btn-analisis text-sky-600 hover:text-sky-700  :text-sky-300 text-xs font-bold uppercase tracking-tighter active:scale-95 transition-all duration-300';
@@ -912,7 +912,7 @@
 
         function openProjModal(data) {
             projBox.textContent = `${data.box} - ${data.kargo}`;
-            projMkt.textContent = `${data.mkt}Â&deg;C`;
+            projMkt.textContent = `${data.mkt}&deg;C`;
             projShelfLife.textContent = data.shelflife;
             
             projModal.classList.remove('hidden');
@@ -1039,7 +1039,7 @@
                     const boxId = 'BOX-' + route.id_box;
                     const tempEl = document.getElementById('temp-' + boxId);
                     if (tempEl) {
-                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + 'Â&deg;C';
+                        tempEl.textContent = route.avg_temp.toFixed(1).replace('.', ',') + '&deg;C';
                     }
                     const riskEl = document.getElementById('risk-' + boxId);
                     if (riskEl) {

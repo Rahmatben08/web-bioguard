@@ -59,7 +59,7 @@
                     <td class="p-2 border-b border-outline-variant/30 tabular-nums">
                         @if($log)
                             <span class="font-bold text-on-surface" id="temp-val-{{ $perjalanan->id_rute }}">
-                                {{ number_format($log->suhu_aktual, 1, ',', '.') }}Â&deg;C
+                                {{ number_format($log->suhu_aktual, 1, ',', '.') }}&deg;C
                             </span>
                         @else
                             <span class="text-on-surface-variant">-</span>
@@ -118,7 +118,7 @@
                     <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
                         <span class="text-xs font-semibold text-on-surface-variant">Satelit & BMKG:</span>
                         <div class="flex items-center gap-1">
-                            <span class="text-sm font-bold text-primary">34Â&deg;C, 80%</span>
+                            <span class="text-sm font-bold text-primary">34&deg;C, 80%</span>
                             <span class="material-symbols-outlined text-error text-[14px]">trending_up</span>
                         </div>
                     </div>
@@ -734,7 +734,7 @@
                 </p>
                 <p class="flex items-center gap-1 text-slate-400">
                     <span class="material-symbols-outlined text-[14px] text-primary">thermostat</span>
-                    Suhu Aktual: <span class="font-black text-sm ${tempColor}">${route.suhu_aktual.toFixed(1).replace('.', ',')}Â&deg;C</span>
+                    Suhu Aktual: <span class="font-black text-sm ${tempColor}">${route.suhu_aktual.toFixed(1).replace('.', ',')}&deg;C</span>
                 </p>
                 ${isDeviated ? `
                 <div class="p-1 px-2 border border-red-500/30 bg-red-500/10 text-red-500 font-bold text-[9px] rounded uppercase tracking-wider animate-pulse flex items-center gap-1 mt-2">
@@ -874,7 +874,7 @@
                     res.data.forEach(route => {
                         const tempEl = document.getElementById(`temp-val-${route.id_rute}`);
                         if (tempEl) {
-                            const newText = route.suhu_aktual.toFixed(1).replace('.', ',') + 'Â&deg;C';
+                            const newText = route.suhu_aktual.toFixed(1).replace('.', ',') + '&deg;C';
                             if (tempEl.textContent.trim() !== newText) {
                                 tempEl.textContent = newText;
                                 tempEl.classList.add('text-primary', 'transition-colors', 'duration-300');

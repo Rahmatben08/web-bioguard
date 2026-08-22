@@ -141,7 +141,7 @@
                                     <td class="px-4 py-3.5 font-bold">{{ $perjalanan->nama_kargo ?? 'Vaksin Medis' }}</td>
                                     <td class="px-4 py-3.5">{{ $perjalanan->lokasi_tujuan }}</td>
                                     <td class="px-4 py-3.5 text-center font-mono font-bold text-slate-700">
-                                        {{ number_format($avgTemp, 1, ',', '.') }}Â&deg;C
+                                        {{ number_format($avgTemp, 1, ',', '.') }}&deg;C
                                     </td>
                                     <td class="px-4 py-3.5 text-center">
                                         @if($excursion['status'] === 'Aman')
