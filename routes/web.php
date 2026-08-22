@@ -79,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/inventaris', [InventoryController::class, 'index'])
         ->name('inventory');
+    Route::post('/inventaris', [InventoryController::class, 'store'])
+        ->name('inventory.store');
 
     Route::get('/peringatan', [AlertController::class, 'index'])
         ->name('alerts');
