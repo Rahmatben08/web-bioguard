@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -36,8 +36,15 @@
                 background-color: #ffffff !important;
                 border: none !important;
                 box-shadow: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                margin: 0 auto !important;
+                padding: 20px !important;
+            }
+            .qr-container {
+                padding: 24px !important;
+            }
+            .qr-container svg {
+                width: 400px !important;
+                height: 400px !important;
             }
             .print-text {
                 color: #000000 !important;
@@ -65,7 +72,7 @@
     </div>
 
     {{-- QR Card Cetak --}}
-    <div class="print-area p-xl rounded-2xl flex flex-col items-center shadow-2xl transition-all duration-300 max-w-sm w-full text-center">
+    <div class="print-area p-xl rounded-2xl flex flex-col items-center shadow-2xl transition-all duration-300 max-w-md w-full text-center">
         {{-- Header Boks --}}
         <div class="mb-lg">
             <div class="flex items-center justify-center gap-xs mb-1">
@@ -76,8 +83,8 @@
         </div>
 
         {{-- QR Code Image --}}
-        <div class="p-md bg-white rounded-xl shadow-inner mb-lg">
-            {!! $qrCode !!}
+        <div class="qr-container p-6 bg-white rounded-xl shadow-inner mb-lg">
+            <div style="width:400px;height:400px;">{!! $qrCode !!}</div>
         </div>
 
         {{-- Footer Boks --}}
