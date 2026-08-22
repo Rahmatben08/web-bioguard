@@ -72,7 +72,8 @@ class AnalyticsController extends Controller
                 'mkt' => ($latestLog && $latestLog->nilai_mkt) ? (float) $latestLog->nilai_mkt : $avgTemp,
                 'excursion_logs' => $excursionCount,
                 'ai_risk' => is_null($aiRisk) ? null : $aiRisk,
-                'efficiency_index' => is_null($aiRisk) ? $efficiencyIndex : $efficiencyIndex, // If aiRisk is null, we could use a fallback efficiency formula or just use 0 for ai_risk in efficiency formula.
+                'efficiency_index' => is_null($aiRisk) ? $efficiencyIndex : $efficiencyIndex,
+                'is_safe' => ($avgTemp >= 2.0 && $avgTemp <= 8.0),
                 'status_perjalanan' => $r->status_perjalanan,
                 'is_demo' => (bool) $r->is_demo
             ];
