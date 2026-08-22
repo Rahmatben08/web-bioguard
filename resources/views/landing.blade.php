@@ -147,10 +147,6 @@
                        class="px-6 py-3 rounded-full bg-blue-600/90  hover:bg-blue-600 :bg-blue-500 text-white text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 flex items-center gap-2 border border-blue-500/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
                         <span class="material-symbols-outlined text-[20px]">login</span> Masuk ke Portal Admin
                     </a>
-                    <a href="/downloads/bio-guard-driver.apk" download
-                       class="px-6 py-3 rounded-full bg-slate-900/80  hover:bg-slate-900 :bg-slate-700 text-white text-sm font-bold shadow-lg transition-all duration-300 flex items-center gap-2 border border-slate-700/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
-                        <span class="material-symbols-outlined text-[20px]">download</span> Unduh Aplikasi (APK)
-                    </a>
                 </div>
             </div>
 
@@ -451,6 +447,53 @@
                 </div>
             </div>
         </div>
+        </section>
+
+        {{-- Daftar Faskes Terintegrasi --}}
+        <section class="relative w-full py-16 bg-white ">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <h2 class="text-3xl font-black text-slate-900  mb-4">Daftar Faskes Terintegrasi</h2>
+                <p class="text-slate-600  max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+                    Jaringan distribusi termolabil kami menjangkau berbagai pusat layanan kesehatan utama dan puskesmas di Kota Palembang.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <a href="https://id.wikipedia.org/wiki/Daftar_Rumah_Sakit_di_Kota_Palembang" target="_blank" class="block p-6 rounded-3xl bg-blue-50/50  border border-blue-100  hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
+                        <div class="flex flex-col items-center gap-3">
+                            <span class="material-symbols-outlined text-4xl text-blue-500 group-hover:scale-110 transition-transform">local_hospital</span>
+                            <h3 class="font-bold text-slate-800  text-lg">Rumah Sakit</h3>
+                            <p class="text-xs text-slate-500  font-medium">Lihat daftar lengkap Rumah Sakit di Palembang</p>
+                        </div>
+                    </a>
+                    <a href="https://infopalembang.com/daftar-42-puskesmas-di-kota-palembang/" target="_blank" class="block p-6 rounded-3xl bg-blue-50/50  border border-blue-100  hover:-translate-y-2 hover:shadow-lg transition-all duration-300 group">
+                        <div class="flex flex-col items-center gap-3">
+                            <span class="material-symbols-outlined text-4xl text-blue-500 group-hover:scale-110 transition-transform">medical_services</span>
+                            <h3 class="font-bold text-slate-800  text-lg">Puskesmas</h3>
+                            <p class="text-xs text-slate-500  font-medium">Jaringan 42 Puskesmas yang tersebar di Palembang</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        {{-- Unduh Aplikasi CTA --}}
+        <section class="relative w-full py-20 bg-slate-50  border-t border-blue-500/10">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <div class="w-16 h-16 bg-blue-100  rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <span class="material-symbols-outlined text-3xl text-blue-600">smartphone</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-black text-slate-900  mb-4">Unduh Aplikasi Bio-Guard Kurir</h2>
+                <p class="text-slate-600  mb-8 max-w-lg mx-auto font-medium">
+                    Aplikasi Android khusus untuk armada kurir yang dilengkapi dengan integrasi IoT ESP32 dan pemantauan Bluetooth secara *real-time*.
+                </p>
+                <div class="flex justify-center">
+                    <a href="/downloads/bio-guard-driver.apk" download
+                       class="px-8 py-4 rounded-full bg-slate-900  hover:bg-slate-800 text-white font-bold shadow-xl transition-all duration-300 flex items-center gap-3 hover:-translate-y-1 hover:shadow-2xl">
+                        <span class="material-symbols-outlined text-[24px]">download</span> 
+                        <span>Unduh Aplikasi (APK)</span>
+                    </a>
+                </div>
+                <p class="text-xs text-slate-400  mt-4">Membutuhkan Android 8.0 atau lebih baru. APK sebesar ~12MB.</p>
+            </div>
         </section>
 
     </main>
