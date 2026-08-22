@@ -79,23 +79,23 @@
     <canvas id="canvas-particles" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
     {{-- Floating Decorative Mesh Blobs (Professional Medical Palette) --}}
-    <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-full bg-teal-500/10 dark:bg-teal-500/5 blur-[120px] pointer-events-none animate-blob z-0"></div>
-    <div class="absolute bottom-20 right-10 w-[550px] h-[550px] rounded-full bg-sky-500/10 dark:bg-sky-500/5 blur-[130px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
-    <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] rounded-full bg-indigo-500/8 dark:bg-indigo-500/4 blur-[100px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
+    <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-full bg-teal-500/10  blur-[120px] pointer-events-none animate-blob z-0"></div>
+    <div class="absolute bottom-20 right-10 w-[550px] h-[550px] rounded-full bg-sky-500/10  blur-[130px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
+    <div class="absolute top-1/2 left-1/3 w-[400px] h-[400px] rounded-full bg-indigo-500/8  blur-[100px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
 
     {{-- Header / Navigation --}}
     <header class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/logo.png') }}" alt="BIO-GUARD Logo" class="h-10 w-auto object-contain select-none drop-shadow-[0_0_10px_rgba(76,213,246,0.25)]">
             <div>
-                <span class="text-lg font-black tracking-tight text-slate-900 dark:text-white">BIO-GUARD</span>
+                <span class="text-lg font-black tracking-tight text-slate-900 ">BIO-GUARD</span>
                 <span class="hidden sm:inline-block ml-1.5 px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-black uppercase tracking-wider">Enterprise v2.0</span>
             </div>
         </div>
 
         <div class="flex items-center gap-4">
             {{-- Dark/Light Mode Button --}}
-            <button id="theme-toggle" class="flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer" title="Ubah Mode Layar">
+            <button id="theme-toggle" class="flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200  bg-white/40  text-slate-700  hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer" title="Ubah Mode Layar">
                 <span id="theme-toggle-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
             </button>
 
@@ -118,16 +118,16 @@
         
         {{-- Section 1: Hero --}}
         <section class="text-center max-w-4xl mx-auto space-y-6">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-primary text-xs font-black uppercase tracking-wider animate-pulse">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600  text-xs font-black uppercase tracking-wider animate-pulse">
                 <span class="material-symbols-outlined text-[14px]">cell_tower</span> IoT & AI Cold Chain Monitoring
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900  leading-[1.15]">
                 Amankan Logistik Medis <br class="hidden sm:inline">
-                Dengan <span class="bg-gradient-to-r from-teal-500 to-sky-500 dark:from-primary dark:to-cyan-400 bg-clip-text text-transparent">Pantauan Real-Time</span>
+                Dengan <span class="bg-gradient-to-r from-teal-500 to-sky-500   bg-clip-text text-transparent">Pantauan Real-Time</span>
             </h1>
 
-            <p class="text-sm sm:text-base md:text-lg text-slate-650 dark:text-on-surface-variant font-medium max-w-2xl mx-auto leading-relaxed">
+            <p class="text-sm sm:text-base md:text-lg text-slate-650  font-medium max-w-2xl mx-auto leading-relaxed">
                 Platform pusat kendali cerdas terintegrasi untuk menjamin kestabilan suhu rantai dingin vaksin dan obat termolabil dari gudang farmasi hingga ke fasilitas pelayanan kesehatan terkecil.
             </p>
 
@@ -144,7 +144,7 @@
                     </a>
                 @endauth
                 
-                <a href="{{ url('/simulator') }}" class="w-full sm:w-auto px-8 py-3.5 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-on-surface text-sm font-bold tracking-wide rounded-xl hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                <a href="{{ url('/simulator') }}" class="w-full sm:w-auto px-8 py-3.5 bg-white/60  backdrop-blur-md border border-slate-200  text-slate-700  text-sm font-bold tracking-wide rounded-xl hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
                     <span class="material-symbols-outlined text-[20px]">settings_input_antenna</span>
                     Simulator IoT Perangkat
                 </a>
@@ -154,21 +154,21 @@
         {{-- Section 2: Key Stats --}}
         <section class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
             {{-- Stat 1 --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 text-center hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                <p class="text-3xl sm:text-4xl font-black text-teal-600 dark:text-primary tracking-tight">99.8%</p>
-                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-on-surface-variant mt-2">Akurasi Rantai Dingin</p>
+            <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 text-center hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <p class="text-3xl sm:text-4xl font-black text-teal-600  tracking-tight">99.8%</p>
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500  mt-2">Akurasi Rantai Dingin</p>
                 <p class="text-[10px] text-slate-400 mt-1">Suhu Terjaga Konstan (2°C - 8°C)</p>
             </div>
             {{-- Stat 2 --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 text-center hover:border-tertiary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+            <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 text-center hover:border-tertiary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 <p class="text-3xl sm:text-4xl font-black text-tertiary tracking-tight">&lt; 2 Detik</p>
-                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-on-surface-variant mt-2">Latensi Jaringan IoT</p>
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500  mt-2">Latensi Jaringan IoT</p>
                 <p class="text-[10px] text-slate-400 mt-1">Sinkronisasi Real-time Global</p>
             </div>
             {{-- Stat 3 --}}
-            <div class="bg-white/40 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/80 p-6 text-center hover:border-green-500/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+            <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 text-center hover:border-green-500/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 <p class="text-3xl sm:text-4xl font-black text-green-500 tracking-tight">100%</p>
-                <p class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-on-surface-variant mt-2">Kepatuhan CDOB</p>
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-500  mt-2">Kepatuhan CDOB</p>
                 <p class="text-[10px] text-slate-400 mt-1">Tanda Terima & Geofencing Otomatis</p>
             </div>
         </section>
@@ -176,8 +176,8 @@
         {{-- Section 3: Bento Grid Features --}}
         <section class="space-y-6">
             <div class="text-center max-w-xl mx-auto">
-                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Teknologi Cerdas & Fitur Utama</h2>
-                <p class="text-xs text-slate-500 dark:text-on-surface-variant mt-1 leading-relaxed">
+                <h2 class="text-2xl font-extrabold text-slate-900  tracking-tight">Teknologi Cerdas & Fitur Utama</h2>
+                <p class="text-xs text-slate-500  mt-1 leading-relaxed">
                     Didesain untuk keandalan maksimal guna mencegah kegagalan efikasi vaksin akibat deviasi suhu (eksursi termal).
                 </p>
             </div>
@@ -185,52 +185,52 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 {{-- Card 1: IoT Telemetry --}}
-                <div class="bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/60 p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
+                <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
                     <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
                         <span class="material-symbols-outlined text-primary text-[20px]">sensors</span>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">IoT Telemetri Presisi</h3>
-                        <p class="text-xs text-slate-500 dark:text-on-surface-variant mt-2 leading-relaxed">
+                        <h3 class="text-sm font-bold text-slate-900 ">IoT Telemetri Presisi</h3>
+                        <p class="text-xs text-slate-500  mt-2 leading-relaxed">
                             Pemantauan langsung multi-sensor untuk suhu aktual kargo, tingkat kelembaban, serta gaya guncangan fisik (g-force) yang terdeteksi pada boks.
                         </p>
                     </div>
                 </div>
 
                 {{-- Card 2: AI Kinetic Temp --}}
-                <div class="bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/60 p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
+                <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
                     <div class="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center border border-tertiary/20 shrink-0">
                         <span class="material-symbols-outlined text-tertiary text-[20px]">insights</span>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Prediksi & Analisis AI</h3>
-                        <p class="text-xs text-slate-500 dark:text-on-surface-variant mt-2 leading-relaxed">
+                        <h3 class="text-sm font-bold text-slate-900 ">Prediksi & Analisis AI</h3>
+                        <p class="text-xs text-slate-500  mt-2 leading-relaxed">
                             Algoritma cerdas yang menghitung Mean Kinetic Temperature (MKT) dan memproyeksikan sisa umur zat aktif vaksin berdasarkan riwayat paparan panas.
                         </p>
                     </div>
                 </div>
 
                 {{-- Card 3: Geofencing --}}
-                <div class="bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/60 p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
+                <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
                     <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center border border-teal-500/20 shrink-0">
-                        <span class="material-symbols-outlined text-teal-650 dark:text-teal-400 text-[20px]">location_on</span>
+                        <span class="material-symbols-outlined text-teal-650  text-[20px]">location_on</span>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Geofencing & Tanda Terima</h3>
-                        <p class="text-xs text-slate-500 dark:text-on-surface-variant mt-2 leading-relaxed">
+                        <h3 class="text-sm font-bold text-slate-900 ">Geofencing & Tanda Terima</h3>
+                        <p class="text-xs text-slate-500  mt-2 leading-relaxed">
                             Verifikasi kedatangan kurir otomatis dalam radius virtual 50 meter dari faskes tujuan. Otomatis mengunci status perjalanan sebagai 'Selesai'.
                         </p>
                     </div>
                 </div>
 
                 {{-- Card 4: WhatsApp & Telegram --}}
-                <div class="bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800/60 p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
+                <div class="bg-white/40  backdrop-blur-md rounded-2xl border border-slate-200  p-6 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4">
                     <div class="w-10 h-10 rounded-xl bg-error/10 flex items-center justify-center border border-error/20 shrink-0">
                         <span class="material-symbols-outlined text-error text-[20px]">campaign</span>
                     </div>
                     <div>
-                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Alarm & Notifikasi Instan</h3>
-                        <p class="text-xs text-slate-500 dark:text-on-surface-variant mt-2 leading-relaxed">
+                        <h3 class="text-sm font-bold text-slate-900 ">Alarm & Notifikasi Instan</h3>
+                        <p class="text-xs text-slate-500  mt-2 leading-relaxed">
                             Kirim peringatan otomatis melalui WhatsApp dan bot Telegram kepada dispatcher & kurir begitu terdeteksi anomali suhu rantai dingin.
                         </p>
                     </div>
@@ -240,10 +240,10 @@
         </section>
 
         {{-- Section 4: How It Works --}}
-        <section class="bg-white/30 dark:bg-slate-900/20 backdrop-blur-md border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-8 sm:p-12 space-y-10">
+        <section class="bg-white/30  backdrop-blur-md border border-slate-200/50  rounded-3xl p-8 sm:p-12 space-y-10">
             <div class="text-center max-w-xl mx-auto space-y-2">
-                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Bagaimana BIO-GUARD Bekerja</h2>
-                <p class="text-xs text-slate-500 dark:text-on-surface-variant leading-relaxed">
+                <h2 class="text-2xl font-extrabold text-slate-900  tracking-tight">Bagaimana BIO-GUARD Bekerja</h2>
+                <p class="text-xs text-slate-500  leading-relaxed">
                     Alur end-to-end pemantauan logistik medis secara terotomatisasi.
                 </p>
             </div>
@@ -251,48 +251,48 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
                 
                 {{-- Arrow connector helper (desktop only) --}}
-                <div class="hidden md:block absolute top-[40px] left-[15%] right-[15%] h-[2px] bg-slate-200 dark:bg-slate-800/60 z-0"></div>
+                <div class="hidden md:block absolute top-[40px] left-[15%] right-[15%] h-[2px] bg-slate-200  z-0"></div>
 
                 {{-- Step 1 --}}
                 <div class="relative z-10 flex flex-col items-center text-center space-y-3">
-                    <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-primary/50 flex items-center justify-center text-slate-900 dark:text-white font-black text-sm shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-white  border-2 border-primary/50 flex items-center justify-center text-slate-900  font-black text-sm shadow-md">
                         1
                     </div>
-                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">Sensor IoT Aktif</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-on-surface-variant leading-relaxed max-w-[200px]">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 ">Sensor IoT Aktif</h4>
+                    <p class="text-[11px] text-slate-500  leading-relaxed max-w-[200px]">
                         Perangkat mikrokontroler di boks vaksin membaca suhu, kelembaban, dan koordinat GPS.
                     </p>
                 </div>
 
                 {{-- Step 2 --}}
                 <div class="relative z-10 flex flex-col items-center text-center space-y-3">
-                    <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-primary/50 flex items-center justify-center text-slate-900 dark:text-white font-black text-sm shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-white  border-2 border-primary/50 flex items-center justify-center text-slate-900  font-black text-sm shadow-md">
                         2
                     </div>
-                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">Koneksi Store-Forward</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-on-surface-variant leading-relaxed max-w-[200px]">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 ">Koneksi Store-Forward</h4>
+                    <p class="text-[11px] text-slate-500  leading-relaxed max-w-[200px]">
                         Data dikirim berkala. Jika sinyal putus, data di-buffer lokal dan di-sinkronisasi saat online kembali.
                     </p>
                 </div>
 
                 {{-- Step 3 --}}
                 <div class="relative z-10 flex flex-col items-center text-center space-y-3">
-                    <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-primary/50 flex items-center justify-center text-slate-900 dark:text-white font-black text-sm shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-white  border-2 border-primary/50 flex items-center justify-center text-slate-900  font-black text-sm shadow-md">
                         3
                     </div>
-                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">Analisis Cloud AI</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-on-surface-variant leading-relaxed max-w-[200px]">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 ">Analisis Cloud AI</h4>
+                    <p class="text-[11px] text-slate-500  leading-relaxed max-w-[200px]">
                         Backend Laravel mengolah telemetri, menghitung grafik MKT, dan mengevaluasi status kelayakan.
                     </p>
                 </div>
 
                 {{-- Step 4 --}}
                 <div class="relative z-10 flex flex-col items-center text-center space-y-3">
-                    <div class="w-12 h-12 rounded-full bg-white dark:bg-slate-950 border-2 border-primary/50 flex items-center justify-center text-slate-900 dark:text-white font-black text-sm shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-white  border-2 border-primary/50 flex items-center justify-center text-slate-900  font-black text-sm shadow-md">
                         4
                     </div>
-                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200">Aksi &amp; Resolusi</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-on-surface-variant leading-relaxed max-w-[200px]">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 ">Aksi &amp; Resolusi</h4>
+                    <p class="text-[11px] text-slate-500  leading-relaxed max-w-[200px]">
                         Peringatan dikirim jika terjadi deviasi, rute dialihkan, dan kedatangan kurir terverifikasi.
                     </p>
                 </div>
@@ -303,7 +303,7 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 border-t border-slate-200 dark:border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4 mt-12 bg-white/10 dark:bg-transparent backdrop-blur-sm sm:backdrop-blur-none">
+    <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 border-t border-slate-200  flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500  gap-4 mt-12 bg-white/10  backdrop-blur-sm sm:backdrop-blur-none">
         <div>
             <span>BIO-GUARD v2.0 Enterprise</span>
             <span class="mx-2">|</span>

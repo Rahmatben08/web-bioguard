@@ -86,7 +86,7 @@
     </aside>
 
     <!-- Map Container -->
-    <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 dark:bg-slate-900" id="map-container">
+    <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 " id="map-container">
         <!-- Floating Persistent Summary Overlay (z-[1000]) -->
         <div class="absolute top-4 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">
             <div class="pointer-events-auto flex items-center gap-2 flex-wrap">

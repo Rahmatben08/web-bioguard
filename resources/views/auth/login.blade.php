@@ -74,18 +74,18 @@
     <canvas id="canvas-particles" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
     {{-- Floating Decorative Mesh Blobs (Professional Medical Palette) --}}
-    <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 dark:bg-blue-500/5 blur-[130px] pointer-events-none animate-blob z-0"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-400/10 dark:bg-blue-400/5 blur-[140px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
-    <div class="absolute top-1/2 left-2/3 w-[450px] h-[450px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/5 blur-[110px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
+    <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10  blur-[130px] pointer-events-none animate-blob z-0"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-400/10  blur-[140px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
+    <div class="absolute top-1/2 left-2/3 w-[450px] h-[450px] rounded-full bg-indigo-500/10  blur-[110px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
 
     {{-- Floating Glassmorphism Login Card --}}
-    <div class="relative z-10 w-full max-w-md bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl rounded-3xl border border-white/30 dark:border-slate-800/80 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(76,213,246,0.15)] hover:border-primary/30 overflow-hidden">
+    <div class="relative z-10 w-full max-w-md bg-white/80  backdrop-blur-xl rounded-3xl border border-white/30  p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] (0,0,0,0.4)] transition-all duration-500 hover:shadow-[0_20px_60px_rgba(76,213,246,0.15)] hover:border-primary/30 overflow-hidden">
         {{-- Premium top gradient strip (Medical Teal to Sky) --}}
-        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-blue-500 dark:from-blue-500 dark:to-blue-400"></div>
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-blue-500  "></div>
         
         {{-- Back to Landing Link --}}
         <div class="flex justify-start mb-4">
-            <a href="/" class="flex items-center gap-1 text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors text-xs font-bold">
+            <a href="/" class="flex items-center gap-1 text-slate-500 hover:text-primary  :text-primary transition-colors text-xs font-bold">
                 <span class="material-symbols-outlined text-[16px]">arrow_back</span>
                 Kembali ke Beranda
             </a>
@@ -94,15 +94,15 @@
         {{-- Brand Logo & Header --}}
         <div class="flex flex-col items-center text-center mb-6">
             <a href="/" class="hover:opacity-90 transition-opacity">
-                <img src="{{ asset('images/logo.png') }}?v=7" alt="BIO-GUARD Logo" class="h-20 w-auto object-contain mb-4 select-none dark:drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]">
+                <img src="{{ asset('images/logo.png') }}?v=7" alt="BIO-GUARD Logo" class="h-20 w-auto object-contain mb-4 select-none (59,130,246,0.6)]">
             </a>
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">BIO-GUARD</h1>
-            <p class="text-sm text-slate-600 dark:text-slate-350 mt-1 font-semibold">Pusat Kendali Logistik Medis</p>
+            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 ">BIO-GUARD</h1>
+            <p class="text-sm text-slate-600  mt-1 font-semibold">Pusat Kendali Logistik Medis</p>
         </div>
 
         {{-- Validation Errors --}}
         @if ($errors->any())
-            <div class="mb-5 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-error text-xs font-semibold flex items-start gap-2 animate-pulse">
+            <div class="mb-5 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-600  text-xs font-semibold flex items-start gap-2 animate-pulse">
                 <span class="material-symbols-outlined text-[16px] shrink-0 mt-0.5">error</span>
                 <div>
                     <ul class="list-disc pl-3 space-y-1">
@@ -120,11 +120,11 @@
 
             {{-- Email Input --}}
             <div class="space-y-1.5">
-                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-350">Alamat Email</label>
+                <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 ">Alamat Email</label>
                 <div class="relative">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-[20px]">mail</span>
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500  text-[20px]">mail</span>
                     <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus
-                        class="w-full pl-12 pr-4 py-3 bg-white/90 dark:bg-slate-950/40 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm font-medium"
+                        class="w-full pl-12 pr-4 py-3 bg-white/90  border border-slate-300  rounded-xl text-slate-900  placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm font-medium"
                         placeholder="nama@bioguard.id">
                 </div>
             </div>
@@ -132,14 +132,14 @@
             {{-- Password Input --}}
             <div class="space-y-1.5">
                 <div class="flex justify-between items-center">
-                    <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-350">Kata Sandi</label>
+                    <label for="password" class="block text-xs font-bold uppercase tracking-wider text-slate-700 ">Kata Sandi</label>
                 </div>
                 <div class="relative">
-                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 text-[20px]">lock</span>
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500  text-[20px]">lock</span>
                     <input type="password" id="password" name="password" required
-                        class="w-full pl-12 pr-12 py-3 bg-white/90 dark:bg-slate-950/40 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm font-medium"
+                        class="w-full pl-12 pr-12 py-3 bg-white/90  border border-slate-300  rounded-xl text-slate-900  placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm font-medium"
                         placeholder="••••••••">
-                    <button type="button" id="password-toggle" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors focus:outline-none flex items-center justify-center">
+                    <button type="button" id="password-toggle" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500  hover:text-primary transition-colors focus:outline-none flex items-center justify-center">
                         <span id="password-toggle-icon" class="material-symbols-outlined text-[20px]">visibility</span>
                     </button>
                 </div>
@@ -148,23 +148,23 @@
             {{-- Remember Me --}}
             <div class="flex items-center justify-between pt-1">
                 <label class="flex items-center cursor-pointer select-none">
-                    <input type="checkbox" name="remember" class="rounded border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-950/40 text-primary focus:ring-primary/50 focus:ring-offset-0 transition-all h-4 w-4">
-                    <span class="ml-2 text-xs font-semibold text-slate-700 dark:text-slate-300">Ingat saya di perangkat ini</span>
+                    <input type="checkbox" name="remember" class="rounded border-slate-300  bg-white  text-primary focus:ring-primary/50 focus:ring-offset-0 transition-all h-4 w-4">
+                    <span class="ml-2 text-xs font-semibold text-slate-700 ">Ingat saya di perangkat ini</span>
                 </label>
             </div>
 
             {{-- Submit Button --}}
             <button type="submit" 
-                class="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 dark:from-blue-500 dark:to-blue-400 dark:hover:from-blue-600 dark:hover:to-blue-500 text-white text-sm font-bold tracking-wide rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out cursor-pointer text-center block">
+                class="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600   :from-blue-600 :to-blue-500 text-white text-sm font-bold tracking-wide rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 ease-out cursor-pointer text-center block">
                 Masuk Ke Portal
             </button>
 
         </form>
 
         {{-- Theme Switcher on Footer --}}
-        <div class="mt-6 pt-5 border-t border-slate-300 dark:border-slate-800/60 flex justify-between items-center text-xs text-slate-500 dark:text-slate-350">
+        <div class="mt-6 pt-5 border-t border-slate-300  flex justify-between items-center text-xs text-slate-500 ">
             <span>BIO-GUARD v2.0 Enterprise</span>
-            <button id="theme-toggle" class="flex items-center gap-1 hover:text-primary transition-colors text-slate-600 dark:text-slate-200">
+            <button id="theme-toggle" class="flex items-center gap-1 hover:text-primary transition-colors text-slate-600 ">
                 <span id="theme-toggle-icon" class="material-symbols-outlined text-[16px]">dark_mode</span>
                 <span id="theme-toggle-text">Mode Gelap</span>
             </button>

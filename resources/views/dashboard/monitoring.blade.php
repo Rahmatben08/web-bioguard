@@ -20,12 +20,12 @@
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Pusat Kendali</span>
                 </nav>
                 <h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Dasbor Utama</h1>
-            <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 dark:text-on-surface-variant">
-                <div class="flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
+            <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 ">
+                <div class="flex items-center gap-1 hover:bg-slate-100 :bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
                     <span class="material-symbols-outlined text-[16px] align-middle text-primary">calendar_month</span>
-                    <input type="text" id="datepicker" class="bg-transparent border-none p-0 text-xs font-semibold text-slate-600 dark:text-on-surface-variant focus:ring-0 cursor-pointer w-44 hover:text-primary transition-colors" placeholder="Pilih Tanggal..." readonly>
+                    <input type="text" id="datepicker" class="bg-transparent border-none p-0 text-xs font-semibold text-slate-600  focus:ring-0 cursor-pointer w-44 hover:text-primary transition-colors" placeholder="Pilih Tanggal..." readonly>
                 </div>
-                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <span class="text-slate-300 ">|</span>
                 <p id="live-clock" class="flex items-center">
                     <span class="material-symbols-outlined text-[14px] align-middle mr-1 text-primary">schedule</span>
                     <span id="clock-value">Memuat...</span>
@@ -43,13 +43,13 @@
             
             {{-- Lonceng Notifikasi Dropdown --}}
             <div class="relative z-50" id="notification-hub-container">
-                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
+                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white  text-slate-700  hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
                     <span class="material-symbols-outlined text-[20px]">notifications</span>
-                    <span id="notification-count-badge" class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black leading-none border-2 border-white dark:border-slate-900 animate-pulse hidden">0</span>
+                    <span id="notification-count-badge" class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black leading-none border-2 border-white  animate-pulse hidden">0</span>
                 </button>
                 
                 <!-- Dropdown panel -->
-                <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-850 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
+                <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white/95  backdrop-blur-md border border-slate-200  rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
                     <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-2">
                         <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider">
                             <span class="material-symbols-outlined text-[18px] text-primary">campaign</span> Log Notifikasi Real-time
@@ -58,10 +58,10 @@
                     </div>
                     
                     <!-- Scroll container -->
-                    <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-150 dark:divide-slate-800/50 space-y-1.5 pr-1 text-left">
+                    <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-150  space-y-1.5 pr-1 text-left">
                         <!-- Empty state -->
                         <div class="py-6 text-center text-slate-400 text-[11px]" id="notifications-empty-state">
-                            <span class="material-symbols-outlined text-[24px] text-slate-300 dark:text-slate-700 block mb-1">notifications_off</span>
+                            <span class="material-symbols-outlined text-[24px] text-slate-300  block mb-1">notifications_off</span>
                             Tidak ada notifikasi baru
                         </div>
                     </div>
@@ -69,13 +69,13 @@
             </div>
 
             <div class="relative inline-block" id="filter-dashboard-container">
-                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
+                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white  text-slate-700  text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
                     <span class="material-symbols-outlined text-[18px]">filter_list</span>
                     Filter
                 </button>
                 
                 <!-- Floating Dashboard Filter Panel -->
-                <div id="filter-dashboard-dropdown" class="absolute right-0 mt-2 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-250 dark:border-slate-800 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
+                <div id="filter-dashboard-dropdown" class="absolute right-0 mt-2 w-72 bg-white/95  backdrop-blur-md border border-slate-250  rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
                     <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-3">
                         <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider select-none">
                             <span class="material-symbols-outlined text-[18px] text-primary">tune</span> Penyaringan Dasbor
@@ -87,7 +87,7 @@
                         {{-- Filter Status --}}
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Status Rantai Dingin</label>
-                            <select id="filter-status-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-status-select" class="w-full bg-slate-50  border border-slate-250  rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Status</option>
                                 <option value="Aman">Aman</option>
                                 <option value="Peringatan">Peringatan Dini</option>
@@ -98,7 +98,7 @@
                         {{-- Filter Tipe Kargo / Box --}}
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Kategori Suhu Kargo</label>
-                            <select id="filter-cargo-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-cargo-select" class="w-full bg-slate-50  border border-slate-250  rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Kategori</option>
                                 <option value="BOX-001">Chilled (BOX-001)</option>
                                 <option value="BOX-002">Frozen (BOX-002)</option>
@@ -116,7 +116,7 @@
     </div>
 
     {{-- Desktop Notification Permission Request Banner --}}
-    <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700 dark:text-on-surface text-xs font-semibold gap-md animate-pulse">
+    <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700  text-xs font-semibold gap-md animate-pulse">
         <div class="flex items-center gap-xs">
             <span class="material-symbols-outlined text-primary text-[20px] shrink-0">notifications_active</span>
             <span>Aktifkan notifikasi desktop agar Anda tetap mendapat alarm real-time ketika membuka tab lain atau meminimalkan browser.</span>
@@ -219,7 +219,7 @@
                 {{-- Telemetry Cards Scroll Container --}}
                 <!-- STITCH_AI_TELEMETRY_CARD: Ganti dengan gaya card telemetri enterprise -->
                 <x-card noPadding="true" class="h-full max-h-[60vh] overflow-y-auto">
-                    <div id="telemetry-cards-container" class="divide-y divide-slate-200 dark:divide-slate-800">
+                    <div id="telemetry-cards-container" class="divide-y divide-slate-200 ">
                     @forelse($perjalananAktif ?? [] as $perjalanan)
                         @php
                             $log = $perjalanan->latestLog;
@@ -244,38 +244,38 @@
                             $shakeClass = $vibration > 1.50 ? 'animate-shake-infinite' : '';
 
                             // Fluid styling
-                            $bgClass = 'bg-white dark:bg-slate-900';
+                            $bgClass = 'bg-white ';
                             $accentBorderClass = 'border-l-4 border-l-primary';
                             
                             if ($status === 'Peringatan') {
-                                $bgClass = 'bg-amber-50 dark:bg-amber-900/10';
+                                $bgClass = 'bg-amber-50 ';
                                 $accentBorderClass = 'border-l-4 border-l-warning';
                             } elseif ($status === 'Tidak Layak Pakai') {
-                                $bgClass = 'bg-rose-50 dark:bg-rose-900/10';
+                                $bgClass = 'bg-rose-50 ';
                                 $accentBorderClass = 'border-l-4 border-l-error';
                             }
                         @endphp
 
                         {{-- Individual Telemetry Card --}}
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl {{ $bgClass }} border border-slate-200 dark:border-slate-800/80 {{ $pulseRing ?? '' }} {{ $shakeClass }} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="{{ $perjalanan->id_rute }}">
+                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl {{ $bgClass }} border border-slate-200  {{ $pulseRing ?? '' }} {{ $shakeClass }} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="{{ $perjalanan->id_rute }}">
                             
                             {{-- Header: Avatar & Info --}}
                             <div class="flex items-start justify-between gap-3 mb-4">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <!-- Clean Avatar -->
-                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10  border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                         {{ collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0] ?? '')->take(2)->implode('') }}
                                     </div>
                                     <div class="min-w-0">
-                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="{{ $perjalanan->kurir->nama_lengkap }}">
+                                        <h4 class="text-sm font-bold text-slate-900  truncate" title="{{ $perjalanan->kurir->nama_lengkap }}">
                                             {{ $perjalanan->kurir->nama_lengkap }}
                                         </h4>
                                         <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
                                             <span>{{ $perjalanan->kurir->nomor_kendaraan }}</span>
-                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                             <span class="font-mono">{{ $perjalanan->id_box }}</span>
-                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                             <span>{{ $perjalanan->kurir->no_wa ?? '-' }}</span>
                                             <a href="{{ route('dashboard.qr', $perjalanan->id_box) }}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -296,7 +296,7 @@
                             </div>
 
                             {{-- Destination --}}
-                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50  p-2 rounded-lg border border-slate-100 ">
                                 <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
                                 <span class="truncate">{{ $perjalanan->lokasi_tujuan }}</span>
                             </div>
@@ -314,17 +314,17 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
-                                    <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
+                                    <p class="text-xl font-bold text-slate-700  tabular-nums">
                                         {{ is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '┬░C' : $mkt }}
                                     </p>
                                 </div>
                             </div>
 
                             {{-- Secondary Metrics --}}
-                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
+                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100  text-[11px] font-medium text-slate-500">
                                 <div>
                                     <span class="block mb-0.5">Durasi Anomali</span>
-                                    <span class="text-xs font-bold font-mono {{ $status !== 'Aman' ? $textClass : 'text-slate-800 dark:text-slate-200' }}">
+                                    <span class="text-xs font-bold font-mono {{ $status !== 'Aman' ? $textClass : 'text-slate-800 ' }}">
                                         @if($status === 'Aman')
                                             0s (Normal)
                                         @else
@@ -359,7 +359,7 @@
                             </div>
 
                             {{-- Sparkline Gradient Bar --}}
-                            <div class="mt-sm h-1.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                            <div class="mt-sm h-1.5 rounded-full overflow-hidden bg-slate-200 ">
                                 <div class="h-full rounded-full transition-all duration-1000 {{ $status === 'Aman' ? 'sparkline-cyan animate-sparkline-pulse' : ($status === 'Peringatan' ? 'sparkline-cyan border-tertiary bg-tertiary animate-sparkline-pulse' : 'sparkline-red animate-sparkline-pulse-danger') }}"
                                      style="width: {{ $temp !== null ? min(max(($temp / 12) * 100, 8), 100) : 0 }}%;">
                                 </div>
@@ -368,11 +368,11 @@
                     @empty
                         {{-- Empty State --}}
                         <div class="flex flex-col items-center justify-center p-10 text-center">
-                            <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                            <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
                                 <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
                             </div>
-                            <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Rute Aktif</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                            <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Rute Aktif</h3>
+                            <p class="text-sm text-slate-500  mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
                             <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
                                 <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
                             </a>
@@ -384,7 +384,7 @@
                 {{-- Panel Footer --}}
                 <div class="mt-4">
                     <a href="{{ route('shipments') }}"
-                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
+                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white  text-slate-700  text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
                         <span class="material-symbols-outlined text-[18px]">timeline</span>
                         Lihat Log Telemetri Lengkap
                     </a>
@@ -407,7 +407,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">query_stats</span>
                         Suhu Aktual vs MKT
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Analisis stabilitas kinetik termal box kargo</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Analisis stabilitas kinetik termal box kargo</p>
                 </div>
             </div>
             <div id="chart-mkt" class="w-full flex-1"></div>
@@ -421,7 +421,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
                         Proyeksi Risiko Prediktif AI
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Prediksi spoilage berdasarkan sisa jarak rute</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Prediksi spoilage berdasarkan sisa jarak rute</p>
                 </div>
             </div>
             <div id="chart-risiko" class="w-full flex-1"></div>
@@ -435,7 +435,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">sync_saved_locally</span>
                         Log Sinkronisasi Store-and-Forward
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Data terkirim (online) vs ter-cache (offline)</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Data terkirim (online) vs ter-cache (offline)</p>
                 </div>
             </div>
             <div id="chart-sync" class="w-full flex-1"></div>
@@ -464,7 +464,7 @@
 
                 {{-- Body --}}
                 <div class="p-6">
-                    <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
+                    <p class="text-xs text-slate-500  mb-4 leading-relaxed">
                         Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8┬░C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
@@ -472,20 +472,20 @@
                     <div class="overflow-x-auto rounded-xl border border-outline-variant/30/60">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
-                                <tr class="bg-slate-900/10 dark:bg-slate-100/5 border-b border-outline-variant/30/60">
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">ID Boks</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Nama Kurir</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Titik Kerusakan</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider text-center">Suhu Puncak</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider text-right">Status</th>
+                                <tr class="bg-slate-900/10  border-b border-outline-variant/30/60">
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">ID Boks</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">Nama Kurir</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">Titik Kerusakan</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider text-center">Suhu Puncak</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider text-right">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
+                            <tbody class="divide-y divide-slate-200 ">
                                 {{-- Row 1 --}}
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-003</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Citra Dewi</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
@@ -497,10 +497,10 @@
                                     </td>
                                 </tr>
                                 {{-- Row 2 --}}
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-002</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Budi Santoso</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
@@ -512,10 +512,10 @@
                                     </td>
                                 </tr>
                                 {{-- Row 3 --}}
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-005</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Ahmad Fadillah</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
@@ -543,13 +543,13 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">construction</span>
                         Simulator Hub Dasbor
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Kontrol simulasi telemetri IoT langsung dari dasbor</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Kontrol simulasi telemetri IoT langsung dari dasbor</p>
                 </div>
                 
                 <div class="mt-4 space-y-3">
                     <div class="flex flex-col gap-1">
                         <label class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Pilih Target Boks IoT</label>
-                        <select id="sim-target-box" class="w-full bg-slate-100/80 dark:bg-slate-800/60 border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
+                        <select id="sim-target-box" class="w-full bg-slate-100/80  border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
                             @foreach($perjalananAktif ?? [] as $perjalanan)
                                 <option value="{{ $perjalanan->id_rute }}" data-box="{{ $perjalanan->id_box }}">
                                     {{ $perjalanan->id_box }} ({{ $perjalanan->kurir->nama_lengkap }})
@@ -598,7 +598,7 @@
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">Baru saja</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-on-surface-variant leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Kurir Citra Dewi melaporkan insulasi penutup boks lepas di Jembatan Ampera. Suhu terancam melonjak.
                         </p>
                         <div class="flex justify-end mt-1">
@@ -618,7 +618,7 @@
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">5 mnt lalu</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-on-surface-variant leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Budi Santoso terjebak kemacetan total di Jl. Jend. Sudirman. Estimasi terlambat mencapai 20 menit.
                         </p>
                         <div class="flex justify-end mt-1">
@@ -638,7 +638,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
                         Cetak Jejak Audit CDOB
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">E-Certificate otomatis pemenuhan standar logistik medis</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">E-Certificate otomatis pemenuhan standar logistik medis</p>
                 </div>
                 <div class="mt-4">
                     <button onclick="openAuditPreviewModal()" class="w-full inline-flex items-center justify-center gap-xs px-md py-[10px] rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)] cursor-pointer">
@@ -658,7 +658,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">developer_board</span>
                         Kesehatan Perangkat Boks IoT
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Metrik daya, sinyal telemetri, dan kalibrasi boks aktif</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Metrik daya, sinyal telemetri, dan kalibrasi boks aktif</p>
                 </div>
                 
                 <div class="mt-4 space-y-3" id="device-health-list">
@@ -692,7 +692,7 @@
                             }
                         @endphp
                         
-                        <div class="p-3 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-{{ $perjalanan->id_box }}">
+                        <div class="p-3 bg-slate-100/50  rounded-xl border border-slate-200/50  flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-{{ $perjalanan->id_box }}">
                             <!-- Box ID & Courier -->
                             <div class="flex justify-between items-center text-xs">
                                 <span class="font-bold text-on-surface font-mono">{{ $perjalanan->id_box }}</span>
@@ -709,7 +709,7 @@
                                         </span>
                                         <span class="text-on-surface font-mono" id="device-battery-val-{{ $perjalanan->id_box }}">{{ $battery }}%</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                                    <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                                         <div class="h-full {{ $batColor }} rounded-full transition-all duration-500" id="device-battery-bar-{{ $perjalanan->id_box }}" style="width: {{ $battery }}%"></div>
                                     </div>
                                 </div>
@@ -738,17 +738,17 @@
             </x-card>
 
             {{-- BIO-GUARD Gateway Hub --}}
-            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
+            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 :border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">hub</span>
                         BIO-GUARD Gateway Hub
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
                 </div>
                 
                 <div class="mt-4 flex flex-col gap-2">
-                    <div id="gateway-log-console" class="h-44 bg-slate-950/80 dark:bg-slate-950/90 rounded-xl p-3 font-mono text-[10px] text-slate-400 overflow-y-auto flex flex-col gap-1.5 border border-slate-200 dark:border-slate-850">
+                    <div id="gateway-log-console" class="h-44 bg-slate-950/80  rounded-xl p-3 font-mono text-[10px] text-slate-400 overflow-y-auto flex flex-col gap-1.5 border border-slate-200 ">
                         <div class="text-slate-500">// Menunggu transmisi gateway...</div>
                     </div>
                 </div>
@@ -762,14 +762,14 @@
 
 <!-- AI Rerouting Modal -->
 <div id="rerouting-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white  border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-slate-50  flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">directions_alt</span>
                 <h3 class="text-sm font-bold text-on-surface">AI Dynamic Rerouting</h3>
             </div>
-            <button onclick="closeReroutingModal()" class="text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white transition-colors">
+            <button onclick="closeReroutingModal()" class="text-slate-500 hover:text-slate-850  :text-white transition-colors">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
             </button>
         </div>
@@ -780,7 +780,7 @@
                     <span class="material-symbols-outlined text-teal-500 text-[18px]">psychology</span>
                     <span class="font-bold text-on-surface text-xs">Rekomendasi Rute Alternatif (Musi IV Bypass)</span>
                 </div>
-                <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p class="text-[11px] text-slate-600  leading-relaxed">
                     Sistem mendeteksi hambatan parah di Jembatan Ampera. Rute alternatif disarankan melewati **Jembatan Musi IV**.
                 </p>
                 <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
@@ -793,8 +793,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end gap-sm">
+            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800  transition-all active:scale-95 duration-100 hover:bg-slate-100 :bg-slate-800">
                 Batal
             </button>
             <button onclick="applyRerouting()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
@@ -806,29 +806,29 @@
 
 <!-- CDOB Audit Preview Modal -->
 <div id="audit-preview-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300 animate-opacity">
-    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white  border border-outline-variant/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-850 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div class="px-6 py-4 border-b border-slate-200  bg-slate-50  flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary text-[20px] font-bold">verified_user</span>
                 <h3 class="text-xs font-black text-on-surface uppercase tracking-wider">Pratinjau Jejak Audit CDOB</h3>
             </div>
-            <button onclick="closeAuditPreviewModal()" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer">
+            <button onclick="closeAuditPreviewModal()" class="text-slate-500 hover:text-slate-800  :text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
             </button>
         </div>
         <!-- Body -->
         <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
-            <div class="relative border-2 border-dashed border-primary/20 dark:border-primary/10 rounded-2xl p-6 bg-slate-50/50 dark:bg-slate-950/20 backdrop-blur-sm overflow-hidden select-none">
+            <div class="relative border-2 border-dashed border-primary/20  rounded-2xl p-6 bg-slate-50/50  backdrop-blur-sm overflow-hidden select-none">
                 {{-- Decorative premium badge watermark --}}
-                <div class="absolute -right-10 -bottom-10 opacity-5 dark:opacity-10 pointer-events-none text-[120px] material-symbols-outlined text-primary font-black">
+                <div class="absolute -right-10 -bottom-10 opacity-5  pointer-events-none text-[120px] material-symbols-outlined text-primary font-black">
                     workspace_premium
                 </div>
 
                 {{-- Brand Header --}}
                 <div class="flex justify-between items-start border-b border-outline-variant/30/60 pb-4 mb-4">
                     <div>
-                        <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
+                        <h4 class="text-xs font-black uppercase text-slate-800  tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
                         <p class="text-[9px] text-slate-450 mt-0.5">Badan Pengawas Obat dan Makanan (BPOM) RI</p>
                     </div>
                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-500 text-[10px] font-black uppercase tracking-wider border border-green-500/20">
@@ -840,15 +840,15 @@
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Sistem Verifikator</span>
-                        <span class="font-extrabold text-slate-700 dark:text-slate-350">BIO-GUARD Enterprise v2.0</span>
+                        <span class="font-extrabold text-slate-700 ">BIO-GUARD Enterprise v2.0</span>
                     </div>
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">ID Operator Dispatcher</span>
-                        <span class="font-extrabold text-slate-700 dark:text-slate-350">{{ Auth::user()->dispatcher_id ?? 'DSP-PLB-2026' }}</span>
+                        <span class="font-extrabold text-slate-700 ">{{ Auth::user()->dispatcher_id ?? 'DSP-PLB-2026' }}</span>
                     </div>
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
-                        <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
+                        <p class="text-[11px] text-slate-650  leading-relaxed font-semibold mt-0.5">
                             Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0┬░C - 8,0┬░C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8┬░C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
@@ -868,8 +868,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end gap-sm">
+            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800  transition-all active:scale-95 duration-100 hover:bg-slate-100 :bg-slate-800 cursor-pointer">
                 Batal
             </button>
             <a href="{{ route('dashboard.audit-pdf') }}" target="_blank" onclick="closeAuditPreviewModal()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)] cursor-pointer flex items-center gap-1">
@@ -1113,7 +1113,7 @@ const plannedPaths = {
             }
             satTileLayer.addTo(map);
             btnMapSat.className = "px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all shadow-md";
-            btnMapVector.className = "px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all";
+            btnMapVector.className = "px-2 py-1 rounded bg-slate-200  text-slate-600  text-[10px] font-bold active:scale-95 transition-all";
         });
 
         btnMapVector.addEventListener('click', () => {
@@ -1122,7 +1122,7 @@ const plannedPaths = {
             }
             tileLayer.addTo(map);
             btnMapVector.className = "px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all shadow-md";
-            btnMapSat.className = "px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all";
+            btnMapSat.className = "px-2 py-1 rounded bg-slate-200  text-slate-600  text-[10px] font-bold active:scale-95 transition-all";
         });
     }
 
@@ -1207,11 +1207,11 @@ const plannedPaths = {
         const duration = c.excursion_duration;
         const prob = c.probabilitas_rusak;
 
-        let statusColor = 'text-cyan-500 dark:text-primary';
+        let statusColor = 'text-cyan-500 ';
         if (status === 'Peringatan') {
-            statusColor = 'text-amber-500 dark:text-tertiary';
+            statusColor = 'text-amber-500 ';
         } else if (status === 'Tidak Layak Pakai') {
-            statusColor = 'text-red-500 dark:text-error';
+            statusColor = 'text-red-500 ';
         }
 
         const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-';
@@ -1279,24 +1279,24 @@ const plannedPaths = {
         container.innerHTML = Array(3).fill(0).map(() => `
             <div class="p-6 border-b border-outline-variant/30/60 animate-pulse space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-slate-250 dark:bg-slate-800"></div>
+                    <div class="w-9 h-9 rounded-full bg-slate-250 "></div>
                     <div class="flex-1 space-y-2">
-                        <div class="h-3 bg-slate-250 dark:bg-slate-800 rounded w-1/2"></div>
-                        <div class="h-2.5 bg-slate-250 dark:bg-slate-800 rounded w-1/3"></div>
+                        <div class="h-3 bg-slate-250  rounded w-1/2"></div>
+                        <div class="h-2.5 bg-slate-250  rounded w-1/3"></div>
                     </div>
                 </div>
-                <div class="h-2.5 bg-slate-250 dark:bg-slate-800 rounded w-2/3"></div>
+                <div class="h-2.5 bg-slate-250  rounded w-2/3"></div>
                 <div class="flex justify-between items-end">
                     <div class="space-y-2 w-1/3">
-                        <div class="h-2 bg-slate-250 dark:bg-slate-800 rounded"></div>
-                        <div class="h-6 bg-slate-250 dark:bg-slate-800 rounded"></div>
+                        <div class="h-2 bg-slate-250  rounded"></div>
+                        <div class="h-6 bg-slate-250  rounded"></div>
                     </div>
                     <div class="space-y-2 w-1/4">
-                        <div class="h-2 bg-slate-250 dark:bg-slate-800 rounded"></div>
-                        <div class="h-4 bg-slate-250 dark:bg-slate-800 rounded"></div>
+                        <div class="h-2 bg-slate-250  rounded"></div>
+                        <div class="h-4 bg-slate-250  rounded"></div>
                     </div>
                 </div>
-                <div class="h-1 bg-slate-250 dark:bg-slate-800 rounded-full w-full"></div>
+                <div class="h-1 bg-slate-250  rounded-full w-full"></div>
             </div>
         `).join('');
     }
@@ -1309,11 +1309,11 @@ const plannedPaths = {
         if (list.length === 0) {
             container.innerHTML = `
                 <div class="flex flex-col items-center justify-center p-10 text-center">
-                    <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                    <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
                         <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Rute Aktif</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                    <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Rute Aktif</h3>
+                    <p class="text-sm text-slate-500  mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
                     <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
                         <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
                     </a>
@@ -1379,13 +1379,13 @@ const plannedPaths = {
             let pulseRing = '';
             
             if (status === 'Peringatan') {
-                bgClass = 'bg-amber-500/5 dark:bg-amber-500/10';
+                bgClass = 'bg-amber-500/5 ';
                 accentBorderClass = 'border-l-4 border-l-tertiary';
-                cardBorderClass = 'border-tertiary/40 dark:border-tertiary/20';
+                cardBorderClass = 'border-tertiary/40 ';
             } else if (status === 'Tidak Layak Pakai') {
-                bgClass = 'bg-red-500/5 dark:bg-red-500/10';
+                bgClass = 'bg-red-500/5 ';
                 accentBorderClass = 'border-l-4 border-l-error';
-                cardBorderClass = 'border-error/40 dark:border-error/20';
+                cardBorderClass = 'border-error/40 ';
                 pulseRing = 'ring-1 ring-error/30 animate-pulse';
             }
 
@@ -1400,24 +1400,24 @@ const plannedPaths = {
             }
 
             html += `
-                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200 dark:border-slate-800/80 ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
+                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200  ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
                     
                     {{-- Header: Avatar & Info --}}
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3 min-w-0">
                             <!-- Clean Avatar -->
-                            <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                            <div class="w-10 h-10 rounded-xl bg-primary/10  border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                 ${initials}
                             </div>
                             <div class="min-w-0">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="${c.nama_kurir}">
+                                <h4 class="text-sm font-bold text-slate-900  truncate" title="${c.nama_kurir}">
                                     ${c.nama_kurir}
                                 </h4>
                                 <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
                                     <span>${c.nomor_kendaraan}</span>
-                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                     <span class="font-mono">${c.id_box}</span>
-                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                     <span>${c.no_wa || '-'}</span>
                                     <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                         <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -1432,7 +1432,7 @@ const plannedPaths = {
                     </div>
 
                     {{-- Destination --}}
-                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50  p-2 rounded-lg border border-slate-100 ">
                         <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
                         <span class="truncate">${c.lokasi_tujuan}</span>
                     </div>
@@ -1448,17 +1448,17 @@ const plannedPaths = {
                         </div>
                         <div class="text-right">
                             <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
-                            <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
+                            <p class="text-xl font-bold text-slate-700  tabular-nums">
                                 ${mkt}
                             </p>
                         </div>
                     </div>
 
                     {{-- Secondary Metrics --}}
-                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
+                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100  text-[11px] font-medium text-slate-500">
                         <div>
                             <span class="block mb-0.5">Durasi Anomali</span>
-                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 dark:text-slate-200'}">
+                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 '}">
                                 ${durationDisplay}
                             </span>
                         </div>
@@ -1476,7 +1476,7 @@ const plannedPaths = {
                         </div>
                     </div>
 
-                    <div class="mt-sm h-1 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <div class="mt-sm h-1 rounded-full overflow-hidden bg-slate-200 ">
                         <div class="h-full rounded-full ${sparklineClass}"
                              style="width: ${sparklineWidth}%;">
                         </div>
@@ -1999,7 +1999,7 @@ const plannedPaths = {
         clearBtn.addEventListener('click', () => {
             notificationList.innerHTML = `
                 <div class="py-6 text-center text-slate-400 text-[11px]" id="notifications-empty-state">
-                    <span class="material-symbols-outlined text-[24px] text-slate-300 dark:text-slate-700 block mb-1">notifications_off</span>
+                    <span class="material-symbols-outlined text-[24px] text-slate-300  block mb-1">notifications_off</span>
                     Tidak ada notifikasi baru
                 </div>
             `;
@@ -2041,7 +2041,7 @@ const plannedPaths = {
         const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         const item = document.createElement('div');
-        item.className = `p-3 rounded-xl border-l-4 ${severityClass} border border-slate-205 dark:border-slate-800/50 flex flex-col gap-1 transition-all duration-300 hover:scale-[0.98] mt-1.5`;
+        item.className = `p-3 rounded-xl border-l-4 ${severityClass} border border-slate-205  flex flex-col gap-1 transition-all duration-300 hover:scale-[0.98] mt-1.5`;
         item.innerHTML = `
             <div class="flex items-start justify-between">
                 <span class="font-bold text-[11px] flex items-center gap-1">
@@ -2050,7 +2050,7 @@ const plannedPaths = {
                 </span>
                 <span class="text-[9px] font-mono text-slate-400">${timeStr}</span>
             </div>
-            <p class="text-[10px] text-slate-600 dark:text-on-surface-variant leading-relaxed">${body}</p>
+            <p class="text-[10px] text-slate-600  leading-relaxed">${body}</p>
         `;
 
         list.insertBefore(item, list.firstChild);
@@ -2109,7 +2109,7 @@ const plannedPaths = {
         }
 
         const logItem = document.createElement('div');
-        logItem.className = `flex flex-col gap-0.5 border-b border-slate-200/5 dark:border-slate-800/10 pb-1`;
+        logItem.className = `flex flex-col gap-0.5 border-b border-slate-200/5  pb-1`;
         logItem.innerHTML = `
             <div class="flex items-center text-[8px] text-slate-500">
                 <span class="font-mono">${timeStr}</span>
@@ -2134,8 +2134,8 @@ const plannedPaths = {
         modalDiv.id = modalId;
         modalDiv.className = "fixed inset-0 z-[3000] flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300";
         modalDiv.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
-                <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-emerald-500/10 dark:bg-emerald-500/5 flex justify-between items-center">
+            <div class="bg-white  border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
+                <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-emerald-500/10  flex justify-between items-center">
                     <div class="flex items-center gap-2 text-green-500">
                         <span class="material-symbols-outlined font-bold">verified</span>
                         <h3 class="text-sm font-bold text-on-surface">Kedatangan Terverifikasi (Geofencing)</h3>
@@ -2147,7 +2147,7 @@ const plannedPaths = {
                             <span class="material-symbols-outlined text-green-500 text-[18px]">local_shipping</span>
                             <span class="font-bold text-on-surface text-xs">${courierName} (${boxId})</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
                         <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
@@ -2159,7 +2159,7 @@ const plannedPaths = {
                         Tanda terima digital terkirim ke faskes penerima. Data perjalanan telah dikunci untuk kepatuhan CDOB.
                     </p>
                 </div>
-                <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end">
+                <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end">
                     <button onclick="document.getElementById('${modalId}').remove()" class="px-5 py-2.5 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
                         Selesai
                     </button>

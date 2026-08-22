@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Pusat Kendali Logistik Medis'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -20,12 +18,12 @@
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Pusat Kendali</span>
                 </nav>
                 <h1 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">Dasbor Utama</h1>
-            <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 dark:text-on-surface-variant">
-                <div class="flex items-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
+            <div class="flex items-center gap-3 mt-xs text-xs font-semibold text-slate-500 ">
+                <div class="flex items-center gap-1 hover:bg-slate-100 :bg-slate-800/50 cursor-pointer rounded-xl p-1.5 transition-all duration-300 ease-out active:scale-95 relative" id="datepicker-container" title="Filter Tanggal Historis">
                     <span class="material-symbols-outlined text-[16px] align-middle text-primary">calendar_month</span>
-                    <input type="text" id="datepicker" class="bg-transparent border-none p-0 text-xs font-semibold text-slate-600 dark:text-on-surface-variant focus:ring-0 cursor-pointer w-44 hover:text-primary transition-colors" placeholder="Pilih Tanggal..." readonly>
+                    <input type="text" id="datepicker" class="bg-transparent border-none p-0 text-xs font-semibold text-slate-600  focus:ring-0 cursor-pointer w-44 hover:text-primary transition-colors" placeholder="Pilih Tanggal..." readonly>
                 </div>
-                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <span class="text-slate-300 ">|</span>
                 <p id="live-clock" class="flex items-center">
                     <span class="material-symbols-outlined text-[14px] align-middle mr-1 text-primary">schedule</span>
                     <span id="clock-value">Memuat...</span>
@@ -43,13 +41,13 @@
             
             
             <div class="relative z-50" id="notification-hub-container">
-                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
+                <button id="notification-bell-btn" class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-outline-variant/30 bg-white  text-slate-700  hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out relative cursor-pointer" title="Lonceng Notifikasi Real-time">
                     <span class="material-symbols-outlined text-[20px]">notifications</span>
-                    <span id="notification-count-badge" class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black leading-none border-2 border-white dark:border-slate-900 animate-pulse hidden">0</span>
+                    <span id="notification-count-badge" class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black leading-none border-2 border-white  animate-pulse hidden">0</span>
                 </button>
                 
                 <!-- Dropdown panel -->
-                <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-850 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
+                <div id="notification-dropdown" class="absolute right-0 mt-2 w-80 bg-white/95  backdrop-blur-md border border-slate-200  rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
                     <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-2">
                         <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider">
                             <span class="material-symbols-outlined text-[18px] text-primary">campaign</span> Log Notifikasi Real-time
@@ -58,10 +56,10 @@
                     </div>
                     
                     <!-- Scroll container -->
-                    <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-150 dark:divide-slate-800/50 space-y-1.5 pr-1 text-left">
+                    <div id="notification-list" class="max-h-64 overflow-y-auto divide-y divide-slate-150  space-y-1.5 pr-1 text-left">
                         <!-- Empty state -->
                         <div class="py-6 text-center text-slate-400 text-[11px]" id="notifications-empty-state">
-                            <span class="material-symbols-outlined text-[24px] text-slate-300 dark:text-slate-700 block mb-1">notifications_off</span>
+                            <span class="material-symbols-outlined text-[24px] text-slate-300  block mb-1">notifications_off</span>
                             Tidak ada notifikasi baru
                         </div>
                     </div>
@@ -69,13 +67,13 @@
             </div>
 
             <div class="relative inline-block" id="filter-dashboard-container">
-                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
+                <button id="btn-filter-dashboard" class="inline-flex items-center gap-xs px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white  text-slate-700  text-body-sm font-medium hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out cursor-pointer">
                     <span class="material-symbols-outlined text-[18px]">filter_list</span>
                     Filter
                 </button>
                 
                 <!-- Floating Dashboard Filter Panel -->
-                <div id="filter-dashboard-dropdown" class="absolute right-0 mt-2 w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-250 dark:border-slate-800 rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
+                <div id="filter-dashboard-dropdown" class="absolute right-0 mt-2 w-72 bg-white/95  backdrop-blur-md border border-slate-250  rounded-2xl shadow-2xl p-4 hidden z-[1050] transition-all duration-200 origin-top-right">
                     <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-3">
                         <span class="text-xs font-extrabold text-on-surface flex items-center gap-1.5 uppercase tracking-wider select-none">
                             <span class="material-symbols-outlined text-[18px] text-primary">tune</span> Penyaringan Dasbor
@@ -87,7 +85,7 @@
                         
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Status Rantai Dingin</label>
-                            <select id="filter-status-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-status-select" class="w-full bg-slate-50  border border-slate-250  rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Status</option>
                                 <option value="Aman">Aman</option>
                                 <option value="Peringatan">Peringatan Dini</option>
@@ -98,7 +96,7 @@
                         
                         <div class="space-y-1">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider select-none">Kategori Suhu Kargo</label>
-                            <select id="filter-cargo-select" class="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-250 dark:border-slate-800 rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
+                            <select id="filter-cargo-select" class="w-full bg-slate-50  border border-slate-250  rounded-xl text-on-surface px-3 py-2 focus:ring-primary/50 text-xs">
                                 <option value="all">Semua Kategori</option>
                                 <option value="BOX-001">Chilled (BOX-001)</option>
                                 <option value="BOX-002">Frozen (BOX-002)</option>
@@ -116,7 +114,7 @@
     </div>
 
     
-    <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700 dark:text-on-surface text-xs font-semibold gap-md animate-pulse">
+    <div id="desktop-notification-banner" class="hidden flex items-center justify-between px-6 py-4 bg-primary/10 border border-primary/20 rounded-2xl text-slate-700  text-xs font-semibold gap-md animate-pulse">
         <div class="flex items-center gap-xs">
             <span class="material-symbols-outlined text-primary text-[20px] shrink-0">notifications_active</span>
             <span>Aktifkan notifikasi desktop agar Anda tetap mendapat alarm real-time ketika membuka tab lain atau meminimalkan browser.</span>
@@ -133,81 +131,69 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
 
         
-        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','valueId' => 'stat-active-couriers','icon' => 'local_shipping','color' => 'primary','valueClass' => 'text-xl']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('metric-card'); ?>
+        <?php if (isset($component)) { $__componentOriginala4ae059936bc185e758290466e2179c1 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala4ae059936bc185e758290466e2179c1 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.kpi-card','data' => ['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','icon' => 'local_shipping','color' => 'sky','subtitle' => 'Rute Perjalanan Aktif']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('kpi-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','valueId' => 'stat-active-couriers','icon' => 'local_shipping','color' => 'primary','valueClass' => 'text-xl']); ?>
+<?php $component->withAttributes(['title' => 'Kurir Aktif','value' => ''.e($totalKurirAktif ?? 0).'','icon' => 'local_shipping','color' => 'sky','subtitle' => 'Rute Perjalanan Aktif']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__attributesOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $attributes = $__attributesOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__attributesOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__componentOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $component = $__componentOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__componentOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
 
         
-        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Sinkronisasi Tertunda','value' => ''.e($totalPendingSync ?? 0).'','valueId' => 'stat-pending-sync','icon' => 'sync','color' => 'tertiary','valueClass' => 'text-xl']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('metric-card'); ?>
+        <?php if (isset($component)) { $__componentOriginala4ae059936bc185e758290466e2179c1 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala4ae059936bc185e758290466e2179c1 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.kpi-card','data' => ['title' => 'Sinkronisasi Offline','value' => ''.e($totalPendingSync ?? 0).'','icon' => 'sync_problem','color' => 'amber','subtitle' => 'Menunggu Sinyal']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('kpi-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => 'Sinkronisasi Tertunda','value' => ''.e($totalPendingSync ?? 0).'','valueId' => 'stat-pending-sync','icon' => 'sync','color' => 'tertiary','valueClass' => 'text-xl']); ?>
+<?php $component->withAttributes(['title' => 'Sinkronisasi Offline','value' => ''.e($totalPendingSync ?? 0).'','icon' => 'sync_problem','color' => 'amber','subtitle' => 'Menunggu Sinyal']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__attributesOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $attributes = $__attributesOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__attributesOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__componentOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $component = $__componentOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__componentOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
 
         
-        <?php if (isset($component)) { $__componentOriginal6d74059c34730cb2c742dae13948a701 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal6d74059c34730cb2c742dae13948a701 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.metric-card','data' => ['title' => 'Status Sistem','value' => 'TERHUBUNG','icon' => 'cell_tower','color' => 'green-500','valueClass' => 'text-2xl truncate']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('metric-card'); ?>
+        <?php if (isset($component)) { $__componentOriginala4ae059936bc185e758290466e2179c1 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala4ae059936bc185e758290466e2179c1 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.kpi-card','data' => ['title' => 'Status Peringatan','value' => ''.e($alertCount ?? 0).'','icon' => ''.e(($alertCount ?? 0) > 0 ? 'warning' : 'verified_user').'','color' => ''.e(($alertCount ?? 0) > 0 ? 'rose' : 'emerald').'','subtitle' => ''.e(($alertCount ?? 0) > 0 ? 'Segera Tindak Lanjuti!' : 'Semua Sistem Aman').'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('kpi-card'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['title' => 'Status Sistem','value' => 'TERHUBUNG','icon' => 'cell_tower','color' => 'green-500','valueClass' => 'text-2xl truncate']); ?>
-            <div class="flex items-center justify-between w-full">
-                <span class="text-[11px] font-medium text-slate-500">Peringatan Aktif:</span>
-                <div class="shrink-0" id="stat-alerts-container">
-                    <span id="stat-alerts-value" class="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-error-container text-on-error-container text-[10px] font-black uppercase tracking-wider <?php echo e(($alertCount ?? 0) > 0 ? 'animate-pulse' : 'hidden'); ?>">
-                        <?php echo e($alertCount ?? 0); ?> Alarm
-                    </span>
-                    <span id="stat-alerts-empty" class="text-[11px] font-bold text-green-600 <?php echo e(($alertCount ?? 0) == 0 ? '' : 'hidden'); ?>">
-                        Aman
-                    </span>
-                </div>
-            </div>
-            <div class="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-green-500 animate-bio-pulse border-2 border-white dark:border-slate-900"></div>
-         <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['title' => 'Status Peringatan','value' => ''.e($alertCount ?? 0).'','icon' => ''.e(($alertCount ?? 0) > 0 ? 'warning' : 'verified_user').'','color' => ''.e(($alertCount ?? 0) > 0 ? 'rose' : 'emerald').'','subtitle' => ''.e(($alertCount ?? 0) > 0 ? 'Segera Tindak Lanjuti!' : 'Semua Sistem Aman').'']); ?>
+<?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $attributes = $__attributesOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__attributesOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__attributesOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $attributes = $__attributesOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__attributesOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal6d74059c34730cb2c742dae13948a701)): ?>
-<?php $component = $__componentOriginal6d74059c34730cb2c742dae13948a701; ?>
-<?php unset($__componentOriginal6d74059c34730cb2c742dae13948a701); ?>
+<?php if (isset($__componentOriginala4ae059936bc185e758290466e2179c1)): ?>
+<?php $component = $__componentOriginala4ae059936bc185e758290466e2179c1; ?>
+<?php unset($__componentOriginala4ae059936bc185e758290466e2179c1); ?>
 <?php endif; ?>
     </div>
 
@@ -265,7 +251,7 @@
                 <div class="flex items-center flex-wrap gap-md px-6 py-4 border-t border-outline-variant/30/60 text-xs font-semibold text-slate-500">
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-                        <span>Aman (2°C - 8°C)</span>
+                        <span>Aman (2┬░C - 8┬░C)</span>
                     </div>
                     <div class="flex items-center gap-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-tertiary animate-pulse"></span>
@@ -315,14 +301,14 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['noPadding' => 'true','class' => 'h-full max-h-[60vh] overflow-y-auto']); ?>
-                    <div id="telemetry-cards-container" class="divide-y divide-slate-200 dark:divide-slate-800">
+                    <div id="telemetry-cards-container" class="divide-y divide-slate-200 ">
                     <?php $__empty_1 = true; $__currentLoopData = $perjalananAktif ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <?php
                             $log = $perjalanan->latestLog;
                             $temp = $log ? (float) $log->suhu_aktual : null;
                             $mkt = $log && $log->nilai_mkt ? (float) $log->nilai_mkt : '-';
                             $prediksi = $log ? $log->prediksiAi : null;
-                            $probabilitas = $prediksi ? $prediksi->probabilitas_rusak : 0.0;
+                            $probabilitas = $prediksi ? $prediksi->probabilitas_rusak : null;
                             
                             $exInfo = $perjalanan->getExcursionInfo();
                             $status = $exInfo['status'];
@@ -340,40 +326,40 @@
                             $shakeClass = $vibration > 1.50 ? 'animate-shake-infinite' : '';
 
                             // Fluid styling
-                            $bgClass = 'bg-white dark:bg-slate-900';
+                            $bgClass = 'bg-white ';
                             $accentBorderClass = 'border-l-4 border-l-primary';
                             
                             if ($status === 'Peringatan') {
-                                $bgClass = 'bg-amber-50 dark:bg-amber-900/10';
+                                $bgClass = 'bg-amber-50 ';
                                 $accentBorderClass = 'border-l-4 border-l-warning';
                             } elseif ($status === 'Tidak Layak Pakai') {
-                                $bgClass = 'bg-rose-50 dark:bg-rose-900/10';
+                                $bgClass = 'bg-rose-50 ';
                                 $accentBorderClass = 'border-l-4 border-l-error';
                             }
                         ?>
 
                         
                         <!-- STITCH_AI_TABLE_ROW: Ganti dengan gaya baris tabel enterprise -->
-                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl <?php echo e($bgClass); ?> border border-slate-200 dark:border-slate-800/80 <?php echo e($pulseRing ?? ''); ?> <?php echo e($shakeClass); ?> hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="<?php echo e($perjalanan->id_rute); ?>">
+                        <div class="telemetry-card cursor-pointer p-5 rounded-2xl <?php echo e($bgClass); ?> border border-slate-200  <?php echo e($pulseRing ?? ''); ?> <?php echo e($shakeClass); ?> hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="<?php echo e($perjalanan->id_rute); ?>">
                             
                             
                             <div class="flex items-start justify-between gap-3 mb-4">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <!-- Clean Avatar -->
-                                    <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                                    <div class="w-10 h-10 rounded-xl bg-primary/10  border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                         <?php echo e(collect(explode(' ', $perjalanan->kurir->nama_lengkap))->map(fn($n) => $n[0] ?? '')->take(2)->implode('')); ?>
 
                                     </div>
                                     <div class="min-w-0">
-                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="<?php echo e($perjalanan->kurir->nama_lengkap); ?>">
+                                        <h4 class="text-sm font-bold text-slate-900  truncate" title="<?php echo e($perjalanan->kurir->nama_lengkap); ?>">
                                             <?php echo e($perjalanan->kurir->nama_lengkap); ?>
 
                                         </h4>
                                         <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
                                             <span><?php echo e($perjalanan->kurir->nomor_kendaraan); ?></span>
-                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                             <span class="font-mono"><?php echo e($perjalanan->id_box); ?></span>
-                                            <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                            <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                             <span><?php echo e($perjalanan->kurir->no_wa ?? '-'); ?></span>
                                             <a href="<?php echo e(route('dashboard.qr', $perjalanan->id_box)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                                 <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -395,7 +381,7 @@
                             </div>
 
                             
-                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50  p-2 rounded-lg border border-slate-100 ">
                                 <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
                                 <span class="truncate"><?php echo e($perjalanan->lokasi_tujuan); ?></span>
                             </div>
@@ -408,24 +394,24 @@
                                         <?php if($status !== 'Aman'): ?>
                                             <span class="material-symbols-outlined text-[20px]">thermostat</span>
                                         <?php endif; ?>
-                                        <?php echo e($temp !== null ? number_format($temp, 1, ',', '.') . '°C' : '-'); ?>
+                                        <?php echo e($temp !== null ? number_format($temp, 1, ',', '.') . '┬░C' : '-'); ?>
 
                                     </p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
-                                    <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
-                                        <?php echo e(is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '°C' : $mkt); ?>
+                                    <p class="text-xl font-bold text-slate-700  tabular-nums">
+                                        <?php echo e(is_numeric($mkt) ? number_format($mkt, 1, ',', '.') . '┬░C' : $mkt); ?>
 
                                     </p>
                                 </div>
                             </div>
 
                             
-                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
+                            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100  text-[11px] font-medium text-slate-500">
                                 <div>
                                     <span class="block mb-0.5">Durasi Anomali</span>
-                                    <span class="text-xs font-bold font-mono <?php echo e($status !== 'Aman' ? $textClass : 'text-slate-800 dark:text-slate-200'); ?>">
+                                    <span class="text-xs font-bold font-mono <?php echo e($status !== 'Aman' ? $textClass : 'text-slate-800 '); ?>">
                                         <?php if($status === 'Aman'): ?>
                                             0s (Normal)
                                         <?php else: ?>
@@ -449,14 +435,18 @@
                                 </div>
                                 <div class="text-right" title="<?php echo e($prediksi ? $prediksi->instruksi_mitigasi : ''); ?>">
                                     <span class="block mb-0.5">Risiko (AI)</span>
-                                    <span class="text-xs font-bold font-mono <?php echo e($probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500')); ?>">
-                                        <?php echo e(number_format($probabilitas, 1, ',', '.')); ?>%
-                                    </span>
+                                    <?php if(is_null($probabilitas)): ?>
+                                        <span class="text-xs font-bold font-mono text-slate-400">N/A</span>
+                                    <?php else: ?>
+                                        <span class="text-xs font-bold font-mono <?php echo e($probabilitas > 70 ? 'text-red-500' : ($probabilitas >= 30 ? 'text-amber-500' : 'text-green-500')); ?>">
+                                            <?php echo e(number_format($probabilitas, 1, ',', '.')); ?>%
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             
-                            <div class="mt-sm h-1.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                            <div class="mt-sm h-1.5 rounded-full overflow-hidden bg-slate-200 ">
                                 <div class="h-full rounded-full transition-all duration-1000 <?php echo e($status === 'Aman' ? 'sparkline-cyan animate-sparkline-pulse' : ($status === 'Peringatan' ? 'sparkline-cyan border-tertiary bg-tertiary animate-sparkline-pulse' : 'sparkline-red animate-sparkline-pulse-danger')); ?>"
                                      style="width: <?php echo e($temp !== null ? min(max(($temp / 12) * 100, 8), 100) : 0); ?>%;">
                                 </div>
@@ -464,9 +454,15 @@
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         
-                        <div class="p-xl text-center text-slate-500">
-                            <span class="material-symbols-outlined text-[40px] text-outline">sensors_off</span>
-                            <p class="text-body-sm text-on-surface-variant mt-sm">Tidak ada pengiriman aktif</p>
+                        <div class="flex flex-col items-center justify-center p-10 text-center">
+                            <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
+                                <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Rute Aktif</h3>
+                            <p class="text-sm text-slate-500  mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                            <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
+                            </a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -484,7 +480,7 @@
                 
                 <div class="mt-4">
                     <a href="<?php echo e(route('shipments')); ?>"
-                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white dark:bg-slate-800/40 text-slate-700 dark:text-on-surface-variant text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
+                       class="flex items-center justify-center gap-xs w-full px-md py-[10px] rounded-xl border border-outline-variant/30 bg-white  text-slate-700  text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-md active:scale-95 transition-all duration-300 ease-out">
                         <span class="material-symbols-outlined text-[18px]">timeline</span>
                         Lihat Log Telemetri Lengkap
                     </a>
@@ -516,7 +512,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">query_stats</span>
                         Suhu Aktual vs MKT
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Analisis stabilitas kinetik termal box kargo</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Analisis stabilitas kinetik termal box kargo</p>
                 </div>
             </div>
             <div id="chart-mkt" class="w-full flex-1"></div>
@@ -548,7 +544,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">insights</span>
                         Proyeksi Risiko Prediktif AI
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Prediksi spoilage berdasarkan sisa jarak rute</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Prediksi spoilage berdasarkan sisa jarak rute</p>
                 </div>
             </div>
             <div id="chart-risiko" class="w-full flex-1"></div>
@@ -580,7 +576,7 @@
                         <span class="material-symbols-outlined text-primary text-[20px]">sync_saved_locally</span>
                         Log Sinkronisasi Store-and-Forward
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Data terkirim (online) vs ter-cache (offline)</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Data terkirim (online) vs ter-cache (offline)</p>
                 </div>
             </div>
             <div id="chart-sync" class="w-full flex-1"></div>
@@ -627,32 +623,32 @@
 
                 
                 <div class="p-6">
-                    <p class="text-xs text-slate-500 dark:text-on-surface-variant mb-4 leading-relaxed">
-                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8°C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
+                    <p class="text-xs text-slate-500  mb-4 leading-relaxed">
+                        Kargo obat termolabil yang terdeteksi melanggar batas toleransi suhu dingin (anomali suhu &gt; 8┬░C selama &gt; 30 detik) secara otomatis dialihkan ke status Karantina untuk pengujian laboratorium lanjutan sebelum pembuangan.
                     </p>
 
                     
                     <div class="overflow-x-auto rounded-xl border border-outline-variant/30/60">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
-                                <tr class="bg-slate-900/10 dark:bg-slate-100/5 border-b border-outline-variant/30/60">
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">ID Boks</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Nama Kurir</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider">Titik Kerusakan</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider text-center">Suhu Puncak</th>
-                                    <th class="px-4 py-3 font-bold text-slate-700 dark:text-on-surface-variant uppercase tracking-wider text-right">Status</th>
+                                <tr class="bg-slate-900/10  border-b border-outline-variant/30/60">
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">ID Boks</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">Nama Kurir</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider">Titik Kerusakan</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider text-center">Suhu Puncak</th>
+                                    <th class="px-4 py-3 font-bold text-slate-700  uppercase tracking-wider text-right">Status</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
+                            <tbody class="divide-y divide-slate-200 ">
                                 
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-003</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Citra Dewi</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jembatan Ampera
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">10,2┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -678,14 +674,14 @@
                                     </td>
                                 </tr>
                                 
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-002</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Budi Santoso</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jl. Jend. Sudirman
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">9,5┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -711,14 +707,14 @@
                                     </td>
                                 </tr>
                                 
-                                <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/20 transition-colors">
+                                <tr class="hover:bg-slate-100/50 :bg-slate-800/20 transition-colors">
                                     <td class="px-4 py-3 font-mono font-bold text-primary">BOX-005</td>
                                     <td class="px-4 py-3 font-medium text-on-surface">Ahmad Fadillah</td>
-                                    <td class="px-4 py-3 text-slate-500 dark:text-on-surface-variant flex items-center gap-1">
+                                    <td class="px-4 py-3 text-slate-500  flex items-center gap-1">
                                         <span class="material-symbols-outlined text-red-400 text-xs">location_on</span>
                                         Jakabaring Sport City
                                     </td>
-                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9°C</td>
+                                    <td class="px-4 py-3 text-center text-error font-bold font-mono">8,9┬░C</td>
                                     <td class="px-4 py-3 text-right">
                                         <?php if (isset($component)) { $__componentOriginal2ddbc40e602c342e508ac696e52f8719 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal2ddbc40e602c342e508ac696e52f8719 = $attributes; } ?>
@@ -778,13 +774,13 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">construction</span>
                         Simulator Hub Dasbor
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Kontrol simulasi telemetri IoT langsung dari dasbor</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Kontrol simulasi telemetri IoT langsung dari dasbor</p>
                 </div>
                 
                 <div class="mt-4 space-y-3">
                     <div class="flex flex-col gap-1">
                         <label class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Pilih Target Boks IoT</label>
-                        <select id="sim-target-box" class="w-full bg-slate-100/80 dark:bg-slate-800/60 border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
+                        <select id="sim-target-box" class="w-full bg-slate-100/80  border border-outline-variant/30 rounded-xl px-3 py-2 text-xs text-on-surface focus:border-primary focus:outline-none transition-all duration-300">
                             <?php $__currentLoopData = $perjalananAktif ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $perjalanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($perjalanan->id_rute); ?>" data-box="<?php echo e($perjalanan->id_box); ?>">
                                     <?php echo e($perjalanan->id_box); ?> (<?php echo e($perjalanan->kurir->nama_lengkap); ?>)
@@ -851,7 +847,7 @@
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">Baru saja</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-on-surface-variant leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Kurir Citra Dewi melaporkan insulasi penutup boks lepas di Jembatan Ampera. Suhu terancam melonjak.
                         </p>
                         <div class="flex justify-end mt-1">
@@ -871,7 +867,7 @@
                             </div>
                             <span class="text-[9px] font-mono text-slate-400">5 mnt lalu</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-on-surface-variant leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Budi Santoso terjebak kemacetan total di Jl. Jend. Sudirman. Estimasi terlambat mencapai 20 menit.
                         </p>
                         <div class="flex justify-end mt-1">
@@ -909,7 +905,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
                         Cetak Jejak Audit CDOB
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">E-Certificate otomatis pemenuhan standar logistik medis</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">E-Certificate otomatis pemenuhan standar logistik medis</p>
                 </div>
                 <div class="mt-4">
                     <button onclick="openAuditPreviewModal()" class="w-full inline-flex items-center justify-center gap-xs px-md py-[10px] rounded-xl bg-primary text-on-primary text-body-sm font-semibold hover:-translate-y-0.5 hover:shadow-lg active:scale-95 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(2,132,199,0.3)] cursor-pointer">
@@ -947,7 +943,7 @@
                         <span class="material-symbols-outlined text-primary text-[22px]">developer_board</span>
                         Kesehatan Perangkat Boks IoT
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Metrik daya, sinyal telemetri, dan kalibrasi boks aktif</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Metrik daya, sinyal telemetri, dan kalibrasi boks aktif</p>
                 </div>
                 
                 <div class="mt-4 space-y-3" id="device-health-list">
@@ -981,7 +977,7 @@
                             }
                         ?>
                         
-                        <div class="p-3 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-<?php echo e($perjalanan->id_box); ?>">
+                        <div class="p-3 bg-slate-100/50  rounded-xl border border-slate-200/50  flex flex-col gap-2 transition-all hover:border-primary/30" id="device-health-<?php echo e($perjalanan->id_box); ?>">
                             <!-- Box ID & Courier -->
                             <div class="flex justify-between items-center text-xs">
                                 <span class="font-bold text-on-surface font-mono"><?php echo e($perjalanan->id_box); ?></span>
@@ -998,7 +994,7 @@
                                         </span>
                                         <span class="text-on-surface font-mono" id="device-battery-val-<?php echo e($perjalanan->id_box); ?>"><?php echo e($battery); ?>%</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                                    <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                                         <div class="h-full <?php echo e($batColor); ?> rounded-full transition-all duration-500" id="device-battery-bar-<?php echo e($perjalanan->id_box); ?>" style="width: <?php echo e($battery); ?>%"></div>
                                     </div>
                                 </div>
@@ -1037,17 +1033,17 @@
 <?php endif; ?>
 
             
-            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
+            <div class="bg-surface-container-low backdrop-blur-md rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:border-slate-350 :border-slate-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between mt-sm">
                 <div>
                     <h3 class="text-sm font-bold text-on-surface flex items-center gap-xs">
                         <span class="material-symbols-outlined text-primary text-[22px]">hub</span>
                         BIO-GUARD Gateway Hub
                     </h3>
-                    <p class="text-[10px] font-semibold text-slate-500 dark:text-on-surface-variant mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
+                    <p class="text-[10px] font-semibold text-slate-500  mt-0.5">Log gateway notifikasi otomatis Bot Telegram</p>
                 </div>
                 
                 <div class="mt-4 flex flex-col gap-2">
-                    <div id="gateway-log-console" class="h-44 bg-slate-950/80 dark:bg-slate-950/90 rounded-xl p-3 font-mono text-[10px] text-slate-400 overflow-y-auto flex flex-col gap-1.5 border border-slate-200 dark:border-slate-850">
+                    <div id="gateway-log-console" class="h-44 bg-slate-950/80  rounded-xl p-3 font-mono text-[10px] text-slate-400 overflow-y-auto flex flex-col gap-1.5 border border-slate-200 ">
                         <div class="text-slate-500">// Menunggu transmisi gateway...</div>
                     </div>
                 </div>
@@ -1061,14 +1057,14 @@
 
 <!-- AI Rerouting Modal -->
 <div id="rerouting-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white  border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-slate-50  flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary">directions_alt</span>
                 <h3 class="text-sm font-bold text-on-surface">AI Dynamic Rerouting</h3>
             </div>
-            <button onclick="closeReroutingModal()" class="text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white transition-colors">
+            <button onclick="closeReroutingModal()" class="text-slate-500 hover:text-slate-850  :text-white transition-colors">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
             </button>
         </div>
@@ -1079,7 +1075,7 @@
                     <span class="material-symbols-outlined text-teal-500 text-[18px]">psychology</span>
                     <span class="font-bold text-on-surface text-xs">Rekomendasi Rute Alternatif (Musi IV Bypass)</span>
                 </div>
-                <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p class="text-[11px] text-slate-600  leading-relaxed">
                     Sistem mendeteksi hambatan parah di Jembatan Ampera. Rute alternatif disarankan melewati **Jembatan Musi IV**.
                 </p>
                 <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
@@ -1092,8 +1088,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end gap-sm">
+            <button onclick="closeReroutingModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800  transition-all active:scale-95 duration-100 hover:bg-slate-100 :bg-slate-800">
                 Batal
             </button>
             <button onclick="applyRerouting()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
@@ -1105,29 +1101,29 @@
 
 <!-- CDOB Audit Preview Modal -->
 <div id="audit-preview-modal" class="fixed inset-0 z-[2000] hidden flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300 animate-opacity">
-    <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
+    <div class="bg-white  border border-outline-variant/30 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-850 bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div class="px-6 py-4 border-b border-slate-200  bg-slate-50  flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary text-[20px] font-bold">verified_user</span>
                 <h3 class="text-xs font-black text-on-surface uppercase tracking-wider">Pratinjau Jejak Audit CDOB</h3>
             </div>
-            <button onclick="closeAuditPreviewModal()" class="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer">
+            <button onclick="closeAuditPreviewModal()" class="text-slate-500 hover:text-slate-800  :text-white transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[20px] align-middle">close</span>
             </button>
         </div>
         <!-- Body -->
         <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
-            <div class="relative border-2 border-dashed border-primary/20 dark:border-primary/10 rounded-2xl p-6 bg-slate-50/50 dark:bg-slate-950/20 backdrop-blur-sm overflow-hidden select-none">
+            <div class="relative border-2 border-dashed border-primary/20  rounded-2xl p-6 bg-slate-50/50  backdrop-blur-sm overflow-hidden select-none">
                 
-                <div class="absolute -right-10 -bottom-10 opacity-5 dark:opacity-10 pointer-events-none text-[120px] material-symbols-outlined text-primary font-black">
+                <div class="absolute -right-10 -bottom-10 opacity-5  pointer-events-none text-[120px] material-symbols-outlined text-primary font-black">
                     workspace_premium
                 </div>
 
                 
                 <div class="flex justify-between items-start border-b border-outline-variant/30/60 pb-4 mb-4">
                     <div>
-                        <h4 class="text-xs font-black uppercase text-slate-800 dark:text-slate-200 tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
+                        <h4 class="text-xs font-black uppercase text-slate-800  tracking-widest">SERTIFIKAT KEPATUHAN COLD CHAIN</h4>
                         <p class="text-[9px] text-slate-450 mt-0.5">Badan Pengawas Obat dan Makanan (BPOM) RI</p>
                     </div>
                     <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-500 text-[10px] font-black uppercase tracking-wider border border-green-500/20">
@@ -1139,16 +1135,16 @@
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Sistem Verifikator</span>
-                        <span class="font-extrabold text-slate-700 dark:text-slate-350">BIO-GUARD Enterprise v2.0</span>
+                        <span class="font-extrabold text-slate-700 ">BIO-GUARD Enterprise v2.0</span>
                     </div>
                     <div>
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">ID Operator Dispatcher</span>
-                        <span class="font-extrabold text-slate-700 dark:text-slate-350"><?php echo e(Auth::user()->dispatcher_id ?? 'DSP-PLB-2026'); ?></span>
+                        <span class="font-extrabold text-slate-700 "><?php echo e(Auth::user()->dispatcher_id ?? 'DSP-PLB-2026'); ?></span>
                     </div>
                     <div class="col-span-2">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Metrik Stabilitas Suhu</span>
-                        <p class="text-[11px] text-slate-650 dark:text-on-surface-variant leading-relaxed font-semibold mt-0.5">
-                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0°C - 8,0°C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8°C</span> tanpa kerusakan zat aktif terdeteksi.
+                        <p class="text-[11px] text-slate-650  leading-relaxed font-semibold mt-0.5">
+                            Semua boks penyimpanan aktif terpantau berada dalam standar rantai dingin (2,0┬░C - 8,0┬░C) dengan fluktuasi rata-rata <span class="text-primary font-bold">4,8┬░C</span> tanpa kerusakan zat aktif terdeteksi.
                         </p>
                     </div>
                     <div class="col-span-2">
@@ -1167,8 +1163,8 @@
             </p>
         </div>
         <!-- Footer -->
-        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end gap-sm">
-            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition-all active:scale-95 duration-100 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+        <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end gap-sm">
+            <button onclick="closeAuditPreviewModal()" class="px-4 py-2 border border-outline-variant/30 rounded-xl text-xs font-semibold text-slate-800  transition-all active:scale-95 duration-100 hover:bg-slate-100 :bg-slate-800 cursor-pointer">
                 Batal
             </button>
             <a href="<?php echo e(route('dashboard.audit-pdf')); ?>" target="_blank" onclick="closeAuditPreviewModal()" class="px-4 py-2 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-lg rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)] cursor-pointer flex items-center gap-1">
@@ -1392,7 +1388,7 @@ const plannedPaths = {
             weight: 1
         }).bindPopup(`
             <div class="text-[11px] select-none text-left p-1">
-                <span class="font-bold text-error uppercase tracking-wider block mb-1">🚨 AI RISK HEATSPOT</span>
+                <span class="font-bold text-error uppercase tracking-wider block mb-1">≡ƒÜ¿ AI RISK HEATSPOT</span>
                 <p class="text-on-surface font-semibold">${spot.desc}</p>
                 <p class="text-slate-500 font-bold mt-1 text-[10px]">Tingkat Risiko: <span class="text-error font-black">${spot.level}</span></p>
             </div>
@@ -1412,7 +1408,7 @@ const plannedPaths = {
             }
             satTileLayer.addTo(map);
             btnMapSat.className = "px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all shadow-md";
-            btnMapVector.className = "px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all";
+            btnMapVector.className = "px-2 py-1 rounded bg-slate-200  text-slate-600  text-[10px] font-bold active:scale-95 transition-all";
         });
 
         btnMapVector.addEventListener('click', () => {
@@ -1421,7 +1417,7 @@ const plannedPaths = {
             }
             tileLayer.addTo(map);
             btnMapVector.className = "px-2 py-1 rounded bg-primary text-on-primary font-bold text-[10px] active:scale-95 transition-all shadow-md";
-            btnMapSat.className = "px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-on-surface-variant text-[10px] font-bold active:scale-95 transition-all";
+            btnMapSat.className = "px-2 py-1 rounded bg-slate-200  text-slate-600  text-[10px] font-bold active:scale-95 transition-all";
         });
     }
 
@@ -1506,14 +1502,14 @@ const plannedPaths = {
         const duration = c.excursion_duration;
         const prob = c.probabilitas_rusak;
 
-        let statusColor = 'text-cyan-500 dark:text-primary';
+        let statusColor = 'text-cyan-500 ';
         if (status === 'Peringatan') {
-            statusColor = 'text-amber-500 dark:text-tertiary';
+            statusColor = 'text-amber-500 ';
         } else if (status === 'Tidak Layak Pakai') {
-            statusColor = 'text-red-500 dark:text-error';
+            statusColor = 'text-red-500 ';
         }
 
-        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+        const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-';
 
         return `
             <div class="p-2 text-xs space-y-2 select-none font-sans">
@@ -1543,7 +1539,7 @@ const plannedPaths = {
                 </p>
                 <div class="border-t border-white/10 pt-1.5 mt-1.5 flex justify-between items-center text-[10px]">
                     <span class="font-semibold text-slate-400">Risiko Kerusakan:</span>
-                    <span class="font-bold ${prob > 50 ? 'text-red-400 animate-pulse' : 'text-primary'}">${prob.toFixed(1).replace('.', ',')}%</span>
+                    <span class="font-bold ${prob === null ? 'text-slate-400' : (prob > 50 ? 'text-red-400 animate-pulse' : 'text-primary')}">${prob === null ? 'N/A' : prob.toFixed(1).replace('.', ',') + '%'}</span>
                 </div>
             </div>
         `;
@@ -1578,24 +1574,24 @@ const plannedPaths = {
         container.innerHTML = Array(3).fill(0).map(() => `
             <div class="p-6 border-b border-outline-variant/30/60 animate-pulse space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-slate-250 dark:bg-slate-800"></div>
+                    <div class="w-9 h-9 rounded-full bg-slate-250 "></div>
                     <div class="flex-1 space-y-2">
-                        <div class="h-3 bg-slate-250 dark:bg-slate-800 rounded w-1/2"></div>
-                        <div class="h-2.5 bg-slate-250 dark:bg-slate-800 rounded w-1/3"></div>
+                        <div class="h-3 bg-slate-250  rounded w-1/2"></div>
+                        <div class="h-2.5 bg-slate-250  rounded w-1/3"></div>
                     </div>
                 </div>
-                <div class="h-2.5 bg-slate-250 dark:bg-slate-800 rounded w-2/3"></div>
+                <div class="h-2.5 bg-slate-250  rounded w-2/3"></div>
                 <div class="flex justify-between items-end">
                     <div class="space-y-2 w-1/3">
-                        <div class="h-2 bg-slate-250 dark:bg-slate-800 rounded"></div>
-                        <div class="h-6 bg-slate-250 dark:bg-slate-800 rounded"></div>
+                        <div class="h-2 bg-slate-250  rounded"></div>
+                        <div class="h-6 bg-slate-250  rounded"></div>
                     </div>
                     <div class="space-y-2 w-1/4">
-                        <div class="h-2 bg-slate-250 dark:bg-slate-800 rounded"></div>
-                        <div class="h-4 bg-slate-250 dark:bg-slate-800 rounded"></div>
+                        <div class="h-2 bg-slate-250  rounded"></div>
+                        <div class="h-4 bg-slate-250  rounded"></div>
                     </div>
                 </div>
-                <div class="h-1 bg-slate-250 dark:bg-slate-800 rounded-full w-full"></div>
+                <div class="h-1 bg-slate-250  rounded-full w-full"></div>
             </div>
         `).join('');
     }
@@ -1607,9 +1603,15 @@ const plannedPaths = {
 
         if (list.length === 0) {
             container.innerHTML = `
-                <div class="p-8 text-center text-slate-500">
-                    <span class="material-symbols-outlined text-[40px] text-slate-400">sensors_off</span>
-                    <p class="text-body-sm text-slate-400 mt-sm">Tidak ada pengiriman aktif</p>
+                <div class="flex flex-col items-center justify-center p-10 text-center">
+                    <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-[32px] text-slate-400">sensors_off</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Rute Aktif</h3>
+                    <p class="text-sm text-slate-500  mb-6 max-w-sm">Tidak ada perjalanan armada kurir yang sedang berlangsung saat ini. Mulai pengiriman baru untuk memantau telemetri.</p>
+                    <a href="/pengiriman" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">add_box</span> Buat Pengiriman
+                    </a>
                 </div>
             `;
             return;
@@ -1623,7 +1625,7 @@ const plannedPaths = {
             const textClass = c.text_class;
             const duration = c.excursion_duration;
             const temp = c.suhu_aktual;
-            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '°C' : '-';
+            const mkt = c.nilai_mkt !== null ? c.nilai_mkt.toFixed(1).replace('.', ',') + '┬░C' : '-';
             const prob = c.probabilitas_rusak;
             
             // Vibration evaluations
@@ -1637,7 +1639,7 @@ const plannedPaths = {
             const shakeClass = vibration > 1.50 ? 'animate-shake-infinite' : '';
 
             const statusIcon = status === 'Aman' ? 'check_circle' : (status === 'Peringatan' ? 'info' : 'warning');
-            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-';
+            const tempDisplay = temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-';
             const durationDisplay = status === 'Aman' ? '0s (Normal)' : duration + 's';
             
             let sparklineClass = 'sparkline-cyan';
@@ -1650,10 +1652,18 @@ const plannedPaths = {
             const tempIcon = status !== 'Aman' ? `<span class="material-symbols-outlined text-[18px] align-middle mr-0.5">thermostat</span>` : '';
 
             let probColor = 'text-primary';
-            if (prob > 50) {
-                probColor = 'text-error font-bold';
-            } else if (prob > 10) {
-                probColor = 'text-tertiary';
+            let probDisplay = '';
+            
+            if (prob === null) {
+                probColor = 'text-slate-400';
+                probDisplay = 'N/A';
+            } else {
+                probDisplay = prob.toFixed(1).replace('.', ',') + '%';
+                if (prob > 50) {
+                    probColor = 'text-error font-bold';
+                } else if (prob > 10) {
+                    probColor = 'text-tertiary';
+                }
             }
 
             const qrRoute = `/dashboard/qr/${encodeURIComponent(c.id_box)}`;
@@ -1664,13 +1674,13 @@ const plannedPaths = {
             let pulseRing = '';
             
             if (status === 'Peringatan') {
-                bgClass = 'bg-amber-500/5 dark:bg-amber-500/10';
+                bgClass = 'bg-amber-500/5 ';
                 accentBorderClass = 'border-l-4 border-l-tertiary';
-                cardBorderClass = 'border-tertiary/40 dark:border-tertiary/20';
+                cardBorderClass = 'border-tertiary/40 ';
             } else if (status === 'Tidak Layak Pakai') {
-                bgClass = 'bg-red-500/5 dark:bg-red-500/10';
+                bgClass = 'bg-red-500/5 ';
                 accentBorderClass = 'border-l-4 border-l-error';
-                cardBorderClass = 'border-error/40 dark:border-error/20';
+                cardBorderClass = 'border-error/40 ';
                 pulseRing = 'ring-1 ring-error/30 animate-pulse';
             }
 
@@ -1685,24 +1695,24 @@ const plannedPaths = {
             }
 
             html += `
-                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200 dark:border-slate-800/80 ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
+                <div class="telemetry-card ${glowClass} cursor-pointer p-5 rounded-2xl ${bgClass} border border-slate-200  ${pulseRing} ${shakeClass} hover:shadow-md hover:border-primary/30 transition-all duration-300 ease-out group" data-rute-id="${c.id_rute}">
                     
                     
                     <div class="flex items-start justify-between gap-3 mb-4">
                         <div class="flex items-center gap-3 min-w-0">
                             <!-- Clean Avatar -->
-                            <div class="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
+                            <div class="w-10 h-10 rounded-xl bg-primary/10  border border-primary/20 flex items-center justify-center text-primary font-bold text-sm uppercase tracking-wider shrink-0 select-none">
                                 ${initials}
                             </div>
                             <div class="min-w-0">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white truncate" title="${c.nama_kurir}">
+                                <h4 class="text-sm font-bold text-slate-900  truncate" title="${c.nama_kurir}">
                                     ${c.nama_kurir}
                                 </h4>
                                 <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mt-0.5 truncate">
                                     <span>${c.nomor_kendaraan}</span>
-                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                     <span class="font-mono">${c.id_box}</span>
-                                    <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700 shrink-0"></span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-300  shrink-0"></span>
                                     <span>${c.no_wa || '-'}</span>
                                     <a href="${qrRoute}" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-all ml-1" title="Cetak QR Code Boks">
                                         <span class="material-symbols-outlined text-[14px]">qr_code_2</span>
@@ -1717,7 +1727,7 @@ const plannedPaths = {
                     </div>
 
                     
-                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg border border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-4 truncate bg-slate-50  p-2 rounded-lg border border-slate-100 ">
                         <span class="material-symbols-outlined text-[14px] text-primary shrink-0">pin_drop</span>
                         <span class="truncate">${c.lokasi_tujuan}</span>
                     </div>
@@ -1733,17 +1743,17 @@ const plannedPaths = {
                         </div>
                         <div class="text-right">
                             <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Nilai MKT</p>
-                            <p class="text-xl font-bold text-slate-700 dark:text-slate-300 tabular-nums">
+                            <p class="text-xl font-bold text-slate-700  tabular-nums">
                                 ${mkt}
                             </p>
                         </div>
                     </div>
 
                     
-                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-medium text-slate-500">
+                    <div class="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100  text-[11px] font-medium text-slate-500">
                         <div>
                             <span class="block mb-0.5">Durasi Anomali</span>
-                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 dark:text-slate-200'}">
+                            <span class="text-xs font-bold font-mono ${status !== 'Aman' ? textClass : 'text-slate-800 '}">
                                 ${durationDisplay}
                             </span>
                         </div>
@@ -1756,12 +1766,12 @@ const plannedPaths = {
                         <div class="text-right">
                             <span class="block mb-0.5">Risiko (AI)</span>
                             <span class="text-xs font-bold font-mono ${probColor}">
-                                ${prob.toFixed(1).replace('.', ',')}%
+                              ${probDisplay}
                             </span>
                         </div>
                     </div>
 
-                    <div class="mt-sm h-1 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <div class="mt-sm h-1 rounded-full overflow-hidden bg-slate-200 ">
                         <div class="h-full rounded-full ${sparklineClass}"
                              style="width: ${sparklineWidth}%;">
                         </div>
@@ -1776,14 +1786,86 @@ const plannedPaths = {
     function triggerPushNotification(c) {
         if (window.Notification && Notification.permission === 'granted') {
             try {
-                new Notification('🚨 ALARM SUHU KRITIS BIO-GUARD', {
-                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`,
+                new Notification('≡ƒÜ¿ ALARM SUHU KRITIS BIO-GUARD', {
+                    body: `Kondisi kritis pada Kurir ${c.nama_kurir} (${c.id_box})! Suhu saat ini: ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`,
                     icon: '/favicon.ico'
                 });
             } catch (e) {
                 console.warn('Push notification failed:', e);
             }
         }
+    }
+
+    // ===== ALARM BEEP via Web Audio API (menggantikan alarm.mp3 yang hilang) =====
+    let _alarmAudioCtx = null;
+    function playAlarmBeep() {
+        try {
+            if (!_alarmAudioCtx) _alarmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const ctx = _alarmAudioCtx;
+            const now = ctx.currentTime;
+
+            // IEC 60601-1-8 inspired: 3 rapid beeps
+            for (let i = 0; i < 3; i++) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(880, now + i * 0.22);    // A5
+                gain.gain.setValueAtTime(0.35, now + i * 0.22);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.22 + 0.15);
+
+                osc.start(now + i * 0.22);
+                osc.stop(now + i * 0.22 + 0.15);
+            }
+        } catch (e) {
+            console.warn('[BIO-GUARD] Alarm beep failed:', e);
+        }
+    }
+
+    // ===== Telegram Notification Throttle (max 1 request per 15 seconds) =====
+    let _lastTelegramSendTime = 0;
+    let _telegramQueue = [];
+    let _telegramSendTimer = null;
+
+    function _sendTelegramThrottled(platform, type, text) {
+        const now = Date.now();
+        const cooldown = 15000; // 15 seconds
+
+        if (now - _lastTelegramSendTime >= cooldown) {
+            _doSendTelegram(platform, type, text);
+        } else {
+            // Queue the latest message, overwriting previous queued
+            _telegramQueue = [{ platform, type, text }];
+            if (!_telegramSendTimer) {
+                const wait = cooldown - (now - _lastTelegramSendTime);
+                _telegramSendTimer = setTimeout(() => {
+                    _telegramSendTimer = null;
+                    if (_telegramQueue.length > 0) {
+                        const msg = _telegramQueue.shift();
+                        _doSendTelegram(msg.platform, msg.type, msg.text);
+                    }
+                }, wait);
+            }
+        }
+    }
+
+    function _doSendTelegram(platform, type, text) {
+        _lastTelegramSendTime = Date.now();
+        fetch('<?php echo e(route("dashboard.notifications.send")); ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                type: platform,
+                category: type,
+                message: text
+            })
+        }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
     }
 
     function processLiveData(list, stats) {
@@ -2034,7 +2116,7 @@ const plannedPaths = {
             // Excursion Alarm Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
                 if (previousStatuses[ruteId] !== 'Tidak Layak Pakai') {
-                    new Audio('/alarm.mp3').play().catch(e => console.warn('Audio play blocked/failed:', e));
+                    playAlarmBeep();
                     triggerPushNotification(c);
                 }
             }
@@ -2053,9 +2135,9 @@ const plannedPaths = {
             // 1. Temperature Alert Gateway Logs
             if (c.excursion_status !== previousStatuses[ruteId]) {
                 if (c.excursion_status === 'Tidak Layak Pakai') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C!`, 'danger');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Alert dikirim ke Dispatcher. Kargo BOX-${c.id_box} (${c.nama_kurir}) SUHU KRITIS ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C!`, 'danger');
                 } else if (c.excursion_status === 'Peringatan') {
-                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                    logGatewayActivity('TG', 'Suhu', `Bot Telegram: Peringatan dini dikirim ke Dispatcher. Boks ${c.id_box} mendeteksi anomali suhu ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`, 'warning');
                 }
             }
 
@@ -2078,9 +2160,9 @@ const plannedPaths = {
 
             // Notification Center Triggers
             if (c.excursion_status === 'Tidak Layak Pakai') {
-                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C melebihi batas cold chain!`, 'danger');
+                addNotification(`${c.id_box}-temp-danger`, `SUHU KRITIS: ${c.id_box}`, `Suhu kargo kurir ${c.nama_kurir} terdeteksi ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C melebihi batas cold chain!`, 'danger');
             } else if (c.excursion_status === 'Peringatan') {
-                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}°C.`, 'warning');
+                addNotification(`${c.id_box}-temp-warning`, `Peringatan: ${c.id_box}`, `Terdeteksi anomali suhu jangka pendek ${c.suhu_aktual.toFixed(1).replace('.', ',')}┬░C.`, 'warning');
             }
 
             if (c.battery_level < 20) {
@@ -2145,7 +2227,13 @@ const plannedPaths = {
         }
         if (isInitialFetch) {
             params.append('initial_load', 'true');
+            showTelemetryShimmer();
             isInitialFetch = false;
+        } else {
+            const updateIndicator = document.getElementById('map-last-update');
+            if (updateIndicator && !isHistoricalMode) {
+                updateIndicator.innerHTML = '<span class="material-symbols-outlined text-[10px] animate-spin inline-block align-middle mr-1">sync</span><span class="align-middle">Sinkronisasi...</span>';
+            }
         }
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('show_demo')) {
@@ -2168,9 +2256,9 @@ const plannedPaths = {
                 const ts = document.getElementById('map-last-update');
                 if (ts) {
                     if (isHistoricalMode) {
-                        ts.textContent = `Arsip Data: ${selectedDate} (Jeda Polling)`;
+                        ts.innerHTML = `Arsip Data: ${selectedDate} (Jeda Polling)`;
                     } else {
-                        ts.textContent = 'Pembaruan Otomatis: 2 detik &bull; Diperbarui: ' + new Date().toLocaleTimeString('id-ID');
+                        ts.innerHTML = `Pembaruan Otomatis: 2 detik &bull; Diperbarui: ${new Date().toLocaleTimeString('id-ID')}`;
                     }
                 }
             }
@@ -2206,7 +2294,7 @@ const plannedPaths = {
         clearBtn.addEventListener('click', () => {
             notificationList.innerHTML = `
                 <div class="py-6 text-center text-slate-400 text-[11px]" id="notifications-empty-state">
-                    <span class="material-symbols-outlined text-[24px] text-slate-300 dark:text-slate-700 block mb-1">notifications_off</span>
+                    <span class="material-symbols-outlined text-[24px] text-slate-300  block mb-1">notifications_off</span>
                     Tidak ada notifikasi baru
                 </div>
             `;
@@ -2248,7 +2336,7 @@ const plannedPaths = {
         const timeStr = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         const item = document.createElement('div');
-        item.className = `p-3 rounded-xl border-l-4 ${severityClass} border border-slate-205 dark:border-slate-800/50 flex flex-col gap-1 transition-all duration-300 hover:scale-[0.98] mt-1.5`;
+        item.className = `p-3 rounded-xl border-l-4 ${severityClass} border border-slate-205  flex flex-col gap-1 transition-all duration-300 hover:scale-[0.98] mt-1.5`;
         item.innerHTML = `
             <div class="flex items-start justify-between">
                 <span class="font-bold text-[11px] flex items-center gap-1">
@@ -2257,7 +2345,7 @@ const plannedPaths = {
                 </span>
                 <span class="text-[9px] font-mono text-slate-400">${timeStr}</span>
             </div>
-            <p class="text-[10px] text-slate-600 dark:text-on-surface-variant leading-relaxed">${body}</p>
+            <p class="text-[10px] text-slate-600  leading-relaxed">${body}</p>
         `;
 
         list.insertBefore(item, list.firstChild);
@@ -2291,20 +2379,8 @@ const plannedPaths = {
         if (platform === 'TG') {
             platformBadge = `<span class="bg-sky-500/10 text-sky-400 border border-primary/20 px-1 py-0.5 rounded text-[8px] font-black mr-1 uppercase">Telegram</span>`;
             
-            // Forward to Backend Notification Controller
-            fetch('<?php echo e(route("dashboard.notifications.send")); ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    type: platform,
-                    category: type,
-                    message: text
-                })
-            }).catch(e => console.warn('Gagal mengirim notifikasi TG ke backend:', e));
+            // Forward to Backend Notification Controller (debounced to prevent 429)
+            _sendTelegramThrottled(platform, type, text);
         }
         
         let typeBadge = '';
@@ -2328,7 +2404,7 @@ const plannedPaths = {
         }
 
         const logItem = document.createElement('div');
-        logItem.className = `flex flex-col gap-0.5 border-b border-slate-200/5 dark:border-slate-800/10 pb-1`;
+        logItem.className = `flex flex-col gap-0.5 border-b border-slate-200/5  pb-1`;
         logItem.innerHTML = `
             <div class="flex items-center text-[8px] text-slate-500">
                 <span class="font-mono">${timeStr}</span>
@@ -2353,8 +2429,8 @@ const plannedPaths = {
         modalDiv.id = modalId;
         modalDiv.className = "fixed inset-0 z-[3000] flex items-center justify-center p-md bg-black/60 backdrop-blur-sm transition-opacity duration-300";
         modalDiv.innerHTML = `
-            <div class="bg-white dark:bg-slate-900 border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
-                <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-emerald-500/10 dark:bg-emerald-500/5 flex justify-between items-center">
+            <div class="bg-white  border border-outline-variant/30 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300 flex flex-col animate-fade-slide-in">
+                <div class="px-6 py-4 border-b border-outline-variant/30/60 bg-emerald-500/10  flex justify-between items-center">
                     <div class="flex items-center gap-2 text-green-500">
                         <span class="material-symbols-outlined font-bold">verified</span>
                         <h3 class="text-sm font-bold text-on-surface">Kedatangan Terverifikasi (Geofencing)</h3>
@@ -2366,11 +2442,11 @@ const plannedPaths = {
                             <span class="material-symbols-outlined text-green-500 text-[18px]">local_shipping</span>
                             <span class="font-bold text-on-surface text-xs">${courierName} (${boxId})</span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                        <p class="text-[11px] text-slate-600  leading-relaxed">
                             Boks telah memasuki radius 50m dari **${destination}**. Rantai dingin terkunci dan terverifikasi aman.
                         </p>
                         <div class="grid grid-cols-2 gap-sm mt-1 text-[10px] font-mono text-on-surface-variant">
-                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '°C' : '-'}</span></div>
+                            <div>Suhu Tiba: <span class="text-green-500 font-bold">${temp !== null ? temp.toFixed(1).replace('.', ',') + '┬░C' : '-'}</span></div>
                             <div>Status: <span class="text-green-500 font-bold">Selesai</span></div>
                         </div>
                     </div>
@@ -2378,7 +2454,7 @@ const plannedPaths = {
                         Tanda terima digital terkirim ke faskes penerima. Data perjalanan telah dikunci untuk kepatuhan CDOB.
                     </p>
                 </div>
-                <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50 dark:bg-slate-850 flex justify-end">
+                <div class="px-6 py-4 border-t border-outline-variant/30/60 bg-slate-50  flex justify-end">
                     <button onclick="document.getElementById('${modalId}').remove()" class="px-5 py-2.5 bg-primary text-on-primary hover:-translate-y-0.5 hover:shadow-md rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-95 shadow-[0_0_10px_rgba(2,132,199,0.2)]">
                         Selesai
                     </button>
@@ -2407,7 +2483,7 @@ const plannedPaths = {
         .then(result => {
             if (result.success) {
                 showArrivalModal(courierName, boxId, destination, temp);
-                new Audio('/alarm.mp3').play().catch(e => console.warn(e));
+                playAlarmBeep();
 
                 logGatewayActivity('TG', 'Kedatangan', `Bot Telegram: Notifikasi pengiriman BOX-${boxId} selesai dikirim ke Dispatcher.`, 'success');
                 
@@ -2440,7 +2516,7 @@ const plannedPaths = {
         const destCoord = coordinatesLookup[p.lokasi_tujuan] || {lat: -6.2000, lng: 106.8400};
 
         let status = 'Aman';
-        let statusLabel = 'Aman (Sesuai Standar 2°C - 8°C)';
+        let statusLabel = 'Aman (Sesuai Standar 2┬░C - 8┬░C)';
         let badgeClass = 'bg-primary/10 text-primary border border-primary/30';
         let textClass = 'text-cyan-500 font-bold';
         let duration = 0;
@@ -2694,14 +2770,14 @@ const plannedPaths = {
         let message = '';
         if (type === 'suhu') {
             temp = 9.8;
-            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi lonjakan suhu kritis (${temp.toFixed(1).replace('.', ',')}┬░C) dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'deviasi') {
             lat = lat - 0.008; 
             lng = lng + 0.012;
             message = `Simulasi deviasi koordinat rute dikirim untuk Boks ${activeBoxId}`;
         } else if (type === 'reset') {
             temp = 4.2;
-            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}°C) dikirim untuk Boks ${activeBoxId}`;
+            message = `Simulasi reset kondisi normal (suhu ${temp.toFixed(1).replace('.', ',')}┬░C) dikirim untuk Boks ${activeBoxId}`;
         }
 
         const payload = {
@@ -2806,7 +2882,8 @@ const plannedPaths = {
     };
 
     window.downloadOfficialPdf = function () {
-        window.open('<?php echo e(route("dashboard.audit-pdf")); ?>', '_blank');
+        const currentSearch = window.location.search;
+        window.open('<?php echo e(route("dashboard.audit-pdf")); ?>' + currentSearch, '_blank');
         closeAuditPreviewModal();
     };
 
@@ -3042,7 +3119,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yaxis: {
             labels: {
                 formatter: function (val) {
-                    return val.toFixed(1).replace('.', ',') + '°C';
+                    return val.toFixed(1).replace('.', ',') + '┬░C';
                 },
                 style: {
                     colors: themeColors.textColor,
@@ -3065,7 +3142,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#ef4444',
                         style: { color: '#fff', background: '#ef4444', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Max (8°C)',
+                        text: 'Max (8┬░C)',
                         offsetY: -3
                     }
                 },
@@ -3076,7 +3153,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     label: {
                         borderColor: '#3b82f6',
                         style: { color: '#fff', background: '#3b82f6', fontSize: '9px', fontWeight: 'bold' },
-                        text: 'Min (2°C)',
+                        text: 'Min (2┬░C)',
                         offsetY: 0
                     }
                 }

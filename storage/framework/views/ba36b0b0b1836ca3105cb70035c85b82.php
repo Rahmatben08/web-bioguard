@@ -39,7 +39,7 @@ unset($__defined_vars, $__key, $__value); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['class' => 'relative flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-'.e($color).'/50']); ?>
     <div class="flex justify-between items-start mb-2">
-        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"><?php echo e($title); ?></span>
+        <span class="text-xs font-bold text-slate-500  uppercase tracking-wider"><?php echo e($title); ?></span>
         <?php if($icon): ?>
             <div class="p-2 rounded-xl bg-<?php echo e($color); ?>/10 text-<?php echo e($color); ?> border border-<?php echo e($color); ?>/20">
                 <span class="material-symbols-outlined text-[24px]"><?php echo e($icon); ?></span>
@@ -48,10 +48,10 @@ unset($__defined_vars, $__key, $__value); ?>
     </div>
     
     <div class="flex items-end gap-3 mt-1">
-        <span <?php echo e($valueId ? 'id='.$valueId : ''); ?> class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white tabular-nums <?php echo e($valueClass); ?>"><?php echo e($value); ?></span>
+        <span <?php echo e($valueId ? 'id='.$valueId : ''); ?> class="text-4xl font-extrabold tracking-tight text-slate-900  tabular-nums <?php echo e($valueClass); ?>"><?php echo e($value); ?></span>
         
         <?php if($trend): ?>
-            <div class="flex items-center gap-0.5 mb-1 text-[11px] font-bold <?php echo e($trendUp ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'); ?>">
+            <div class="flex items-center gap-0.5 mb-1 text-[11px] font-bold <?php echo e($trendUp ? 'text-green-600 ' : 'text-red-600 '); ?>">
                 <span class="material-symbols-outlined text-[14px]">
                     <?php echo e($trendUp ? 'trending_up' : 'trending_down'); ?>
 
@@ -62,7 +62,7 @@ unset($__defined_vars, $__key, $__value); ?>
     </div>
     
     <?php if(isset($slot) && $slot->isNotEmpty()): ?>
-        <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60">
+        <div class="mt-3 pt-3 border-t border-slate-100 ">
             <?php echo e($slot); ?>
 
         </div>

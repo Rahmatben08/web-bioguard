@@ -7,11 +7,11 @@
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md mb-md">
         <div>
-            <nav class="flex text-label-md text-slate-500 dark:text-slate-400 mb-1 gap-2 transition-colors duration-300">
-                <span>BIO-GUARD</span> / <span class="text-sky-600 dark:text-sky-400 font-semibold transition-colors duration-300">Inventaris Cold Storage</span>
+            <nav class="flex text-label-md text-slate-500  mb-1 gap-2 transition-colors duration-300">
+                <span>BIO-GUARD</span> / <span class="text-sky-600  font-semibold transition-colors duration-300">Inventaris Cold Storage</span>
             </nav>
-            <h1 class="font-headline-lg text-headline-lg text-slate-800 dark:text-slate-100 transition-colors duration-300">Inventaris & Cold Chain Hub</h1>
-            <p class="text-slate-500 dark:text-slate-400 font-body-md text-body-md transition-colors duration-300">Manajemen kapasitas penyimpanan, suhu kulkas farmasi, dan distribusi vaksin di faskes Palembang.</p>
+            <h1 class="font-headline-lg text-headline-lg text-slate-800  transition-colors duration-300">Inventaris & Cold Chain Hub</h1>
+            <p class="text-slate-500  font-body-md text-body-md transition-colors duration-300">Manajemen kapasitas penyimpanan, suhu kulkas farmasi, dan distribusi vaksin di faskes Palembang.</p>
         </div>
         <div>
             <button onclick="document.getElementById('add-hub-modal').classList.remove('hidden')" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition-all duration-200 active:scale-95 shadow-sm shadow-sky-500/10 flex items-center gap-1">
@@ -25,16 +25,16 @@
         <!-- Card 1: Total Hubs -->
         <x-card class="lg:col-span-3 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-sky-500/50">
             <div class="flex justify-between items-start">
-                <div class="p-2.5 bg-sky-50 dark:bg-sky-950/40 rounded-xl text-sky-600 dark:text-sky-400">
+                <div class="p-2.5 bg-sky-50  rounded-xl text-sky-600 ">
                     <span class="material-symbols-outlined text-[24px]">warehouse</span>
                 </div>
-                <span class="text-[10px] font-bold text-green-500 bg-green-50 dark:bg-green-950/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span class="text-[10px] font-bold text-green-500 bg-green-50  px-2 py-0.5 rounded-full flex items-center gap-1">
                     <span class="w-1 h-1 rounded-full bg-green-500 animate-ping"></span> 100% Online
                 </span>
             </div>
             <div class="mt-4">
                 <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Hub Faskes</span>
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums mt-1">{{ $totalHubs }}</h3>
+                <h3 class="text-3xl font-extrabold text-slate-900  tabular-nums mt-1">{{ $totalHubs }}</h3>
                 <p class="text-slate-500 text-[10px] mt-1 font-semibold">10 RS & 50 Puskesmas</p>
             </div>
         </x-card>
@@ -42,14 +42,14 @@
         <!-- Card 2: Average Temperature -->
         <x-card class="lg:col-span-3 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-teal-500/50">
             <div class="flex justify-between items-start">
-                <div class="p-2.5 bg-teal-50 dark:bg-teal-950/40 rounded-xl text-teal-600 dark:text-teal-400">
+                <div class="p-2.5 bg-teal-50  rounded-xl text-teal-600 ">
                     <span class="material-symbols-outlined text-[24px]">thermostat</span>
                 </div>
                 <div class="w-20 h-6" id="sparkline-temp"></div>
             </div>
             <div class="mt-4">
                 <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Rata-rata Suhu Kulkas</span>
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums mt-1">{{ number_format($avgTemp, 1, ',', '.') }}°C</h3>
+                <h3 class="text-3xl font-extrabold text-slate-900  tabular-nums mt-1">{{ number_format($avgTemp, 1, ',', '.') }}°C</h3>
                 <p class="text-slate-500 text-[10px] mt-1 font-semibold">Standar CDOB: 2,0°C - 8,0°C</p>
             </div>
         </x-card>
@@ -57,23 +57,23 @@
         <!-- Card 3: Cold Chain Excursions -->
         <x-card class="lg:col-span-3 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-rose-500/50">
             <div class="flex justify-between items-start">
-                <div class="p-2.5 bg-rose-50 dark:bg-rose-950/40 rounded-xl text-rose-600 dark:text-rose-400">
+                <div class="p-2.5 bg-rose-50  rounded-xl text-rose-600 ">
                     <span class="material-symbols-outlined text-[24px]">warning_amber</span>
                 </div>
                 @if($alertCount > 0)
-                    <span class="text-[10px] font-bold text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-2 py-0.5 rounded-full animate-pulse">
+                    <span class="text-[10px] font-bold text-rose-500 bg-rose-50  px-2 py-0.5 rounded-full animate-pulse">
                         TINDAKAN DIBUTUHKAN
                     </span>
                 @else
-                    <span class="text-[10px] font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 px-2 py-0.5 rounded-full">
+                    <span class="text-[10px] font-bold text-emerald-500 bg-emerald-50  px-2 py-0.5 rounded-full">
                         SISTEM AMAN
                     </span>
                 @endif
             </div>
             <div class="mt-4">
                 <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Anomali Suhu Cold Chain</span>
-                <h3 class="text-3xl font-extrabold tabular-nums mt-1 @if($alertCount > 0) text-rose-500 dark:text-rose-400 @else text-slate-900 dark:text-white @endif">
-                    {{ $alertCount }} <span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500">Hub Terdeteksi</span>
+                <h3 class="text-3xl font-extrabold tabular-nums mt-1 @if($alertCount > 0) text-rose-500  @else text-slate-900  @endif">
+                    {{ $alertCount }} <span class="text-[11px] font-semibold text-slate-400 ">Hub Terdeteksi</span>
                 </h3>
                 <p class="text-slate-500 text-[10px] mt-1 font-semibold">Suhu di luar ambang batas aman</p>
             </div>
@@ -82,17 +82,17 @@
         <!-- Card 4: Total Capacity Utilized -->
         <x-card class="lg:col-span-3 flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-amber-500/50">
             <div class="flex justify-between items-start">
-                <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl text-amber-600 dark:text-amber-400">
+                <div class="p-2.5 bg-amber-50  rounded-xl text-amber-600 ">
                     <span class="material-symbols-outlined text-[24px]">donut_large</span>
                 </div>
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-lg">
+                <span class="text-xs font-bold text-slate-700  bg-slate-100  px-2.5 py-1 rounded-lg">
                     {{ $avgCapacityUtil }}% terisi
                 </span>
             </div>
             <div class="mt-4">
                 <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Kapasitas Kulkas Total</span>
-                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums mt-1">
-                    {{ number_format($totalVaccines, 0, ',', '.') }}<span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500"> / {{ number_format($totalCapacity, 0, ',', '.') }} Vial</span>
+                <h3 class="text-3xl font-extrabold text-slate-900  tabular-nums mt-1">
+                    {{ number_format($totalVaccines, 0, ',', '.') }}<span class="text-[11px] font-semibold text-slate-400 "> / {{ number_format($totalCapacity, 0, ',', '.') }} Vial</span>
                 </h3>
                 <p class="text-slate-500 text-[10px] mt-1 font-semibold">Akumulasi vial obat & vaksin</p>
             </div>
@@ -100,54 +100,54 @@
 
         <!-- Card 5: Vaccine Breakdown Stocks List -->
         <x-card class="lg:col-span-12">
-            <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <h4 class="text-sm font-bold text-slate-900  mb-4 flex items-center gap-2">
                 <span class="material-symbols-outlined text-[18px]">inventory</span> Ringkasan Stok Vaksin & Insulin Nasional Terdistribusi (Palembang)
             </h4>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <!-- Pfizer -->
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800">
+                <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">PFIZER VACCINE</span>
-                        <span class="text-[9px] font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/40 px-2 py-0.5 rounded-full">mRNA</span>
+                        <span class="text-[9px] font-bold text-sky-600  bg-sky-50  px-2 py-0.5 rounded-full">mRNA</span>
                     </div>
-                    <div class="text-xl font-black text-slate-900 dark:text-white tabular-nums">{{ number_format($totalPfizer, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPfizer, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
+                    <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
                         <div class="bg-sky-500 h-1.5 rounded-full" style="width: {{ ($totalPfizer / $totalVaccines) * 100 }}%"></div>
                     </div>
                 </div>
 
                 <!-- Polio -->
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800">
+                <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">POLIO VACCINE (bOPV)</span>
-                        <span class="text-[9px] font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-full">OPV</span>
+                        <span class="text-[9px] font-bold text-indigo-600  bg-indigo-50  px-2 py-0.5 rounded-full">OPV</span>
                     </div>
-                    <div class="text-xl font-black text-slate-900 dark:text-white tabular-nums">{{ number_format($totalPolio, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPolio, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
+                    <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
                         <div class="bg-indigo-500 h-1.5 rounded-full" style="width: {{ ($totalPolio / $totalVaccines) * 100 }}%"></div>
                     </div>
                 </div>
 
                 <!-- Sinovac -->
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800">
+                <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">SINOVAC VACCINE</span>
-                        <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full">Killed</span>
+                        <span class="text-[9px] font-bold text-emerald-600  bg-emerald-50  px-2 py-0.5 rounded-full">Killed</span>
                     </div>
-                    <div class="text-xl font-black text-slate-900 dark:text-white tabular-nums">{{ number_format($totalSinovac, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalSinovac, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
+                    <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
                         <div class="bg-emerald-500 h-1.5 rounded-full" style="width: {{ ($totalSinovac / $totalVaccines) * 100 }}%"></div>
                     </div>
                 </div>
 
                 <!-- Insulin -->
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800">
+                <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">INSULIN HORMON</span>
-                        <span class="text-[9px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-full">Thermolabile</span>
+                        <span class="text-[9px] font-bold text-amber-600  bg-amber-50  px-2 py-0.5 rounded-full">Thermolabile</span>
                     </div>
-                    <div class="text-xl font-black text-slate-900 dark:text-white tabular-nums">{{ number_format($totalInsulin, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Pena/Vial</span></div>
-                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalInsulin, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Pena/Vial</span></div>
+                    <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
                         <div class="bg-amber-500 h-1.5 rounded-full" style="width: {{ ($totalInsulin / $totalVaccines) * 100 }}%"></div>
                     </div>
                 </div>
@@ -158,8 +158,8 @@
     <!-- Filters and Table Card -->
     <x-card noPadding="true" class="overflow-hidden transition-colors duration-300">
         <!-- Control Header -->
-        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50/50 dark:bg-slate-900/40">
-            <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+        <div class="p-4 border-b border-slate-200  flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50/50 ">
+            <h3 class="font-bold text-slate-900  flex items-center gap-2">
                 <span class="material-symbols-outlined text-[20px] text-primary">list_alt</span> Direktori Kepatuhan Cold Storage
             </h3>
             
@@ -169,12 +169,12 @@
                 <div class="relative w-full sm:w-60">
                     <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-slate-400">search</span>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama faskes/alat..." 
-                           class="w-full pl-9 pr-4 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
+                           class="w-full pl-9 pr-4 py-1.5 bg-white  border border-slate-200  rounded-xl text-xs font-semibold text-slate-700  placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
                 </div>
 
                 <!-- Kecamatan Filter -->
                 <select name="kecamatan" onchange="this.form.submit()" 
-                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
+                        class="bg-white  border border-slate-200  text-xs font-semibold text-slate-700  rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
                     <option value="Semua">Semua Wilayah</option>
                     @foreach($allKecamatan as $kec)
                         <option value="{{ $kec }}" {{ request('kecamatan') === $kec ? 'selected' : '' }}>{{ $kec }}</option>
@@ -183,7 +183,7 @@
 
                 <!-- Status Filter -->
                 <select name="status" onchange="this.form.submit()" 
-                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
+                        class="bg-white  border border-slate-200  text-xs font-semibold text-slate-700  rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
                     <option value="Semua">Semua Status</option>
                     <option value="Aman" {{ request('status') === 'Aman' ? 'selected' : '' }}>Aman (2°C - 8°C)</option>
                     <option value="Bahaya" {{ request('status') === 'Bahaya' ? 'selected' : '' }}>Anomali / Bahaya</option>
@@ -191,7 +191,7 @@
 
                 <!-- Sort option -->
                 <select name="sort" onchange="this.form.submit()" 
-                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-200 rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
+                        class="bg-white  border border-slate-200  text-xs font-semibold text-slate-700  rounded-xl py-1.5 pl-3 pr-8 focus:ring-1 focus:ring-sky-500 focus:border-sky-500 transition-all duration-300">
                     <option value="nama" {{ request('sort') === 'nama' ? 'selected' : '' }}>Urut: Nama Faskes</option>
                     <option value="suhu" {{ request('sort') === 'suhu' ? 'selected' : '' }}>Urut: Suhu Aktual</option>
                     <option value="kapasitas" {{ request('sort') === 'kapasitas' ? 'selected' : '' }}>Urut: Utilitasi Ruang</option>
@@ -200,7 +200,7 @@
 
                 <!-- Reset Button -->
                 @if(request()->anyFilled(['search', 'kecamatan', 'status', 'sort']))
-                    <a href="{{ route('inventory') }}" class="text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 p-2 hover:bg-rose-500/10 rounded-xl text-xs font-bold transition-all active:scale-95 duration-100 flex items-center gap-1 cursor-pointer">
+                    <a href="{{ route('inventory') }}" class="text-rose-500 hover:text-rose-600 :text-rose-400 p-2 hover:bg-rose-500/10 rounded-xl text-xs font-bold transition-all active:scale-95 duration-100 flex items-center gap-1 cursor-pointer">
                         <span class="material-symbols-outlined text-[16px]">close</span> Reset
                     </a>
                 @endif
@@ -221,20 +221,20 @@
                         <x-table.th class="text-center">Aksi</x-table.th>
                     </x-table.tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200 dark:divide-slate-800 transition-all duration-300">
+                <tbody class="divide-y divide-slate-200  transition-all duration-300">
                     @forelse($hubsPaginated as $hub)
                         <x-table.tr>
                             <!-- Faskes Name & Region -->
                             <x-table.td>
                                 <div class="flex items-center gap-3">
-                                    <div class="p-2.5 @if($hub['jenis'] === 'Rumah Sakit') bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 @else bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400 @endif rounded-xl">
+                                    <div class="p-2.5 @if($hub['jenis'] === 'Rumah Sakit') bg-purple-100 text-purple-600   @else bg-teal-100 text-teal-600   @endif rounded-xl">
                                         <span class="material-symbols-outlined text-[18px]">
                                             @if($hub['jenis'] === 'Rumah Sakit') local_hospital @else medical_services @endif
                                         </span>
                                     </div>
                                     <div>
                                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest font-mono">{{ $hub['id'] }}</span>
-                                        <h4 class="font-bold text-slate-900 dark:text-white text-sm mt-0.5">{{ $hub['nama'] }}</h4>
+                                        <h4 class="font-bold text-slate-900  text-sm mt-0.5">{{ $hub['nama'] }}</h4>
                                         <span class="text-[10px] text-slate-500 mt-1 inline-flex items-center gap-1 font-semibold">
                                             <span class="material-symbols-outlined text-[11px]">location_on</span> {{ $hub['kecamatan'] }}
                                         </span>
@@ -244,7 +244,7 @@
 
                             <!-- Device model -->
                             <x-table.td class="font-medium">
-                                <span class="font-semibold text-slate-900 dark:text-white">{{ $hub['kulkas_farmasi'] }}</span>
+                                <span class="font-semibold text-slate-900 ">{{ $hub['kulkas_farmasi'] }}</span>
                                 <div class="text-[10px] text-slate-500 font-mono mt-0.5 font-bold">Kapasitas: {{ number_format($hub['kapasitas_total'], 0, ',', '.') }} Vial</div>
                             </x-table.td>
 
@@ -269,7 +269,7 @@
                                     <span>{{ number_format($hub['stok_total'], 0, ',', '.') }} Vial</span>
                                     <span>{{ $hub['kapasitas_persen'] }}%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                <div class="w-full bg-slate-200  h-2 rounded-full overflow-hidden">
                                     <div class="h-full rounded-full transition-all duration-500 @if($hub['kapasitas_persen'] > 90) bg-rose-500 @elseif($hub['kapasitas_persen'] > 75) bg-amber-500 @else bg-sky-500 @endif" style="width: {{ $hub['kapasitas_persen'] }}%"></div>
                                 </div>
                             </x-table.td>
@@ -277,17 +277,17 @@
                             <!-- Stock details -->
                             <x-table.td>
                                 <div class="flex flex-wrap gap-1.5 justify-center">
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold font-mono text-[10px]" title="Pfizer">
-                                        P: <span class="text-sky-600 dark:text-sky-400">{{ number_format($hub['stok']['pfizer'], 0, ',', '.') }}</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-100  border border-slate-200  text-slate-600  font-bold font-mono text-[10px]" title="Pfizer">
+                                        P: <span class="text-sky-600 ">{{ number_format($hub['stok']['pfizer'], 0, ',', '.') }}</span>
                                     </span>
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold font-mono text-[10px]" title="Polio">
-                                        O: <span class="text-indigo-600 dark:text-indigo-400">{{ number_format($hub['stok']['polio'], 0, ',', '.') }}</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-100  border border-slate-200  text-slate-600  font-bold font-mono text-[10px]" title="Polio">
+                                        O: <span class="text-indigo-600 ">{{ number_format($hub['stok']['polio'], 0, ',', '.') }}</span>
                                     </span>
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold font-mono text-[10px]" title="Sinovac">
-                                        S: <span class="text-emerald-600 dark:text-emerald-400">{{ number_format($hub['stok']['sinovac'], 0, ',', '.') }}</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-100  border border-slate-200  text-slate-600  font-bold font-mono text-[10px]" title="Sinovac">
+                                        S: <span class="text-emerald-600 ">{{ number_format($hub['stok']['sinovac'], 0, ',', '.') }}</span>
                                     </span>
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold font-mono text-[10px]" title="Insulin">
-                                        I: <span class="text-amber-600 dark:text-amber-400">{{ number_format($hub['stok']['insulin'], 0, ',', '.') }}</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-100  border border-slate-200  text-slate-600  font-bold font-mono text-[10px]" title="Insulin">
+                                        I: <span class="text-amber-600 ">{{ number_format($hub['stok']['insulin'], 0, ',', '.') }}</span>
                                     </span>
                                 </div>
                             </x-table.td>
@@ -309,11 +309,11 @@
                         <x-table.tr>
                             <x-table.td colspan="7" class="py-12 text-center">
                                 <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
-                                    <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
+                                    <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
                                         <span class="material-symbols-outlined text-[32px] text-slate-400">inventory_2</span>
                                     </div>
-                                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">Belum Ada Data Faskes</h3>
-                                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Data inventaris cold storage faskes masih kosong. Tambahkan faskes secara manual untuk memulai pemantauan.</p>
+                                    <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Data Faskes</h3>
+                                    <p class="text-sm text-slate-500  mb-6">Data inventaris cold storage faskes masih kosong. Tambahkan faskes secara manual untuk memulai pemantauan.</p>
                                     <button onclick="document.getElementById('add-hub-modal').classList.remove('hidden')" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
                                         <span class="material-symbols-outlined text-[18px]">add_circle</span> Tambah Faskes Pertama
                                     </button>
@@ -326,27 +326,27 @@
         </div>
 
         <!-- Pagination Footer -->
-        <div class="px-4 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 flex justify-between items-center transition-colors duration-300">
+        <div class="px-4 py-3 border-t border-slate-200  bg-slate-50/50  flex justify-between items-center transition-colors duration-300">
             <span class="text-xs font-semibold text-slate-500">
                 Menampilkan {{ $hubsPaginated->firstItem() ?? 0 }} - {{ $hubsPaginated->lastItem() ?? 0 }} dari {{ $hubsPaginated->total() }} Hub Faskes
             </span>
             <div class="flex gap-2">
                 @if($hubsPaginated->onFirstPage())
-                    <button class="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 rounded-lg text-xs font-bold cursor-not-allowed" disabled>
+                    <button class="px-3.5 py-1.5 bg-slate-100  text-slate-400  rounded-lg text-xs font-bold cursor-not-allowed" disabled>
                         Sebelumnya
                     </button>
                 @else
-                    <a href="{{ $hubsPaginated->previousPageUrl() }}" class="px-3.5 py-1.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600/70 rounded-lg text-xs font-bold transition-all duration-200 active:scale-95">
+                    <a href="{{ $hubsPaginated->previousPageUrl() }}" class="px-3.5 py-1.5 bg-white  border border-slate-200  text-slate-700  hover:bg-slate-100 :bg-slate-600/70 rounded-lg text-xs font-bold transition-all duration-200 active:scale-95">
                         Sebelumnya
                     </a>
                 @endif
 
                 @if($hubsPaginated->hasMorePages())
-                    <a href="{{ $hubsPaginated->nextPageUrl() }}" class="px-3.5 py-1.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600/70 rounded-lg text-xs font-bold transition-all duration-200 active:scale-95">
+                    <a href="{{ $hubsPaginated->nextPageUrl() }}" class="px-3.5 py-1.5 bg-white  border border-slate-200  text-slate-700  hover:bg-slate-100 :bg-slate-600/70 rounded-lg text-xs font-bold transition-all duration-200 active:scale-95">
                         Berikutnya
                     </a>
                 @else
-                    <button class="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 rounded-lg text-xs font-bold cursor-not-allowed" disabled>
+                    <button class="px-3.5 py-1.5 bg-slate-100  text-slate-400  rounded-lg text-xs font-bold cursor-not-allowed" disabled>
                         Berikutnya
                     </button>
                 @endif
@@ -357,10 +357,10 @@
 
 <!-- Add Hub Modal -->
 <div id="add-hub-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm hidden">
-    <div class="relative w-full max-w-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-2xl shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto">
+    <div class="relative w-full max-w-2xl bg-white  border border-slate-200  rounded-2xl shadow-2xl p-6 md:p-8 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-xl font-bold text-slate-800 dark:text-white">Tambah Faskes Manual</h3>
-            <button onclick="document.getElementById('add-hub-modal').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+            <h3 class="text-xl font-bold text-slate-800 ">Tambah Faskes Manual</h3>
+            <button onclick="document.getElementById('add-hub-modal').classList.add('hidden')" class="p-2 rounded-xl text-slate-400 hover:text-slate-800 :text-slate-200 hover:bg-slate-100 :bg-slate-700">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
@@ -368,60 +368,60 @@
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nama Faskes</label>
-                    <input type="text" name="nama" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Nama Faskes</label>
+                    <input type="text" name="nama" required class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
-                    <select name="kategori" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Kategori</label>
+                    <select name="kategori" required class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                         <option value="Rumah Sakit">Rumah Sakit</option>
                         <option value="Puskesmas">Puskesmas</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kecamatan</label>
-                    <select name="kecamatan" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Kecamatan</label>
+                    <select name="kecamatan" required class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                         @foreach($allKecamatan as $kec)
                             <option value="{{ $kec }}">{{ $kec }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Model Kulkas Farmasi</label>
-                    <input type="text" name="kulkas_farmasi" required placeholder="Contoh: B Medical TCW 4000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Model Kulkas Farmasi</label>
+                    <input type="text" name="kulkas_farmasi" required placeholder="Contoh: B Medical TCW 4000" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kapasitas Total (Vial)</label>
-                    <input type="number" name="kapasitas_total" required min="1" value="10000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Kapasitas Total (Vial)</label>
+                    <input type="number" name="kapasitas_total" required min="1" value="10000" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Suhu Aktual (°C)</label>
-                    <input type="number" step="0.1" name="suhu_aktual" required value="4.5" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                    <label class="block text-xs font-bold text-slate-700  mb-1">Suhu Aktual (°C)</label>
+                    <input type="number" step="0.1" name="suhu_aktual" required value="4.5" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
                 </div>
             </div>
-            <hr class="border-slate-200 dark:border-slate-700 my-4">
-            <h4 class="text-sm font-bold text-slate-800 dark:text-slate-200">Alokasi Stok Saat Ini (Vial)</h4>
+            <hr class="border-slate-200  my-4">
+            <h4 class="text-sm font-bold text-slate-800 ">Alokasi Stok Saat Ini (Vial)</h4>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Pfizer</label>
-                    <input type="number" name="pfizer" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                    <input type="number" name="pfizer" min="0" value="0" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Polio</label>
-                    <input type="number" name="polio" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                    <input type="number" name="polio" min="0" value="0" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Sinovac</label>
-                    <input type="number" name="sinovac" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                    <input type="number" name="sinovac" min="0" value="0" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-500 mb-1">Insulin</label>
-                    <input type="number" name="insulin" min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm">
+                    <input type="number" name="insulin" min="0" value="0" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm">
                 </div>
             </div>
             <div class="pt-2">
-                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Total Stok (Wajib diisi total dari atas)</label>
-                <input type="number" name="totalStok" required min="0" value="0" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-slate-200">
+                <label class="block text-xs font-bold text-slate-700  mb-1">Total Stok (Wajib diisi total dari atas)</label>
+                <input type="number" name="totalStok" required min="0" value="0" class="w-full bg-slate-50  border border-slate-200  rounded-lg px-3 py-2 text-sm text-slate-800 ">
             </div>
             
             <div class="flex justify-end pt-4">
@@ -435,21 +435,21 @@
 
 <!-- Detailed Analytics Modal (Glassmorphism Modal UI) -->
 <div id="details-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 hidden">
-    <div class="relative w-full max-w-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-2xl shadow-2xl p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300 ease-out max-h-[90vh] overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-white  border border-slate-200  rounded-2xl shadow-2xl p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300 ease-out max-h-[90vh] overflow-y-auto">
         <!-- Close button -->
-        <button onclick="closeDetailsModal()" class="absolute right-4 top-4 p-2 rounded-xl text-slate-400 hover:text-slate-850 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/60 transition-colors duration-200 cursor-pointer">
+        <button onclick="closeDetailsModal()" class="absolute right-4 top-4 p-2 rounded-xl text-slate-400 hover:text-slate-850 :text-slate-200 hover:bg-slate-100 :bg-slate-700/60 transition-colors duration-200 cursor-pointer">
             <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
 
         <!-- Modal Header -->
-        <div class="flex items-start gap-4 pb-4 border-b border-slate-200 dark:border-slate-700/60">
+        <div class="flex items-start gap-4 pb-4 border-b border-slate-200 ">
             <div id="modal-header-icon" class="p-3 text-white rounded-xl">
                 <span class="material-symbols-outlined text-[24px]" id="modal-faskes-icon">local_hospital</span>
             </div>
             <div>
-                <span class="text-[10px] font-bold text-sky-500 dark:text-sky-400 uppercase tracking-widest font-mono" id="modal-faskes-id">HOSP-001</span>
-                <h3 class="text-xl font-bold text-slate-850 dark:text-slate-100 mt-0.5" id="modal-faskes-name">Nama Hub Faskes</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-1">
+                <span class="text-[10px] font-bold text-sky-500  uppercase tracking-widest font-mono" id="modal-faskes-id">HOSP-001</span>
+                <h3 class="text-xl font-bold text-slate-850  mt-0.5" id="modal-faskes-name">Nama Hub Faskes</h3>
+                <p class="text-xs text-slate-500  flex items-center gap-1 mt-1">
                     <span class="material-symbols-outlined text-[12px]">location_on</span> <span id="modal-faskes-kecamatan">Kecamatan</span>
                 </p>
             </div>
@@ -459,48 +459,48 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 py-6">
             <!-- Left panel: Telemetry stats & Device info -->
             <div class="space-y-4">
-                <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Telemetri & Status Kulkas</h4>
+                <h4 class="text-xs font-bold text-slate-400  uppercase tracking-wider">Telemetri & Status Kulkas</h4>
                 
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-700/40 rounded-xl flex items-center justify-between">
+                <div class="p-4 bg-slate-50  border border-slate-200/50  rounded-xl flex items-center justify-between">
                     <div>
-                        <span class="text-xs text-slate-500 dark:text-slate-400">Temperatur Terkini</span>
-                        <div class="text-3xl font-black text-slate-850 dark:text-slate-100 font-mono-data mt-1" id="modal-suhu-aktual">4,2°C</div>
+                        <span class="text-xs text-slate-500 ">Temperatur Terkini</span>
+                        <div class="text-3xl font-black text-slate-850  font-mono-data mt-1" id="modal-suhu-aktual">4,2°C</div>
                     </div>
                     <span class="px-3 py-1.5 rounded-full text-xs font-bold" id="modal-status-badge">Aman</span>
                 </div>
 
-                <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-700/40 rounded-xl space-y-2">
+                <div class="p-4 bg-slate-50  border border-slate-200/50  rounded-xl space-y-2">
                     <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-500 dark:text-slate-400">Alat Pemantau IoT</span>
-                        <span class="font-bold text-slate-800 dark:text-slate-200" id="modal-kulkas-model">B Medical TCW 4000</span>
+                        <span class="text-slate-500 ">Alat Pemantau IoT</span>
+                        <span class="font-bold text-slate-800 " id="modal-kulkas-model">B Medical TCW 4000</span>
                     </div>
                     <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-500 dark:text-slate-400">Kapasitas Penyimpanan</span>
-                        <span class="font-bold text-slate-800 dark:text-slate-200 font-mono" id="modal-kulkas-capacity">15.000 Vial</span>
+                        <span class="text-slate-500 ">Kapasitas Penyimpanan</span>
+                        <span class="font-bold text-slate-800  font-mono" id="modal-kulkas-capacity">15.000 Vial</span>
                     </div>
                     <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-500 dark:text-slate-400">Rata-rata Utilitasi</span>
-                        <span class="font-bold text-slate-800 dark:text-slate-200 font-mono" id="modal-kulkas-util">54,5%</span>
+                        <span class="text-slate-500 ">Rata-rata Utilitasi</span>
+                        <span class="font-bold text-slate-800  font-mono" id="modal-kulkas-util">54,5%</span>
                     </div>
                     <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-500 dark:text-slate-400">Pembaruan Terakhir</span>
-                        <span class="font-bold text-slate-800 dark:text-slate-200 font-mono" id="modal-last-sync">3 menit lalu</span>
+                        <span class="text-slate-500 ">Pembaruan Terakhir</span>
+                        <span class="font-bold text-slate-800  font-mono" id="modal-last-sync">3 menit lalu</span>
                     </div>
                 </div>
             </div>
 
             <!-- Right panel: Stock allocations -->
             <div class="space-y-4">
-                <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Alokasi Stok Saat Ini</h4>
+                <h4 class="text-xs font-bold text-slate-400  uppercase tracking-wider">Alokasi Stok Saat Ini</h4>
                 
-                <div class="space-y-3 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-700/40 rounded-xl">
+                <div class="space-y-3 p-4 bg-slate-50  border border-slate-200/50  rounded-xl">
                     <!-- Pfizer -->
                     <div>
                         <div class="flex justify-between text-xs mb-1">
-                            <span class="font-semibold text-slate-700 dark:text-slate-350">Pfizer (mRNA)</span>
-                            <span class="font-bold text-slate-850 dark:text-slate-100 font-mono" id="modal-stock-pfizer">1.250 Vial</span>
+                            <span class="font-semibold text-slate-700 ">Pfizer (mRNA)</span>
+                            <span class="font-bold text-slate-850  font-mono" id="modal-stock-pfizer">1.250 Vial</span>
                         </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                             <div class="bg-sky-500 h-1.5 rounded-full" id="modal-progress-pfizer" style="width: 25%"></div>
                         </div>
                     </div>
@@ -508,10 +508,10 @@
                     <!-- Polio -->
                     <div>
                         <div class="flex justify-between text-xs mb-1">
-                            <span class="font-semibold text-slate-700 dark:text-slate-350">Polio (bOPV)</span>
-                            <span class="font-bold text-slate-850 dark:text-slate-100 font-mono" id="modal-stock-polio">2.400 Vial</span>
+                            <span class="font-semibold text-slate-700 ">Polio (bOPV)</span>
+                            <span class="font-bold text-slate-850  font-mono" id="modal-stock-polio">2.400 Vial</span>
                         </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                             <div class="bg-indigo-500 h-1.5 rounded-full" id="modal-progress-polio" style="width: 40%"></div>
                         </div>
                     </div>
@@ -519,10 +519,10 @@
                     <!-- Sinovac -->
                     <div>
                         <div class="flex justify-between text-xs mb-1">
-                            <span class="font-semibold text-slate-700 dark:text-slate-350">Sinovac (Killed)</span>
-                            <span class="font-bold text-slate-850 dark:text-slate-100 font-mono" id="modal-stock-sinovac">3.800 Vial</span>
+                            <span class="font-semibold text-slate-700 ">Sinovac (Killed)</span>
+                            <span class="font-bold text-slate-850  font-mono" id="modal-stock-sinovac">3.800 Vial</span>
                         </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                             <div class="bg-emerald-500 h-1.5 rounded-full" id="modal-progress-sinovac" style="width: 50%"></div>
                         </div>
                     </div>
@@ -530,10 +530,10 @@
                     <!-- Insulin -->
                     <div>
                         <div class="flex justify-between text-xs mb-1">
-                            <span class="font-semibold text-slate-700 dark:text-slate-350">Insulin Hormon</span>
-                            <span class="font-bold text-slate-850 dark:text-slate-100 font-mono" id="modal-stock-insulin">650 Vial</span>
+                            <span class="font-semibold text-slate-700 ">Insulin Hormon</span>
+                            <span class="font-bold text-slate-850  font-mono" id="modal-stock-insulin">650 Vial</span>
                         </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                        <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
                             <div class="bg-amber-500 h-1.5 rounded-full" id="modal-progress-insulin" style="width: 15%"></div>
                         </div>
                     </div>
@@ -542,14 +542,14 @@
         </div>
 
         <!-- Temperature Logs Chart inside Modal -->
-        <div class="border-t border-slate-200 dark:border-slate-700/60 pt-6">
-            <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4">Grafik Stabilitas Suhu 24 Jam Terakhir</h4>
+        <div class="border-t border-slate-200  pt-6">
+            <h4 class="text-xs font-bold text-slate-400  uppercase tracking-wider mb-4">Grafik Stabilitas Suhu 24 Jam Terakhir</h4>
             <div id="modal-chart-temp" class="w-full min-h-[180px]"></div>
         </div>
 
         <!-- Modal Footer Actions -->
-        <div class="flex justify-end gap-3 pt-6 border-t border-slate-200 dark:border-slate-700/60 mt-6">
-            <button onclick="closeDetailsModal()" class="px-4 py-2 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer">
+        <div class="flex justify-end gap-3 pt-6 border-t border-slate-200  mt-6">
+            <button onclick="closeDetailsModal()" class="px-4 py-2 border border-slate-200  text-slate-700  hover:bg-slate-100 :bg-slate-700/60 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer">
                 Tutup
             </button>
             <button onclick="simulateCalibration()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition-all duration-200 active:scale-95 shadow-sm shadow-sky-500/10 cursor-pointer flex items-center gap-1">
@@ -616,10 +616,10 @@
         // Status Badge styling
         const statusBadge = document.getElementById('modal-status-badge');
         if (hub.status === 'Aman') {
-            statusBadge.className = 'px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-450 border border-emerald-200/50 dark:border-emerald-900/30 text-xs font-bold rounded-full';
+            statusBadge.className = 'px-3 py-1 bg-emerald-50  text-emerald-600  border border-emerald-200/50  text-xs font-bold rounded-full';
             statusBadge.textContent = 'Aman (CDOB)';
         } else {
-            statusBadge.className = 'px-3 py-1 bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-450 border border-rose-200/50 dark:border-rose-900/30 text-xs font-bold rounded-full animate-pulse';
+            statusBadge.className = 'px-3 py-1 bg-rose-50  text-rose-600  border border-rose-200/50  text-xs font-bold rounded-full animate-pulse';
             statusBadge.textContent = 'Luar Batas / Bahaya';
         }
 
@@ -752,7 +752,7 @@
             document.getElementById('modal-suhu-aktual').textContent = '4,5°C';
             
             const badge = document.getElementById('modal-status-badge');
-            badge.className = 'px-3 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-450 border border-emerald-200/50 dark:border-emerald-900/30 text-xs font-bold rounded-full';
+            badge.className = 'px-3 py-1 bg-emerald-50  text-emerald-600  border border-emerald-200/50  text-xs font-bold rounded-full';
             badge.textContent = 'Aman (CDOB)';
 
             // Re-render chart showing stabilizing temperature

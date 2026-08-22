@@ -76,7 +76,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-on-surface antialiased relative overflow-x-hidden bg-slate-50 dark:bg-slate-950">
+<body class="min-h-screen text-on-surface antialiased relative overflow-x-hidden bg-slate-50 ">
 
     
 
@@ -84,36 +84,36 @@
     <canvas id="canvas-particles" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-50"></canvas>
 
     {{-- Floating Decorative Mesh Blobs --}}
-    <div class="fixed top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 dark:bg-blue-500/5 blur-[130px] pointer-events-none animate-blob z-0"></div>
-    <div class="fixed bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-400/10 dark:bg-blue-400/5 blur-[140px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
-    <div class="fixed top-1/2 left-2/3 w-[450px] h-[450px] rounded-full bg-indigo-500/10 dark:bg-indigo-500/5 blur-[110px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
+    <div class="fixed top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10  blur-[130px] pointer-events-none animate-blob z-0"></div>
+    <div class="fixed bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-400/10  blur-[140px] pointer-events-none animate-blob z-0" style="animation-delay: -5s;"></div>
+    <div class="fixed top-1/2 left-2/3 w-[450px] h-[450px] rounded-full bg-indigo-500/10  blur-[110px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
 
     {{-- Floating Header Navbar --}}
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-white/50 dark:border-white/10 rounded-full px-4 md:px-6 py-3 flex items-center justify-between shadow-xl transition-colors">
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-white/40  backdrop-blur-xl border border-white/50  rounded-full px-4 md:px-6 py-3 flex items-center justify-between shadow-xl transition-colors">
         <div class="flex items-center justify-between w-full">
             <a href="#" class="flex items-center gap-2.5 select-none hover:opacity-90 transition-opacity">
                 <img src="{{ asset('images/logo.png') }}?v=8" alt="BIO-GUARD Logo" class="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105">
-                <span class="text-sm font-black tracking-wider text-slate-900 dark:text-white">BIO-GUARD</span>
+                <span class="text-sm font-black tracking-wider text-slate-900 ">BIO-GUARD</span>
             </a>
 
-            <nav class="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-slate-700 dark:text-slate-300">
-                <a href="#about" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Tentang Kami</a>
-                <a href="#logo-meaning" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Filosofi Logo</a>
-                <a href="#mascot" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Filosofi Maskot</a>
-                <a href="#vision-mission" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors">Visi & Misi</a>
-                <a href="{{ route('simulator.standalone') }}" target="_blank" class="hover:text-blue-500 dark:hover:text-blue-400 transition-colors flex items-center gap-1">
+            <nav class="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-slate-700 ">
+                <a href="#about" class="hover:text-blue-500 :text-blue-400 transition-colors">Tentang Kami</a>
+                <a href="#logo-meaning" class="hover:text-blue-500 :text-blue-400 transition-colors">Filosofi Logo</a>
+                <a href="#mascot" class="hover:text-blue-500 :text-blue-400 transition-colors">Filosofi Maskot</a>
+                <a href="#vision-mission" class="hover:text-blue-500 :text-blue-400 transition-colors">Visi & Misi</a>
+                <a href="{{ route('simulator.standalone') }}" target="_blank" class="hover:text-blue-500 :text-blue-400 transition-colors flex items-center gap-1">
                     <span class="material-symbols-outlined text-[14px]">devices</span> Simulator
                 </a>
             </nav>
 
             <div class="flex items-center gap-2 md:gap-3">
                 {{-- Theme Switcher Button --}}
-                <button id="theme-toggle" class="w-8 h-8 rounded-full bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-700/50 border border-white/60 dark:border-white/10 text-slate-700 dark:text-slate-300 transition-colors flex items-center justify-center shadow-sm">
+                <button id="theme-toggle" class="w-8 h-8 rounded-full bg-white/50  hover:bg-white/80 :bg-slate-700/50 border border-white/60  text-slate-700  transition-colors flex items-center justify-center shadow-sm">
                     <span id="theme-toggle-icon" class="material-symbols-outlined text-[16px]">dark_mode</span>
                 </button>
                 
                 {{-- Download APK Button in Header --}}
-                <a href="/downloads/bio-guard-driver.apk" download class="hidden sm:flex items-center justify-center px-4 py-2 border border-white/60 dark:border-white/10 bg-white/30 dark:bg-slate-800/30 hover:bg-white/60 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-200 text-[11px] font-bold rounded-full transition-all shadow-sm">
+                <a href="/downloads/bio-guard-driver.apk" download class="hidden sm:flex items-center justify-center px-4 py-2 border border-white/60  bg-white/30  hover:bg-white/60 :bg-slate-700/50 text-slate-700  text-[11px] font-bold rounded-full transition-all shadow-sm">
                     Unduh APK
                 </a>
 
@@ -132,26 +132,26 @@
         {{-- Hero Section --}}
         <section id="about" class="relative w-full py-20 lg:py-32">
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('images/bg_medical_1.png') }}" class="w-full h-full object-cover opacity-20 dark:opacity-[0.15]" alt="Hero Background">
-                <div class="absolute inset-0 bg-slate-50/80 dark:bg-slate-950/85 backdrop-blur-[2px]"></div>
-                <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-slate-50 dark:from-slate-950 to-transparent"></div>
+                <img src="{{ asset('images/bg_medical_1.png') }}" class="w-full h-full object-cover opacity-20 " alt="Hero Background">
+                <div class="absolute inset-0 bg-slate-50/80  backdrop-blur-[2px]"></div>
+                <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-slate-50  to-transparent"></div>
             </div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-[70vh]">
             <div class="lg:col-span-7 space-y-6">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-slate-900 dark:text-white drop-shadow-sm">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-slate-900  drop-shadow-sm">
                     Pusat Kendali Distribusi <br>
-                    & <span class="text-blue-500 dark:text-blue-400">Pemantauan Rantai <br> Dingin</span> Cerdas
+                    & <span class="text-blue-500 ">Pemantauan Rantai <br> Dingin</span> Cerdas
                 </h1>
-                <p class="text-base text-slate-700 dark:text-slate-300 max-w-2xl leading-relaxed drop-shadow-sm font-medium">
+                <p class="text-base text-slate-700  max-w-2xl leading-relaxed drop-shadow-sm font-medium">
                     Dengan mengintegrasikan IoT Edge Computing dan Machine Learning, Bio-Guard menghadirkan pemantauan real-time terhadap fluktuasi suhu kritis, penyimpangan rute, dan getaran logistik obat termolabil. Sistem ini dirancang khusus untuk menjaga integritas kargo termolabil demi memastikan keselamatan pasien di seluruh Indonesia.
                 </p>
                 <div class="flex flex-wrap items-center gap-4 pt-2">
                     <a href="{{ route('login') }}" 
-                       class="px-6 py-3 rounded-full bg-blue-600/90 dark:bg-blue-500/90 hover:bg-blue-600 dark:hover:bg-blue-500 text-white text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 flex items-center gap-2 border border-blue-500/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
+                       class="px-6 py-3 rounded-full bg-blue-600/90  hover:bg-blue-600 :bg-blue-500 text-white text-sm font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 flex items-center gap-2 border border-blue-500/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
                         <span class="material-symbols-outlined text-[20px]">login</span> Masuk ke Portal Admin
                     </a>
                     <a href="/downloads/bio-guard-driver.apk" download
-                       class="px-6 py-3 rounded-full bg-slate-900/80 dark:bg-slate-800/80 hover:bg-slate-900 dark:hover:bg-slate-700 text-white text-sm font-bold shadow-lg transition-all duration-300 flex items-center gap-2 border border-slate-700/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
+                       class="px-6 py-3 rounded-full bg-slate-900/80  hover:bg-slate-900 :bg-slate-700 text-white text-sm font-bold shadow-lg transition-all duration-300 flex items-center gap-2 border border-slate-700/50 backdrop-blur-md hover:-translate-y-1 hover:scale-105">
                         <span class="material-symbols-outlined text-[20px]">download</span> Unduh Aplikasi (APK)
                     </a>
                 </div>
@@ -161,7 +161,7 @@
             <div class="lg:col-span-5 flex justify-center items-center lg:justify-end">
                 <div class="relative w-72 h-72 md:w-96 md:h-96" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-tilt-scale="1.05">
                     {{-- Soft glow behind shield --}}
-                    <div class="absolute inset-0 bg-blue-500/20 dark:bg-blue-400/20 rounded-full blur-[60px] transform-gpu"></div>
+                    <div class="absolute inset-0 bg-blue-500/20  rounded-full blur-[60px] transform-gpu"></div>
                     
                     {{-- Abstract SVG Pulse (Decorative) --}}
                     <style>
@@ -174,9 +174,9 @@
                     </style>
                     <div class="absolute inset-0 flex justify-center items-center opacity-40 pointer-events-none">
                         <svg class="w-[120%] h-[120%] animate-[spin_10s_linear_infinite]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="0.5" class="text-blue-400/30 dark:text-blue-300/30" stroke-dasharray="2 4" />
-                            <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" class="text-teal-400/50 dark:text-teal-300/50" stroke-dasharray="4 8" />
-                            <circle cx="50" cy="50" r="25" stroke="currentColor" stroke-width="0.8" class="text-blue-500/60 dark:text-blue-400/60 animate-pulse" />
+                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="0.5" class="text-blue-400/30 " stroke-dasharray="2 4" />
+                            <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" class="text-teal-400/50 " stroke-dasharray="4 8" />
+                            <circle cx="50" cy="50" r="25" stroke="currentColor" stroke-width="0.8" class="text-blue-500/60  animate-pulse" />
                         </svg>
                         <svg class="absolute w-[150%] h-[150%] animate-[pulse_4s_ease-in-out_infinite] opacity-50" viewBox="0 0 200 200" fill="none">
                             <path d="M 0 100 Q 25 100 35 70 T 70 100 T 100 50 T 130 100 T 165 130 T 200 100" stroke="url(#pulse-grad)" stroke-width="2" fill="none" class="animate-dash-pulse" stroke-dasharray="400" stroke-dashoffset="400"/>
@@ -198,39 +198,39 @@
                     {{-- Shield Image --}}
                     <img src="{{ asset('images/logo_shield.png') }}?v=6" 
                          alt="BIO-GUARD Shield" 
-                         class="relative z-10 w-full h-full object-contain drop-shadow-[0_10px_40px_rgba(33,150,243,0.4)] dark:drop-shadow-[0_10px_50px_rgba(76,213,246,0.3)] animate-mascot-float transform-gpu"
+                         class="relative z-10 w-full h-full object-contain drop-shadow-[0_10px_40px_rgba(33,150,243,0.4)] (76,213,246,0.3)] animate-mascot-float transform-gpu"
                          style="transform: translateZ(50px);">
                 </div>
             </div>
         </section>
 
         {{-- Logo Philosophy Section --}}
-        <section id="logo-meaning" class="relative w-full py-24 border-t border-slate-200 dark:border-slate-800/50">
+        <section id="logo-meaning" class="relative w-full py-24 border-t border-slate-200 ">
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('images/bg_medical_2.png') }}" class="w-full h-full object-cover opacity-[0.08] dark:opacity-10" alt="Section Background">
-                <div class="absolute inset-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-[3px]"></div>
+                <img src="{{ asset('images/bg_medical_2.png') }}" class="w-full h-full object-cover opacity-[0.08] " alt="Section Background">
+                <div class="absolute inset-0 bg-white/90  backdrop-blur-[3px]"></div>
             </div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 space-y-10">
             <div class="text-center space-y-2">
                 <span class="text-xs font-black text-primary tracking-widest uppercase">Identitas Visual</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white">Decoding Our Symbols</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-350 max-w-xl mx-auto">Kisah dan makna ilmiah di balik pembuatan logo resmi Bio-Guard.</p>
+                <h2 class="text-3xl font-black text-slate-900 ">Decoding Our Symbols</h2>
+                <p class="text-sm text-slate-600  max-w-xl mx-auto">Kisah dan makna ilmiah di balik pembuatan logo resmi Bio-Guard.</p>
             </div>
 
             {{-- Responsive Image and Cards Split --}}
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                 
                 {{-- Left Side: Premium Interactive Emblem --}}
-                <div class="lg:col-span-6 flex items-center justify-center p-8 bg-white/60 dark:bg-slate-900/30 border border-slate-200/60 dark:border-slate-800/80 rounded-3xl min-h-[400px] relative overflow-hidden shadow-xl group">
+                <div class="lg:col-span-6 flex items-center justify-center p-8 bg-white/60  border border-slate-200/60  rounded-3xl min-h-[400px] relative overflow-hidden shadow-xl group">
                     {{-- Glowing ring behind logo --}}
-                    <div class="absolute w-72 h-72 rounded-full border border-primary/20 dark:border-primary/10 animate-[spin_20s_linear_infinite] pointer-events-none"></div>
-                    <div class="absolute w-80 h-80 rounded-full border border-dashed border-blue-500/20 dark:border-blue-500/10 animate-[spin_30s_linear_infinite] pointer-events-none" style="animation-direction: reverse;"></div>
+                    <div class="absolute w-72 h-72 rounded-full border border-primary/20  animate-[spin_20s_linear_infinite] pointer-events-none"></div>
+                    <div class="absolute w-80 h-80 rounded-full border border-dashed border-blue-500/20  animate-[spin_30s_linear_infinite] pointer-events-none" style="animation-direction: reverse;"></div>
                     <div class="absolute w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div class="relative z-10 flex flex-col items-center">
                         <div class="relative w-64 h-64 flex items-center justify-center bg-transparent border-none overflow-visible">
                             <img src="{{ asset('images/logo_shield.png') }}?v=6" alt="BIO-GUARD Logo Shield" 
-                                 class="w-full h-full object-contain select-none animate-mascot-float dark:drop-shadow-[0_0_25px_rgba(76,213,246,0.5)]">
+                                 class="w-full h-full object-contain select-none animate-mascot-float (76,213,246,0.5)]">
                         </div>
                         
                         {{-- Subtle logo badge --}}
@@ -243,50 +243,50 @@
                 {{-- Right Side: Card Explanations --}}
                 <div class="lg:col-span-6 space-y-4">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
-                            <img src="{{ asset('images/shield_logo.png') }}?v=6" alt="Shield Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                            <img src="{{ asset('images/shield_logo.png') }}?v=6" alt="Shield Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
                         </div>
                         <div class="pt-1">
-                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Shield (Perisai)</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Mewakili perlindungan mutlak terhadap integritas jejak audit digital dan keamanan fisik obat termolabil dari risiko kerusakan selama perjalanan.</p>
+                            <h4 class="text-base font-black text-blue-600  tracking-tight">The Shield (Perisai)</h4>
+                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Mewakili perlindungan mutlak terhadap integritas jejak audit digital dan keamanan fisik obat termolabil dari risiko kerusakan selama perjalanan.</p>
                         </div>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-cyan-500/10 blur-xl rounded-full scale-150 group-hover:bg-cyan-500/20 transition-all"></div>
-                            <img src="{{ asset('images/snowflake.png') }}?v=6" alt="Snowflake Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                            <img src="{{ asset('images/snowflake.png') }}?v=6" alt="Snowflake Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
                         </div>
                         <div class="pt-1">
-                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Snowflake (Kepingan Salju)</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2°C - 8°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
+                            <h4 class="text-base font-black text-blue-600  tracking-tight">The Snowflake (Kepingan Salju)</h4>
+                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2°C - 8°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
                         </div>
                     </div>
 
                     {{-- Card 3 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-indigo-500/10 blur-xl rounded-full scale-150 group-hover:bg-indigo-500/20 transition-all"></div>
-                            <img src="{{ asset('images/circuit.png') }}?v=6" alt="Circuit Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                            <img src="{{ asset('images/circuit.png') }}?v=6" alt="Circuit Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
                         </div>
                         <div class="pt-1">
-                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Circuit Lines (Jalur Sirkuit)</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Menyimpulkan komputasi cerdas di dalam chip yang mampu memprediksi risiko secara real-time tanpa jeda peladen.</p>
+                            <h4 class="text-base font-black text-blue-600  tracking-tight">Circuit Lines (Jalur Sirkuit)</h4>
+                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Menyimpulkan komputasi cerdas di dalam chip yang mampu memprediksi risiko secara real-time tanpa jeda peladen.</p>
                         </div>
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
-                            <img src="{{ asset('images/waves_logo.png') }}?v=6" alt="Waves Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md dark:drop-shadow-[0_0_12px_rgba(76,213,246,0.6)]">
+                            <img src="{{ asset('images/waves_logo.png') }}?v=6" alt="Waves Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
                         </div>
                         <div class="pt-1">
-                            <h4 class="text-base font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Dynamic Waves (Gelombang Dinamis)</h4>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">Visualisasi dari arsitektur Offline-First yang kebal terhadap blank spot jaringan, serta pergerakan dinamis armada kurir di lapangan.</p>
+                            <h4 class="text-base font-black text-blue-600  tracking-tight">Dynamic Waves (Gelombang Dinamis)</h4>
+                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Visualisasi dari arsitektur Offline-First yang kebal terhadap blank spot jaringan, serta pergerakan dinamis armada kurir di lapangan.</p>
                         </div>
                     </div>
                 </div>
@@ -294,39 +294,39 @@
         </section>
 
         {{-- Mascot Philosophy Section --}}
-        <section id="mascot" class="relative w-full py-24 border-t border-slate-200 dark:border-slate-800/50">
+        <section id="mascot" class="relative w-full py-24 border-t border-slate-200 ">
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-[0.08] dark:opacity-10" alt="Section Background">
-                <div class="absolute inset-0 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-[3px]"></div>
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover opacity-[0.08] " alt="Section Background">
+                <div class="absolute inset-0 bg-slate-50/90  backdrop-blur-[3px]"></div>
             </div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 space-y-10">
             <div class="text-center space-y-2">
                 <span class="text-xs font-black text-primary tracking-widest uppercase">Mascot Resmi</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white">Meet Our Mascot!</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-350 max-w-xl mx-auto">Kenalkan Peggi, Si Penguin Penjaga Cerdas Rantai Dingin Medis Masa Depan.</p>
+                <h2 class="text-3xl font-black text-slate-900 ">Meet Our Mascot!</h2>
+                <p class="text-sm text-slate-600  max-w-xl mx-auto">Kenalkan Peggi, Si Penguin Penjaga Cerdas Rantai Dingin Medis Masa Depan.</p>
                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center relative">
                 
                 {{-- Left Side: Cards 1 & 2 (order-2 on mobile, order-1 on desktop) --}}
                 <div class="lg:col-span-4 space-y-6 order-2 lg:order-1 relative z-10">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/penguin_happy.png') }}?v=6" alt="Penguin Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
                         <div class="pt-0.5">
-                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Penguin (Penguin)</h4>
-                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Simbol ketahanan di kondisi ekstrem, menjaga stabilitas logistik.</p>
+                            <h4 class="text-sm font-black text-blue-600  tracking-tight">The Penguin (Penguin)</h4>
+                            <p class="text-[11px] text-slate-600  mt-1 leading-relaxed font-medium">Simbol ketahanan di kondisi ekstrem, menjaga stabilitas logistik.</p>
                         </div>
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/glasses.png') }}?v=6" alt="Goggles Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
                         <div class="pt-0.5">
-                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Edge-Vision Goggles</h4>
-                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Komputasi cerdas AI untuk prediksi risiko secara presisi.</p>
+                            <h4 class="text-sm font-black text-blue-600  tracking-tight">Edge-Vision Goggles</h4>
+                            <p class="text-[11px] text-slate-600  mt-1 leading-relaxed font-medium">Komputasi cerdas AI untuk prediksi risiko secara presisi.</p>
                         </div>
                     </div>
                 </div>
@@ -334,7 +334,7 @@
                 {{-- Center: Mascot (order-1 on mobile, order-2 on desktop) --}}
                 <div class="lg:col-span-4 flex flex-col items-center justify-center min-h-[400px] relative overflow-visible order-1 lg:order-2 group z-0">
                     {{-- Glowing Backdrops --}}
-                    <div class="absolute w-80 h-80 bg-blue-500/20 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/30 transition-colors duration-700"></div>
+                    <div class="absolute w-80 h-80 bg-blue-500/20  rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/30 transition-colors duration-700"></div>
                     <div class="absolute w-64 h-64 border border-dashed border-blue-500/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
 
                     {{-- Interactive Speech Bubble --}}
@@ -346,7 +346,7 @@
                     <div class="relative z-10 flex flex-col items-center mt-4">
                         <div class="relative w-72 h-72 lg:w-80 lg:h-80 flex items-center justify-center bg-transparent border-none overflow-visible">
                             <img src="{{ asset('images/penguin_wink.png') }}?v=2" alt="Peggi Mascot" 
-                                 class="w-full h-full object-contain select-none animate-mascot-float drop-shadow-2xl dark:drop-shadow-[0_0_30px_rgba(33,150,243,0.4)] hover:scale-105 transition-transform duration-500">
+                                 class="w-full h-full object-contain select-none animate-mascot-float drop-shadow-2xl (33,150,243,0.4)] hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
                 </div>
@@ -354,24 +354,24 @@
                 {{-- Right Side: Cards 3 & 4 (order-3 on mobile, order-3 on desktop) --}}
                 <div class="lg:col-span-4 space-y-6 order-3 relative z-10">
                     {{-- Card 3 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/vest.png') }}?v=6" alt="Vest Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
                         <div class="pt-0.5">
-                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">The Bio-Armor Vest</h4>
-                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Seragam pelindung kepatuhan absolut standar CDOB BPOM RI.</p>
+                            <h4 class="text-sm font-black text-blue-600  tracking-tight">The Bio-Armor Vest</h4>
+                            <p class="text-[11px] text-slate-600  mt-1 leading-relaxed font-medium">Seragam pelindung kepatuhan absolut standar CDOB BPOM RI.</p>
                         </div>
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-2xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/tablet.png') }}?v=6" alt="Tablet Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
                         <div class="pt-0.5">
-                            <h4 class="text-sm font-black text-blue-600 dark:text-[#64b5f6] tracking-tight">Nexus Command Pad</h4>
-                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed font-medium">Sinkronisasi mulus dasbor web dan aplikasi kurir di lapangan.</p>
+                            <h4 class="text-sm font-black text-blue-600  tracking-tight">Nexus Command Pad</h4>
+                            <p class="text-[11px] text-slate-600  mt-1 leading-relaxed font-medium">Sinkronisasi mulus dasbor web dan aplikasi kurir di lapangan.</p>
                         </div>
                     </div>
                 </div>
@@ -379,75 +379,75 @@
         </section>
 
         {{-- Vision & Mission Section --}}
-        <section id="vision-mission" class="relative w-full py-24 border-t border-slate-200 dark:border-slate-800/50">
+        <section id="vision-mission" class="relative w-full py-24 border-t border-slate-200 ">
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('images/bg_medical_1.png') }}" class="w-full h-full object-cover opacity-[0.08] dark:opacity-10" alt="Section Background">
-                <div class="absolute inset-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-[3px]"></div>
+                <img src="{{ asset('images/bg_medical_1.png') }}" class="w-full h-full object-cover opacity-[0.08] " alt="Section Background">
+                <div class="absolute inset-0 bg-white/90  backdrop-blur-[3px]"></div>
             </div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 space-y-10">
             <div class="text-center space-y-2">
                 <span class="text-xs font-black text-primary tracking-widest uppercase">Tujuan & Nilai</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white">Visi & Misi</h2>
-                <p class="text-sm text-slate-600 dark:text-slate-350 max-w-xl mx-auto">Landasan arah strategis Bio-Guard dalam menjaga keamanan logistik obat termolabil di Indonesia.</p>
+                <h2 class="text-3xl font-black text-slate-900 ">Visi & Misi</h2>
+                <p class="text-sm text-slate-600  max-w-xl mx-auto">Landasan arah strategis Bio-Guard dalam menjaga keamanan logistik obat termolabil di Indonesia.</p>
             </div>
 
             <div class="flex flex-col gap-16 lg:gap-20">
                 {{-- Visi: Large Pull-Quote --}}
                 <div class="relative w-full max-w-5xl mx-auto text-center px-4 md:px-12 py-10">
-                    <div class="absolute top-0 left-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10 dark:text-blue-500/5 font-serif font-black select-none -translate-x-4 lg:-translate-x-8 -translate-y-8 lg:-translate-y-12">"</div>
-                    <div class="absolute bottom-0 right-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10 dark:text-blue-500/5 font-serif font-black select-none translate-x-4 lg:translate-x-8 translate-y-8 lg:translate-y-12 rotate-180">"</div>
+                    <div class="absolute top-0 left-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10  font-serif font-black select-none -translate-x-4 lg:-translate-x-8 -translate-y-8 lg:-translate-y-12">"</div>
+                    <div class="absolute bottom-0 right-0 text-[120px] lg:text-[180px] leading-none text-blue-500/10  font-serif font-black select-none translate-x-4 lg:translate-x-8 translate-y-8 lg:translate-y-12 rotate-180">"</div>
                     
-                    <h3 class="relative z-10 text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-800 dark:text-slate-100 leading-relaxed tracking-tight">
-                        Menjadi sistem pemantauan rantai dingin <span class="text-blue-600 dark:text-[#64b5f6]">terdistribusi berbasis IoT dan AI</span> yang inovatif dan terdepan di Indonesia, guna menjamin keamanan, mutu, dan efektivitas terapeutik produk farmasi termolabil sepanjang jalur distribusi hulu-hilir, sejalan dengan prinsip <span class="text-blue-600 dark:text-[#64b5f6]">patient safety</span> dan tata kelola logistik farmasi berbasis bukti.
+                    <h3 class="relative z-10 text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-800  leading-relaxed tracking-tight">
+                        Menjadi sistem pemantauan rantai dingin <span class="text-blue-600 ">terdistribusi berbasis IoT dan AI</span> yang inovatif dan terdepan di Indonesia, guna menjamin keamanan, mutu, dan efektivitas terapeutik produk farmasi termolabil sepanjang jalur distribusi hulu-hilir, sejalan dengan prinsip <span class="text-blue-600 ">patient safety</span> dan tata kelola logistik farmasi berbasis bukti.
                     </h3>
                     <div class="mt-6">
-                        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-widest uppercase border border-blue-100 dark:border-blue-800/50">Visi Kami</span>
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-blue-50  text-blue-600  text-xs font-bold tracking-widest uppercase border border-blue-100 ">Visi Kami</span>
                     </div>
                 </div>
 
                 {{-- Misi: 4 Cards Grid --}}
                 <div class="w-full">
                     <div class="text-center mb-8">
-                        <h3 class="text-2xl font-black text-slate-900 dark:text-white">Misi Kami</h3>
+                        <h3 class="text-2xl font-black text-slate-900 ">Misi Kami</h3>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {{-- Misi 1 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">router</span>
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">router</span>
                             </div>
                             <div class="pt-0.5">
-                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Mengembangkan sistem telemetri suhu dan geolokasi berbasis arsitektur IoT dengan pendekatan <span class="text-blue-600 dark:text-[#64b5f6] font-bold">edge computing</span>, guna menghasilkan akurasi pemantauan real-time yang andal dan rendah latensi.</p>
+                                <p class="text-[13px] text-slate-700  leading-relaxed font-semibold">Mengembangkan sistem telemetri suhu dan geolokasi berbasis arsitektur IoT dengan pendekatan <span class="text-blue-600  font-bold">edge computing</span>, guna menghasilkan akurasi pemantauan real-time yang andal dan rendah latensi.</p>
                             </div>
                         </div>
                         
                         {{-- Misi 2 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">psychology</span>
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">psychology</span>
                             </div>
                             <div class="pt-0.5">
-                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Merancang dan mengintegrasikan algoritma <span class="text-blue-600 dark:text-[#64b5f6] font-bold">predictive analytics</span> berbasis AI untuk deteksi dini anomali suhu dan potensi degradasi mutu produk sebagai mitigasi risiko.</p>
+                                <p class="text-[13px] text-slate-700  leading-relaxed font-semibold">Merancang dan mengintegrasikan algoritma <span class="text-blue-600  font-bold">predictive analytics</span> berbasis AI untuk deteksi dini anomali suhu dan potensi degradasi mutu produk sebagai mitigasi risiko.</p>
                             </div>
                         </div>
 
                         {{-- Misi 3 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">verified_user</span>
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">verified_user</span>
                             </div>
                             <div class="pt-0.5">
-                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Mendukung transformasi digital regulasi <span class="text-blue-600 dark:text-[#64b5f6] font-bold">CDOB BPOM</span> melalui penyediaan sistem pelaporan rantai dingin yang transparan, akuntabel, dan auditable.</p>
+                                <p class="text-[13px] text-slate-700  leading-relaxed font-semibold">Mendukung transformasi digital regulasi <span class="text-blue-600  font-bold">CDOB BPOM</span> melalui penyediaan sistem pelaporan rantai dingin yang transparan, akuntabel, dan auditable.</p>
                             </div>
                         </div>
 
                         {{-- Misi 4 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95 dark:bg-[#0d1b2e] border border-blue-500/15 dark:border-blue-500/20 shadow-xl dark:shadow-[0_0_30px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
-                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white dark:from-[#0a1e38] dark:to-[#0d1b2e] rounded-xl flex items-center justify-center shrink-0 border border-blue-100 dark:border-blue-900/30 shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-blue-600 dark:text-[#64b5f6] text-[24px] relative z-10">school</span>
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                            <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">school</span>
                             </div>
                             <div class="pt-0.5">
-                                <p class="text-[13px] text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">Berkontribusi pada <span class="text-blue-600 dark:text-[#64b5f6] font-bold">pengembangan keilmuan</span> di bidang IoT dan AI untuk logistik kesehatan melalui publikasi hasil riset dan luaran ilmiah PKM-KC.</p>
+                                <p class="text-[13px] text-slate-700  leading-relaxed font-semibold">Berkontribusi pada <span class="text-blue-600  font-bold">pengembangan keilmuan</span> di bidang IoT dan AI untuk logistik kesehatan melalui publikasi hasil riset dan luaran ilmiah PKM-KC.</p>
                             </div>
                         </div>
                     </div>
@@ -459,7 +459,7 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="relative border-t border-blue-500/10 dark:border-blue-500/5 bg-white/80 dark:bg-[#060e1a]/90 backdrop-blur-md">
+    <footer class="relative border-t border-blue-500/10  bg-white/80  backdrop-blur-md">
         {{-- Subtle gradient separator --}}
         <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
 
@@ -470,25 +470,25 @@
                 <div class="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
                     <div class="flex items-center gap-3">
                         <img src="{{ asset('images/logo.png') }}" alt="BIO-GUARD Logo" class="h-8 w-auto drop-shadow-md">
-                        <span class="text-base font-black text-slate-800 dark:text-white tracking-tight">BIO-GUARD</span>
+                        <span class="text-base font-black text-slate-800  tracking-tight">BIO-GUARD</span>
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium max-w-[220px] leading-relaxed">
+                    <p class="text-xs text-slate-500  font-medium max-w-[220px] leading-relaxed">
                         Penjaga Cerdas Rantai Dingin Medis — IoT &amp; AI untuk keamanan farmasi termolabil.
                     </p>
-                    <span class="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                    <span class="text-[11px] text-slate-400  font-medium">
                         &copy; 2026 BIO-GUARD Enterprise. All rights reserved.
                     </span>
                 </div>
 
                 {{-- Right: Navigation Links --}}
                 <div class="flex flex-col items-center md:items-end gap-4">
-                    <span class="text-[10px] font-black text-blue-600 dark:text-blue-500 tracking-widest uppercase">Navigasi</span>
+                    <span class="text-[10px] font-black text-blue-600  tracking-widest uppercase">Navigasi</span>
                     <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
-                        <a href="#about" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Tentang</a>
-                        <a href="#logo-meaning" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Logo</a>
-                        <a href="#mascot" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Maskot</a>
-                        <a href="#vision-mission" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-[#64b5f6] transition-colors duration-200">Visi &amp; Misi</a>
-                        <a href="{{ route('simulator.standalone') }}" target="_blank" class="text-xs font-semibold text-blue-600 dark:text-[#64b5f6] hover:underline transition-colors duration-200 flex items-center gap-1">
+                        <a href="#about" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Tentang</a>
+                        <a href="#logo-meaning" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Logo</a>
+                        <a href="#mascot" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Maskot</a>
+                        <a href="#vision-mission" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Visi &amp; Misi</a>
+                        <a href="{{ route('simulator.standalone') }}" target="_blank" class="text-xs font-semibold text-blue-600  hover:underline transition-colors duration-200 flex items-center gap-1">
                             Simulator Web
                             <span class="material-symbols-outlined text-[12px]">open_in_new</span>
                         </a>

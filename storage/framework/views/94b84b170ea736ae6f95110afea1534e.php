@@ -1,4 +1,4 @@
-<tr <?php echo e($attributes->merge(['class' => 'hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors'])); ?>>
+<tr <?php echo e($attributes->merge(['class' => 'hover:bg-slate-50/50 :bg-slate-800/30 transition-colors'])); ?>>
     <?php echo e($slot); ?>
 
 </tr>

@@ -171,7 +171,7 @@
     <div class="min-h-screen flex flex-col">
         
         <!-- Header -->
-        <header class="w-full py-4 px-6 border-b border-slate-200 dark:border-white/5 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md flex justify-between items-center z-50">
+        <header class="w-full py-4 px-6 border-b border-slate-200  bg-white/40  backdrop-blur-md flex justify-between items-center z-50">
             <div class="flex items-center space-x-3">
                 <!-- Glowing Logo -->
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
@@ -180,19 +180,19 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-slate-800 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
-                        BIO-GUARD <span class="text-xs px-2 py-0.5 ml-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold tracking-normal">PKM-KC 2026</span>
+                    <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-slate-800 to-slate-500    bg-clip-text text-transparent">
+                        BIO-GUARD <span class="text-xs px-2 py-0.5 ml-1.5 rounded-full bg-emerald-500/10 text-emerald-600  border border-emerald-500/20 font-semibold tracking-normal">PKM-KC 2026</span>
                     </h1>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-500 font-mono">Sistem Pemantauan Logistik Obat Termolabil</p>
+                    <p class="text-[10px] text-slate-500  font-mono">Sistem Pemantauan Logistik Obat Termolabil</p>
                 </div>
             </div>
             <div class="hidden sm:flex items-center space-x-4">
-                <div class="flex items-center space-x-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+                <div class="flex items-center space-x-2 text-xs font-mono text-slate-600 ">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Server Status: <span class="text-emerald-600 dark:text-emerald-400 font-bold">ACTIVE</span></span>
+                    <span>Server Status: <span class="text-emerald-600  font-bold">ACTIVE</span></span>
                 </div>
                 <!-- Theme Toggle Button -->
-                <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 rounded-lg text-sm p-2.5">
+                <button id="theme-toggle" type="button" class="text-slate-500  hover:bg-slate-100 :bg-slate-700 focus:outline-none focus:ring-4 focus:ring-slate-200 :ring-slate-700 rounded-lg text-sm p-2.5">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 </button>
@@ -206,16 +206,16 @@
             <div class="col-span-12 lg:col-span-7 xl:col-span-8 flex justify-center items-center py-2 h-full">
                 
                 <!-- Phone Wrapper (Mockup borders only visible on Desktop) -->
-                <div class="relative w-full max-w-[375px] h-[812px] lg:h-[800px] xl:h-[812px] glass-panel rounded-[50px] border-[10px] border-slate-300 dark:border-slate-900 shadow-2xl overflow-hidden transition-all duration-300 ring-4 ring-slate-100/50 dark:ring-white/5 scale-[0.98] xl:scale-100 flex flex-col
+                <div class="relative w-full max-w-[375px] h-[812px] lg:h-[800px] xl:h-[812px] glass-panel rounded-[50px] border-[10px] border-slate-300  shadow-2xl overflow-hidden transition-all duration-300 ring-4 ring-slate-100/50  scale-[0.98] xl:scale-100 flex flex-col
                             max-lg:fixed max-lg:inset-0 max-lg:max-w-none max-lg:h-full max-lg:rounded-none max-lg:border-0 max-lg:ring-0">
                     
                     <!-- Phone Notch & Status Bar (Hidden on actual mobile edge-to-edge if layout permits, but fits nicely as top overlay) -->
-                    <div class="w-full bg-slate-200 dark:bg-slate-950 px-6 pt-3 pb-2 flex justify-between items-center text-xs font-semibold text-slate-700 dark:text-slate-300 z-50 shrink-0">
+                    <div class="w-full bg-slate-200  px-6 pt-3 pb-2 flex justify-between items-center text-xs font-semibold text-slate-700  z-50 shrink-0">
                         <div class="font-mono" id="phone-clock">10:20</div>
                         
                         <!-- Screen Notch (Centered) -->
-                        <div class="w-28 h-4 bg-slate-200 dark:bg-slate-950 rounded-b-xl absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center max-lg:hidden">
-                            <span class="w-3 h-3 bg-slate-300 dark:bg-slate-900 rounded-full border border-slate-400 dark:border-slate-800"></span>
+                        <div class="w-28 h-4 bg-slate-200  rounded-b-xl absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center max-lg:hidden">
+                            <span class="w-3 h-3 bg-slate-300  rounded-full border border-slate-400 "></span>
                         </div>
 
                         <div class="flex items-center space-x-2">
@@ -240,7 +240,7 @@
                     </div>
 
                     <!-- Main Phone Content Frame -->
-                    <div class="flex-1 w-full relative flex flex-col bg-white dark:bg-slate-900 overflow-hidden">
+                    <div class="flex-1 w-full relative flex flex-col bg-white  overflow-hidden">
                         
                         <!-- TAB 1: Route Map View (Default) -->
                         <div id="tab-map-content" class="absolute inset-0 z-10 flex flex-col">

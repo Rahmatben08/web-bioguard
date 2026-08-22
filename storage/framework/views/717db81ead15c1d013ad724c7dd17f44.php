@@ -10,9 +10,20 @@
                 <div>
                     <span>BIO-GUARD</span> / <span class="text-primary font-semibold">Armada Kurir</span>
                 </div>
-                <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary/20 transition-colors text-xs flex items-center gap-1" title="Kelola QR Box">
-                    <span class="material-symbols-outlined text-[14px]">qr_code_2</span> QR Box
-                </button>
+                <div class="flex gap-2">
+                    <?php if(request()->has('show_demo')): ?>
+                        <a href="<?php echo e(route('fleet')); ?>" class="px-2 py-1 bg-primary text-white border border-primary/20 rounded hover:bg-primary/90 transition-colors text-[10px] font-bold flex items-center gap-1" title="Sembunyikan Demo">
+                            <span class="material-symbols-outlined text-[14px]">visibility_off</span> Sembunyikan Demo
+                        </a>
+                    <?php else: ?>
+                        <a href="<?php echo e(route('fleet', ['show_demo' => 1])); ?>" class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 rounded hover:bg-primary hover:text-white transition-colors text-[10px] font-bold flex items-center gap-1" title="Tampilkan Demo">
+                            <span class="material-symbols-outlined text-[14px]">science</span> Tampilkan Demo
+                        </a>
+                    <?php endif; ?>
+                    <button onclick="document.getElementById('modal-qr-box').classList.remove('hidden')" class="px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded hover:bg-primary/20 transition-colors text-xs flex items-center gap-1" title="Kelola QR Box">
+                        <span class="material-symbols-outlined text-[14px]">qr_code_2</span> QR Box
+                    </button>
+                </div>
             </nav>
             <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Pelacakan Armada Aktif</h2>
             <p class="text-xs text-on-surface-variant mt-1 mb-3">Telemetri GPS & Status Rantai Dingin aktual.</p>
@@ -110,7 +121,7 @@
     </aside>
 
     <!-- Map Container -->
-    <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 dark:bg-slate-900" id="map-container">
+    <main class="flex-1 h-2/3 md:h-full relative z-10 bg-slate-50 " id="map-container">
         <!-- Floating Persistent Summary Overlay (z-[1000]) -->
         <div class="absolute top-4 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">
             <div class="pointer-events-auto flex items-center gap-2 flex-wrap">
@@ -280,7 +291,13 @@
                                 <tbody>
                                     <?php $__empty_1 = true; $__currentLoopData = $boxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $b): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr class="border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors">
-                                        <td class="p-3 font-mono font-bold text-primary"><?php echo e($b->id_box); ?></td>
+                                        <td class="p-3 font-mono font-bold text-primary flex items-center gap-2">
+                                            <?php echo e($b->id_box); ?>
+
+                                            <?php if($b->is_validated): ?>
+                                                <span class="material-symbols-outlined text-success text-[16px]" title="Validated">verified</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td class="p-3 text-on-surface"><?php echo e($b->last_kurir ?? '-'); ?></td>
                                         <td class="p-3 text-right">
                                             <a href="<?php echo e(route('dashboard.qr', $b->id_box)); ?>" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-variant hover:bg-primary hover:text-on-primary text-on-surface transition-all">
@@ -865,7 +882,9 @@
                     delete pastRouteLayer[ruteId];
                 }
                 if (actualPolylines[ruteId]) {
-                    map.removeLayer(actualPolylines[ruteId]);
+                    if (actualPolylines[ruteId] !== 'loading') {
+                        map.removeLayer(actualPolylines[ruteId]);
+                    }
                     delete actualPolylines[ruteId];
                 }
             }
@@ -903,6 +922,11 @@
         if (isInitialFetch) {
             url += '?initial_load=true';
             isInitialFetch = false;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('show_demo')) {
+            url += (url.includes('?') ? '&' : '?') + 'show_demo=1';
         }
 
         fetch(url)

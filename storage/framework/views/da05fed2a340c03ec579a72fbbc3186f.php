@@ -28,15 +28,15 @@
         </div>
 
         <?php if(session('success')): ?>
-            <div class="bg-green-500/10 border border-green-500/30 text-green-700 dark:text-green-400 p-4 rounded-xl flex items-start gap-3">
-                <span class="material-symbols-outlined text-green-600 dark:text-green-500">check_circle</span>
+            <div class="bg-green-500/10 border border-green-500/30 text-green-700  p-4 rounded-xl flex items-start gap-3">
+                <span class="material-symbols-outlined text-green-600 ">check_circle</span>
                 <p class="text-sm font-medium mt-0.5"><?php echo e(session('success')); ?></p>
             </div>
         <?php endif; ?>
 
         <?php if(session('error')): ?>
-            <div class="bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 p-4 rounded-xl flex items-start gap-3">
-                <span class="material-symbols-outlined text-red-600 dark:text-red-500">error</span>
+            <div class="bg-red-500/10 border border-red-500/30 text-red-700  p-4 rounded-xl flex items-start gap-3">
+                <span class="material-symbols-outlined text-red-600 ">error</span>
                 <p class="text-sm font-medium mt-0.5"><?php echo e(session('error')); ?></p>
             </div>
         <?php endif; ?>
@@ -558,7 +558,7 @@
             <?php echo csrf_field(); ?>
 
             <?php if($errors->any()): ?>
-                <div class="bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 p-3 rounded-lg text-xs font-medium">
+                <div class="bg-red-500/10 border border-red-500/30 text-red-700  p-3 rounded-lg text-xs font-medium">
                     <ul class="list-disc list-inside">
                         <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li><?php echo e($error); ?></li>

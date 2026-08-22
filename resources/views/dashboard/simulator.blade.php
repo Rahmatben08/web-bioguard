@@ -7,7 +7,7 @@
     <!-- LEFT COLUMN: Mobile Mockup Device -->
     <div class="w-full lg:w-1/2 flex justify-center items-center relative py-12">
         <!-- Smartphone Container -->
-        <div class="relative w-[360px] h-[720px] rounded-[48px] bg-slate-950 p-[12px] border-[6px] border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col ring-1 ring-white/10 lg:scale-125 xl:scale-[1.35] origin-center transition-transform duration-500">
+        <div class="relative w-[360px] h-[720px] rounded-[48px] bg-slate-950 p-[12px] border-[6px] border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] (0,0,0,0.8)] overflow-hidden flex flex-col ring-1 ring-white/10 lg:scale-125 xl:scale-[1.35] origin-center transition-transform duration-500">
             <!-- Screen Notch / Dynamic Island -->
             <div class="absolute top-[18px] left-1/2 -translate-x-1/2 w-[110px] h-[24px] bg-black rounded-full z-50 flex items-center justify-between px-3">
                 <div class="w-1.5 h-1.5 rounded-full bg-slate-800/80"></div>
@@ -706,7 +706,7 @@
             destMarker.setLatLng(routeCoords[routeCoords.length - 1]);
             
             // Adjust markers custom popups or content if needed
-            destMarker.bindPopup(`<div class='text-xs font-bold text-slate-800 dark:text-white py-0.5'>${activeDestination} (Tujuan)</div>`, { closeButton: false });
+            destMarker.bindPopup(`<div class='text-xs font-bold text-slate-800  py-0.5'>${activeDestination} (Tujuan)</div>`, { closeButton: false });
             
             // Refit map view
             map.setView(routeCoords[0], 15);
@@ -1210,7 +1210,7 @@
                             routePolyline.setLatLngs(routeCoords);
                             courierMarker.setLatLng(routeCoords[currentStep]);
                             destMarker.setLatLng(routeCoords[routeCoords.length - 1]);
-                            destMarker.bindPopup(`<div class='text-xs font-bold text-slate-800 dark:text-white py-0.5'>${activeDestination} (Tujuan)</div>`, { closeButton: false });
+                            destMarker.bindPopup(`<div class='text-xs font-bold text-slate-800  py-0.5'>${activeDestination} (Tujuan)</div>`, { closeButton: false });
                         }
                     }
                 }

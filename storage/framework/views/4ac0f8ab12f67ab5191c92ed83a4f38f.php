@@ -6,18 +6,14 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>BIO-GUARD - <?php echo $__env->yieldContent('title', 'Pusat Kendali Logistik Medis'); ?></title>
 
-    
     <script>
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        if (savedTheme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        // Tema selalu light
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
     </script>
 
     
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -28,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     
@@ -566,13 +562,13 @@
     <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] hidden opacity-0 transition-opacity duration-300 pointer-events-none"></div>
 
     <!-- Mobile Navigation Drawer -->
-    <aside id="mobile-drawer" class="fixed top-0 left-0 h-full w-72 bg-white/95 dark:bg-[#0f1419]/95 backdrop-blur-xl border-r border-slate-200 dark:border-slate-800 z-[1001] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col py-lg gap-md">
+    <aside id="mobile-drawer" class="fixed top-0 left-0 h-full w-72 bg-white/95  backdrop-blur-xl border-r border-slate-200  z-[1001] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col py-lg gap-md">
         
-        <div class="px-lg pb-md mb-md border-b border-slate-200 dark:border-slate-800/60 flex justify-between items-center">
-            <div class="flex items-center gap-sm mb-2 bg-slate-900/5 dark:bg-slate-100/5 p-2 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-                <img src="<?php echo e(asset('images/logo.png')); ?>?v=7" alt="BIO-GUARD Logo" class="h-10 w-auto object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.7)]">
+        <div class="px-lg pb-md mb-md border-b border-slate-200  flex justify-between items-center">
+            <div class="flex items-center gap-sm mb-2 bg-slate-900/5  p-2 rounded-2xl border border-slate-200 ">
+                <img src="<?php echo e(asset('images/logo.png')); ?>?v=7" alt="BIO-GUARD Logo" class="h-10 w-auto object-contain (255,255,255,0.7)]">
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-slate-950 dark:text-white tracking-wide text-sm">BIO-GUARD</span>
+                    <span class="font-extrabold text-slate-950  tracking-wide text-sm">BIO-GUARD</span>
                     <span class="text-[9px] text-primary font-bold uppercase tracking-widest">SISTEM MONITORING</span>
                 </div>
             </div>
@@ -583,45 +579,45 @@
 
         
         <div class="flex-1 flex flex-col gap-sm px-md overflow-y-auto pb-4">
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e((request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('dashboard')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e((request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('dashboard')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e((request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : ''); ?>">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('shipments')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('shipments')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('pengiriman*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">inventory_2</span>
                 <span class="font-label-md">Pengiriman</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('sensors')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('sensors')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('sensor*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">sensors</span>
                 <span class="font-label-md">Sensor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('inventory')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('inventory')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('inventaris*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">ac_unit</span>
                 <span class="font-label-md">Inventaris Hub</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('alerts')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('alerts')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
             <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet.accounts')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet.accounts')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">manage_accounts</span>
                 <span class="font-label-md">Akun Kurir</span>
             </a>
             <?php endif; ?>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.integrated')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.integrated')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.standalone')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.standalone')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('simulator*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">phone_iphone</span>
                 <span class="font-label-md">Web Simulator HP</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('profile')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('profile')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('profil*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">account_circle</span>
                 <span class="font-label-md">Profil Admin</span>
             </a>
@@ -629,11 +625,11 @@
 
         
         <?php if(auth()->guard()->check()): ?>
-        <div class="px-md border-t border-slate-200 dark:border-slate-800/60 pt-md mt-auto flex flex-col gap-sm">
-            <div class="flex items-center gap-md bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-800/80 rounded-xl p-md">
+        <div class="px-md border-t border-slate-200  pt-md mt-auto flex flex-col gap-sm">
+            <div class="flex items-center gap-md bg-slate-100/50  border border-slate-200  rounded-xl p-md">
                 <img src="<?php echo e(auth()->user()->photo && file_exists(public_path(auth()->user()->photo)) ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true'); ?>" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 shadow-sm">
                 <div class="min-w-0 flex-1">
-                    <p class="text-xs font-bold text-slate-900 dark:text-white truncate"><?php echo e(auth()->user()->name); ?></p>
+                    <p class="text-xs font-bold text-slate-900  truncate"><?php echo e(auth()->user()->name); ?></p>
                     <p class="text-[9px] text-slate-500 font-mono font-bold mt-0.5 truncate"><?php echo e(auth()->user()->dispatcher_id); ?></p>
                 </div>
             </div>
@@ -660,13 +656,13 @@
 
     
     <!-- STITCH_AI_SIDEBAR: Ganti dengan gaya sidebar enterprise -->
-    <nav class="hidden md:flex flex-col h-screen py-lg gap-md bg-white/80 dark:bg-[#081425]/80 backdrop-blur-md text-primary font-label-md w-64 border-r border-slate-200 dark:border-slate-800/80 flex-shrink-0">
+    <nav class="hidden md:flex flex-col h-screen py-lg gap-md bg-white/80  backdrop-blur-md text-primary font-label-md w-64 border-r border-slate-200  flex-shrink-0">
         
-        <div class="px-lg pb-md mb-md border-b border-slate-200 dark:border-slate-800/60 flex flex-col gap-xs">
-            <div class="flex items-center gap-sm mb-2 bg-slate-900/5 dark:bg-slate-100/5 p-2 rounded-2xl border border-slate-200 dark:border-slate-800/80">
-                <img src="<?php echo e(asset('images/logo.png')); ?>?v=7" alt="BIO-GUARD Logo" class="h-10 w-auto object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.7)]">
+        <div class="px-lg pb-md mb-md border-b border-slate-200  flex flex-col gap-xs">
+            <div class="flex items-center gap-sm mb-2 bg-slate-900/5  p-2 rounded-2xl border border-slate-200 ">
+                <img src="<?php echo e(asset('images/logo.png')); ?>?v=7" alt="BIO-GUARD Logo" class="h-10 w-auto object-contain (255,255,255,0.7)]">
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-slate-950 dark:text-white tracking-wide text-sm">BIO-GUARD</span>
+                    <span class="font-extrabold text-slate-950  tracking-wide text-sm">BIO-GUARD</span>
                     <span class="text-[9px] text-primary font-bold uppercase tracking-widest">SISTEM MONITORING</span>
                 </div>
             </div>
@@ -675,45 +671,45 @@
 
         
         <div class="flex-1 flex flex-col gap-sm px-md overflow-y-auto pb-4">
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e((request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('dashboard')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e((request()->is('/') || request()->is('dashboard*')) ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('dashboard')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e((request()->is('/') || request()->is('dashboard*')) ? "font-variation-settings: 'FILL' 1;" : ''); ?>">dashboard</span>
                 <span class="font-label-md">Dasbor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('shipments')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('pengiriman*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('shipments')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('pengiriman*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">inventory_2</span>
                 <span class="font-label-md">Pengiriman</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('sensors')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('sensor*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('sensors')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('sensor*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">sensors</span>
                 <span class="font-label-md">Sensor</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('inventory')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('inventaris*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('inventory')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('inventaris*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">ac_unit</span>
                 <span class="font-label-md">Inventaris Hub</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('alerts')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('peringatan*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('alerts')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('peringatan*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">warning</span>
                 <span class="font-label-md">Peringatan</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('armada') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">local_shipping</span>
                 <span class="font-label-md">Armada</span>
             </a>
             <?php if(auth()->check() && auth()->user()->role === 'admin'): ?>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet.accounts')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('armada/akun*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('fleet.accounts')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('armada/akun*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">manage_accounts</span>
                 <span class="font-label-md">Akun Kurir</span>
             </a>
             <?php endif; ?>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.integrated')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulasi-kurir*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.integrated')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('simulasi-kurir*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">devices</span>
                 <span class="font-label-md">Simulator Kurir</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.standalone')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('simulator*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('simulator.standalone')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('simulator*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">phone_iphone</span>
                 <span class="font-label-md">Web Simulator HP</span>
             </a>
-            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900 dark:text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('profile')); ?>">
+            <a class="flex items-center gap-md px-md py-3 rounded-xl <?php echo e(request()->is('profil*') ? 'text-primary bg-primary/15 border-l-4 border-primary font-bold shadow-sm group' : 'text-slate-900  hover:bg-slate-100 :bg-slate-800/50 hover:text-slate-900 :text-white'); ?> transition-all duration-300 ease-out active:scale-95" href="<?php echo e(route('profile')); ?>">
                 <span class="material-symbols-outlined" style="<?php echo e(request()->is('profil*') ? "font-variation-settings: 'FILL' 1;" : ''); ?>">account_circle</span>
                 <span class="font-label-md">Profil Admin</span>
             </a>
@@ -723,31 +719,31 @@
         <div class="mt-auto flex flex-col w-full">
             
             <?php if(auth()->guard()->check()): ?>
-            <div class="px-md py-4 border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/20">
+            <div class="px-md py-4 border-t border-slate-200  bg-slate-50/50 ">
                 <div class="flex items-center gap-3 mb-3">
                     <div class="relative shrink-0">
                         <img src="<?php echo e(auth()->user()->photo && file_exists(public_path(auth()->user()->photo)) ? asset(auth()->user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=0ea5e9&color=fff&rounded=true&bold=true'); ?>" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-primary/20 shadow-sm">
-                        <div class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-white dark:border-slate-950"></div>
+                        <div class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-white "></div>
                     </div>
                     <div class="min-w-0 flex-1">
-                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate"><?php echo e(auth()->user()->name); ?></p>
+                        <p class="text-xs font-bold text-slate-900  truncate"><?php echo e(auth()->user()->name); ?></p>
                         <p class="text-[9px] text-slate-500 font-mono font-medium truncate"><?php echo e(auth()->user()->dispatcher_id); ?></p>
                     </div>
-                    <button id="theme-toggle" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer" title="Ubah Tema">
+                    <button id="theme-toggle" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 :bg-slate-800 rounded-lg transition-colors cursor-pointer" title="Ubah Tema">
                         <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
                     </button>
                 </div>
                 <form action="<?php echo e(route('logout')); ?>" method="POST" class="w-full">
                     <?php echo csrf_field(); ?>
-                    <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-rose-500 bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-500 hover:text-white rounded-lg transition-colors cursor-pointer">
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-rose-500 bg-rose-50  hover:bg-rose-500 hover:text-white rounded-lg transition-colors cursor-pointer">
                         <span class="material-symbols-outlined text-[16px]">logout</span>
                         Keluar Sesi
                     </button>
                 </form>
             </div>
             <?php else: ?>
-            <div class="px-md py-4 border-t border-slate-200 dark:border-slate-800/60">
-                <button id="theme-toggle" class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer">
+            <div class="px-md py-4 border-t border-slate-200 ">
+                <button id="theme-toggle" class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-100  hover:bg-slate-200 :bg-slate-700 text-slate-700  transition-colors cursor-pointer">
                     <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
                     <span class="text-xs font-semibold">Ubah Tema</span>
                 </button>
@@ -755,7 +751,7 @@
             <?php endif; ?>
             
             
-            <div class="px-md pb-4 pt-1 text-center bg-slate-50/50 dark:bg-slate-900/20">
+            <div class="px-md pb-4 pt-1 text-center bg-slate-50/50 ">
                 <p class="text-[9px] text-slate-400 font-medium leading-relaxed">
                     BIO-GUARD Project &copy; 2026
                 </p>

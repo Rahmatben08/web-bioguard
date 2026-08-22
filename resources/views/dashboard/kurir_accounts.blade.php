@@ -30,15 +30,15 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-green-500/10 border border-green-500/30 text-green-700 dark:text-green-400 p-4 rounded-xl flex items-start gap-3">
-                <span class="material-symbols-outlined text-green-600 dark:text-green-500">check_circle</span>
+            <div class="bg-green-500/10 border border-green-500/30 text-green-700  p-4 rounded-xl flex items-start gap-3">
+                <span class="material-symbols-outlined text-green-600 ">check_circle</span>
                 <p class="text-sm font-medium mt-0.5">{{ session('success') }}</p>
             </div>
         @endif
 
         @if(session('error'))
-            <div class="bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 p-4 rounded-xl flex items-start gap-3">
-                <span class="material-symbols-outlined text-red-600 dark:text-red-500">error</span>
+            <div class="bg-red-500/10 border border-red-500/30 text-red-700  p-4 rounded-xl flex items-start gap-3">
+                <span class="material-symbols-outlined text-red-600 ">error</span>
                 <p class="text-sm font-medium mt-0.5">{{ session('error') }}</p>
             </div>
         @endif
@@ -181,7 +181,7 @@
             @csrf
 
             @if($errors->any())
-                <div class="bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 p-3 rounded-lg text-xs font-medium">
+                <div class="bg-red-500/10 border border-red-500/30 text-red-700  p-3 rounded-lg text-xs font-medium">
                     <ul class="list-disc list-inside">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>

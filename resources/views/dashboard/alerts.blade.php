@@ -65,7 +65,7 @@
         <!-- Small Map -->
         <div class="col-span-12 lg:col-span-4 bg-surface-container border border-outline-variant/30 rounded-xl overflow-hidden relative group min-h-[160px]">
             <div class="absolute inset-0 bg-surface-container-highest z-0">
-                <img class="w-full h-full object-cover opacity-60 dark:opacity-40 mix-blend-luminosity grayscale border border-outline-variant/30" alt="Hazard map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIMLx22L1e9xIYjaVBhIsxryBUkBKqSdXb3o60Oxn9oKoL1wkFkEGePIuzPzLt7Q9tgHIwnNsC7FI5EG_Vs22GsouzHEoWcJI4_FniQfn4iNcL9klzpTqTZi6l4n40xxdW4Xr57ZDw6U4g9yLARLru7Omyl4PeEcuhJ3bVcNz_e7x52pNj8N10zjPX2VTwJKv2DVk0KVxZhA90F92pCYthDxkf87uI2hGbU3Zz-dkutBGxfBXWCvV2Mx8d3UaqWyclaXqbnMd2cA"/>
+                <img class="w-full h-full object-cover opacity-60  mix-blend-luminosity grayscale border border-outline-variant/30" alt="Hazard map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIMLx22L1e9xIYjaVBhIsxryBUkBKqSdXb3o60Oxn9oKoL1wkFkEGePIuzPzLt7Q9tgHIwnNsC7FI5EG_Vs22GsouzHEoWcJI4_FniQfn4iNcL9klzpTqTZi6l4n40xxdW4Xr57ZDw6U4g9yLARLru7Omyl4PeEcuhJ3bVcNz_e7x52pNj8N10zjPX2VTwJKv2DVk0KVxZhA90F92pCYthDxkf87uI2hGbU3Zz-dkutBGxfBXWCvV2Mx8d3UaqWyclaXqbnMd2cA"/>
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
             <div class="relative z-10 p-md flex flex-col h-full justify-between">
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="flex gap-xs">
-                        <button class="btn-view-log px-md py-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-on-surface rounded border border-outline-variant/30 transition-all font-label-md text-[10px] font-bold"
+                        <button class="btn-view-log px-md py-sm bg-slate-100 hover:bg-slate-200  :bg-slate-700 text-on-surface rounded border border-outline-variant/30 transition-all font-label-md text-[10px] font-bold"
                                 data-id="#BG-{{ $incident->id }}"
                                 data-type="{{ $incident->jenis_insiden }}"
                                 data-level="{{ $incident->jenis_insiden === 'Tidak Layak Pakai' ? 'KRITIS' : 'PERINGATAN' }}"

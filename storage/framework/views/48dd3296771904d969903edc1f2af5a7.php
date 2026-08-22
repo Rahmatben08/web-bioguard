@@ -138,7 +138,7 @@
             </div>
             <div class="text-3xl font-extrabold tabular-nums"><span id="live-kapasitas"><?php echo e($kapasitasUtilisasi); ?>%</span> <span class="text-xs text-slate-500 font-semibold">utilisasi</span></div>
             <div class="mt-4 flex items-center gap-2">
-                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1 rounded-full overflow-hidden">
+                <div class="w-full bg-slate-200  h-1 rounded-full overflow-hidden">
                     <div class="bg-primary h-full" style="width: <?php echo e($kapasitasUtilisasi); ?>%"></div>
                 </div>
             </div>
@@ -218,19 +218,19 @@
                     <tr data-batch="<?php echo e($drug->no_batch); ?>">
                         <td>
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+                                <div class="w-10 h-10 rounded bg-slate-100  flex items-center justify-center text-slate-500">
                                     <span class="material-symbols-outlined">
                                         <?php echo e($drug->jenis === 'Vaksin' ? 'vaccines' : ($drug->jenis === 'Insulin' ? 'medical_services' : 'bloodtype')); ?>
 
                                     </span>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-slate-900 dark:text-white"><?php echo e($drug->nama_produk); ?></div>
+                                    <div class="font-bold text-slate-900 "><?php echo e($drug->nama_produk); ?></div>
                                     <div class="text-[10px] text-slate-500 font-mono"><?php echo e($drug->jenis); ?></div>
                                 </div>
                             </div>
                         </td>
-                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300">
+                        <td class="tabular-nums font-mono text-slate-700 ">
                             <div class="flex items-center gap-2">
                                 <span>#<?php echo e($drug->no_batch); ?></span>
                                 <a href="<?php echo e(route('dashboard.qr_batch', $drug->no_batch)); ?>" target="_blank" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors" title="Cetak QR Batch">
@@ -243,18 +243,18 @@
                                 $suhu = (float) $drug->suhu_penyimpanan;
                                 $rangeText = '2°C s/d 8°C';
                                 $rangeLabel = 'Chilled';
-                                $colorClass = 'text-teal-600 dark:text-teal-400';
+                                $colorClass = 'text-teal-600 ';
                                 $icon = 'thermostat';
                                 
                                 if ($suhu <= -70.0) {
                                     $rangeText = '-80°C s/d -60°C';
                                     $rangeLabel = 'Ultra-Cold';
-                                    $colorClass = 'text-cyan-500 dark:text-cyan-300';
+                                    $colorClass = 'text-cyan-500 ';
                                     $icon = 'severe_cold';
                                 } elseif ($suhu <= -20.0) {
                                     $rangeText = '-25°C s/d -15°C';
                                     $rangeLabel = 'Frozen';
-                                    $colorClass = 'text-blue-500 dark:text-blue-400';
+                                    $colorClass = 'text-blue-500 ';
                                     $icon = 'kitchen';
                                 }
                             ?>
@@ -263,7 +263,7 @@
                                     <span class="material-symbols-outlined text-[16px]"><?php echo e($icon); ?></span>
                                     <span class="font-bold text-xs"><?php echo e($rangeLabel); ?></span>
                                 </div>
-                                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold font-mono mt-0.5 tabular-nums">
+                                <div class="text-[11px] text-slate-500  font-semibold font-mono mt-0.5 tabular-nums">
                                     <?php echo e($rangeText); ?> (target: <?php echo e(number_format($suhu, 1, ',', '.')); ?>°C)
                                 </div>
                             </div>
@@ -271,15 +271,15 @@
                         <td>
                             <div class="flex flex-col gap-1">
                                 <div class="flex justify-between text-[11px] font-bold">
-                                    <span id="stok-<?php echo e($drug->no_batch); ?>" class="text-slate-900 dark:text-white tabular-nums"><?php echo e(number_format($drug->stok, 0, ',', '.')); ?></span>
+                                    <span id="stok-<?php echo e($drug->no_batch); ?>" class="text-slate-900  tabular-nums"><?php echo e(number_format($drug->stok, 0, ',', '.')); ?></span>
                                     <span class="text-slate-500">Min: 5rb</span>
                                 </div>
-                                <div class="w-32 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                                <div class="w-32 h-1.5 bg-slate-200  rounded-full overflow-hidden">
                                     <div class="bg-primary h-full" style="width: <?php echo e(min(100, ($drug->stok / 30000) * 100)); ?>%"></div>
                                 </div>
                             </div>
                         </td>
-                        <td class="tabular-nums font-mono text-slate-700 dark:text-slate-300"><?php echo e($drug->tanggal_kadaluwarsa->format('Y-m-d')); ?></td>
+                        <td class="tabular-nums font-mono text-slate-700 "><?php echo e($drug->tanggal_kadaluwarsa->format('Y-m-d')); ?></td>
                         <td>
                             <?php
                                 $badgeColor = 'neutral';
@@ -312,17 +312,17 @@
                         </td>
                         <td>
                             <div class="flex justify-end gap-2">
-                                <button onclick="openColdChainModal('<?php echo e($drug->no_batch); ?>', '<?php echo e($drug->nama_produk); ?>', '<?php echo e($drug->suhu_penyimpanan); ?>')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="<?php echo e($drug->no_batch); ?>" data-name="<?php echo e($drug->nama_produk); ?>" data-temp="<?php echo e($drug->suhu_penyimpanan); ?>" title="Analisis Rantai Dingin">
+                                <button onclick="openColdChainModal('<?php echo e($drug->no_batch); ?>', '<?php echo e($drug->nama_produk); ?>', '<?php echo e($drug->suhu_penyimpanan); ?>')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="<?php echo e($drug->no_batch); ?>" data-name="<?php echo e($drug->nama_produk); ?>" data-temp="<?php echo e($drug->suhu_penyimpanan); ?>" title="Analisis Rantai Dingin">
                                     <span class="material-symbols-outlined text-[18px]">timeline</span>
                                 </button>
                                 </button>
-                                <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
+                                <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
                                     <span class="material-symbols-outlined text-[18px]">outbound</span>
                                 </button>
-                                <a href="<?php echo e(route('dashboard.qr_batch', $drug->no_batch)); ?>" target="_blank" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Batch">
+                                <a href="<?php echo e(route('dashboard.qr_batch', $drug->no_batch)); ?>" target="_blank" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak QR Batch">
                                     <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
                                 </a>
-                                <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">
+                                <button onclick="showToast('Mencetak Label', 'Label barcode sedang diproses ke printer...')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Cetak Label">
                                     <span class="material-symbols-outlined text-[18px]">print</span>
                                 </button>
                             </div>
@@ -330,7 +330,18 @@
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <tr>
-                        <td colspan="7" class="text-center text-slate-500 py-8">Tidak ada data obat termolabil ditemukan.</td>
+                        <td colspan="7" class="py-12 text-center text-slate-500">
+                            <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                <div class="w-16 h-16 bg-slate-100  rounded-full flex items-center justify-center mb-4">
+                                    <span class="material-symbols-outlined text-[32px] text-slate-400">inventory_2</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800  mb-2">Belum Ada Data Pengiriman / Inventaris</h3>
+                                <p class="text-sm text-slate-500  mb-6">Data batch obat termolabil masih kosong. Tambahkan batch baru secara manual untuk memulai pelacakan stok dan kedaluwarsa.</p>
+                                <button onclick="openQuickModal('terima')" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 shadow-md shadow-sky-500/20 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">add_box</span> Terima Batch Baru
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     <?php endif; ?>
                 </tbody>
@@ -347,15 +358,15 @@
         </div>
 
         <!-- Pagination -->
-        <div class="px-6 py-4 flex items-center justify-between border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+        <div class="px-6 py-4 flex items-center justify-between border-t border-slate-200  bg-slate-50 ">
             <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Menampilkan <?php echo e($drugs->firstItem() ?? 0); ?>-<?php echo e($drugs->lastItem() ?? 0); ?> dari <?php echo e($drugs->total()); ?> data</span>
             <div class="flex gap-2">
                 <?php if($drugs->onFirstPage()): ?>
-                    <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
+                    <button class="p-1.5 bg-slate-100  rounded text-slate-400 cursor-not-allowed" disabled>
                         <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </button>
                 <?php else: ?>
-                    <a href="<?php echo e($drugs->previousPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                    <a href="<?php echo e($drugs->previousPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-700  transition-colors">
                         <span class="material-symbols-outlined text-[18px]">chevron_left</span>
                     </a>
                 <?php endif; ?>
@@ -363,11 +374,11 @@
                 <span class="px-3 py-1.5 text-xs font-bold bg-primary text-on-primary rounded shadow-sm"><?php echo e($drugs->currentPage()); ?></span>
 
                 <?php if($drugs->hasMorePages()): ?>
-                    <a href="<?php echo e($drugs->nextPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded text-slate-700 dark:text-slate-300 transition-colors">
+                    <a href="<?php echo e($drugs->nextPageUrl()); ?>" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-700  transition-colors">
                         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </a>
                 <?php else: ?>
-                    <button class="p-1.5 bg-slate-100 dark:bg-slate-800 rounded text-slate-400 cursor-not-allowed" disabled>
+                    <button class="p-1.5 bg-slate-100  rounded text-slate-400 cursor-not-allowed" disabled>
                         <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
                 <?php endif; ?>
@@ -803,7 +814,7 @@
             const tempNum = parseFloat(temp);
             const rangeText = tempNum <= -70 ? '-80°C s/d -60°C' : (tempNum <= -20 ? '-25°C s/d -15°C' : '2°C s/d 8°C');
             const rangeLabel = tempNum <= -70 ? 'Ultra-Cold' : (tempNum <= -20 ? 'Frozen' : 'Chilled');
-            const colorClass = tempNum <= -70 ? 'text-cyan-500' : (tempNum <= -20 ? 'text-blue-500' : 'text-teal-600 dark:text-teal-400');
+            const colorClass = tempNum <= -70 ? 'text-cyan-500' : (tempNum <= -20 ? 'text-blue-500' : 'text-teal-600 ');
             const icon = tempNum <= -70 ? 'severe_cold' : (tempNum <= -20 ? 'kitchen' : 'thermostat');
 
             modalFormTitle.textContent = 'Analisis Stabilitas Rantai Dingin';
@@ -811,36 +822,36 @@
             
             modalBodyContent.innerHTML = `
                 <div class="space-y-md text-left select-none">
-                    <div class="p-4 bg-slate-100/50 dark:bg-slate-800/40 rounded-xl border border-slate-200/50 dark:border-slate-700/30 flex flex-col gap-1">
+                    <div class="p-4 bg-slate-100/50  rounded-xl border border-slate-200/50  flex flex-col gap-1">
                         <div class="flex justify-between items-center text-xs">
-                            <span class="font-bold text-slate-900 dark:text-white">${name}</span>
+                            <span class="font-bold text-slate-900 ">${name}</span>
                             <span class="font-mono text-primary font-bold">#${batch}</span>
                         </div>
                         <div class="flex items-center gap-1.5 mt-2 ${colorClass}">
                             <span class="material-symbols-outlined text-[16px]">${icon}</span>
                             <span class="font-bold text-xs">${rangeLabel} (${rangeText})</span>
                         </div>
-                        <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                        <div class="text-[10px] text-slate-500  mt-1">
                             Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}°C</strong>
                         </div>
                     </div>
                     
-                    <div class="p-4 bg-slate-100/30 dark:bg-slate-800/20 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
-                        <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-sm">Log Sensor Stabilitas Termal (24 Jam Terakhir)</label>
-                        <div class="space-y-2 text-[11px] font-medium text-slate-700 dark:text-on-surface-variant font-mono">
-                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                    <div class="p-4 bg-slate-100/30  rounded-xl border border-slate-200/30 ">
+                        <label class="block text-[10px] font-bold text-slate-500  uppercase tracking-wider mb-sm">Log Sensor Stabilitas Termal (24 Jam Terakhir)</label>
+                        <div class="space-y-2 text-[11px] font-medium text-slate-700  font-mono">
+                            <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>10:00 (Sekarang)</span>
                                 <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
                             </div>
-                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                            <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>08:00 (2 Jam lalu)</span>
                                 <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}°C [Aman]</span>
                             </div>
-                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                            <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>04:00 (6 Jam lalu)</span>
                                 <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
-                            <div class="flex justify-between border-b border-slate-200 dark:border-slate-800/60 pb-1">
+                            <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>22:00 (12 Jam lalu)</span>
                                 <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
@@ -853,7 +864,7 @@
                     
                     <div class="p-3 border border-green-500/20 bg-green-500/10 rounded-xl flex items-center gap-2">
                         <span class="material-symbols-outlined text-green-500 text-[20px]">verified</span>
-                        <div class="text-[10px] text-green-600 dark:text-green-400 leading-relaxed font-semibold">
+                        <div class="text-[10px] text-green-600  leading-relaxed font-semibold">
                             Suhu boks penyimpanan terpantau stabil. Standar CDOB dan Cold Chain terpenuhi sepenuhnya.
                         </div>
                     </div>
