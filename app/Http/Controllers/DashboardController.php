@@ -64,7 +64,7 @@ class DashboardController extends Controller
         })->count();
 
         // Ambil data insiden aktif untuk SOS Center (hardcode dummy text diganti ini)
-        $sosIncidents = \App\Models\IncidentLog::with('rute.kurir')
+        $sosIncidents = \App\Models\IncidentLog::with('perjalananRute.kurir')
             ->where('status', 'aktif')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -245,10 +245,11 @@ class DashboardController extends Controller
     public function generateBoxQr(string $id_box): View
     {
         // Generate QR code dengan data id_box
-        $qrCode = QrCode::size(300)
+        $qrCode = QrCode::errorCorrection('H')
+            ->margin(4)
+            ->size(400)
             ->color(0, 0, 0) // Black
             ->backgroundColor(255, 255, 255) // White Background
-            ->margin(2)
             ->generate($id_box);
 
         return view('dashboard.qr_print', compact('qrCode', 'id_box'));
@@ -260,10 +261,11 @@ class DashboardController extends Controller
     public function generateBatchQr(string $batch_id): View
     {
         // Generate QR code dengan data batch_id
-        $qrCode = QrCode::size(300)
+        $qrCode = QrCode::errorCorrection('H')
+            ->margin(4)
+            ->size(400)
             ->color(0, 0, 0) // Black
             ->backgroundColor(255, 255, 255) // White Background
-            ->margin(2)
             ->generate($batch_id);
 
         return view('dashboard.batch_qr_print', compact('qrCode', 'batch_id'));
