@@ -12,8 +12,8 @@
         document.documentElement.classList.add('light');
     </script>
 
-    {{-- Tailwind CSS & Plugins from Vite (Compiled) --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Tailwind CSS & Plugins from CDN --}}
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     {{-- Flatpickr (Interactive Calendar) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
