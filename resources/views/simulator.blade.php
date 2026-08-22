@@ -10,17 +10,10 @@
 
     <!-- Theme Initialization Script (Prevent FOUC) -->
     <script>
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            // Note: Default requirement is Light mode, so we strictly check localStorage.
-            // If we want absolute light mode default on first open, we can remove the matchMedia.
-        }
-        
         // Force light mode default
-        if (localStorage.getItem('color-theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        localStorage.setItem('color-theme', 'light');
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
     </script>
 
     <!-- Google Fonts (Plus Jakarta Sans & JetBrains Mono) -->
