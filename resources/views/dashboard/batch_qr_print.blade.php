@@ -23,6 +23,10 @@
             background-color: #152031;
             border: 1px dashed #3d494c;
         }
+        
+        .qr-container svg {
+            shape-rendering: crispEdges;
+        }
 
         @media print {
             body {
@@ -45,6 +49,7 @@
             .qr-container svg {
                 width: 400px !important;
                 height: 400px !important;
+                shape-rendering: crispEdges !important;
             }
             .print-text {
                 color: #000000 !important;
