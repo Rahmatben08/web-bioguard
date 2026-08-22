@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -141,7 +141,7 @@
                                     <td class="px-4 py-3.5 font-bold">{{ $perjalanan->nama_kargo ?? 'Vaksin Medis' }}</td>
                                     <td class="px-4 py-3.5">{{ $perjalanan->lokasi_tujuan }}</td>
                                     <td class="px-4 py-3.5 text-center font-mono font-bold text-slate-700">
-                                        {{ number_format($avgTemp, 1, ',', '.') }}°C
+                                        {{ number_format($avgTemp, 1, ',', '.') }}Â&deg;C
                                     </td>
                                     <td class="px-4 py-3.5 text-center">
                                         @if($excursion['status'] === 'Aman')
@@ -165,7 +165,7 @@
 
             {{-- Audit Standards / Compliance Text --}}
             <div class="p-6 bg-cyan-50/50 rounded-2xl border border-cyan-100 mb-8 flex items-start gap-4">
-                <span class="text-cyan-600 text-2xl">🛡️</span>
+                <span class="text-cyan-600 text-2xl">ðŸ›¡ï¸</span>
                 <div class="text-xs leading-relaxed text-slate-700">
                     <h4 class="font-bold text-slate-900 mb-1">Pernyataan Kepatuhan CDOB & Distribusi Termolabil</h4>
                     Dengan diterbitkannya dokumen digital audit trail ini, sistem memverifikasi bahwa pengiriman vaksin dan produk farmasi sensitif di atas dipantau menggunakan unit telemetri IoT terkalibrasi. Seluruh grafik fluktuasi suhu dan GPS dicatat dalam database terdesentralisasi BIO-GUARD dan memenuhi standar BPOM RI tentang Tata Cara Cara Distribusi Obat yang Baik (CDOB).

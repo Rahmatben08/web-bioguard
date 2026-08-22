@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Pusat Peringatan Sistem')
 
@@ -108,7 +108,7 @@
                         </div>
                         <p class="text-on-surface text-xs mt-1">{{ $incident->deskripsi }}</p>
                         <div class="flex items-center gap-4 mt-2 text-[10px] text-outline">
-                            <span>Suhu Tercatat: <span class="font-data-mono font-bold text-on-surface">{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}°C</span></span>
+                            <span>Suhu Tercatat: <span class="font-data-mono font-bold text-on-surface">{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}Â&deg;C</span></span>
                             <span>Durasi Ekskursi: <span class="font-data-mono font-bold text-on-surface">{{ $incident->durasi_anomali }} detik</span></span>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                 data-type="{{ $incident->jenis_insiden }}"
                                 data-level="{{ $incident->jenis_insiden === 'Tidak Layak Pakai' ? 'KRITIS' : 'PERINGATAN' }}"
                                 data-duration="{{ $incident->durasi_anomali }} detik"
-                                data-temp="{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}°C"
+                                data-temp="{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}Â&deg;C"
                                 data-desc="{{ $incident->deskripsi }}"
                                 data-time="{{ $incident->created_at->format('Y-m-d H:i:s') }}"
                                 data-status="aktif">
@@ -147,16 +147,16 @@
                 <div class="p-md bg-surface-container-high/60 border border-outline-variant/20 rounded-lg flex items-center justify-between">
                     <div>
                         <div class="font-bold text-sm text-on-surface">Batas Atas Suhu (Warning)</div>
-                        <div class="text-xs text-outline">Suhu kritis > 8.0°C</div>
+                        <div class="text-xs text-outline">Suhu kritis > 8.0Â&deg;C</div>
                     </div>
-                    <span class="text-primary font-semibold text-sm font-data-mono">8,0°C</span>
+                    <span class="text-primary font-semibold text-sm font-data-mono">8,0Â&deg;C</span>
                 </div>
                 <div class="p-md bg-surface-container-high/60 border border-outline-variant/20 rounded-lg flex items-center justify-between">
                     <div>
                         <div class="font-bold text-sm text-on-surface">Batas Bawah Suhu (Warning)</div>
-                        <div class="text-xs text-outline">Suhu pembekuan < 2.0°C</div>
+                        <div class="text-xs text-outline">Suhu pembekuan < 2.0Â&deg;C</div>
                     </div>
-                    <span class="text-primary font-semibold text-sm font-data-mono">2,0°C</span>
+                    <span class="text-primary font-semibold text-sm font-data-mono">2,0Â&deg;C</span>
                 </div>
                 <div class="p-md bg-surface-container-high/60 border border-outline-variant/20 rounded-lg flex items-center justify-between">
                     <div>
@@ -201,7 +201,7 @@
                             @endif
                         </td>
                         <td class="px-lg py-md font-data-mono text-on-surface-variant">{{ $incident->durasi_anomali }} detik</td>
-                        <td class="px-lg py-md font-data-mono text-on-surface-variant">{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}°C</td>
+                        <td class="px-lg py-md font-data-mono text-on-surface-variant">{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}Â&deg;C</td>
                         <td class="px-lg py-md">
                             <div class="flex items-center gap-2 text-on-surface">
                                 <span class="w-1.5 h-1.5 rounded-full bg-primary/60 border border-primary shadow-[0_0_8px_rgba(76,215,246,0.5)]"></span>
@@ -214,7 +214,7 @@
                                     data-type="{{ $incident->jenis_insiden }}"
                                     data-level="{{ $incident->jenis_insiden === 'Tidak Layak Pakai' ? 'KRITIS' : 'PERINGATAN' }}"
                                     data-duration="{{ $incident->durasi_anomali }} detik"
-                                    data-temp="{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}°C"
+                                    data-temp="{{ number_format($incident->suhu_tercatat, 1, ',', '.') }}Â&deg;C"
                                     data-desc="{{ $incident->deskripsi }}"
                                     data-time="{{ $incident->created_at->format('Y-m-d H:i:s') }}"
                                     data-status="resolved">
