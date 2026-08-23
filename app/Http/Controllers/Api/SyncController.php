@@ -304,4 +304,27 @@ class SyncController extends Controller
             ]
         ]);
     }
+
+    /**
+     * Endpoint API Konfirmasi Serah Terima Kurir
+     * Memanggil Job Antrean untuk mencatat perpindahan ke Stock Ledger.
+     */
+    public function completeDelivery(Request $request): JsonResponse
+    {
+        $request->validate([
+            'route_id' => 'required|string',
+            'faskes_id' => 'required|string'
+        ]);
+
+        $routeId = $request->route_id;
+        $faskesId = $request->faskes_id;
+
+        // Dispatch job queue
+        \App\Jobs\ProcessDeliveryStockJob::dispatch($routeId, $faskesId);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Konfirmasi serah terima berhasil diproses. Stok dan buku besar sedang diperbarui.',
+        ]);
+    }
 }

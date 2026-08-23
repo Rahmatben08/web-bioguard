@@ -172,6 +172,7 @@ Route::redirect('/sensors', '/sensor');
 Route::redirect('/alerts', '/peringatan');
 Route::redirect('/fleet', '/armada');
 Route::redirect('/simulasi', '/simulator');
+Route::redirect('/simulator-kurir', '/simulasi-kurir');
 
 
 // ==========================================

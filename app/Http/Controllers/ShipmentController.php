@@ -167,6 +167,15 @@ class ShipmentController extends Controller
             // Track admin directly if model allows, but here we just rely on standard creation
         ]);
 
+        \App\Models\StockLedger::create([
+            'type' => 'in',
+            'quantity' => $validated['qty'],
+            'reference_batch' => $validated['no_batch'],
+            'trigger_by' => 'admin',
+            'trigger_user_id' => auth()->id() ?? 1,
+            'notes' => 'Penerimaan batch baru dari gudang pusat',
+        ]);
+
         return back()->with('success', "Batch {$validated['no_batch']} berhasil ditambahkan.");
     }
 
@@ -237,6 +246,17 @@ class ShipmentController extends Controller
             'id_admin' => auth()->id() ?? 1 // Fallback to 1 if auth is bypassed for testing
         ]);
 
+        if ($selisih != 0) {
+            \App\Models\StockLedger::create([
+                'type' => 'adjustment',
+                'quantity' => abs($selisih),
+                'reference_batch' => $drug->no_batch,
+                'trigger_by' => 'admin',
+                'trigger_user_id' => auth()->id() ?? 1,
+                'notes' => 'Audit manual: ' . ($selisih > 0 ? 'Penambahan' : 'Pengurangan') . " stok sebesar " . abs($selisih),
+            ]);
+        }
+
         // 2. Update stok utama
         $drug->update(['stok' => $stokFisik]);
 
@@ -265,7 +285,17 @@ class ShipmentController extends Controller
             'id_admin' => auth()->id() ?? 1
         ]);
 
-        // 2. Potong stok
+        // 2. Catat ke StockLedger
+        \App\Models\StockLedger::create([
+            'type' => 'out',
+            'quantity' => $validated['qty'],
+            'reference_batch' => $drug->no_batch,
+            'trigger_by' => 'admin',
+            'trigger_user_id' => auth()->id() ?? 1,
+            'notes' => "Transfer batch ke {$validated['lokasi_tujuan']}",
+        ]);
+
+        // 3. Potong stok
         $drug->decrement('stok', $validated['qty']);
 
         return back()->with('success', "Transfer {$validated['qty']} vial {$drug->no_batch} ke {$validated['lokasi_tujuan']} berhasil diproses.");

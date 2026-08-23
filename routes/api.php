@@ -34,6 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
         
     Route::post('/pairing/validate', [SyncController::class, 'validatePairing'])
         ->name('api.pairing.validate');
+        
+    Route::post('/delivery/complete', [SyncController::class, 'completeDelivery'])
+        ->name('api.delivery.complete');
 });
 
 // Data marker peta (untuk AJAX refresh)
