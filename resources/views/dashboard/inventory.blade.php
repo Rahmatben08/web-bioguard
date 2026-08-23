@@ -600,7 +600,7 @@
         document.getElementById('modal-faskes-id').textContent = hub.id;
         document.getElementById('modal-faskes-name').textContent = hub.nama;
         document.getElementById('modal-faskes-kecamatan').textContent = hub.kecamatan;
-        document.getElementById('modal-suhu-aktual').textContent = parseFloat(hub.suhu_aktual).toFixed(1).replace('.', ',') + '&deg;C';
+        document.getElementById('modal-suhu-aktual').innerHTML = parseFloat(hub.suhu_aktual).toFixed(1).replace('.', ',') + '&deg;C';
         
         // Icon handling
         const iconDiv = document.getElementById('modal-header-icon');
@@ -749,7 +749,7 @@
             btn.innerHTML = '<span class="material-symbols-outlined text-[16px] text-green-400">check_circle</span> Sukses!';
             
             // Force temperature back to safe ranges in UI
-            document.getElementById('modal-suhu-aktual').textContent = '4,5&deg;C';
+            document.getElementById('modal-suhu-aktual').innerHTML = '4,5&deg;C';
             
             const badge = document.getElementById('modal-status-badge');
             badge.className = 'px-3 py-1 bg-emerald-50  text-emerald-600  border border-emerald-200/50  text-xs font-bold rounded-full';
