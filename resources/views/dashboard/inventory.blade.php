@@ -86,7 +86,7 @@
                     <span class="material-symbols-outlined text-[24px]">donut_large</span>
                 </div>
                 <span class="text-xs font-bold text-slate-700  bg-slate-100  px-2.5 py-1 rounded-lg">
-                    {{ $avgCapacityUtil }}% terisi
+                    {{ number_format($avgCapacityUtil, 1, ',', '.') }}% terisi
                 </span>
             </div>
             <div class="mt-4">
