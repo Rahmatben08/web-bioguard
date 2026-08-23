@@ -107,7 +107,7 @@
                 <!-- Pfizer -->
                 <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">PFIZER VACCINE</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">VAKSIN PFIZER</span>
                         <span class="text-[9px] font-bold text-sky-600  bg-sky-50  px-2 py-0.5 rounded-full">mRNA</span>
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPfizer, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
@@ -119,7 +119,7 @@
                 <!-- Polio -->
                 <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">POLIO VACCINE (bOPV)</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">VAKSIN POLIO (bOPV)</span>
                         <span class="text-[9px] font-bold text-indigo-600  bg-indigo-50  px-2 py-0.5 rounded-full">OPV</span>
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPolio, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
@@ -131,7 +131,7 @@
                 <!-- Sinovac -->
                 <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">SINOVAC VACCINE</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">VAKSIN SINOVAC</span>
                         <span class="text-[9px] font-bold text-emerald-600  bg-emerald-50  px-2 py-0.5 rounded-full">Killed</span>
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalSinovac, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
@@ -143,7 +143,7 @@
                 <!-- Insulin -->
                 <div class="p-4 bg-slate-50  rounded border border-slate-200 ">
                     <div class="flex items-center justify-between mb-1">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">INSULIN HORMON</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">HORMON INSULIN</span>
                         <span class="text-[9px] font-bold text-amber-600  bg-amber-50  px-2 py-0.5 rounded-full">Thermolabile</span>
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalInsulin, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Pena/Vial</span></div>
@@ -530,7 +530,7 @@
                     <!-- Insulin -->
                     <div>
                         <div class="flex justify-between text-xs mb-1">
-                            <span class="font-semibold text-slate-700 ">Insulin Hormon</span>
+                            <span class="font-semibold text-slate-700 ">Hormon Insulin</span>
                             <span class="font-bold text-slate-850  font-mono" id="modal-stock-insulin">650 Vial</span>
                         </div>
                         <div class="w-full bg-slate-200  h-1.5 rounded-full overflow-hidden">
