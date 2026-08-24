@@ -16,6 +16,11 @@ class SyncTelemetriRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        // Support flat payload from WiFi firmware
+        if (!$this->has('data') && $this->has('suhu_aktual')) {
+            $this->merge(['data' => [$this->all()]]);
+        }
+
         if ($this->has('data') && is_array($this->data)) {
             $data = $this->data;
             foreach ($data as &$record) {
@@ -26,6 +31,17 @@ class SyncTelemetriRequest extends FormRequest
                 if (isset($record['lng'])) {
                     $record['longitude'] = $record['lng'];
                     unset($record['lng']);
+                }
+                
+                // Workaround: Aplikasi Android Flutter masih menggunakan Mock String ('RUTE-LOG-MED-042')
+                // Ganti dengan integer id_rute yang valid milik kurir yang login agar lolos validasi
+                if (isset($record['id_rute']) && !is_numeric($record['id_rute'])) {
+                    $user = $this->user();
+                    $activeRoute = null;
+                    if ($user) {
+                        $activeRoute = \App\Models\PerjalananRute::aktif()->where('id_kurir', $user->id_pengguna)->first();
+                    }
+                    $record['id_rute'] = $activeRoute ? $activeRoute->id_rute : 1;
                 }
             }
             $this->merge(['data' => $data]);

@@ -86,7 +86,7 @@ class SyncController extends Controller
 
                     $upsertData[] = [
                         'id_rute' => $record['id_rute'],
-                        'timestamp' => $record['timestamp'],
+                        'timestamp' => \Carbon\Carbon::parse($record['timestamp'])->format('Y-m-d H:i:s'),
                         'suhu_aktual' => $record['suhu_aktual'],
                         'nilai_mkt' => $record['nilai_mkt'] ?? null,
                         'latitude' => $record['latitude'],
@@ -106,9 +106,10 @@ class SyncController extends Controller
             );
 
             // Fetch the updated/inserted logs to generate corresponding AI predictions
+            $timestampsToFetch = collect($upsertData)->pluck('timestamp');
             $syncedLogs = LogTelemetri::with('perjalananRute')
                 ->whereIn('id_rute', collect($records)->pluck('id_rute'))
-                ->whereIn('timestamp', collect($records)->pluck('timestamp'))
+                ->whereIn('timestamp', $timestampsToFetch)
                 ->get();
 
                 $prediksiData = [];
