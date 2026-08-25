@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
     // Batch QR Scanner Routes
     Route::get('/pengiriman/batch/{batch_id}', [ShipmentController::class, 'getBatchDetail'])
         ->name('shipments.batch.detail');
+    Route::get('/pengiriman/batch/{batch_id}/history', [ShipmentController::class, 'getHistory'])
+        ->name('shipments.batch.history');
     Route::post('/pengiriman/batch/{batch_id}/konfirmasi', [ShipmentController::class, 'konfirmasiTerima'])
         ->name('shipments.batch.konfirmasi');
 

@@ -1,0 +1,1 @@
+<?php require 'vendor/autoload.php'; $app = require_once 'bootstrap/app.php'; $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class); $kernel->bootstrap(); echo SimpleSoftwareIO\QrCode\Facades\QrCode::errorCorrection('H')->margin(4)->size(400)->generate('BOX-1');

@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>BIO-GUARD - <?php echo $__env->yieldContent('title', 'Pusat Kendali Logistik Medis'); ?></title>
 
+    
     <script>
-        // Tema selalu light
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        document.documentElement.classList.add('light');
     </script>
 
     
@@ -186,61 +186,7 @@
             --color-surface-tint: #0284c7;
         }
 
-        .dark {
-            /* Dark Mode CSS Variables (Advanced Ergonomic Dark Mode) */
-            --color-background: #0f1419;
-            --color-on-background: #e2e8f0;
-            --color-surface: #0f1419;
-            --color-on-surface: #f8fafc;
-            --color-surface-container: #1e293b;
-            --color-surface-container-low: #151c24;
-            --color-surface-container-lowest: #0b0f13;
-            --color-surface-container-high: #243249;
-            --color-surface-container-highest: #334155;
-            --color-surface-variant: #1e293b;
-            --color-on-surface-variant: #94a3b8;
-            --color-outline: #64748b;
-            --color-outline-variant: #334155;
-            --color-primary: #2dd4bf; /* Soft Cyan/Teal (Aman) */
-            --color-primary-container: #0f766e;
-            --color-on-primary: #0f1419;
-            --color-on-primary-container: #ccfbf1;
-            --color-tertiary: #fbbf24; /* Muted Amber (Warning) */
-            --color-tertiary-container: #78350f;
-            --color-on-tertiary: #0f1419;
-            --color-on-tertiary-container: #fef3c7;
-            --color-error: #fb7185; /* Soft Crimson/Rose (Kritis) */
-            --color-error-container: #881337;
-            --color-on-error: #0f1419;
-            --color-on-error-container: #ffe4e6;
-            --color-surface-bright: #243249;
-            --color-surface-dim: #0f1419;
-            
-            --color-inverse-primary: #00687a;
-            --color-inverse-surface: #d8e3fb;
-            --color-inverse-on-surface: #263143;
-            
-            --color-primary-fixed: #acedff;
-            --color-primary-fixed-dim: #4cd7f6;
-            --color-on-primary-fixed: #001f26;
-            --color-on-primary-fixed-variant: #004e5c;
-            
-            --color-secondary: #ffb3ad;
-            --color-secondary-container: #a40217;
-            --color-on-secondary: #68000a;
-            --color-on-secondary-container: #ffaea8;
-            --color-secondary-fixed: #ffdad7;
-            --color-secondary-fixed-dim: #ffb3ad;
-            --color-on-secondary-fixed: #410004;
-            --color-on-secondary-fixed-variant: #930013;
-            
-            --color-tertiary-fixed: #ffddb8;
-            --color-tertiary-fixed-dim: #ffb95f;
-            --color-on-tertiary-fixed: #2a1700;
-            --color-on-tertiary-fixed-variant: #653e00;
-            
-            --color-surface-tint: #4cd7f6;
-        }
+
 
         /* Pulse Animation for active connections (cyan) */
         @keyframes pulse-cyan {
@@ -334,21 +280,7 @@
         .leaflet-container {
             background: var(--color-background) !important;
         }
-        .dark .leaflet-container .leaflet-tile-container img {
-            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%) !important;
-        }
-        .dark .leaflet-bar a,
-        .dark .leaflet-control-zoom-in,
-        .dark .leaflet-control-zoom-out {
-            background-color: rgba(21, 32, 49, 0.8) !important;
-            backdrop-filter: blur(8px) !important;
-            color: var(--color-on-surface) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-        .dark .leaflet-bar a:hover {
-            background-color: var(--color-surface-container-high) !important;
-            color: var(--color-primary) !important;
-        }
+
 
         /* Page transition animations */
         @keyframes page-slide-in {
@@ -500,9 +432,7 @@
             transform: translateX(6px) scale(1.01);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
-        .dark nav a:not([class*="bg-primary/10"]):hover, .dark aside a:not([class*="bg-primary/10"]):hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+
 
         /* Smooth Transitions for Light/Dark Theme Switching */
         body,
@@ -540,20 +470,7 @@
             border-radius: 12px !important;
             padding: 12px 16px !important;
         }
-        .dark .swal2-popup {
-            background-color: #1e293b !important;
-            color: #f8fafc !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-        .dark .swal2-title, .dark .swal2-content, .dark .swal2-html-container {
-            color: #f8fafc !important;
-        }
-        .dark .swal2-icon.swal2-success [class^=swal2-success-line] {
-            background-color: #22c55e !important;
-        }
-        .dark .swal2-icon.swal2-success .swal2-success-ring {
-            border-color: rgba(34, 197, 94, 0.3) !important;
-        }
+
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex h-screen overflow-hidden font-body-md antialiased selection:bg-primary/30 selection:text-primary">
@@ -729,9 +646,6 @@
                         <p class="text-xs font-bold text-slate-900  truncate"><?php echo e(auth()->user()->name); ?></p>
                         <p class="text-[9px] text-slate-500 font-mono font-medium truncate"><?php echo e(auth()->user()->dispatcher_id); ?></p>
                     </div>
-                    <button id="theme-toggle" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 :bg-slate-800 rounded-lg transition-colors cursor-pointer" title="Ubah Tema">
-                        <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
-                    </button>
                 </div>
                 <form action="<?php echo e(route('logout')); ?>" method="POST" class="w-full">
                     <?php echo csrf_field(); ?>
@@ -740,13 +654,6 @@
                         Keluar Sesi
                     </button>
                 </form>
-            </div>
-            <?php else: ?>
-            <div class="px-md py-4 border-t border-slate-200 ">
-                <button id="theme-toggle" class="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-slate-100  hover:bg-slate-200 :bg-slate-700 text-slate-700  transition-colors cursor-pointer">
-                    <span id="theme-toggle-icon" class="material-symbols-outlined text-[18px]">dark_mode</span>
-                    <span class="text-xs font-semibold">Ubah Tema</span>
-                </button>
             </div>
             <?php endif; ?>
             
@@ -767,9 +674,6 @@
                 <span class="font-headline-sm tracking-tight text-primary">BIO-GUARD</span>
             </div>
             <div class="flex items-center gap-sm">
-                <button id="theme-toggle-mobile" class="text-on-surface-variant hover:text-primary transition-colors p-sm rounded-full">
-                    <span id="theme-toggle-icon-mobile" class="material-symbols-outlined">dark_mode</span>
-                </button>
                 <button id="open-drawer-btn" class="text-on-surface-variant hover:text-primary transition-colors p-sm rounded-full cursor-pointer" title="Buka Menu">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
@@ -781,61 +685,6 @@
             <?php echo $__env->yieldContent('content'); ?>
         </div>
     </main>
-
-    
-    <script>
-        (function() {
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const themeToggleBtnMobile = document.getElementById('theme-toggle-mobile');
-            const htmlEl = document.documentElement;
-
-            function applyTheme(theme) {
-                if (theme === 'light') {
-                    htmlEl.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                    updateThemeUI('light');
-                } else {
-                    htmlEl.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                    updateThemeUI('dark');
-                }
-                // Dispatch event untuk update map tiles dll
-                window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme } }));
-            }
-
-            function updateThemeUI(theme) {
-                const desktopIcon = document.getElementById('theme-toggle-icon');
-                const desktopText = document.getElementById('theme-toggle-text');
-                const mobileIcon = document.getElementById('theme-toggle-icon-mobile');
-                
-                if (theme === 'light') {
-                    if (desktopIcon) desktopIcon.textContent = 'light_mode';
-                    if (desktopText) desktopText.textContent = 'Mode Terang';
-                    if (mobileIcon) mobileIcon.textContent = 'light_mode';
-                } else {
-                    if (desktopIcon) desktopIcon.textContent = 'dark_mode';
-                    if (desktopText) desktopText.textContent = 'Mode Gelap';
-                    if (mobileIcon) mobileIcon.textContent = 'dark_mode';
-                }
-            }
-
-            // Sync UI state awal
-            updateThemeUI(htmlEl.classList.contains('dark') ? 'dark' : 'light');
-
-            if (themeToggleBtn) {
-                themeToggleBtn.addEventListener('click', () => {
-                    const currentTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
-                    applyTheme(currentTheme);
-                });
-            }
-            if (themeToggleBtnMobile) {
-                themeToggleBtnMobile.addEventListener('click', () => {
-                    const currentTheme = htmlEl.classList.contains('dark') ? 'light' : 'dark';
-                    applyTheme(currentTheme);
-                });
-            }
-        })();
-    </script>
 
     
     <script>

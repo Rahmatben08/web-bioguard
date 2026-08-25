@@ -38,4 +38,8 @@ class ThermolabileDrug extends Model
         'suhu_penyimpanan' => 'float',
         'tanggal_kadaluwarsa' => 'date',
     ];
+    public function stockTransactions()
+    {
+        return $this->hasMany(StockTransaction::class, 'id_batch', 'no_batch')->orderBy('waktu_transaksi', 'desc');
+    }
 }

@@ -167,13 +167,12 @@ class ShipmentController extends Controller
             // Track admin directly if model allows, but here we just rely on standard creation
         ]);
 
-        \App\Models\StockLedger::create([
-            'type' => 'in',
-            'quantity' => $validated['qty'],
-            'reference_batch' => $validated['no_batch'],
-            'trigger_by' => 'admin',
-            'trigger_user_id' => auth()->id() ?? 1,
-            'notes' => 'Penerimaan batch baru dari gudang pusat',
+        \App\Models\StockTransaction::create([
+            'id_batch' => $validated['no_batch'],
+            'tipe' => 'masuk',
+            'jumlah' => $validated['qty'],
+            'sumber_transaksi' => 'input_manual_admin',
+            'dilakukan_oleh' => auth()->id() ?? 1,
         ]);
 
         return back()->with('success', "Batch {$validated['no_batch']} berhasil ditambahkan.");
@@ -247,13 +246,12 @@ class ShipmentController extends Controller
         ]);
 
         if ($selisih != 0) {
-            \App\Models\StockLedger::create([
-                'type' => 'adjustment',
-                'quantity' => abs($selisih),
-                'reference_batch' => $drug->no_batch,
-                'trigger_by' => 'admin',
-                'trigger_user_id' => auth()->id() ?? 1,
-                'notes' => 'Audit manual: ' . ($selisih > 0 ? 'Penambahan' : 'Pengurangan') . " stok sebesar " . abs($selisih),
+            \App\Models\StockTransaction::create([
+                'id_batch' => $drug->no_batch,
+                'tipe' => $selisih > 0 ? 'masuk' : 'keluar',
+                'jumlah' => abs($selisih),
+                'sumber_transaksi' => 'koreksi_stok',
+                'dilakukan_oleh' => auth()->id() ?? 1,
             ]);
         }
 
@@ -285,14 +283,13 @@ class ShipmentController extends Controller
             'id_admin' => auth()->id() ?? 1
         ]);
 
-        // 2. Catat ke StockLedger
-        \App\Models\StockLedger::create([
-            'type' => 'out',
-            'quantity' => $validated['qty'],
-            'reference_batch' => $drug->no_batch,
-            'trigger_by' => 'admin',
-            'trigger_user_id' => auth()->id() ?? 1,
-            'notes' => "Transfer batch ke {$validated['lokasi_tujuan']}",
+        // 2. Catat ke StockTransaction
+        \App\Models\StockTransaction::create([
+            'id_batch' => $drug->no_batch,
+            'tipe' => 'keluar',
+            'jumlah' => $validated['qty'],
+            'sumber_transaksi' => 'input_manual_admin',
+            'dilakukan_oleh' => auth()->id() ?? 1,
         ]);
 
         // 3. Potong stok
@@ -341,5 +338,12 @@ class ShipmentController extends Controller
         );
 
         return back()->with('success', "Aturan restok untuk {$validated['jenis_obat']} berhasil disimpan/diperbarui.");
+    public function getHistory($batch_id)
+    {
+        $transactions = \App\Models\StockTransaction::with('user:id,name')->where('id_batch', $batch_id)->orderBy('waktu_transaksi', 'desc')->get();
+        return response()->json([
+            'success' => true,
+            'data' => $transactions
+        ]);
     }
 }

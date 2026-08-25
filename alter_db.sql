@@ -1,0 +1,1 @@
+ALTER USER bioguard_user WITH ENCRYPTED PASSWORD 'BioGuard2026!';

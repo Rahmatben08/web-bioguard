@@ -1183,7 +1183,7 @@
             data: [telemetryRecord]
         };
 
-        fetch('/api/telemetry/sync', {
+        fetch('/api/demo/sync-telemetri', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -1290,7 +1290,7 @@
             data: offlineBuffer
         };
         
-        fetch('/api/telemetry/sync', {
+        fetch('/api/demo/sync-telemetri', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -207,6 +207,8 @@
                                 <button onclick="openColdChainModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}', '{{ $drug->suhu_penyimpanan }}')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors coldchain-trigger" data-batch="{{ $drug->no_batch }}" data-name="{{ $drug->nama_produk }}" data-temp="{{ $drug->suhu_penyimpanan }}" title="Analisis Rantai Dingin">
                                     <span class="material-symbols-outlined text-[18px]">timeline</span>
                                 </button>
+                                <button onclick="openHistoryModal('{{ $drug->no_batch }}', '{{ $drug->nama_produk }}')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Riwayat Transaksi Stok">
+                                    <span class="material-symbols-outlined text-[18px]">history</span>
                                 </button>
                                 <button onclick="openQuickModal('transfer')" class="p-1.5 hover:bg-slate-100 :bg-slate-800 rounded text-slate-500 hover:text-primary transition-colors" title="Keluarkan Stok">
                                     <span class="material-symbols-outlined text-[18px]">outbound</span>
@@ -1075,6 +1077,94 @@
             btn.disabled = false;
             btn.innerText = 'Konfirmasi Terima';
         }
+    }
+    
+    function openHistoryModal(batchId, productName) {
+        // Build and append modal if it doesn't exist yet
+        let modal = document.getElementById('modalHistory');
+        if (!modal) {
+            document.body.insertAdjacentHTML('beforeend', `
+            <div id="modalHistory" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[2500] hidden flex items-center justify-center">
+                <div class="bg-surface border border-outline-variant/30 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative">
+                    <div class="p-4 border-b border-outline-variant/20 bg-surface-container flex justify-between items-center">
+                        <h3 class="font-bold text-on-surface flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">history</span>
+                            Riwayat Transaksi Stok: <span id="history-batch-name" class="text-primary ml-1"></span>
+                        </h3>
+                        <button type="button" onclick="document.getElementById('modalHistory').classList.add('hidden')" class="text-on-surface-variant hover:text-error transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <div class="p-4 bg-surface-container-lowest max-h-[60vh] overflow-y-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs uppercase text-slate-500 border-b border-outline-variant/50">
+                                    <th class="py-2 pr-2">Waktu</th>
+                                    <th class="py-2 px-2">Tipe</th>
+                                    <th class="py-2 px-2">Jumlah</th>
+                                    <th class="py-2 px-2">Sumber</th>
+                                    <th class="py-2 pl-2">Dilakukan Oleh</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-tbody" class="text-sm text-slate-700">
+                            </tbody>
+                        </table>
+                        <div id="history-loading" class="text-center py-8 text-slate-500 hidden">
+                            <span class="material-symbols-outlined animate-spin text-[32px]">progress_activity</span>
+                            <p class="mt-2 text-xs">Memuat data riwayat...</p>
+                        </div>
+                        <div id="history-empty" class="text-center py-8 text-slate-500 hidden">
+                            <span class="material-symbols-outlined text-[32px]">history_toggle_off</span>
+                            <p class="mt-2 text-xs">Belum ada transaksi untuk batch ini.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `);
+            modal = document.getElementById('modalHistory');
+        }
+
+        document.getElementById('history-batch-name').innerText = productName + ' (#' + batchId + ')';
+        document.getElementById('history-tbody').innerHTML = '';
+        document.getElementById('history-loading').classList.remove('hidden');
+        document.getElementById('history-empty').classList.add('hidden');
+        modal.classList.remove('hidden');
+
+        fetch('/pengiriman/batch/' + batchId + '/history')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('history-loading').classList.add('hidden');
+                if (data.success && data.data.length > 0) {
+                    let html = '';
+                    data.data.forEach(tx => {
+                        let typeColor = tx.tipe === 'masuk' ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100';
+                        let date = new Date(tx.waktu_transaksi).toLocaleString('id-ID');
+                        let user = tx.user ? tx.user.name : 'Sistem';
+                        let src = tx.sumber_transaksi.replace(/_/g, ' ').toUpperCase();
+                        
+                        html += `
+                        <tr class="border-b border-outline-variant/30 hover:bg-slate-50">
+                            <td class="py-3 pr-2 text-xs font-mono">${date}</td>
+                            <td class="py-3 px-2">
+                                <span class="px-2 py-0.5 rounded text-xs font-bold ${typeColor}">${tx.tipe.toUpperCase()}</span>
+                            </td>
+                            <td class="py-3 px-2 font-bold tabular-nums">${tx.jumlah}</td>
+                            <td class="py-3 px-2 text-xs">${src} ${tx.id_referensi ? ' (Rute: '+tx.id_referensi+')' : ''}</td>
+                            <td class="py-3 pl-2 text-xs font-semibold">${user}</td>
+                        </tr>
+                        `;
+                    });
+                    document.getElementById('history-tbody').innerHTML = html;
+                } else {
+                    document.getElementById('history-empty').classList.remove('hidden');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('history-loading').classList.add('hidden');
+                document.getElementById('history-empty').classList.remove('hidden');
+                document.getElementById('history-empty').querySelector('p').innerText = 'Gagal memuat data riwayat.';
+            });
     }
 </script>
 

@@ -65,16 +65,14 @@ class ProcessDeliveryStockJob implements ShouldQueue
                 $batchNo = trim($matches[1]);
             }
 
-            // Catat Ledger IN untuk Faskes
-            StockLedger::create([
-                'type' => 'in',
-                'quantity' => $quantity,
-                'reference_batch' => $batchNo,
-                'reference_faskes' => $faskes->id_faskes,
-                'route_id' => $rute->id_rute,
-                'trigger_by' => 'kurir',
-                'trigger_user_id' => $rute->id_kurir, // asumsi id_kurir juga ID user
-                'notes' => "Pengantaran selesai dari rute {$rute->id_rute} via BOX {$rute->id_box}. Kargo: {$rute->nama_kargo}",
+            // Catat Transaksi KELUAR karena barang sudah diserahkan ke Faskes
+            \App\Models\StockTransaction::create([
+                'id_batch' => $batchNo,
+                'tipe' => 'keluar',
+                'jumlah' => $quantity,
+                'sumber_transaksi' => 'serah_terima_kurir',
+                'id_referensi' => $rute->id_rute,
+                'dilakukan_oleh' => $rute->id_kurir, // asumsi id_kurir juga ID user
             ]);
 
             // Update stok snapshot di Faskes (jika kolom stok tunggal)
