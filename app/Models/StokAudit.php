@@ -9,3 +9,4 @@ class StokAudit extends Model
     protected $table = 'stok_audits';
     protected $primaryKey = 'id_audit';
     protected $guarded = [];
+}
