@@ -35,7 +35,7 @@ $request2 = new \Illuminate\Http\Request([
 ]);
 $request2->setMethod('POST');
 try {
-    app(\App\Http\Controllers\ShipmentController::class)->transfer($request2);
+    app(\App\Http\Controllers\ShipmentController::class)->transferBatch($request2);
     echo "Transfer executed successfully.\n";
 } catch (\Exception $e) {
     echo "Transfer failed: " . $e->getMessage() . "\n";
