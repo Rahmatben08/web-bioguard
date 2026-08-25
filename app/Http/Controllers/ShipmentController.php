@@ -338,6 +338,8 @@ class ShipmentController extends Controller
         );
 
         return back()->with('success', "Aturan restok untuk {$validated['jenis_obat']} berhasil disimpan/diperbarui.");
+    }
+
     public function getHistory($batch_id)
     {
         $transactions = \App\Models\StockTransaction::with('user:id,name')->where('id_batch', $batch_id)->orderBy('waktu_transaksi', 'desc')->get();

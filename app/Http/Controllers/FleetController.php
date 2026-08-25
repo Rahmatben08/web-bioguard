@@ -37,7 +37,7 @@ class FleetController extends Controller
                 'perjalanan_rute.id_box', 
                 \Illuminate\Support\Facades\DB::raw('MAX(perjalanan_rute.created_at) as last_used'), 
                 \Illuminate\Support\Facades\DB::raw('MAX(kurir.nama_lengkap) as last_kurir'),
-                \Illuminate\Support\Facades\DB::raw('MAX(devices.is_validated) as is_validated')
+                \Illuminate\Support\Facades\DB::raw('MAX(CAST(devices.is_validated AS INTEGER)) as is_validated')
             )
             ->groupBy('perjalanan_rute.id_box')
             ->orderBy('last_used', 'desc')
