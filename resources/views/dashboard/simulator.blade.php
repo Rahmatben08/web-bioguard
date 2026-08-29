@@ -614,8 +614,8 @@
         // Custom Dark / Light tile based on theme
         const isDark = document.documentElement.classList.contains('dark');
         const tileUrl = isDark 
-            ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-            : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+            ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+            : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
         L.tileLayer(tileUrl, {
             maxZoom: 19
@@ -656,8 +656,8 @@
         window.addEventListener('theme-changed', function(e) {
             const isDark = e.detail.theme === 'dark';
             const newTileUrl = isDark 
-                ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-                : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+                ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+                : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
             
             map.eachLayer(function(layer) {
                 if (layer instanceof L.TileLayer) {

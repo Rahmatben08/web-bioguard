@@ -696,7 +696,7 @@
         }).setView([-2.9782, 104.7523], 14);
 
         // Dark elegant mapping tile theme
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 20
         }).addTo(map);
 

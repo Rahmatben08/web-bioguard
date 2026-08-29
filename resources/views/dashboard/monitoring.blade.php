@@ -1047,7 +1047,7 @@ const plannedPaths = {
     });
 
     let isDarkTheme = document.documentElement.classList.contains('dark');
-    let tileUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    let tileUrl = isDarkTheme ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
     const tileLayer = L.tileLayer(tileUrl, {
         maxZoom: 19,
@@ -1056,7 +1056,7 @@ const plannedPaths = {
 
     window.addEventListener('theme-changed', (e) => {
         isDarkTheme = e.detail.theme === 'dark';
-        const newUrl = isDarkTheme ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+        const newUrl = isDarkTheme ? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png' : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
         tileLayer.setUrl(newUrl);
     });
 
