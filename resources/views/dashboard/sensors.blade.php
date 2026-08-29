@@ -200,7 +200,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h3 class="font-bold text-on-surface">Tren Risiko Prediktif</h3>
-                    <p class="text-slate-500 text-xs mt-0.5">Perbandingan Risiko AI vs Kerusakan Aktual (6 Rute Terakhir)</p>
+                    <p class="text-slate-500 text-xs mt-0.5">Perbandingan Risiko AI vs Kerusakan Aktual (6 Bulan Terakhir)</p>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">

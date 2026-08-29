@@ -95,15 +95,36 @@ class AnalyticsController extends Controller
         $aiRisks = [];
         $actualDamaged = [];
 
+        // Gunakan label bulan dari 6 bulan terakhir agar konsisten dengan judul grafik
+        $monthLabels = collect(range(5, 0))->map(function ($i) {
+            return now()->subMonths($i)->translatedFormat('M Y');
+        })->values()->toArray();
+
+        $routeIndex = 0;
         foreach ($recentRoutes as $r) {
-            $chartCategories[] = 'Rute #' . $r->id_rute . ' (' . $r->id_box . ')';
+            // Label: gunakan bulan dari monthLabels (fallback ke Rute #ID jika melebihi 6)
+            $chartCategories[] = $monthLabels[$routeIndex] ?? ('Rute #' . $r->id_rute);
+            $routeIndex++;
+
             $latestLog = $r->latestLog;
             $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
-            $aiRisks[] = is_null($aiRisk) ? 0 : $aiRisk; // For charts, 0 or skip? Usually 0 is fine for chart visual.
-            
-            $exInfo = $r->getExcursionInfo();
-            $actualDamaged[] = $exInfo['status'] === 'Tidak Layak Pakai' ? 100 : ($exInfo['status'] === 'Peringatan' ? 30 : 0);
+            $aiRisks[] = is_null($aiRisk) ? 0 : round($aiRisk, 1);
+
+            // Hitung excursion rate real (%) — persentase log suhu di luar 2°C-8°C
+            $logs = $r->logTelemetri;
+            $totalLogs = $logs->count();
+            $excursionCount = $logs->filter(function ($log) {
+                $t = (float) $log->suhu_aktual;
+                return $t < 2.0 || $t > 8.0;
+            })->count();
+            $actualDamaged[] = $totalLogs > 0
+                ? round(($excursionCount / $totalLogs) * 100, 1)
+                : 0;
         }
+
+        \Log::info('[Chart Debug] chartCategories', $chartCategories);
+        \Log::info('[Chart Debug] aiRisks', $aiRisks);
+        \Log::info('[Chart Debug] actualDamaged', $actualDamaged);
 
         // Hitung Kinerja Hub dari data perjalanan rute nyata
         $topHubs = collect($routesData)->groupBy('tujuan')->map(function ($rutes, $namaHub) {
