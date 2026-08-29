@@ -52,8 +52,9 @@
             </div>
         @endif
 
-        <!-- Accounts Table -->
-        <x-card noPadding="true" class="overflow-hidden">
+        <!-- Accounts Table: Real Kurir -->
+        <h2 class="font-headline-sm text-lg font-bold text-on-surface mt-6">Kurir Utama (Aktif)</h2>
+        <x-card noPadding="true" class="overflow-hidden mb-6">
             <div class="overflow-x-auto">
                 <x-table class="w-full">
                     <thead>
@@ -67,7 +68,7 @@
                         </x-table.tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/20">
-                        @forelse($kurirs as $kurir)
+                        @forelse($kurirs->where('is_demo', false) as $kurir)
                             <x-table.tr class="kurir-row">
                                 <x-table.td class="font-mono font-bold text-primary">{{ $kurir->id_kurir }}</x-table.td>
                                 <x-table.td class="font-semibold">{{ $kurir->nama_lengkap }}</x-table.td>
@@ -108,11 +109,11 @@
                                         <form action="{{ route('fleet.accounts.toggle', $kurir->id_kurir) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin mengubah status akun ini?');">
                                             @csrf
                                             @if($kurir->user->is_active)
-                                                <button type="submit" class="p-1.5 bg-red-500/10 text-red-600 hover:bg-red-500/20 rounded transition-colors border border-red-500/30" title="Nonaktifkan Akun">
+                                                <button type="submit" class="p-1.5 bg-error/10 text-error hover:bg-error hover:text-white rounded transition-colors border border-error/30" title="Nonaktifkan Akun">
                                                     <span class="material-symbols-outlined text-[18px]">block</span>
                                                 </button>
                                             @else
-                                                <button type="submit" class="p-1.5 bg-green-500/10 text-green-600 hover:bg-green-500/20 rounded transition-colors border border-green-500/30" title="Aktifkan Akun">
+                                                <button type="submit" class="p-1.5 bg-success/10 text-success hover:bg-success hover:text-white rounded transition-colors border border-success/30" title="Aktifkan Akun">
                                                     <span class="material-symbols-outlined text-[18px]">check_circle</span>
                                                 </button>
                                             @endif
@@ -122,7 +123,89 @@
                             </x-table.tr>
                         @empty
                             <x-table.tr>
-                                <x-table.td colspan="6" class="px-6 py-8 text-center text-on-surface-variant">Belum ada armada kurir terdaftar.</x-table.td>
+                                <x-table.td colspan="6" class="text-center text-on-surface-variant py-4">Tidak ada kurir utama.</x-table.td>
+                            </x-table.tr>
+                        @endforelse
+                    </tbody>
+                </x-table>
+            </div>
+        </x-card>
+
+        <!-- Accounts Table: Demo Kurir -->
+        <h2 class="font-headline-sm text-lg font-bold text-amber-600 mt-8 flex items-center gap-2">
+            <span class="material-symbols-outlined">science</span> Kurir Simulasi (Demo)
+        </h2>
+        <p class="text-xs text-on-surface-variant mb-2">Akun berikut hanya digunakan untuk keperluan simulasi dan demo sistem.</p>
+        <x-card noPadding="true" class="overflow-hidden border-amber-200">
+            <div class="overflow-x-auto">
+                <x-table class="w-full">
+                    <thead>
+                        <x-table.tr class="bg-amber-50">
+                            <x-table.th>ID Kurir</x-table.th>
+                            <x-table.th>Nama Kurir</x-table.th>
+                            <x-table.th>No. Kendaraan</x-table.th>
+                            <x-table.th>Email</x-table.th>
+                            <x-table.th>Status Akun</x-table.th>
+                            <x-table.th class="text-right">Aksi</x-table.th>
+                        </x-table.tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/20">
+                        @forelse($kurirs->where('is_demo', true) as $kurir)
+                            <x-table.tr class="kurir-row">
+                                <x-table.td class="font-mono font-bold text-amber-600">{{ $kurir->id_kurir }}</x-table.td>
+                                <x-table.td class="font-semibold">{{ $kurir->nama_lengkap }} <span class="ml-1 px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-amber-100 text-amber-700 border border-amber-200 inline-block align-middle">DEMO</span></x-table.td>
+                                <x-table.td class="font-mono">{{ $kurir->nomor_kendaraan }}</x-table.td>
+                                <x-table.td class="font-medium text-on-surface-variant">{{ $kurir->user ? $kurir->user->email : '-' }}</x-table.td>
+                                <x-table.td>
+                                    @if(!$kurir->user)
+                                        <x-badge color="warning">Belum Punya Akun</x-badge>
+                                    @elseif($kurir->user->is_active)
+                                        <x-badge color="success">Aktif</x-badge>
+                                    @else
+                                        <x-badge color="error" class="animate-pulse">Nonaktif</x-badge>
+                                    @endif
+                                </x-table.td>
+                                <x-table.td class="text-right space-x-2">
+                                    @if(!$kurir->user)
+                                        <form action="{{ route('fleet.accounts.create', $kurir->id_kurir) }}" method="POST" class="inline-block">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1.5 bg-amber-500 text-white rounded text-xs font-bold hover:bg-amber-600 transition-colors shadow-sm flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[16px]">person_add</span> Buat Akun
+                                            </button>
+                                        </form>
+                                    @else
+                                        <!-- Edit Akun -->
+                                        <button type="button" onclick="openEditModal({{ $kurir->id_kurir }}, '{{ $kurir->user->email }}')" class="p-1.5 bg-surface-container-high text-on-surface hover:text-primary rounded transition-colors border border-outline-variant/30" title="Edit Email & Password">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                        </button>
+                                        
+                                        <!-- Reset Password (Random) -->
+                                        <form action="{{ route('fleet.accounts.reset', $kurir->id_kurir) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin mereset password untuk kurir ini secara acak?');">
+                                            @csrf
+                                            <button type="submit" class="p-1.5 bg-surface-container-high text-on-surface hover:text-primary rounded transition-colors border border-outline-variant/30" title="Reset Password Acak">
+                                                <span class="material-symbols-outlined text-[18px]">lock_reset</span>
+                                            </button>
+                                        </form>
+                                        
+                                        <!-- Toggle Status -->
+                                        <form action="{{ route('fleet.accounts.toggle', $kurir->id_kurir) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin mengubah status akun ini?');">
+                                            @csrf
+                                            @if($kurir->user->is_active)
+                                                <button type="submit" class="p-1.5 bg-error/10 text-error hover:bg-error hover:text-white rounded transition-colors border border-error/30" title="Nonaktifkan Akun">
+                                                    <span class="material-symbols-outlined text-[18px]">block</span>
+                                                </button>
+                                            @else
+                                                <button type="submit" class="p-1.5 bg-success/10 text-success hover:bg-success hover:text-white rounded transition-colors border border-success/30" title="Aktifkan Akun">
+                                                    <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                                </button>
+                                            @endif
+                                        </form>
+                                    @endif
+                                </x-table.td>
+                            </x-table.tr>
+                        @empty
+                            <x-table.tr>
+                                <x-table.td colspan="6" class="text-center text-on-surface-variant py-4">Tidak ada kurir demo.</x-table.td>
                             </x-table.tr>
                         @endforelse
                     </tbody>

@@ -96,7 +96,7 @@ class AnalyticsController extends Controller
         $actualDamaged = [];
 
         foreach ($recentRoutes as $r) {
-            $chartCategories[] = 'BOX-' . $r->id_box;
+            $chartCategories[] = 'Rute #' . $r->id_rute . ' (' . $r->id_box . ')';
             $latestLog = $r->latestLog;
             $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
             $aiRisks[] = is_null($aiRisk) ? 0 : $aiRisk; // For charts, 0 or skip? Usually 0 is fine for chart visual.

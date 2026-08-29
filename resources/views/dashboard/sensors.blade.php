@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Analisis Telemetri & Sensor')
 
@@ -98,7 +98,7 @@
             <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </x-card>
         <!-- Metric 4 -->
-        <div class="bg-surface-container-low border border-outline-variant/30 shadow-sm p-lg rounded-xl flex flex-col justify-between h-32 relative overflow-hidden group hover:border-sky-500/40 :border-sky-400/40 transition-all duration-300">
+        <x-card class="h-32 flex flex-col justify-between overflow-hidden group hover:border-sky-500/40 transition-all duration-300">
             <div class="flex justify-between items-start z-10">
                 <span class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest transition-colors duration-300">Penghematan Operasional (Estimasi)</span>
                 <span class="text-primary transition-colors duration-300 material-symbols-outlined">payments</span>
@@ -114,7 +114,7 @@
             <div class="absolute top-0 right-0 p-2 opacity-5 group-hover:opacity-10 transition-opacity">
                 <span class="material-symbols-outlined text-6xl text-sky-600/10  transition-colors duration-300">psychology</span>
             </div>
-        </div>
+        </x-card>
     </div>
 
     <!-- AI Predictive Shelf-life Monitor (CDOB Compliance) -->
@@ -200,7 +200,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                 <div>
                     <h3 class="font-bold text-on-surface">Tren Risiko Prediktif</h3>
-                    <p class="text-slate-500 text-xs mt-0.5">Obat Termolabil Rusak vs Prediksi Risiko AI (6 Bulan)</p>
+                    <p class="text-slate-500 text-xs mt-0.5">Perbandingan Risiko AI vs Kerusakan Aktual (6 Rute Terakhir)</p>
                 </div>
                 <div class="flex gap-4">
                     <div class="flex items-center gap-2">
@@ -214,7 +214,7 @@
                 </div>
             </div>
             <!-- Dynamic Chart (ApexCharts) -->
-            <div id="chart-risiko-prediktif" class="flex-1 min-h-[250px] w-full"></div>
+            <div id="chart-risiko-prediktif" class="flex-1 min-h-[250px] w-full" style="position: relative !important; overflow: hidden !important; clip-path: inset(0);"></div>
         </x-card>
 
         <!-- Regional Heatmap / Hub Performance -->
@@ -543,7 +543,7 @@
         // --- Leaflet Map Implementation ---
         let map = L.map('live-map').setView([-2.9761, 104.7754], 12); // Default to Palembang
         
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
             subdomains: 'abcd',
             maxZoom: 20
@@ -832,7 +832,7 @@
                 },
                 colors: ['#06b6d4'],
                 stroke: {
-                    curve: 'straight',
+                    curve: 'smooth',
                     width: 2.5
                 },
                 markers: {
