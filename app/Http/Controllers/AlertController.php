@@ -14,7 +14,11 @@ class AlertController extends Controller
     public function index(): View
     {
         // Ambil semua log insiden diurutkan dari yang aktif terlebih dahulu
+        $isDemo = request()->has('show_demo');
         $incidents = IncidentLog::with('perjalananRute.kurir')
+            ->whereHas('perjalananRute', function($q) use ($isDemo) {
+                $q->where('is_demo', $isDemo);
+            })
             ->orderBy('status', 'asc')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -49,7 +53,11 @@ class AlertController extends Controller
      */
     public function liveData(): JsonResponse
     {
+        $isDemo = request()->has('show_demo');
         $incidents = IncidentLog::with('perjalananRute.kurir')
+            ->whereHas('perjalananRute', function($q) use ($isDemo) {
+                $q->where('is_demo', $isDemo);
+            })
             ->orderBy('status', 'asc')
             ->orderBy('created_at', 'desc')
             ->get();

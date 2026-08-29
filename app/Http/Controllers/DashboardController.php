@@ -39,8 +39,12 @@ class DashboardController extends Controller
             $query->aktif();
         }
 
-        // Tampilkan semua data secara default, baik demo maupun asli, agar dashboard tidak kosong.
-        // Jika ada filter spesifik, biarkan saja. Tapi untuk sekarang kita tidak memfilter is_demo=false secara keras.
+        // Filter is_demo ketat untuk mencegah kebocoran data
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
+            $query->where('is_demo', false);
+        }
 
         $perjalananAktif = $query->get();
 
@@ -141,8 +145,12 @@ class DashboardController extends Controller
             $query->aktif();
         }
 
-        // Tampilkan semua data secara default, baik demo maupun asli, agar dashboard tidak kosong.
-        // Jika ada filter spesifik, biarkan saja. Tapi untuk sekarang kita tidak memfilter is_demo=false secara keras.
+        // Filter is_demo ketat untuk mencegah kebocoran data
+        if ($request->has('show_demo')) {
+            $query->where('is_demo', true);
+        } else {
+            $query->where('is_demo', false);
+        }
 
         $perjalananList = $query->get();
 

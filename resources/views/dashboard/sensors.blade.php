@@ -127,23 +127,27 @@
             @foreach($routesData as $route)
             @php
                 $mktVal = (float)$route['mkt'];
-                if ($mktVal >= 2.0 && $mktVal <= 8.0) {
-                    $shelfLife = "36 Jam (Optimal)";
-                    $shelfLifeProgress = 100;
+                $aiRisk = (float)$route['ai_risk'];
+                
+                // Hitung sisa persentase kelayakan (invers dari risiko AI)
+                $shelfLifeProgress = max(5, 100 - $aiRisk);
+                // Hitung estimasi jam (basis 36 jam optimal)
+                $jamSisa = max(0.5, round(36 * ($shelfLifeProgress / 100), 1));
+                
+                if ($aiRisk < 15.0) {
+                    $shelfLife = $jamSisa . " Jam (Optimal)";
                     $shelfColor = "bg-sky-500 ";
                     $shelfBg = "bg-primary/10 border-primary/20 text-primary";
                     $shelfTextColor = "text-primary";
-                } elseif ($mktVal > 8.0 && $mktVal <= 8.5) {
-                    $shelfLife = "12 Jam (Peringatan)";
-                    $shelfLifeProgress = 40;
+                } elseif ($aiRisk < 60.0) {
+                    $shelfLife = $jamSisa . " Jam (Peringatan)";
                     $shelfColor = "bg-amber-500 ";
-                    $shelfBg = "bg-amber-50  border-amber-100  text-amber-600  animate-pulse";
+                    $shelfBg = "bg-amber-50 border-amber-100 text-amber-600 animate-pulse";
                     $shelfTextColor = "text-amber-600 ";
                 } else {
-                    $shelfLife = "0,5 Jam (Bahaya Kritis)";
-                    $shelfLifeProgress = 10;
+                    $shelfLife = $jamSisa . " Jam (Bahaya Kritis)";
                     $shelfColor = "bg-red-500 ";
-                    $shelfBg = "bg-red-50  border-red-100  text-red-600  animate-pulse";
+                    $shelfBg = "bg-red-50 border-red-100 text-red-600 animate-pulse";
                     $shelfTextColor = "text-red-600 ";
                 }
             @endphp

@@ -65,8 +65,14 @@ class SyncController extends Controller
                     $isOutlier = false;
                     $currentTime = \Carbon\Carbon::parse($record['timestamp']);
                     
-                    if ($lastLat !== null && $lastLng !== null && $lastTime !== null) {
-                        $distance = $this->calculateDistance($lastLat, $lastLng, (float) $record['latitude'], (float) $record['longitude']);
+                    $lat = (float) $record['latitude'];
+                    $lng = (float) $record['longitude'];
+
+                    if ($lat == 0.0 && $lng == 0.0) {
+                        // Abaikan perhitungan untuk koordinat 0,0 (GPS belum fix)
+                        $isOutlier = true;
+                    } elseif ($lastLat !== null && $lastLng !== null && $lastTime !== null) {
+                        $distance = $this->calculateDistance($lastLat, $lastLng, $lat, $lng);
                         $timeDiffHours = $lastTime->diffInSeconds($currentTime) / 3600;
                         
                         if ($timeDiffHours > 0) {
