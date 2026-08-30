@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
@@ -86,7 +86,7 @@
     <div class="fixed top-1/2 left-2/3 w-[450px] h-[450px] rounded-full bg-indigo-500/10  blur-[110px] pointer-events-none animate-blob z-0" style="animation-delay: -10s;"></div>
 
     {{-- Floating Header Navbar --}}
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-white/40  backdrop-blur-xl border border-white/50  rounded-full px-4 md:px-6 py-3 flex items-center justify-between shadow-xl transition-colors">
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-white/40 backdrop-blur-xl border border-white/50 rounded-full overflow-hidden px-4 md:px-6 py-3 flex items-center justify-between shadow-xl transition-colors">
         <div class="flex items-center justify-between w-full">
             <a href="#" class="flex items-center gap-2.5 select-none hover:opacity-90 transition-opacity">
                 <img src="{{ asset('images/logo.png') }}?v=8" alt="BIO-GUARD Logo" class="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105">
@@ -236,7 +236,7 @@
                 {{-- Right Side: Card Explanations --}}
                 <div class="lg:col-span-6 space-y-4">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
                             <img src="{{ asset('images/shield_logo.png') }}?v=6" alt="Shield Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
@@ -248,19 +248,19 @@
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-cyan-500/10 blur-xl rounded-full scale-150 group-hover:bg-cyan-500/20 transition-all"></div>
                             <img src="{{ asset('images/snowflake.png') }}?v=6" alt="Snowflake Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
                         </div>
                         <div class="pt-1">
                             <h4 class="text-base font-black text-blue-600  tracking-tight">The Snowflake (Kepingan Salju)</h4>
-                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2°C - 8°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
+                            <p class="text-sm text-slate-600  mt-1.5 leading-relaxed font-medium">Menegaskan fokus sistem dalam menjaga ambang batas suhu kritis 2Â°C - 8Â°C agar struktur protein obat dan vaksin tetap utuh dan layak pakai.</p>
                         </div>
                     </div>
 
                     {{-- Card 3 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-indigo-500/10 blur-xl rounded-full scale-150 group-hover:bg-indigo-500/20 transition-all"></div>
                             <img src="{{ asset('images/circuit.png') }}?v=6" alt="Circuit Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
@@ -272,7 +272,7 @@
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-5 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-16 h-16 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                             <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full scale-150 group-hover:bg-blue-500/20 transition-all"></div>
                             <img src="{{ asset('images/waves_logo.png') }}?v=6" alt="Waves Icon" class="w-10 h-10 object-contain relative z-10 drop-shadow-md (76,213,246,0.6)]">
@@ -302,7 +302,7 @@
                 {{-- Left Side: Cards 1 & 2 (order-2 on mobile, order-1 on desktop) --}}
                 <div class="lg:col-span-4 space-y-6 order-2 lg:order-1 relative z-10">
                     {{-- Card 1 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/penguin_happy.png') }}?v=6" alt="Penguin Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
@@ -313,7 +313,7 @@
                     </div>
 
                     {{-- Card 2 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/glasses.png') }}?v=6" alt="Goggles Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
@@ -347,7 +347,7 @@
                 {{-- Right Side: Cards 3 & 4 (order-3 on mobile, order-3 on desktop) --}}
                 <div class="lg:col-span-4 space-y-6 order-3 relative z-10">
                     {{-- Card 3 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/vest.png') }}?v=6" alt="Vest Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
@@ -358,7 +358,7 @@
                     </div>
 
                     {{-- Card 4 --}}
-                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="flex items-start gap-4 p-5 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                         <div class="w-14 h-14 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-2xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500">
                             <img src="{{ asset('images/tablet.png') }}?v=6" alt="Tablet Icon" class="w-8 h-8 object-contain drop-shadow-md">
                         </div>
@@ -405,7 +405,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {{-- Misi 1 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                             <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                                 <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">router</span>
                             </div>
@@ -415,7 +415,7 @@
                         </div>
                         
                         {{-- Misi 2 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                             <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                                 <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">psychology</span>
                             </div>
@@ -425,7 +425,7 @@
                         </div>
 
                         {{-- Misi 3 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                             <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                                 <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">verified_user</span>
                             </div>
@@ -435,7 +435,7 @@
                         </div>
 
                         {{-- Misi 4 --}}
-                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-xl (33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
+                        <div class="flex gap-5 p-6 rounded-3xl bg-white/95  border border-blue-500/15  shadow-[0_8px_24px_rgba(33,150,243,0.15)] hover:-translate-y-2 transition-all duration-500 group">
                             <div class="w-12 h-12 bg-gradient-to-br from-[#f0f7ff] to-white   rounded-xl flex items-center justify-center shrink-0 border border-blue-100  shadow-inner group-hover:scale-110 transition-transform duration-500 relative overflow-hidden">
                                 <span class="material-symbols-outlined text-blue-600  text-[24px] relative z-10">school</span>
                             </div>
@@ -483,7 +483,7 @@
                 </div>
                 <h2 class="text-2xl md:text-3xl font-black text-slate-900  mb-4">Unduh Aplikasi Bio-Guard Kurir</h2>
                 <p class="text-slate-600  mb-8 max-w-lg mx-auto font-medium">
-                    Aplikasi Android khusus untuk armada kurir yang dilengkapi dengan integrasi IoT ESP32 dan pemantauan Bluetooth secara *real-time*.
+                    Aplikasi Android khusus untuk armada kurir yang dilengkapi dengan integrasi IoT ESP32 dan pemantauan Bluetooth secara <span class="italic font-bold text-slate-800">real-time</span>.
                 </p>
                 <div class="flex justify-center">
                     <a href="/downloads/bio-guard-driver.apk" download
@@ -492,7 +492,7 @@
                         <span>Unduh Aplikasi (APK)</span>
                     </a>
                 </div>
-                <p class="text-xs text-slate-400  mt-4">Membutuhkan Android 8.0 atau lebih baru. APK sebesar ~12MB.</p>
+                <p class="text-xs text-slate-400  mt-4">Membutuhkan Android 8.0 atau lebih baru. APK sebesar ~19MB.</p>
             </div>
         </section>
 
@@ -512,8 +512,8 @@
                         <img src="{{ asset('images/logo.png') }}" alt="BIO-GUARD Logo" class="h-8 w-auto drop-shadow-md">
                         <span class="text-base font-black text-slate-800  tracking-tight">BIO-GUARD</span>
                     </div>
-                    <p class="text-xs text-slate-500  font-medium max-w-[220px] leading-relaxed">
-                        Penjaga Cerdas Rantai Dingin Medis — IoT &amp; AI untuk keamanan farmasi termolabil.
+                    <p class="text-sm text-slate-500 font-medium max-w-[280px] leading-relaxed">
+                        Penjaga Cerdas Rantai Dingin Medis â€” IoT &amp; AI untuk keamanan farmasi termolabil.
                     </p>
                     <span class="text-[11px] text-slate-400  font-medium">
                         &copy; 2026 BIO-GUARD Enterprise. All rights reserved.
@@ -522,13 +522,13 @@
 
                 {{-- Right: Navigation Links --}}
                 <div class="flex flex-col items-center md:items-end gap-4">
-                    <span class="text-[10px] font-black text-blue-600  tracking-widest uppercase">Navigasi</span>
+                    <span class="text-xs font-black text-blue-600 tracking-widest uppercase">Navigasi</span>
                     <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
-                        <a href="#about" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Tentang</a>
-                        <a href="#logo-meaning" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Logo</a>
-                        <a href="#mascot" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Maskot</a>
-                        <a href="#vision-mission" class="text-xs font-semibold text-slate-500  hover:text-blue-600 :text-[#64b5f6] transition-colors duration-200">Visi &amp; Misi</a>
-                        <a href="{{ route('simulator.standalone') }}" target="_blank" class="text-xs font-semibold text-blue-600  hover:underline transition-colors duration-200 flex items-center gap-1">
+                        <a href="#about" class="text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors duration-200">Tentang Kami</a>
+                        <a href="#logo-meaning" class="text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors duration-200">Filosofi Logo</a>
+                        <a href="#mascot" class="text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors duration-200">Filosofi Maskot</a>
+                        <a href="#vision-mission" class="text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors duration-200">Visi &amp; Misi</a>
+                        <a href="{{ route('simulator.standalone') }}" target="_blank" class="text-sm font-bold text-blue-600 hover:underline transition-colors duration-200 flex items-center gap-1">
                             Simulator Web
                             <span class="material-symbols-outlined text-[12px]">open_in_new</span>
                         </a>
@@ -689,7 +689,7 @@
     </script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // ─── References ────────────────────────────────────────────────────
+        // â”€â”€â”€ References â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         const curTempEl      = document.getElementById('live-current-temp');
         const minTempEl      = document.getElementById('live-min-temp');
         const maxTempEl      = document.getElementById('live-max-temp');
@@ -715,3 +715,7 @@
     </script>
 </body>
 </html>
+
+
+
+
