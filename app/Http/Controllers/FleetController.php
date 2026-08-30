@@ -116,6 +116,8 @@ class FleetController extends Controller
                     'battery_level' => $battery,
                     'signal_strength' => $signal,
                     'calibration_status' => $health['calibration'],
+                    $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first();
+                      $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first();
                     'is_validated' => $perjalanan->device ? $perjalanan->device->is_validated : false,
                     'validation_expiration' => $perjalanan->device && $perjalanan->device->validation_expiration ? \Carbon\Carbon::parse($perjalanan->device->validation_expiration)->format('Y-m-d') : null,
                     
@@ -123,56 +125,8 @@ class FleetController extends Controller
                     'longitude' => $log ? $log->longitude : 104.7560,
                     'origin_latitude' => -2.9880, // Dinas Kesehatan Palembang
                     'origin_longitude' => 104.7560,
-                    'dest_latitude' => [
-                        'RSUP Dr. Mohammad Hoesin' => -2.9662628,
-                        'RSUD Palembang BARI' => -3.0185,
-                        'RS Charitas' => -2.9772,
-                        'RS RK Charitas' => -2.9759693,
-                        'Puskesmas Dempo' => -2.9818201,
-                        'RSUD Siti Fatimah' => -2.9482931,
-                        'RS Hermina' => -2.9559237,
-                        'RS Siloam Sriwijaya' => -2.9776129,
-                        'RS Bhayangkara' => -2.9587303,
-                        'RS Muhammadiyah' => -3.0003649,
-                        'RS Myria' => -2.9398741,
-                        'RS Ernaldi Bahar' => -2.922228,
-                        'RS Pelabuhan' => -2.978579,
-                        'Puskesmas Merdeka' => -2.9904511,
-                        'Puskesmas Plaju' => -2.9957835,
-                        'Puskesmas 7 Ulu' => -2.9967184,
-                        'Puskesmas 11 Ilir' => -2.9811521,
-                        'Puskesmas Kalidoni' => -2.9404873,
-                        'Puskesmas Kenten' => -2.9404873,
-                        'Puskesmas Boom Baru' => -2.9754512,
-                        'Puskesmas Kampus' => -2.9754956,
-                        'Puskesmas Alang-Alang Lebar' => -2.9394118,
-                        'Dinas Kesehatan Kota Palembang' => -2.9901778,
-                    ][$perjalanan->lokasi_tujuan] ?? -2.9865,
-                    'dest_longitude' => [
-                        'RSUP Dr. Mohammad Hoesin' => 104.7498217,
-                        'RSUD Palembang BARI' => 104.7645,
-                        'RS Charitas' => 104.7522,
-                        'RS RK Charitas' => 104.7528599,
-                        'Puskesmas Dempo' => 104.7589042,
-                        'RSUD Siti Fatimah' => 104.7345504,
-                        'RS Hermina' => 104.74846,
-                        'RS Siloam Sriwijaya' => 104.7422702,
-                        'RS Bhayangkara' => 104.7374268,
-                        'RS Muhammadiyah' => 104.8163221,
-                        'RS Myria' => 104.7269887,
-                        'RS Ernaldi Bahar' => 104.6846093,
-                        'RS Pelabuhan' => 104.7766276,
-                        'Puskesmas Merdeka' => 104.7528331,
-                        'Puskesmas Plaju' => 104.8136447,
-                        'Puskesmas 7 Ulu' => 104.7639636,
-                        'Puskesmas 11 Ilir' => 104.7673696,
-                        'Puskesmas Kalidoni' => 104.7674479,
-                        'Puskesmas Kenten' => 104.7674479,
-                        'Puskesmas Boom Baru' => 104.7824651,
-                        'Puskesmas Kampus' => 104.7382453,
-                        'Puskesmas Alang-Alang Lebar' => 104.7000131,
-                        'Dinas Kesehatan Kota Palembang' => 104.7573614,
-                    ][$perjalanan->lokasi_tujuan] ?? 104.7630,
+                    'dest_latitude' => $faskes && $faskes->latitude ? (float) $faskes->latitude : -2.9865,
+                    'dest_longitude' => $faskes && $faskes->longitude ? (float) $faskes->longitude : 104.7522,
                     
                     'suhu_aktual' => $log ? (float) $log->suhu_aktual : 5.0,
                     'nilai_mkt' => ($log && $log->nilai_mkt) ? (float) $log->nilai_mkt : null,
@@ -365,3 +319,5 @@ class FleetController extends Controller
         return back()->with('success', 'Akun berhasil diaktifkan kembali.');
     }
 }
+
+

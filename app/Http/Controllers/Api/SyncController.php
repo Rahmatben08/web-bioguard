@@ -302,6 +302,17 @@ class SyncController extends Controller
             ], 403);
         }
 
+        // 4. Ambil koordinat tujuan dari tabel inventory_hubs
+        $faskes = \App\Models\InventoryHub::where('nama', $activeRoute->lokasi_tujuan)->first();
+        if ($faskes && $faskes->latitude && $faskes->longitude) {
+            $activeRoute->latitude_tujuan = (float) $faskes->latitude;
+            $activeRoute->longitude_tujuan = (float) $faskes->longitude;
+        } else {
+            // Fallback default jika tidak ketemu (titik tengah Palembang)
+            $activeRoute->latitude_tujuan = -2.973305;
+            $activeRoute->longitude_tujuan = 104.755490;
+        }
+
         // Jika semua lolos
         return response()->json([
             'success' => true,
