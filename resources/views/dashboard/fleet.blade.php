@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Manajemen Armada & Pelacakan Kurir')
 
@@ -59,7 +59,7 @@
                     <td class="p-2 border-b border-outline-variant/30 tabular-nums">
                         @if($log)
                             <span class="font-bold text-on-surface" id="temp-val-{{ $perjalanan->id_rute }}">
-                                {{ number_format($log->suhu_aktual, 1, ',', '.') }}°C
+                                {{ number_format($log->suhu_aktual, 1, ',', '.') }}Â°C
                             </span>
                         @else
                             <span class="text-on-surface-variant">-</span>
@@ -118,7 +118,7 @@
                     <div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-highest">
                         <span class="text-xs font-semibold text-on-surface-variant">Satelit & BMKG:</span>
                         <div class="flex items-center gap-1">
-                            <span class="text-sm font-bold text-primary">34°C, 80%</span>
+                            <span class="text-sm font-bold text-primary">34Â°C, 80%</span>
                             <span class="material-symbols-outlined text-error text-[14px]">trending_up</span>
                         </div>
                     </div>
@@ -411,4 +411,5 @@
                 'origin_longitude' => 104.7560,
                   'dest_latitude' => \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->value('latitude') ?? -2.9865,
                   'dest_longitude' => \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->value('longitude') ?? 104.7630,
+
 
