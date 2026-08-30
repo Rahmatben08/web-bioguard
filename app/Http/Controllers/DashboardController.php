@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers;
 
@@ -102,31 +102,7 @@ class DashboardController extends Controller
         $date = $request->input('date');
         
         // Koordinat tujuan & asal default (Palembang)
-        $coordinatesLookup = [
-            'RSUP Dr. Mohammad Hoesin' => ['lat' => -2.9662628, 'lng' => 104.7498217],
-            'RSUD Palembang BARI' => ['lat' => -3.0185, 'lng' => 104.7645],
-            'RS Charitas' => ['lat' => -2.9772, 'lng' => 104.7522],
-            'RS RK Charitas' => ['lat' => -2.9759693, 'lng' => 104.7528599],
-            'Puskesmas Dempo' => ['lat' => -2.9818201, 'lng' => 104.7589042],
-            'RSUD Siti Fatimah' => ['lat' => -2.9482931, 'lng' => 104.7345504],
-            'RS Hermina' => ['lat' => -2.9559237, 'lng' => 104.74846],
-            'RS Siloam Sriwijaya' => ['lat' => -2.9776129, 'lng' => 104.7422702],
-            'RS Bhayangkara' => ['lat' => -2.9587303, 'lng' => 104.7374268],
-            'RS Muhammadiyah' => ['lat' => -3.0003649, 'lng' => 104.8163221],
-            'RS Myria' => ['lat' => -2.9398741, 'lng' => 104.7269887],
-            'RS Ernaldi Bahar' => ['lat' => -2.922228, 'lng' => 104.6846093],
-            'RS Pelabuhan' => ['lat' => -2.978579, 'lng' => 104.7766276],
-            'Puskesmas Merdeka' => ['lat' => -2.9904511, 'lng' => 104.7528331],
-            'Puskesmas Plaju' => ['lat' => -2.9957835, 'lng' => 104.8136447],
-            'Puskesmas 7 Ulu' => ['lat' => -2.9967184, 'lng' => 104.7639636],
-            'Puskesmas 11 Ilir' => ['lat' => -2.9811521, 'lng' => 104.7673696],
-            'Puskesmas Kalidoni' => ['lat' => -2.9404873, 'lng' => 104.7674479],
-            'Puskesmas Kenten' => ['lat' => -2.9404873, 'lng' => 104.7674479],
-            'Puskesmas Boom Baru' => ['lat' => -2.9754512, 'lng' => 104.7824651],
-            'Puskesmas Kampus' => ['lat' => -2.9754956, 'lng' => 104.7382453],
-            'Puskesmas Alang-Alang Lebar' => ['lat' => -2.9394118, 'lng' => 104.7000131],
-            'Dinas Kesehatan Kota Palembang' => ['lat' => -2.9901778, 'lng' => 104.7573614],
-        ];
+        
         
         // Titik awal rute (kalibrasi jarak): Instalasi Farmasi Dinas Kesehatan Kota Palembang, Suka Bangun, Sukarami
         $originCoordinates = ['lat' => -2.9378, 'lng' => 104.7344];
@@ -167,7 +143,7 @@ class DashboardController extends Controller
                 $excursion = $perjalanan->getExcursionInfo();
                 $prediksi = $log ? $log->prediksiAi : null;
                 $probabilitas = $prediksi ? (float) $prediksi->probabilitas_rusak : 0.0;
-                $destCoord = $coordinatesLookup[$perjalanan->lokasi_tujuan] ?? ['lat' => -2.9900, 'lng' => 104.7500];
+                $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first(); $destCoord = ['lat' => $faskes && $faskes->latitude ? (float) $faskes->latitude : -2.9900, 'lng' => $faskes && $faskes->longitude ? (float) $faskes->longitude : 104.7500];
                 $health = $perjalanan->getDeviceHealth();
                 $battery = $health['battery'];
                 $signal = $health['signal'];
@@ -371,3 +347,5 @@ class DashboardController extends Controller
         return response()->json($data);
     }
 }
+
+
