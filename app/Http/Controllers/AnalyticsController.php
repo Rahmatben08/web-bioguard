@@ -95,30 +95,63 @@ class AnalyticsController extends Controller
         $aiRisks = [];
         $actualDamaged = [];
 
-        // Gunakan label bulan dari 6 bulan terakhir agar konsisten dengan judul grafik
-        $monthLabels = collect(range(5, 0))->map(function ($i) {
-            return now()->subMonths($i)->translatedFormat('M Y');
-        })->values()->toArray();
+        // Gunakan 6 bulan terakhir yang valid (dari bulan -5 sampai bulan 0)
+        $monthData = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $dateStr = now()->subMonths($i)->format('Y-m');
+            $monthData[$dateStr] = [
+                'label' => now()->subMonths($i)->translatedFormat('M Y'),
+                'total_risiko' => 0,
+                'total_routes' => 0,
+                'total_logs' => 0,
+                'excursion_logs' => 0,
+            ];
+        }
 
-        $routeIndex = 0;
-        foreach ($recentRoutes as $r) {
-            // Label: gunakan bulan dari monthLabels (fallback ke Rute #ID jika melebihi 6)
-            $chartCategories[] = $monthLabels[$routeIndex] ?? ('Rute #' . $r->id_rute);
-            $routeIndex++;
+        // Ambil data 6 bulan terakhir
+        $sixMonthsAgo = now()->subMonths(5)->startOfMonth();
+        $recentQuery = PerjalananRute::with(['logTelemetri', 'latestLog.prediksiAi'])
+            ->where('created_at', '>=', $sixMonthsAgo);
+        
+        if ($request->has('show_demo')) {
+            $recentQuery->where('is_demo', true);
+        } else {
+            $recentQuery->where('is_demo', false);
+        }
 
-            $latestLog = $r->latestLog;
-            $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
-            $aiRisks[] = is_null($aiRisk) ? 0 : round($aiRisk, 1);
+        $allRecentRoutes = $recentQuery->get();
 
-            // Hitung excursion rate real (%) — persentase log suhu di luar 2°C-8°C
-            $logs = $r->logTelemetri;
-            $totalLogs = $logs->count();
-            $excursionCount = $logs->filter(function ($log) {
-                $t = (float) $log->suhu_aktual;
-                return $t < 2.0 || $t > 8.0;
-            })->count();
-            $actualDamaged[] = $totalLogs > 0
-                ? round(($excursionCount / $totalLogs) * 100, 1)
+        foreach ($allRecentRoutes as $r) {
+            $monthKey = $r->created_at->format('Y-m');
+            if (isset($monthData[$monthKey])) {
+                $monthData[$monthKey]['total_routes']++;
+                
+                $latestLog = $r->latestLog;
+                $aiRisk = ($latestLog && $latestLog->prediksiAi && !is_null($latestLog->prediksiAi->probabilitas_rusak)) ? (float) $latestLog->prediksiAi->probabilitas_rusak : null;
+                if (!is_null($aiRisk)) {
+                    $monthData[$monthKey]['total_risiko'] += $aiRisk;
+                }
+
+                $logs = $r->logTelemetri;
+                $monthData[$monthKey]['total_logs'] += $logs->count();
+                $monthData[$monthKey]['excursion_logs'] += $logs->filter(function ($log) {
+                    $t = (float) $log->suhu_aktual;
+                    return $t < 2.0 || $t > 8.0;
+                })->count();
+            }
+        }
+
+        // Susun array akhir untuk chart
+        foreach ($monthData as $key => $data) {
+            $chartCategories[] = $data['label'];
+            
+            // Rata-rata risiko AI per bulan
+            $avgRisk = $data['total_routes'] > 0 ? ($data['total_risiko'] / $data['total_routes']) : 0;
+            $aiRisks[] = round($avgRisk, 1);
+
+            // Persentase ekskursi (Kerusakan Aktual) per bulan
+            $actualDamaged[] = $data['total_logs'] > 0
+                ? round(($data['excursion_logs'] / $data['total_logs']) * 100, 1)
                 : 0;
         }
 
