@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Pengiriman & Inventaris')
 
@@ -152,18 +152,18 @@
                         <td>
                             @php
                                 $suhu = (float) $drug->suhu_penyimpanan;
-                                $rangeText = '2&deg;C s/d 8&deg;C';
+                                $rangeText = '2°C s/d 8°C';
                                 $rangeLabel = 'Chilled';
                                 $colorClass = 'text-teal-600 ';
                                 $icon = 'thermostat';
                                 
                                 if ($suhu <= -70.0) {
-                                    $rangeText = '-80&deg;C s/d -60&deg;C';
+                                    $rangeText = '-80°C s/d -60°C';
                                     $rangeLabel = 'Ultra-Cold';
                                     $colorClass = 'text-cyan-500 ';
                                     $icon = 'severe_cold';
                                 } elseif ($suhu <= -20.0) {
-                                    $rangeText = '-25&deg;C s/d -15&deg;C';
+                                    $rangeText = '-25°C s/d -15°C';
                                     $rangeLabel = 'Frozen';
                                     $colorClass = 'text-blue-500 ';
                                     $icon = 'kitchen';
@@ -175,7 +175,7 @@
                                     <span class="font-bold text-xs">{{ $rangeLabel }}</span>
                                 </div>
                                 <div class="text-[11px] text-slate-500  font-semibold font-mono mt-0.5 tabular-nums">
-                                    {{ $rangeText }} (target: {{ number_format($suhu, 1, ',', '.') }}&deg;C)
+                                    {{ $rangeText }} (target: {{ number_format($suhu, 1, ',', '.') }}°C)
                                 </div>
                             </div>
                         </td>
@@ -442,7 +442,7 @@
                 <div class="space-y-1 mb-4 text-sm text-on-surface-variant">
                     <p>Produk: <span id="qr-batch-product" class="font-mono text-primary font-bold"></span></p>
                     <p>Stok Tersedia: <span id="qr-batch-qty" class="font-bold"></span> vial</p>
-                    <p>Suhu Rekomendasi: <span id="qr-batch-temp" class="font-bold"></span>&deg;C</p>
+                    <p>Suhu Rekomendasi: <span id="qr-batch-temp" class="font-bold"></span>°C</p>
                     <p>Status: <span id="qr-batch-status" class="font-bold"></span></p>
                 </div>
                 <div class="flex gap-2">
@@ -564,7 +564,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Suhu Penyimpanan (&deg;C)</label>
+                            <label class="block text-xs font-semibold text-outline uppercase tracking-wider mb-sm">Suhu Penyimpanan (°C)</label>
                             <input type="number" step="0.1" name="suhu" value="5.0" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-md py-2.5 text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none" required>
                         </div>
                         <div>
@@ -688,7 +688,7 @@
 
         function openColdChainModal(batch, name, temp) {
             const tempNum = parseFloat(temp);
-            const rangeText = tempNum <= -70 ? '-80&deg;C s/d -60&deg;C' : (tempNum <= -20 ? '-25&deg;C s/d -15&deg;C' : '2&deg;C s/d 8&deg;C');
+            const rangeText = tempNum <= -70 ? '-80°C s/d -60°C' : (tempNum <= -20 ? '-25°C s/d -15°C' : '2°C s/d 8°C');
             const rangeLabel = tempNum <= -70 ? 'Ultra-Cold' : (tempNum <= -20 ? 'Frozen' : 'Chilled');
             const colorClass = tempNum <= -70 ? 'text-cyan-500' : (tempNum <= -20 ? 'text-blue-500' : 'text-teal-600 ');
             const icon = tempNum <= -70 ? 'severe_cold' : (tempNum <= -20 ? 'kitchen' : 'thermostat');
@@ -708,7 +708,7 @@
                             <span class="font-bold text-xs">${rangeLabel} (${rangeText})</span>
                         </div>
                         <div class="text-[10px] text-slate-500  mt-1">
-                            Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}&deg;C</strong>
+                            Target Suhu Penyimpanan: <strong class="text-on-surface font-mono">${tempNum.toFixed(1)}°C</strong>
                         </div>
                     </div>
                     
@@ -717,23 +717,23 @@
                         <div class="space-y-2 text-[11px] font-medium text-slate-700  font-mono">
                             <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>10:00 (Sekarang)</span>
-                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>08:00 (2 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.2).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>04:00 (6 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum - 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-200  pb-1">
                                 <span>22:00 (12 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${(tempNum + 0.1).toFixed(1)}°C [Aman]</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>14:00 (20 Jam lalu)</span>
-                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}&deg;C [Aman]</span>
+                                <span class="text-green-500 font-bold">${tempNum.toFixed(1)}°C [Aman]</span>
                             </div>
                         </div>
                     </div>
