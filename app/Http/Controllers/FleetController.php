@@ -98,12 +98,7 @@ class FleetController extends Controller
                 $battery = $health['battery'];
                 $signal = $health['signal'];
 
-                $isRerouted = \App\Models\IncidentLog::where('id_rute', $perjalanan->id_rute)
-                    ->where('jenis_insiden', 'Peringatan Dini')
-                    ->where('status', 'resolved')
-                    ->exists();
-
-                return [
+                $isRerouted = \App\Models\IncidentLog::where('id_rute', $perjalanan->id_rute)->where('jenis_insiden', 'Peringatan Dini')->where('status', 'resolved')->exists(); $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first(); return [
                     'id_rute' => $perjalanan->id_rute,
                     'nama_kurir' => $perjalanan->kurir->nama_lengkap,
                     'nomor_kendaraan' => $perjalanan->kurir->nomor_kendaraan,
@@ -116,8 +111,6 @@ class FleetController extends Controller
                     'battery_level' => $battery,
                     'signal_strength' => $signal,
                     'calibration_status' => $health['calibration'],
-                    $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first();
-                      $faskes = \App\Models\InventoryHub::where('nama', $perjalanan->lokasi_tujuan)->first();
                     'is_validated' => $perjalanan->device ? $perjalanan->device->is_validated : false,
                     'validation_expiration' => $perjalanan->device && $perjalanan->device->validation_expiration ? \Carbon\Carbon::parse($perjalanan->device->validation_expiration)->format('Y-m-d') : null,
                     
@@ -319,5 +312,6 @@ class FleetController extends Controller
         return back()->with('success', 'Akun berhasil diaktifkan kembali.');
     }
 }
+
 
 
