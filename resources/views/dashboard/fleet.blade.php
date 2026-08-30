@@ -138,7 +138,7 @@
                         <select id="ai-courier-select" class="w-full bg-background border border-outline-variant/50 rounded p-1.5 text-xs text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none mb-3">
                             <option value="" data-name="">-- Pilih Kurir --</option>
                             @foreach($perjalananAktif as $p)
-                                <option value="{{ $p->id_rute }}" data-name="{{ strtolower($p->kurir->nama_lengkap) }}">{{ $p->kurir->nama_lengkap }} ({{ $p$p->lokasi_tujuan }})</option>
+                                <option value="{{ $p->id_rute }}" data-name="{{ strtolower($p->kurir->nama_lengkap) }}">{{ $p->kurir->nama_lengkap }} ({{ $p->lokasi_tujuan }})</option>
                             @endforeach
                         </select>
 
@@ -311,8 +311,8 @@
     // Swap planned path dynamically on load if rerouted
     @foreach($perjalananAktif as $p)
         @if($p->isRerouted())
-            if (alternativePaths['{{ $p$p->lokasi_tujuan }}']) {
-                plannedPaths['{{ $p$p->lokasi_tujuan }}'] = alternativePaths['{{ $p$p->lokasi_tujuan }}'];
+            if (alternativePaths['{{ $p->lokasi_tujuan }}']) {
+                plannedPaths['{{ $p->lokasi_tujuan }}'] = alternativePaths['{{ $p->lokasi_tujuan }}'];
             }
         @endif
     @endforeach
@@ -404,12 +404,13 @@
                 'no_wa' => $p->kurir->no_wa,
                 'nama_kargo' => $p->nama_kargo,
                 'id_box' => $p->id_box,
-                'lokasi_tujuan' => $p$p->lokasi_tujuan,
+                'lokasi_tujuan' => $p->lokasi_tujuan,
                 'latitude' => $p->latestLog ? (float)$p->latestLog->latitude : -2.99,
                 'longitude' => $p->latestLog ? (float)$p->latestLog->longitude : 104.75,
                 'origin_latitude' => -2.9880,
                 'origin_longitude' => 104.7560,
                   'dest_latitude' => \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->value('latitude') ?? -2.9865,
                   'dest_longitude' => \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->value('longitude') ?? 104.7630,
+
 
 
