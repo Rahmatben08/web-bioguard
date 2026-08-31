@@ -120,7 +120,7 @@ class PerjalananRute extends Model
         }
 
         // Fetch logs descending to find when the excursion started (longest contiguous sequence of out-of-bounds logs)
-        $logs = $this->logTelemetri()->orderBy('timestamp', 'desc')->get();
+        $logs = $this->relationLoaded('logTelemetri') ? $this->logTelemetri->sortByDesc('timestamp') : $this->logTelemetri()->orderBy('timestamp', 'desc')->get();
         $firstOutLog = $latestLog;
 
         foreach ($logs as $log) {
