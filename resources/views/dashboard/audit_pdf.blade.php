@@ -179,19 +179,21 @@
                 <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Integritas Dokumen Digital</span>
                 <div class="flex items-center gap-4">
                     @php
-                        $hashData = 'bg_cdob_audit_' . date('Ymd_His') . '_' . (auth()->user()->dispatcher_id ?? 'DSP-PLB-2026');
+                        $hashData = 'bg_cdob_audit_' . implode('-', $perjalananList->pluck('id_rute')->toArray()) . '_' . date('Ymd_His') . '_' . (auth()->user()->dispatcher_id ?? 'DSP-PLB-2026');
+                        $hashHex = hash('sha256', $hashData);
+                        $verifyUrl = url('/verify/' . substr($hashHex, 0, 16));
                         $qrCode = SimpleSoftwareIO\QrCode\Facades\QrCode::size(80)
                             ->color(15, 23, 42)
                             ->backgroundColor(255, 255, 255)
                             ->margin(1)
-                            ->generate($hashData);
+                            ->generate($verifyUrl);
                     @endphp
                     <div>
                         {!! $qrCode !!}
                     </div>
                     <div class="text-left font-mono">
-                        <p class="text-[10px] text-slate-400">SHA256 INTEGRITY HASH:</p>
-                        <p class="text-[9px] font-bold text-slate-700 break-all select-all">{{ hash('sha256', $hashData) }}</p>
+                        <p class="text-[10px] text-slate-400">NOMOR SERI AUDIT:</p>
+                        <p class="text-[11px] font-bold text-slate-700 break-all select-all">{{ strtoupper(substr($hashHex, 0, 16)) }}</p>
                     </div>
                 </div>
             </div>

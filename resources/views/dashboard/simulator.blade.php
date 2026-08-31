@@ -680,7 +680,7 @@
     });
 
     // Handle Route Selection
-    async function changeRoute(routeId) {
+    async async function changeRoute(routeId) {
         activeRouteId = routeId;
         const selector = document.getElementById('route-selector');
         const selectedOption = selector.options[selector.selectedIndex];
@@ -1412,7 +1412,7 @@
     });
 
     // Handle Route Selection
-    function changeRoute(routeId) {
+    async function changeRoute(routeId) {
         activeRouteId = routeId;
         const selector = document.getElementById('route-selector');
         const selectedOption = selector.options[selector.selectedIndex];

@@ -761,7 +761,29 @@
         updateOfflineCacheBadge();
 
         // Handle Route Selection
-        function changeRoute(routeId) {
+        
+// --- OSRM DYNAMIC ROUTING ---
+let routeCache = {};
+async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
+    const cacheKey = destinationName + (isAlternative ? "_alt" : "");
+    if (routeCache[cacheKey]) return routeCache[cacheKey];
+    const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.code === 'Ok' && data.routes.length > 0) {
+            const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
+            const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
+            routeCache[cacheKey] = coordinates;
+            return coordinates;
+        }
+    } catch (e) {
+        console.error("OSRM Fetch Error", e);
+    }
+    return null;
+}
+
+async function changeRoute(routeId) {
             activeRouteId = routeId;
             const selector = document.getElementById('route-selector');
             if (!selector) return;
@@ -779,9 +801,12 @@
             
             // Swap coordinates and interpolate
             const isRerouted = activeReroutes[activeRouteId];
-            const basePoints = isRerouted && alternativePaths[activeDestination]
-                ? alternativePaths[activeDestination]
-                : (routePaths[activeDestination] || routePaths['RSUP Dr. Mohammad Hoesin']);
+            const destLat = parseFloat(selectedOption.getAttribute('data-lat'));
+            const destLng = parseFloat(selectedOption.getAttribute('data-lng'));
+            let basePoints = await fetchOsrmRoute(originCoord.lat, originCoord.lng, destLat, destLng, activeDestination, isRerouted);
+            if(!basePoints || basePoints.length < 2) {
+                basePoints = [[originCoord.lat, originCoord.lng], [destLat, destLng]];
+            }
             routeCoords = interpolateRoute(basePoints, 10);
             currentRouteIndex = 0;
 

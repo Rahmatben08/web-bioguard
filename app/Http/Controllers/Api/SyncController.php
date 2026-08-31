@@ -228,7 +228,7 @@ class SyncController extends Controller
             })->toArray();
 
             // Insert data into demo_telemetri using raw model insert/upsert
-            \App\Models\DemoTelemetri::upsert(
+            \App\Models\LogTelemetri::upsert(
                 $upsertData,
                 ['id_rute', 'timestamp'],
                 ['suhu_aktual', 'nilai_mkt', 'latitude', 'longitude', 'is_synced_from_offline', 'gaya_guncangan']
