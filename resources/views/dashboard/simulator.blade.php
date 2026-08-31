@@ -454,7 +454,7 @@
     // Planned Reference Routes (Palembang)
     
     const originCoord = { lat: -2.9880, lng: 104.7560 };
-        let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
+        let routeCoords = [[originCoord.lat, originCoord.lng], [originCoord.lat, originCoord.lng]];
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
@@ -641,7 +641,7 @@
     });
 
     // Handle Route Selection
-    async async function changeRoute(routeId) {
+    async function changeRoute(routeId) {
         activeRouteId = routeId;
         const selector = document.getElementById('route-selector');
         const selectedOption = selector.options[selector.selectedIndex];
@@ -664,7 +664,7 @@
             else destAbbr = activeDestination.substring(0, 8).toUpperCase();
         }
         const badge = document.getElementById('route-indicator-badge');
-        if (badge) badge.textContent = DINKES \u2192 ;
+        if (badge) badge.textContent = `DINKES \u2192 ${destAbbr}`;
 
         // Fetch coordinates via OSRM dynamically
         const originLat = -2.9880; // Dinkes Palembang
@@ -1147,7 +1147,7 @@
     // Planned Reference Routes (Palembang)
     
     const originCoord = { lat: -2.9880, lng: 104.7560 };
-        let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
+        let routeCoords = [[originCoord.lat, originCoord.lng], [originCoord.lat, originCoord.lng]];
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
