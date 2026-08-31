@@ -112,7 +112,7 @@
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPfizer, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
                     <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
-                        <div class="bg-sky-500 h-1.5 rounded-full" style="width: {{ ($totalPfizer / $totalVaccines) * 100 }}%"></div>
+                        <div class="bg-sky-500 h-1.5 rounded-full" style="width: {{ ($totalVaccines > 0 ? ($totalPfizer / $totalVaccines) * 100 : 0) }}%"></div>
                     </div>
                 </div>
 
@@ -124,7 +124,7 @@
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalPolio, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
                     <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
-                        <div class="bg-indigo-500 h-1.5 rounded-full" style="width: {{ ($totalPolio / $totalVaccines) * 100 }}%"></div>
+                        <div class="bg-indigo-500 h-1.5 rounded-full" style="width: {{ ($totalVaccines > 0 ? ($totalPolio / $totalVaccines) * 100 : 0) }}%"></div>
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalSinovac, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Vial</span></div>
                     <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
-                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: {{ ($totalSinovac / $totalVaccines) * 100 }}%"></div>
+                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: {{ ($totalVaccines > 0 ? ($totalSinovac / $totalVaccines) * 100 : 0) }}%"></div>
                     </div>
                 </div>
 
@@ -148,7 +148,7 @@
                     </div>
                     <div class="text-xl font-black text-slate-900  tabular-nums">{{ number_format($totalInsulin, 0, ',', '.') }} <span class="text-xs font-medium text-slate-500">Pena/Vial</span></div>
                     <div class="w-full bg-slate-200  h-1.5 rounded-full mt-2 overflow-hidden">
-                        <div class="bg-amber-500 h-1.5 rounded-full" style="width: {{ ($totalInsulin / $totalVaccines) * 100 }}%"></div>
+                        <div class="bg-amber-500 h-1.5 rounded-full" style="width: {{ ($totalVaccines > 0 ? ($totalInsulin / $totalVaccines) * 100 : 0) }}%"></div>
                     </div>
                 </div>
             </div>
@@ -637,10 +637,10 @@
 
         // Progress bar percentages
         const total = hub.stok_total;
-        document.getElementById('modal-progress-pfizer').style.width = (hub.stok.pfizer / total * 100) + '%';
-        document.getElementById('modal-progress-polio').style.width = (hub.stok.polio / total * 100) + '%';
-        document.getElementById('modal-progress-sinovac').style.width = (hub.stok.sinovac / total * 100) + '%';
-        document.getElementById('modal-progress-insulin').style.width = (hub.stok.insulin / total * 100) + '%';
+        document.getElementById('modal-progress-pfizer').style.width = (total > 0 ? (hub.stok.pfizer / total * 100) : 0) + '%';
+        document.getElementById('modal-progress-polio').style.width = (total > 0 ? (hub.stok.polio / total * 100) : 0) + '%';
+        document.getElementById('modal-progress-sinovac').style.width = (total > 0 ? (hub.stok.sinovac / total * 100) : 0) + '%';
+        document.getElementById('modal-progress-insulin').style.width = (total > 0 ? (hub.stok.insulin / total * 100) : 0) + '%';
 
         // Reveal modal
         modalEl.classList.remove('hidden');
