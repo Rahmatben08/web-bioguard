@@ -48,6 +48,17 @@ class DashboardController extends Controller
 
         $perjalananAktif = $query->get();
 
+        foreach ($perjalananAktif as $p) {
+            $faskes = \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->first();
+            if ($faskes) {
+                $p->dest_latitude = $faskes->latitude;
+                $p->dest_longitude = $faskes->longitude;
+            } else {
+                $p->dest_latitude = -2.973305;
+                $p->dest_longitude = 104.745582;
+            }
+        }
+
         // Hitung statistik
         $totalKurirAktif = $perjalananAktif->count();
         
