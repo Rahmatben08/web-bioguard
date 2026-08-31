@@ -270,7 +270,7 @@ class DashboardController extends Controller
      */
     public function printAuditTrail(): View
     {
-        $perjalananList = PerjalananRute::aktif()->with([\'kurir\', \'latestLog\', \'logTelemetri\'])->get();
+        $perjalananList = PerjalananRute::aktif()->with(['kurir', 'latestLog', 'logTelemetri'])->get();
         return view('dashboard.audit_pdf', compact('perjalananList'));
     }
 
