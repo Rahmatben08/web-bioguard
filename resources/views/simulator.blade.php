@@ -763,26 +763,7 @@
         // Handle Route Selection
         
 // --- OSRM DYNAMIC ROUTING ---
-let routeCache = {};
-async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
-    const cacheKey = destinationName + (isAlternative ? "_alt" : "");
-    if (routeCache[cacheKey]) return routeCache[cacheKey];
-    const url = `/api/osrm-proxy?origin=${originLng},${originLat}&dest=${destLng},${destLat}${isAlternative ? '&alt=true' : ''}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        if (data.code === 'Ok' && data.routes.length > 0) {
-            const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
-            const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
-            routeCache[cacheKey] = coordinates;
-            return coordinates;
-        }
-    } catch (e) {
-        console.error("OSRM Fetch Error", e);
-        delete routeCache[cacheKey];
-    }
-    return null;
-}
+
 
 async function changeRoute(routeId) {
             activeRouteId = routeId;
@@ -804,10 +785,7 @@ async function changeRoute(routeId) {
             const isRerouted = activeReroutes[activeRouteId];
             const destLat = parseFloat(selectedOption.getAttribute('data-lat'));
             const destLng = parseFloat(selectedOption.getAttribute('data-lng'));
-            let basePoints = await fetchOsrmRoute(originCoord.lat, originCoord.lng, destLat, destLng, activeDestination, isRerouted);
-            if(!basePoints || basePoints.length < 2) {
-                basePoints = [[originCoord.lat, originCoord.lng], [destLat, destLng]];
-            }
+            let basePoints = [[originCoord.lat, originCoord.lng], [destLat, destLng]];
             routeCoords = interpolateRoute(basePoints, 10);
             currentRouteIndex = 0;
 

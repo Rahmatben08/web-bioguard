@@ -990,41 +990,7 @@ const plannedPaths = {};
         return minDistance;
     }
 
-    let routeCache = {};
-    async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
-        const cacheKey = destinationName + (isAlternative ? "_alt" : "");
-        if (routeCache[cacheKey]) return routeCache[cacheKey];
-
-        // Mark as fetching to prevent spam
-        routeCache[cacheKey] = 'fetching';
-
-        try {
-            const url = `/api/osrm-proxy?origin=${originLng},${originLat}&dest=${destLng},${destLat}${isAlternative ? '&alt=true' : ''}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.code === 'Ok' && data.routes.length > 0) {
-                const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
-                const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
-                routeCache[cacheKey] = coordinates;
-                
-                if (isAlternative) {
-                    alternativePaths[destinationName] = coordinates;
-                } else {
-                    plannedPaths[destinationName] = coordinates;
-                }
-                return coordinates;
-            }
-        } catch (e) {
-            console.error("OSRM Fetch Error", e);
-        }
-        
-        // On failure, mark as empty array so we don't spam
-        routeCache[cacheKey] = [];
-        if (!isAlternative) {
-            plannedPaths[destinationName] = [];
-        }
-        return null;
-    }
+    
     // Request permission for push notifications
     if (window.Notification && Notification.permission !== 'granted' && Notification.permission !== 'denied') {
         Notification.requestPermission();
@@ -1669,16 +1635,7 @@ const plannedPaths = {};
             
             let currentLatLng = [lat, lng];
 
-            // Fetch OSRM if not loaded
-            if (!plannedPaths[c.lokasi_tujuan]) {
-                const originLat = c.origin_latitude || -2.9880;
-                const originLng = c.origin_longitude || 104.7560;
-                const destLat = c.dest_latitude || currentLatLng[0];
-                const destLng = c.dest_longitude || currentLatLng[1];
-                
-                await fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, false);
-                fetchOsrmRoute(originLat, originLng, destLat, destLng, c.lokasi_tujuan, true);
-            }
+
 
             // Route Deviation Calculation
             let plannedRoute = plannedPaths[c.lokasi_tujuan];
