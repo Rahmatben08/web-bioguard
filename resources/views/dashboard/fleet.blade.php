@@ -435,95 +435,6 @@
 
     activeRoutes = {!! json_encode($activeRoutesData) !!};
 
-    // routeCache for OSRM fetch deduplication
-    const routeCache = {};
-
-    ,${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            if (data.code === 'Ok' && data.routes.length > 0) {
-                const routeIdx = (isAlternative && data.routes.length > 1) ? 1 : 0;
-                const coordinates = data.routes[routeIdx].geometry.coordinates.map(c => [c[1], c[0]]);
-                routeCache[cacheKey] = coordinates;
-                
-                if (isAlternative) {
-                    alternativePaths[destinationName] = coordinates;
-                } else {
-                    plannedPaths[destinationName] = coordinates;
-                }
-                return coordinates;
-            }
-        } catch (e) {
-            console.error("OSRM Fetch Error", e);
-        }
-        
-        // On failure, mark as empty array so we don't spam
-        routeCache[cacheKey] = [];
-        if (!isAlternative) {
-            plannedPaths[destinationName] = [];
-        }
-        return null;
-    }
-
-    // AI Widget Logic
-    async function triggerReroute() {
-        const select = document.getElementById('ai-courier-select');
-        const ruteId = select.value;
-        if (!ruteId) {
-            alert("Silakan pilih armada terlebih dahulu.");
-            return;
-        }
-
-        const route = activeRoutes.find(r => r.id_rute == ruteId);
-        if (!route) return;
-        
-        // Force use alternative route
-        activeReroutes[ruteId] = true;
-        
-        try {
-            await fetch('/api/monitoring/incident', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_rute: ruteId,
-                    jenis_insiden: 'Peringatan Dini',
-                    deskripsi: 'AI mendeteksi kemacetan/cuaca ekstrim. Rute dialihkan secara otomatis ke jalur aman.',
-                    severity: 'warning'
-                })
-            });
-        } catch(e) {}
-        
-        createOrUpdateMarker(route);
-        document.getElementById('ai-lokasi-text').innerText = "Rute dialihkan ke: " + route.lokasi_tujuan;
-        focusCourier(ruteId);
-    }
-
-    document.getElementById('ai-courier-search')?.addEventListener('keyup', function(e) {
-        const filter = e.target.value.toLowerCase();
-        const options = document.getElementById('ai-courier-select').options;
-        for (let i = 0; i < options.length; i++) {
-            const name = options[i].getAttribute('data-name') || '';
-            if (name.includes(filter) || options[i].value === "") {
-                options[i].style.display = '';
-            } else {
-                options[i].style.display = 'none';
-            }
-        }
-    });
-
-    document.getElementById('ai-courier-select')?.addEventListener('change', function(e) {
-        const route = activeRoutes.find(r => r.id_rute == e.target.value);
-        if (route) {
-            document.getElementById('ai-lokasi-text').innerText = "Menuju: " + route.lokasi_tujuan;
-            focusCourier(route.id_rute);
-        } else {
-            document.getElementById('ai-lokasi-text').innerText = "Pilih armada untuk otomasi...";
-        }
-    });
-
     document.addEventListener("DOMContentLoaded", function () {
         map = L.map('fleet-map', {
             zoomControl: false
@@ -569,7 +480,7 @@
         }
 
         // Fetch OSRM if not loaded
-        if (!plannedPaths[route.lokasi_tujuan]) {
+        
             const originLat = route.origin_latitude || -2.9880;
             const originLng = route.origin_longitude || 104.7560;
             const destLat = route.dest_latitude || currentLatLng[0];
@@ -599,7 +510,7 @@
             } else {
                 routeLayer[ruteId] = L.polyline(futureRoute, { color: '#94a3b8', dashArray: '5, 10', weight: 2, opacity: 0.6 }).addTo(map);
             }
-        }
+        
 
         // ----------------------------------------------------
         // Actual Polyline (Real GPS History)
