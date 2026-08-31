@@ -687,6 +687,7 @@
             return path;
         }
 
+        const originCoord = { lat: -2.9880, lng: 104.7560 };
         let routeCoords = interpolateRoute(routePaths['RSUP Dr. Mohammad Hoesin'], 10);
         let currentRouteIndex = 0;
         let isMoving = false;
@@ -785,8 +786,19 @@ async function changeRoute(routeId) {
             const isRerouted = activeReroutes[activeRouteId];
             const destLat = parseFloat(selectedOption.getAttribute('data-lat'));
             const destLng = parseFloat(selectedOption.getAttribute('data-lng'));
-            let basePoints = [[originCoord.lat, originCoord.lng], [destLat, destLng]];
-            routeCoords = interpolateRoute(basePoints, 10);
+            
+            let startCoord = [originCoord.lat, originCoord.lng];
+            let endCoord = [destLat, destLng];
+            
+            // Generate straight line interpolation
+            let steps = 20;
+            routeCoords = [];
+            for (let i=0; i<=steps; i++) {
+                routeCoords.push([
+                    startCoord[0] + (endCoord[0] - startCoord[0]) * (i/steps),
+                    startCoord[1] + (endCoord[1] - startCoord[1]) * (i/steps)
+                ]);
+            }
             currentRouteIndex = 0;
 
             // Update map features if initialized

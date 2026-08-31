@@ -493,7 +493,8 @@
         ]
     };
 
-    let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
+    const originCoord = { lat: -2.9880, lng: 104.7560 };
+        let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
@@ -1225,7 +1226,8 @@
         ]
     };
 
-    let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
+    const originCoord = { lat: -2.9880, lng: 104.7560 };
+        let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
 
     // Active Reroutes state initialized from DB
     const activeReroutes = {
@@ -1431,9 +1433,21 @@
 
         // Swap coordinates
         const isRerouted = activeReroutes[activeRouteId];
-        routeCoords = isRerouted && alternativePaths[activeDestination]
-            ? alternativePaths[activeDestination]
-            : (routePaths[activeDestination] || routePaths['RSUP Dr. Mohammad Hoesin']);
+        const destLat = parseFloat(selectedOption.getAttribute('data-lat'));
+        const destLng = parseFloat(selectedOption.getAttribute('data-lng'));
+        
+        let startCoord = [originCoord.lat, originCoord.lng];
+        let endCoord = [destLat, destLng];
+        
+        // Generate straight line interpolation
+        let steps = 20;
+        routeCoords = [];
+        for (let i=0; i<=steps; i++) {
+            routeCoords.push([
+                startCoord[0] + (endCoord[0] - startCoord[0]) * (i/steps),
+                startCoord[1] + (endCoord[1] - startCoord[1]) * (i/steps)
+            ]);
+        }
         currentStep = 0;
 
         // Update map features if initialized
