@@ -2272,8 +2272,8 @@ const plannedPaths = {
             
             latitude: parseFloat(log.latitude || 0),
             longitude: parseFloat(log.longitude || 0),
-            origin_latitude: originCoord.lat,
-            origin_longitude: originCoord.lng,
+            origin_latitude: -2.9880,
+            origin_longitude: 104.7560,
             dest_latitude: destCoord.lat,
             dest_longitude: destCoord.lng,
             suhu_aktual: temp,

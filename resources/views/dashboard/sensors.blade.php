@@ -46,7 +46,7 @@
                 <button type="button" class="q-btn px-4 py-1.5 text-xs font-medium text-on-surface-variant hover:text-slate-800 :text-slate-200 rounded-md transition-all duration-300">KUSTOM</button>
             </div>
 
-            <button onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
+            <button type="button" onclick="downloadExcelReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg active:scale-95 transition-all duration-300 shadow-md shadow-emerald-500/10 cursor-pointer" id="btn-excel-export" title="Unduh Log Audit CDOB (Excel)">
                 <span class="material-symbols-outlined text-[18px] align-middle">description</span>
             </button>
             <button type="button" onclick="window.open('/dashboard/audit-pdf', '_blank')" class="bg-white hover:bg-surface-container-high :bg-slate-700 text-on-surface p-2 rounded-lg border border-outline-variant/30 active:scale-95 transition-all duration-300" id="btn-pdf-export" title="Unduh Log Audit (PDF)">
