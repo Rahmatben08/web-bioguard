@@ -131,8 +131,8 @@ class FleetController extends Controller
                     'longitude' => $log ? $log->longitude : 104.7560,
                     'origin_latitude' => -2.9880, // Dinas Kesehatan Palembang
                     'origin_longitude' => 104.7560,
-                    'dest_latitude' => $perjalanan->dest_latitude ?? -2.9865,
-                    'dest_longitude' => $perjalanan->dest_longitude ?? 104.7522,
+                    'dest_latitude' => $faskes ? (float) $faskes->latitude : -2.9865,
+                    'dest_longitude' => $faskes ? (float) $faskes->longitude : 104.7522,
                     
                     'suhu_aktual' => $log ? (float) $log->suhu_aktual : 5.0,
                     'nilai_mkt' => ($log && $log->nilai_mkt) ? (float) $log->nilai_mkt : null,
