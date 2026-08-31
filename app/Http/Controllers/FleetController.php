@@ -99,6 +99,8 @@ class FleetController extends Controller
             $query->where('is_demo', false);
         }
 
+        $perjalananAktif = $query->get();
+
         $perjalananList = $perjalananAktif
             ->map(function ($perjalanan) use ($initialLoad) {
                 $log = $perjalanan->latestLog;
