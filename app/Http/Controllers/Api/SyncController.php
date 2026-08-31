@@ -132,6 +132,48 @@ class SyncController extends Controller
 
                 if ($rute) {
                     $sisaJarak = $predictionService->getEstimatedRemainingDistance($rute->lokasi_tujuan, $log->latitude, $log->longitude);
+                    
+                    // ==========================================
+                    // GEOFENCING & DEVIATION LOGIC
+                    // ==========================================
+                    // 1. Arrival Geofencing (Radius 1km)
+                    if ($sisaJarak > 0 && $sisaJarak <= 1.0) {
+                        // Cek apakah sudah ada notifikasi kedatangan untuk rute ini
+                        $alreadyArrived = \App\Models\IncidentLog::where('id_rute', $rute->id_rute)
+                            ->where('jenis_insiden', 'Memasuki Radius Tujuan')
+                            ->exists();
+                            
+                        if (!$alreadyArrived) {
+                            \App\Models\IncidentLog::create([
+                                'id_rute' => $rute->id_rute,
+                                'jenis_insiden' => 'Memasuki Radius Tujuan',
+                                'deskripsi' => "Kurir berada dalam radius 1km dari {$rute->lokasi_tujuan} (Jarak: " . round($sisaJarak, 1) . " km). Bersiap untuk serah terima.",
+                                'suhu_tercatat' => $suhu,
+                                'durasi_anomali' => 0,
+                                'status' => 'resolved' // Otomatis resolved krn ini info positif
+                            ]);
+                        }
+                    }
+                    
+                    // 2. Deviation Geofencing (Sisa Jarak bertambah secara ekstrim)
+                    // (Sederhananya: jika sisa jarak lebih besar dari 15km, asumsikan deviasi rute ekstrim)
+                    if ($sisaJarak > 15.0) {
+                        $alreadyDeviated = \App\Models\IncidentLog::where('id_rute', $rute->id_rute)
+                            ->where('jenis_insiden', 'Deviasi Rute')
+                            ->where('status', 'active')
+                            ->exists();
+                            
+                        if (!$alreadyDeviated) {
+                            \App\Models\IncidentLog::create([
+                                'id_rute' => $rute->id_rute,
+                                'jenis_insiden' => 'Deviasi Rute',
+                                'deskripsi' => "Terdeteksi deviasi rute yang jauh! Jarak dari tujuan ({$rute->lokasi_tujuan}) melebihi 15km (Jarak aktual: " . round($sisaJarak, 1) . " km).",
+                                'suhu_tercatat' => $suhu,
+                                'durasi_anomali' => 0,
+                                'status' => 'active'
+                            ]);
+                        }
+                    }
                 }
 
                 $mkt = $log->nilai_mkt ? (float) $log->nilai_mkt : $suhu;

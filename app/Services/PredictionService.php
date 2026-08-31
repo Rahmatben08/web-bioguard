@@ -64,20 +64,12 @@ class PredictionService
      */
     public function getEstimatedRemainingDistance(string $tujuan, float $currentLat, float $currentLng): float
     {
-        $destinations = [
-            'RSUP Dr. Mohammad Hoesin' => ['lat' => -2.9666, 'lng' => 104.7505],
-            'RSUD Palembang BARI' => ['lat' => -3.0185, 'lng' => 104.7645],
-            'RS Charitas' => ['lat' => -2.9772, 'lng' => 104.7522],
-            'Puskesmas Dempo' => ['lat' => -2.9865, 'lng' => 104.7630],
-        ];
-
-        if (array_key_exists($tujuan, $destinations)) {
-            $destLat = $destinations[$tujuan]['lat'];
-            $destLng = $destinations[$tujuan]['lng'];
-            return $this->haversineDistance($currentLat, $currentLng, $destLat, $destLng);
+        $faskes = \App\Models\InventoryHub::where('nama', $tujuan)->first();
+        if ($faskes && $faskes->latitude && $faskes->longitude) {
+            return $this->haversineDistance($currentLat, $currentLng, (float) $faskes->latitude, (float) $faskes->longitude);
         }
 
-        return 0.0;
+        return 0.0; // Fallback jika faskes tidak ditemukan
     }
 
     /**
