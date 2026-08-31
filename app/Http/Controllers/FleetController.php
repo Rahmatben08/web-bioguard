@@ -29,6 +29,17 @@ class FleetController extends Controller
 
         $perjalananAktif = $query->get();
 
+        foreach ($perjalananAktif as $p) {
+            $faskes = \App\Models\InventoryHub::where('nama', $p->lokasi_tujuan)->first();
+            if ($faskes) {
+                $p->dest_latitude = $faskes->latitude;
+                $p->dest_longitude = $faskes->longitude;
+            } else {
+                $p->dest_latitude = -2.973305;
+                $p->dest_longitude = 104.745582;
+            }
+        }
+
         // Ambil daftar unik Smart Box dari history perjalanan (beserta nama kurir terakhir)
         $boxes = \Illuminate\Support\Facades\DB::table('perjalanan_rute')
             ->join('kurir', 'perjalanan_rute.id_kurir', '=', 'kurir.id_kurir')
