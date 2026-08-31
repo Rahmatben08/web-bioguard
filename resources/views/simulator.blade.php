@@ -471,7 +471,12 @@
                                 <span class="text-slate-400">Rute Aktif:</span>
                                 <select id="route-selector" class="bg-slate-900 text-slate-200 border border-white/10 rounded px-1.5 py-1 font-mono text-[11px] focus:outline-none focus:border-teal-500" onchange="changeRoute(this.value)">
                                     @foreach($ruteAktif as $rute)
-                                        <option value="{{ $rute->id_rute }}" data-box="{{ $rute->id_box }}" data-tujuan="{{ $rute->lokasi_tujuan }}" data-kurir="{{ $rute->kurir->nama_lengkap }}">
+                                        @php
+                                $faskes = \App\Models\InventoryHub::where('nama', $rute->lokasi_tujuan)->first();
+                                $lat = $faskes && $faskes->latitude ? $faskes->latitude : -2.973305;
+                                $lng = $faskes && $faskes->longitude ? $faskes->longitude : 104.745582;
+                            @endphp
+                            <option value="{{ $rute->id_rute }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}"  data-box="{{ $rute->id_box }}" data-tujuan="{{ $rute->lokasi_tujuan }}" data-kurir="{{ $rute->kurir->nama_lengkap }}">
                                             {{ $rute->id_rute }} - {{ $rute->kurir->nama_lengkap }}
                                         </option>
                                     @endforeach
