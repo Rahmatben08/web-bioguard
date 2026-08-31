@@ -34,7 +34,7 @@
                 <!-- Simulation Overlay: Full-Screen Red Alert (Core PKM Logic) -->
                 <div id="critical-overlay" class="hidden absolute inset-0 bg-red-950/95 z-50 flex flex-col justify-center items-center p-6 text-center select-none animate-pulse transition-colors duration-500">
                     <div id="critical-img-container" class="w-40 h-40 mb-4 animate-bounce relative">
-                        <img id="critical-penguin-img" src="{{ asset('images/penguin_hot.png') }}" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]">
+                        <svg id="critical-penguin-img" class="w-full h-full text-white filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                     <h1 id="critical-title" class="text-lg font-bold text-white tracking-wide uppercase leading-tight mb-2">CRITICAL ALERT</h1>
                     <h2 id="critical-sub" class="text-xs font-bold text-red-400 uppercase tracking-widest mb-6 px-4 leading-relaxed">EKSKURSI SUHU - KARANTINA KARGO SEKARANG!</h2>
@@ -766,7 +766,7 @@
                 <!-- Simulation Overlay: Full-Screen Red Alert (Core PKM Logic) -->
                 <div id="critical-overlay" class="hidden absolute inset-0 bg-red-950/95 z-50 flex flex-col justify-center items-center p-6 text-center select-none animate-pulse transition-colors duration-500">
                     <div id="critical-img-container" class="w-40 h-40 mb-4 animate-bounce relative">
-                        <img id="critical-penguin-img" src="{{ asset('images/penguin_hot.png') }}" class="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]">
+                        <svg id="critical-penguin-img" class="w-full h-full text-white filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                     <h1 id="critical-title" class="text-lg font-bold text-white tracking-wide uppercase leading-tight mb-2">CRITICAL ALERT</h1>
                     <h2 id="critical-sub" class="text-xs font-bold text-red-400 uppercase tracking-widest mb-6 px-4 leading-relaxed">EKSKURSI SUHU - KARANTINA KARGO SEKARANG!</h2>
@@ -1769,8 +1769,8 @@
             title.className = 'text-xl font-black text-cyan-100 tracking-wider uppercase leading-tight mb-2 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]';
             sub.textContent = 'SUHU TERLALU DINGIN - VAKSIN TERANCAM BEKU!';
             sub.classList.add('text-cyan-400');
-            img.src = "{{ asset('images/penguin_cold.png') }}";
-            img.className = 'w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]';
+            
+            img.className = 'w-full h-full text-white filter drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]';
             overlay.classList.add('bg-cyan-950/95');
             infoBox.classList.add('bg-cyan-900/30', 'border-cyan-500/40');
             tempLabel.classList.add('text-cyan-300');
@@ -1781,8 +1781,8 @@
             title.className = 'text-xl font-black text-white tracking-wider uppercase leading-tight mb-2 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]';
             sub.textContent = 'EKSKURSI SUHU - KARANTINA KARGO SEKARANG!';
             sub.classList.add('text-red-400');
-            img.src = "{{ asset('images/penguin_hot.png') }}";
-            img.className = 'w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]';
+            
+            img.className = 'w-full h-full text-white filter drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]';
             overlay.classList.add('bg-red-950/95');
             infoBox.classList.add('bg-red-900/30', 'border-red-500/40');
             tempLabel.classList.add('text-red-300');

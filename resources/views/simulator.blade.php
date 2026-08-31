@@ -767,7 +767,7 @@ let routeCache = {};
 async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
     const cacheKey = destinationName + (isAlternative ? "_alt" : "");
     if (routeCache[cacheKey]) return routeCache[cacheKey];
-    const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+    const url = `/api/osrm-proxy?origin=${originLng},${originLat}&dest=${destLng},${destLat}${isAlternative ? '&alt=true' : ''}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -779,6 +779,7 @@ async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinatio
         }
     } catch (e) {
         console.error("OSRM Fetch Error", e);
+        delete routeCache[cacheKey];
     }
     return null;
 }

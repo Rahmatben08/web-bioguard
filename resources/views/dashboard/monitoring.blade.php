@@ -999,7 +999,7 @@ const plannedPaths = {};
         routeCache[cacheKey] = 'fetching';
 
         try {
-            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+            const url = `/api/osrm-proxy?origin=${originLng},${originLat}&dest=${destLng},${destLat}${isAlternative ? '&alt=true' : ''}`;
             const response = await fetch(url);
             const data = await response.json();
             if (data.code === 'Ok' && data.routes.length > 0) {

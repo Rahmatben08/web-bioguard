@@ -58,3 +58,22 @@ Route::get('/alerts/live', [\App\Http\Controllers\AlertController::class, 'liveD
 // Data agregat publik untuk widget landing page
 Route::get('/public/stats-ringkas', [DashboardController::class, 'publicStats'])
     ->name('api.public.stats-ringkas');
+
+
+Route::get('/osrm-proxy', function(\Illuminate\Http\Request $request) {
+    $origin = $request->query('origin');
+    $dest = $request->query('dest');
+    $alt = $request->query('alt') == 'true' ? '&alternatives=true' : '';
+    
+    if (!$origin || !$dest) return response()->json(['code' => 'Error']);
+    
+    $url = "https://router.project-osrm.org/route/v1/driving/{$origin};{$dest}?overview=full&geometries=geojson{$alt}";
+    
+    try {
+        $response = \Illuminate\Support\Facades\Http::timeout(5)->get($url);
+        return $response->json();
+    } catch (\Exception $e) {
+        return response()->json(['code' => 'Error', 'message' => $e->getMessage()]);
+    }
+});
+
