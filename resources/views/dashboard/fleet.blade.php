@@ -438,16 +438,7 @@
     // routeCache for OSRM fetch deduplication
     const routeCache = {};
 
-    async function fetchOsrmRoute(originLat, originLng, destLat, destLng, destinationName, isAlternative = false) {
-        const cacheKey = destinationName + (isAlternative ? "_alt" : "");
-        if (routeCache[cacheKey]) return routeCache[cacheKey];
-
-        // Mark as fetching to prevent spam
-        routeCache[cacheKey] = 'fetching';
-
-        try {
-            // OSRM coordinates are lng,lat
-            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
+    ,${originLat};${destLng},${destLat}?overview=full&geometries=geojson${isAlternative ? '&alternatives=true' : ''}`;
             const response = await fetch(url);
             const data = await response.json();
             if (data.code === 'Ok' && data.routes.length > 0) {
@@ -584,60 +575,29 @@
             const destLat = route.dest_latitude || currentLatLng[0];
             const destLng = route.dest_longitude || currentLatLng[1];
             
-            await fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, false);
-            fetchOsrmRoute(originLat, originLng, destLat, destLng, route.lokasi_tujuan, true);
-        }
-
-        let plannedRoute = plannedPaths[route.lokasi_tujuan];
-        if (activeReroutes[ruteId] && alternativePaths[route.lokasi_tujuan]) {
-            plannedRoute = alternativePaths[route.lokasi_tujuan];
-        }
-        
-        let isDeviated = false;
-        let futureRoute = [];
-        let pastRoute = [];
-
-        if (plannedRoute && plannedRoute.length > 0) {
-            const dist = getDistanceToPolyline(currentLatLng, plannedRoute);
-            if (dist > 300) {
-                isDeviated = true;
+            // --- DRAW DESTINATION MARKER DIRECTLY ---
+            if (!window.activeDestMarkers) window.activeDestMarkers = {};
+            if (window.activeDestMarkers[ruteId]) {
+                window.activeDestMarkers[ruteId].setLatLng([destLat, destLng]);
+            } else {
+                const hospitalIcon = L.divIcon({
+                    html: `<div class="w-6 h-6 rounded-full bg-cyan-900/80 border border-cyan-400 flex items-center justify-center text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.4)]">
+                                <span class="material-symbols-outlined text-[14px]">local_hospital</span>
+                           </div>`,
+                    className: '',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                window.activeDestMarkers[ruteId] = L.marker([destLat, destLng], { icon: hospitalIcon }).addTo(map);
+                window.activeDestMarkers[ruteId].bindPopup(`<div class='text-xs font-bold text-slate-800 py-0.5'>${route.lokasi_tujuan} (Tujuan)</div>`, { closeButton: false });
             }
-            
-            // Slice route to past and future
-            let minDistance = Infinity;
-            let closestIdx = 0;
-            for (let i = 0; i < plannedRoute.length; i++) {
-                const pointDist = getDistanceMeters(currentLatLng, plannedRoute[i]);
-                if (pointDist < minDistance) {
-                    minDistance = pointDist;
-                    closestIdx = i;
-                }
-            }
-            pastRoute = plannedRoute.slice(0, closestIdx + 1);
-            futureRoute = plannedRoute.slice(closestIdx);
-            
-            pastRoute.push(currentLatLng);
-            futureRoute.unshift(currentLatLng);
-        }
 
-        // ----------------------------------------------------
-        // Route Polyline (Planned Road Network OSRM)
-        // ----------------------------------------------------
-        if (futureRoute.length > 0) {
-            const dashType = '5, 10';
-            const polyColor = activeReroutes[ruteId] ? '#ef4444' : '#94a3b8'; // Fade future planned route
-            
+            // Draw a straight dashed line to destination
+            const futureRoute = [currentLatLng, [destLat, destLng]];
             if (routeLayer[ruteId]) {
                 routeLayer[ruteId].setLatLngs(futureRoute);
-                routeLayer[ruteId].setStyle({ color: polyColor, dashArray: dashType, weight: 3, opacity: 0.5 });
             } else {
-                routeLayer[ruteId] = L.polyline(futureRoute, { color: polyColor, dashArray: dashType, weight: 3, opacity: 0.5 }).addTo(map);
-            }
-            
-            if (pastRouteLayer[ruteId]) {
-                pastRouteLayer[ruteId].setLatLngs(pastRoute);
-            } else {
-                pastRouteLayer[ruteId] = L.polyline(pastRoute, { color: '#94a3b8', weight: 3, opacity: 0.3, dashArray: '5, 10' }).addTo(map);
+                routeLayer[ruteId] = L.polyline(futureRoute, { color: '#94a3b8', dashArray: '5, 10', weight: 2, opacity: 0.6 }).addTo(map);
             }
         }
 

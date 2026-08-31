@@ -276,7 +276,7 @@
                     <span class="text-xs text-slate-400">Atur Suhu Aktual:</span>
                     <span id="slider-val" class="text-xl font-black text-cyan-400">4.5°C</span>
                 </div>
-                <input id="temp-slider" type="range" min="0.0" max="15.0" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
+                <input id="temp-slider" type="range" min="-20" max="60" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
             </div>
 
             <!-- Preset Buttons -->
@@ -1009,7 +1009,7 @@
                     <span class="text-xs text-slate-400">Atur Suhu Aktual:</span>
                     <span id="slider-val" class="text-xl font-black text-cyan-400">4.5°C</span>
                 </div>
-                <input id="temp-slider" type="range" min="0.0" max="15.0" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
+                <input id="temp-slider" type="range" min="-20" max="60" step="0.1" value="4.5" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" oninput="updateTempFromSlider(this.value)">
             </div>
 
             <!-- Preset Buttons -->
@@ -2119,3 +2119,4 @@
     }
 </script>
 @endpush
+

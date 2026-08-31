@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
@@ -501,13 +501,16 @@
                             <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Simulasi Suhu Boks (°C)</label>
                             <span id="slider-temp-badge" class="px-3 py-1 text-sm font-mono font-bold rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20">5.2°C</span>
                         </div>
-                        <input id="temp-slider" type="range" min="0" max="15" step="0.1" value="5.2" 
+                        <input id="temp-slider" type="range" min="-20" max="60" step="0.1" value="5.2" 
                                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-400">
                         
-                        <div class="grid grid-cols-3 gap-2 text-[10px] font-semibold text-center mt-1">
-                            <button onclick="setTemperature(4.5)" class="py-1 rounded bg-slate-800/80 border border-white/5 hover:bg-slate-800 hover:text-white transition text-emerald-400">4.5°C (Aman)</button>
-                            <button onclick="setTemperature(8.3)" class="py-1 rounded bg-slate-800/80 border border-white/5 hover:bg-slate-800 hover:text-white transition text-amber-400">8.3°C (Warning)</button>
-                            <button onclick="setTemperature(10.5)" class="py-1 rounded bg-slate-800/80 border border-white/5 hover:bg-slate-800 hover:text-white transition text-rose-500">10.5°C (Kritis)</button>
+                        <div class="grid grid-cols-2 gap-2 text-[10px] font-semibold text-center mt-1">
+                            <button onclick="setTemperature(4.5)" class="py-1 rounded bg-slate-800/80 border border-emerald-500/20 hover:bg-slate-700 hover:text-white transition text-emerald-400">Suhu Aman (4.5°C)</button>
+                            <button onclick="setTemperature(8.3)" class="py-1 rounded bg-slate-800/80 border border-amber-500/20 hover:bg-slate-700 hover:text-white transition text-amber-400">Warning (8.3°C)</button>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-[10px] font-semibold text-center mt-2">
+                            <button onclick="setTemperature(10.5)" class="py-1 rounded bg-rose-500/10 border border-rose-500/30 hover:bg-rose-500/20 transition text-rose-500">Kritis (9.5°C)</button>
+                            <button onclick="setTemperature(1.5)" class="py-1 rounded bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 transition text-cyan-400">Beku (1.5°C)</button>
                         </div>
                     </div>
 
@@ -860,7 +863,7 @@ async function changeRoute(routeId) {
                 }
             } 
             // Extreme Excursion: > 8.5°C (or if timer expired)
-            else if (temperature > 8.5) {
+            else if (temperature > 8.5 || temperature < 2.0) {
                 setSafetyState("Kritis");
                 clearWarningCountdown();
                 triggerRedAlertOverlay();
@@ -1533,3 +1536,4 @@ async function changeRoute(routeId) {
     </script>
 </body>
 </html>
+
