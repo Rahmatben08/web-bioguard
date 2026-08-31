@@ -149,7 +149,7 @@ class DashboardController extends Controller
         }
         $totalPendingSync = $pendingQuery->count();
 
-        $mappedData = $perjalananList->map(function ($perjalanan) use ($coordinatesLookup, $originCoordinates) {
+        $mappedData = $perjalananList->map(function ($perjalanan) use ($originCoordinates) {
                 $log = $perjalanan->latestLog;
                 $excursion = $perjalanan->getExcursionInfo();
                 $prediksi = $log ? $log->prediksiAi : null;
