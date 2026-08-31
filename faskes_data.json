@@ -1,0 +1,458 @@
+[
+    {
+        "name": "RSUD Palembang (BARI)",
+        "kecamatan": "Seberang Ulu I",
+        "lat": "-3.0106777",
+        "lng": "104.7685973"
+    },
+    {
+        "name": "RSUD Sumatera Selatan",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9482346",
+        "lng": "104.7345504"
+    },
+    {
+        "name": "RS Ar-Rasyid",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9361687",
+        "lng": "104.7218342"
+    },
+    {
+        "name": "RS Bhayangkara Palembang",
+        "kecamatan": "Kemuning",
+        "lat": "-2.9590320",
+        "lng": "104.7372230"
+    },
+    {
+        "name": "RS Bunda Palembang",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9679351",
+        "lng": "104.7344397"
+    },
+    {
+        "name": "RS Dr. AK. Gani",
+        "kecamatan": "Bukit Kecil",
+        "lat": "-2.9903282",
+        "lng": "104.7601422"
+    },
+    {
+        "name": "RS Ernaldi Bahar",
+        "kecamatan": "Alang-Alang Lebar",
+        "lat": "-2.9233850",
+        "lng": "104.6828728"
+    },
+    {
+        "name": "RS Graha Mandiri",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9685214",
+        "lng": "104.7262687"
+    },
+    {
+        "name": "RS Hermina Palembang",
+        "kecamatan": "Kemuning",
+        "lat": "-2.9558049",
+        "lng": "104.7483075"
+    },
+    {
+        "name": "RS Islam Siti Khadijah",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9716501",
+        "lng": "104.7314097"
+    },
+    {
+        "name": "RS Karya Asih Charitas",
+        "kecamatan": "Sematang Borang",
+        "lat": "-2.9372750",
+        "lng": "104.7947840"
+    },
+    {
+        "name": "RS Masyarakat Sumatera Selatan",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9499828",
+        "lng": "104.7340764"
+    },
+    {
+        "name": "RS Muhammadiyah Palembang",
+        "kecamatan": "Seberang Ulu II",
+        "lat": "-2.9963630",
+        "lng": "104.7766891"
+    },
+    {
+        "name": "RS Musi Medika Cendikia",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9799306",
+        "lng": "104.7239792"
+    },
+    {
+        "name": "RS Myria Palembang",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9406970",
+        "lng": "104.7266987"
+    },
+    {
+        "name": "RS Paru Palembang",
+        "kecamatan": "Bukit Kecil",
+        "lat": "-2.9902166",
+        "lng": "104.7504980"
+    },
+    {
+        "name": "RS Pelabuhan Palembang",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9790070",
+        "lng": "104.7768160"
+    },
+    {
+        "name": "RS Pertamina Plaju",
+        "kecamatan": "Plaju",
+        "lat": "-2.9945037",
+        "lng": "104.8246858"
+    },
+    {
+        "name": "RS Pusri Palembang",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9702776",
+        "lng": "104.8013607"
+    },
+    {
+        "name": "RS RK Charitas",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9750631",
+        "lng": "104.7526774"
+    },
+    {
+        "name": "RS Siloam Sriwijaya",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9777701",
+        "lng": "104.7423333"
+    },
+    {
+        "name": "RS Sriwijaya Palembang",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9596308",
+        "lng": "104.7370085"
+    },
+    {
+        "name": "RSIA Az-Zahra Palembang",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9422846",
+        "lng": "104.7841096"
+    },
+    {
+        "name": "RSIA Bunda Noni",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9929434",
+        "lng": "104.7264614"
+    },
+    {
+        "name": "RSIA Kader Bangsa",
+        "kecamatan": "Kertapati",
+        "lat": "-3.0337280",
+        "lng": "104.7519596"
+    },
+    {
+        "name": "RSIA Mama Palembang",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9754852",
+        "lng": "104.7407355"
+    },
+    {
+        "name": "RSIA Marissa Palembang",
+        "kecamatan": "Plaju",
+        "lat": "-3.0057493",
+        "lng": "104.8180779"
+    },
+    {
+        "name": "RSIA Rika Amelia",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9139307",
+        "lng": "104.6955885"
+    },
+    {
+        "name": "RSIA Tiara Fatrin",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9689946",
+        "lng": "104.7636227"
+    },
+    {
+        "name": "RSIA Trinanda Palembang",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9701634",
+        "lng": "104.7850769"
+    },
+    {
+        "name": "RSIA Widiyanti Palembang",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9432126",
+        "lng": "104.7666101"
+    },
+    {
+        "name": "RSIA YK Madira",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9727996",
+        "lng": "104.7523186"
+    },
+    {
+        "name": "RSUP Dr. Mohammad Hoesin",
+        "kecamatan": "Kemuning",
+        "lat": "-2.9664071",
+        "lng": "104.7502143"
+    },
+    {
+        "name": "RS Hermina OPI Jakabaring",
+        "kecamatan": "Rambutan",
+        "lat": "-3.0338819",
+        "lng": "104.7909939"
+    },
+    {
+        "name": "Puskesmas Padang Selasa",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9901710",
+        "lng": "104.7342989"
+    },
+    {
+        "name": "Puskesmas Multiwahana",
+        "kecamatan": "Sako",
+        "lat": "-2.9287047",
+        "lng": "104.7805291"
+    },
+    {
+        "name": "Puskesmas Sako",
+        "kecamatan": "Sako",
+        "lat": "-2.9211968",
+        "lng": "104.7920894"
+    },
+    {
+        "name": "Puskesmas Pembina",
+        "kecamatan": "Jakabaring / Seberang Ulu I",
+        "lat": "-2.9968695",
+        "lng": "104.7753158"
+    },
+    {
+        "name": "Puskesmas Sekip",
+        "kecamatan": "Kemuning",
+        "lat": "-2.9576051",
+        "lng": "104.7541237"
+    },
+    {
+        "name": "Puskesmas Plaju",
+        "kecamatan": "Plaju",
+        "lat": "-2.9957301",
+        "lng": "104.8136895"
+    },
+    {
+        "name": "Puskesmas Sosial",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9463340",
+        "lng": "104.7414677"
+    },
+    {
+        "name": "Puskesmas Taman Bacaan",
+        "kecamatan": "Seberang Ulu II",
+        "lat": "-2.9864446",
+        "lng": "104.7835277"
+    },
+    {
+        "name": "Puskesmas Bukitsangkal",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9376611",
+        "lng": "104.7805515"
+    },
+    {
+        "name": "Puskesmas Dempo",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9818086",
+        "lng": "104.7588960"
+    },
+    {
+        "name": "Puskesmas Keramasan",
+        "kecamatan": "Kertapati",
+        "lat": "-3.0277125",
+        "lng": "104.7458236"
+    },
+    {
+        "name": "Puskesmas Karya Jaya",
+        "kecamatan": "Kertapati",
+        "lat": "-3.0408287",
+        "lng": "104.7261197"
+    },
+    {
+        "name": "Puskesmas Lima Ilir",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9650818",
+        "lng": "104.7727007"
+    },
+    {
+        "name": "Puskesmas Sematang Borang",
+        "kecamatan": "Sako",
+        "lat": "-2.9340660",
+        "lng": "104.7904911"
+    },
+    {
+        "name": "Puskesmas Tegal Binangun",
+        "kecamatan": "Plaju",
+        "lat": "-3.0139275",
+        "lng": "104.8116080"
+    },
+    {
+        "name": "Puskesmas Nagaswidak",
+        "kecamatan": "Seberang Ulu II",
+        "lat": "-2.9915610",
+        "lng": "104.7826947"
+    },
+    {
+        "name": "Puskesmas Merdeka",
+        "kecamatan": "Bukit Kecil",
+        "lat": "-2.9904458",
+        "lng": "104.7528697"
+    },
+    {
+        "name": "Puskesmas Kalidoni",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9606647",
+        "lng": "104.7992580"
+    },
+    {
+        "name": "Puskesmas Kertapati",
+        "kecamatan": "Kertapati",
+        "lat": "-3.0256252",
+        "lng": "104.7470242"
+    },
+    {
+        "name": "Puskesmas Sei Selincah",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9683017",
+        "lng": "104.8216824"
+    },
+    {
+        "name": "Puskesmas Dua Puluh Tiga Ilir",
+        "kecamatan": "Bukit Kecil",
+        "lat": "-2.9878927",
+        "lng": "104.7548896"
+    },
+    {
+        "name": "Puskesmas Talang Ratu",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9540110",
+        "lng": "104.7320921"
+    },
+    {
+        "name": "Puskesmas Talangjambe",
+        "kecamatan": "Sukarami",
+        "lat": "-2.8897521",
+        "lng": "104.7180794"
+    },
+    {
+        "name": "Puskesmas Alang-Alang Lebar",
+        "kecamatan": "Alang-Alang Lebar",
+        "lat": "-2.9315420",
+        "lng": "104.6907320"
+    },
+    {
+        "name": "Puskesmas Kenten",
+        "kecamatan": "Kalidoni",
+        "lat": "-2.9404925",
+        "lng": "104.7673936"
+    },
+    {
+        "name": "Puskesmas Satu Ulu",
+        "kecamatan": "Seberang Ulu I",
+        "lat": "-3.0114460",
+        "lng": "104.7519710"
+    },
+    {
+        "name": "Puskesmas Sukarami",
+        "kecamatan": "Sukarami",
+        "lat": "-2.9204290",
+        "lng": "104.7170234"
+    },
+    {
+        "name": "Puskesmas Tujuh Ulu",
+        "kecamatan": "Seberang Ulu I",
+        "lat": "-2.9967252",
+        "lng": "104.7639443"
+    },
+    {
+        "name": "Puskesmas Punti Kayu",
+        "kecamatan": "Alang-Alang Lebar",
+        "lat": "-2.9498302",
+        "lng": "104.7264372"
+    },
+    {
+        "name": "Puskesmas Makrayu",
+        "kecamatan": "Ilir Barat II",
+        "lat": "-3.0000319",
+        "lng": "104.7442954"
+    },
+    {
+        "name": "Puskesmas Sabokingking",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9737381",
+        "lng": "104.7915577"
+    },
+    {
+        "name": "Puskesmas Sei Baung",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9732933",
+        "lng": "104.7431163"
+    },
+    {
+        "name": "Puskesmas Boom Baru",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9752592",
+        "lng": "104.7824175"
+    },
+    {
+        "name": "Puskesmas Gandus",
+        "kecamatan": "Gandus",
+        "lat": "-3.0189920",
+        "lng": "104.6792898"
+    },
+    {
+        "name": "Puskesmas Talang Betutu",
+        "kecamatan": "Sukarami",
+        "lat": "-2.8888931",
+        "lng": "104.6868828"
+    },
+    {
+        "name": "Puskesmas OPI",
+        "kecamatan": "Rambutan",
+        "lat": "-3.0485100",
+        "lng": "104.7848420"
+    },
+    {
+        "name": "Puskesmas Kampus",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9755074",
+        "lng": "104.7383431"
+    },
+    {
+        "name": "Puskesmas Pakjo",
+        "kecamatan": "Ilir Barat I",
+        "lat": "-2.9635811",
+        "lng": "104.7344444"
+    },
+    {
+        "name": "Puskesmas Ariodillah",
+        "kecamatan": "Ilir Timur I",
+        "lat": "-2.9640104",
+        "lng": "104.7426207"
+    },
+    {
+        "name": "Puskesmas Sebelas Ilir",
+        "kecamatan": "Ilir Timur II",
+        "lat": "-2.9811092",
+        "lng": "104.7673902"
+    },
+    {
+        "name": "Puskesmas Basuki Rahmat",
+        "kecamatan": "Kemuning",
+        "lat": "-2.9481851",
+        "lng": "104.7490356"
+    },
+    {
+        "name": "Puskesmas Empat Ulu",
+        "kecamatan": "Seberang Ulu I",
+        "lat": "-3.0069681",
+        "lng": "104.7609593"
+    }
+]

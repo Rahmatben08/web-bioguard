@@ -602,47 +602,7 @@
     <!-- Leaflet & Simulator Logic JavaScript -->
     <script>
         // --- 1. ROUTE WAYPOINTS GENERATION & SETUP ---
-        const routePaths = {
-            'RSUP Dr. Mohammad Hoesin': [
-                [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-                [-2.9887, 104.7565], // Air Mancur Masjid Agung Roundabout
-                [-2.9868, 104.7561], // Sudirman St near IP
-                [-2.9829, 104.7552], // Sudirman St near Cinde
-                [-2.9803, 104.7547], // Sudirman St near Marathon
-                [-2.9774, 104.7540], // Simpang Charitas
-                [-2.9748, 104.7533], // Sudirman St near Kodam
-                [-2.9723, 104.7528], // Sudirman St SMA 3
-                [-2.9702, 104.7521], // Sudirman St / Veteran
-                [-2.9669, 104.7505]  // RSUP Dr. Mohammad Hoesin
-            ],
-            'RSUD Palembang BARI': [
-                [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-                [-2.9887, 104.7565], // Air Mancur Masjid Agung
-                [-2.9912, 104.7592], // Jembatan Ampera (North)
-                [-2.9935, 104.7618], // Jembatan Ampera (Center)
-                [-2.9961, 104.7628], // Jembatan Ampera (South)
-                [-2.9995, 104.7635], // Jl. Ryacudu
-                [-3.0068, 104.7625], // Simpang Bastari
-                [-3.0125, 104.7615], // Jl. Gubernur Bastari near Lippo
-                [-3.0142, 104.7585], // Jl. Panca Usaha entrance
-                [-3.0185, 104.7645]  // RSUD Palembang BARI
-            ],
-            'RS Charitas': [
-                [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-                [-2.9887, 104.7565], // Air Mancur
-                [-2.9868, 104.7561], // IP
-                [-2.9829, 104.7552], // Cinde
-                [-2.9803, 104.7547], // Marathon
-                [-2.9772, 104.7522]  // RS Charitas
-            ],
-            'Puskesmas Dempo': [
-                [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-                [-2.9887, 104.7565], // Air Mancur
-                [-2.9868, 104.7561], // IP
-                [-2.9865, 104.7630]  // Puskesmas Dempo
-            ]
-        };
-
+        
         // Active Reroutes state initialized from DB
         const activeReroutes = {
             @foreach($ruteAktif as $rute)
@@ -691,7 +651,14 @@
         }
 
         const originCoord = { lat: -2.9880, lng: 104.7560 };
-        let routeCoords = interpolateRoute(routePaths['RSUP Dr. Mohammad Hoesin'], 10);
+        let routeCoords = [[-2.9880, 104.7560], [-2.973305, 104.745582]]; // fallback init
+        // Will be overwritten by changeRoute() immediately
+        setTimeout(() => {
+            const selector = document.getElementById('route-selector');
+            if (selector && selector.options.length > 0) {
+                changeRoute(selector.value);
+            }
+        }, 100);
         let currentRouteIndex = 0;
         let isMoving = false;
         let moveInterval = null;

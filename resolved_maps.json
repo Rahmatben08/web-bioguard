@@ -1,0 +1,560 @@
+[
+    {
+        "name": "Rumah Sakit Musi Medika Cendikia Palembang",
+        "lat": -2.9799306,
+        "lng": 104.7239792,
+        "url": "https://maps.app.goo.gl/P1R3e31jBwCAf6WV7"
+    },
+    {
+        "name": "Puskesmas Talang Jambe",
+        "lat": -2.8897521,
+        "lng": 104.7180794,
+        "url": "https://maps.app.goo.gl/oJixV7vE3tetib3e6"
+    },
+    {
+        "name": "Puskesmas Pembina",
+        "lat": -2.9968695,
+        "lng": 104.7753158,
+        "url": "https://maps.app.goo.gl/y9AE6CEf4Qg2Vo6R9"
+    },
+    {
+        "name": "RSIA Bunda Noni",
+        "lat": -2.9929434,
+        "lng": 104.7264614,
+        "url": "https://maps.app.goo.gl/aYZsPMKme8CLY9vf7"
+    },
+    {
+        "name": "Puskesmas 23 Ilir",
+        "lat": -2.9878927,
+        "lng": 104.7548896,
+        "url": "https://maps.app.goo.gl/sakxxGbfVCCvwTqi6"
+    },
+    {
+        "name": "Puskesmas Kampus Palembang",
+        "lat": -2.9755074,
+        "lng": 104.7383431,
+        "url": "https://maps.app.goo.gl/6QwcpQfFjQzhdKURA"
+    },
+    {
+        "name": "Puskesmas Sosial",
+        "lat": -2.946334,
+        "lng": 104.7414677,
+        "url": "https://maps.app.goo.gl/MhckZ9vTbyD7mUAJA"
+    },
+    {
+        "name": "RS Bunda Medika Jakabaring",
+        "lat": -3.0498861,
+        "lng": 104.8033433,
+        "url": "https://maps.app.goo.gl/9wCKyF5rB9vcz7Dc8"
+    },
+    {
+        "name": "Rumah Sakit Bersalin Ananda",
+        "lat": -2.9896324,
+        "lng": 104.791198,
+        "url": "https://maps.app.goo.gl/s1xepbWmjuVuFjYR6"
+    },
+    {
+        "name": "Puskesmas Bukit Sangkal",
+        "lat": -2.9376611,
+        "lng": 104.7805515,
+        "url": "https://maps.app.goo.gl/zfWRXqo4dniBgPTj9"
+    },
+    {
+        "name": "Puskesmas Kertapati",
+        "lat": -3.0256252,
+        "lng": 104.7470242,
+        "url": "https://maps.app.goo.gl/3tqZyCMF6XuEC4iN8"
+    },
+    {
+        "name": "RSUD Siti Fatimah Az-Zahra Provinsi Sumatera Selatan",
+        "lat": -2.9482346,
+        "lng": 104.7345504,
+        "url": "https://maps.app.goo.gl/miuXkoHqLjdpENqZ8"
+    },
+    {
+        "name": "Rumah Sakit Umum Sriwijaya Palembang",
+        "lat": -2.9596308,
+        "lng": 104.7370085,
+        "url": "https://maps.app.goo.gl/q83a3n7wD8EP1KZD7"
+    },
+    {
+        "name": "Rumah Sakit Ibu dan Anak Widiyanti",
+        "lat": -2.9432126,
+        "lng": 104.7666101,
+        "url": "https://maps.app.goo.gl/rWLJkEHeqPJwch2M9"
+    },
+    {
+        "name": "Puskesmas Taman Bacaan",
+        "lat": -2.9864446,
+        "lng": 104.7835277,
+        "url": "https://maps.app.goo.gl/9r4YVpfvaLVAx8Yq8"
+    },
+    {
+        "name": "Rumah Sakit Umum Pusat Dr. Mohammad Hoesin Instalasi Gawat Darurat",
+        "lat": -2.9672476,
+        "lng": 104.7506906,
+        "url": "https://maps.app.goo.gl/43q9ETQ5cctaMhJo6"
+    },
+    {
+        "name": "RSIA TRINANDA",
+        "lat": -2.9701634,
+        "lng": 104.7850769,
+        "url": "https://maps.app.goo.gl/bT3s7uBu1WKwjmqC8"
+    },
+    {
+        "name": "Rumah Sakit Bhayangkara (Moh. Hasan) Palembang",
+        "lat": -2.959032,
+        "lng": 104.737223,
+        "url": "https://maps.app.goo.gl/4k1dfKzuk55tj2kaA"
+    },
+    {
+        "name": "RS umum",
+        "lat": -2.9760674,
+        "lng": 104.7754537,
+        "url": "https://maps.app.goo.gl/ekrjm8wvzD4meXYB7"
+    },
+    {
+        "name": "Rs.cabang Charitas",
+        "lat": -2.9656412,
+        "lng": 104.7860556,
+        "url": "https://maps.app.goo.gl/BPfS7TDeNoQKESHL9"
+    },
+    {
+        "name": "Rumah Sakit dr. AK Gani Palembang",
+        "lat": -2.9903282,
+        "lng": 104.7601422,
+        "url": "https://maps.app.goo.gl/1kqkzuACJzgJ7a4k9"
+    },
+    {
+        "name": "RSUD Palembang BARI",
+        "lat": -3.0106777,
+        "lng": 104.7685973,
+        "url": "https://maps.app.goo.gl/1GA6czj6T16MyQoV7"
+    },
+    {
+        "name": "Puskesmas Sako",
+        "lat": -2.9211968,
+        "lng": 104.7920894,
+        "url": "https://maps.app.goo.gl/AotGSeWTku6H98LH9"
+    },
+    {
+        "name": "RSUP Dr. Rivai Abdullah",
+        "lat": -2.9800672,
+        "lng": 104.864162,
+        "url": "https://maps.app.goo.gl/ZyXLQw9X3gF15JFN7"
+    },
+    {
+        "name": "Puskesmas Talang Kelapa",
+        "lat": -2.9425208,
+        "lng": 104.6942254,
+        "url": "https://maps.app.goo.gl/tTT7dxxuNXbFCTod9"
+    },
+    {
+        "name": "RSUD GANDUS",
+        "lat": -3.0148219,
+        "lng": 104.6897849,
+        "url": "https://maps.app.goo.gl/KbEQKaAKqKEdezmJ6"
+    },
+    {
+        "name": "Puskesmas Basuki Rahmat",
+        "lat": -2.9481851,
+        "lng": 104.7490356,
+        "url": "https://maps.app.goo.gl/5crxU6uLcUFJNFaHA"
+    },
+    {
+        "name": "Praktek Dokter Spesialis Anak & Konselor Menyusui Dr.Salma SpA",
+        "lat": -2.910092,
+        "lng": 104.7410166,
+        "url": "https://maps.app.goo.gl/JVXsecY2pDxpAwYV9"
+    },
+    {
+        "name": "RS Hermina OPI Jakabaring",
+        "lat": -3.0338819,
+        "lng": 104.7909939,
+        "url": "https://maps.app.goo.gl/soNuc6B9G6XxFmjBA"
+    },
+    {
+        "name": "Puskesmas Sei Baung",
+        "lat": -2.9732933,
+        "lng": 104.7431163,
+        "url": "https://maps.app.goo.gl/8vCrhXUG1Jw1HWQm7"
+    },
+    {
+        "name": "Rumah Sakit Siloam Sriwijaya Palembang",
+        "lat": -2.9777701,
+        "lng": 104.7423333,
+        "url": "https://maps.app.goo.gl/CsQs44dRAtxT5z7TA"
+    },
+    {
+        "name": "IHC Rumah Sakit Pelabuhan Palembang",
+        "lat": -2.979007,
+        "lng": 104.776816,
+        "url": "https://maps.app.goo.gl/i8dy3aYk6HgRWBh86"
+    },
+    {
+        "name": "RSUP Dr. Rivai Abdullah",
+        "lat": -2.9800672,
+        "lng": 104.864162,
+        "url": "https://maps.app.goo.gl/rLHb9HwZC2swgnGv8"
+    },
+    {
+        "name": "Puskesmas Pembantu Cambai Agung",
+        "lat": -2.9570844,
+        "lng": 104.7455594,
+        "url": "https://maps.app.goo.gl/kb4hQdP5S8tVqyew5"
+    },
+    {
+        "name": "Rumah Sakit Islam Ar-Rasyid Palembang",
+        "lat": -2.9361687,
+        "lng": 104.7218342,
+        "url": "https://maps.app.goo.gl/AvbqYqKNuA6RJJ3M7"
+    },
+    {
+        "name": "Rumah Sakit Namira Palembang",
+        "lat": -2.91082,
+        "lng": 104.7136311,
+        "url": "https://maps.app.goo.gl/Z9423wv5Nc1mEc3Q8"
+    },
+    {
+        "name": "RSUP dr. Mohammad Hoesin",
+        "lat": -2.9664071,
+        "lng": 104.7502143,
+        "url": "https://maps.app.goo.gl/1jrPcZYZeXdsiJBJ8"
+    },
+    {
+        "name": "Puskesmas Kenten",
+        "lat": -2.9404925,
+        "lng": 104.7673936,
+        "url": "https://maps.app.goo.gl/9Bt3tdMwBoHBaKNd8"
+    },
+    {
+        "name": "Puskesmas Pakjo",
+        "lat": -2.9635811,
+        "lng": 104.7344444,
+        "url": "https://maps.app.goo.gl/xa19ZM1DEcVGqBtZ6"
+    },
+    {
+        "name": "Puskesmas Naga Swidak",
+        "lat": -2.991561,
+        "lng": 104.7826947,
+        "url": "https://maps.app.goo.gl/otjb3Zh4wJdLhiWbA"
+    },
+    {
+        "name": "RSU YK Madira",
+        "lat": -2.9727996,
+        "lng": 104.7523186,
+        "url": "https://maps.app.goo.gl/TL7rLqKXqba5AABo6"
+    },
+    {
+        "name": "RSMH Palembang",
+        "lat": -2.9666299,
+        "lng": 104.7488921,
+        "url": "https://maps.app.goo.gl/AzrCvNueLRTZSEM59"
+    },
+    {
+        "name": "Puskesmas 5 Ilir",
+        "lat": -2.9650818,
+        "lng": 104.7727007,
+        "url": "https://maps.app.goo.gl/H4Xpuv4ZyLL9uZ4p8"
+    },
+    {
+        "name": "Puskesmas Dempo",
+        "lat": -2.9818086,
+        "lng": 104.758896,
+        "url": "https://maps.app.goo.gl/hYC7yrRxrJ6aGEBi6"
+    },
+    {
+        "name": "RS Pusri Palembang",
+        "lat": -2.9702776,
+        "lng": 104.8013607,
+        "url": "https://maps.app.goo.gl/p8ewzCY8mwDKDreAA"
+    },
+    {
+        "name": "Puskesmas Sei Baung",
+        "lat": -2.9732933,
+        "lng": 104.7431163,
+        "url": "https://maps.app.goo.gl/ravNDHFcxknLs16L7"
+    },
+    {
+        "name": "Dinas Kesehatan Kota Palembang",
+        "lat": -2.9900655,
+        "lng": 104.7573353,
+        "url": "https://maps.app.goo.gl/d5eNSnAgfUcDoKQj6"
+    },
+    {
+        "name": "Puskesmas Dempo",
+        "lat": -2.9818086,
+        "lng": 104.758896,
+        "url": "https://maps.app.goo.gl/GZrRWx3HJ9onke7U7"
+    },
+    {
+        "name": "Rumah Sakit Muhammadiyah Palembang",
+        "lat": -2.996363,
+        "lng": 104.7766891,
+        "url": "https://maps.app.goo.gl/gEhu6yXugrmjkMFz5"
+    },
+    {
+        "name": "Puskesmas 11 ilir",
+        "lat": -2.9811092,
+        "lng": 104.7673902,
+        "url": "https://maps.app.goo.gl/7PPQfcdzD6GNYXYS8"
+    },
+    {
+        "name": "Puskesmas Tujuh Ulu",
+        "lat": -2.9967252,
+        "lng": 104.7639443,
+        "url": "https://maps.app.goo.gl/qeeaR5b4hmGunMY36"
+    },
+    {
+        "name": "Puskemas Kalidoni",
+        "lat": -2.9606647,
+        "lng": 104.799258,
+        "url": "https://maps.app.goo.gl/7hMTs1nbn2iKSQs29"
+    },
+    {
+        "name": "Puskesmas Ariodillah Palembang",
+        "lat": -2.9640104,
+        "lng": 104.7426207,
+        "url": "https://maps.app.goo.gl/9RoHv1TQQFNzfkWo6"
+    },
+    {
+        "name": "Rumah Sakit Ernaldi Bahar Provinsi Sumatera Selatan",
+        "lat": -2.923385,
+        "lng": 104.6828728,
+        "url": "https://maps.app.goo.gl/PWd3Q7LFthSbdB4V7"
+    },
+    {
+        "name": "Unit Gawat Darurat RS Bhayangkara Palembang",
+        "lat": -2.958742,
+        "lng": 104.7375786,
+        "url": "https://maps.app.goo.gl/VWSenf2Le48vaT56A"
+    },
+    {
+        "name": "Puskesmas Multiwahana",
+        "lat": -2.9287047,
+        "lng": 104.7805291,
+        "url": "https://maps.app.goo.gl/sByKCp9iusCkfHVr6"
+    },
+    {
+        "name": "Puskesmas Kemang Manis",
+        "lat": -2.9949495,
+        "lng": 104.736578,
+        "url": "https://maps.app.goo.gl/HE1ADfFrdK6AhAxd9"
+    },
+    {
+        "name": "RSIA Mama Palembang",
+        "lat": -2.9754852,
+        "lng": 104.7407355,
+        "url": "https://maps.app.goo.gl/PLTgJ9pLcgKEGs3r6"
+    },
+    {
+        "name": "Rumah Sakit Bunda Palembang",
+        "lat": -2.9679351,
+        "lng": 104.7344397,
+        "url": "https://maps.app.goo.gl/gwrfWGYYGf6XVWcdA"
+    },
+    {
+        "name": "Puskesmas Padang Selasa",
+        "lat": -2.990171,
+        "lng": 104.7342989,
+        "url": "https://maps.app.goo.gl/iwqzoJps87oEZoei6"
+    },
+    {
+        "name": "Puskesmas Bukit Sangkal",
+        "lat": -2.9760673,
+        "lng": 104.7754538,
+        "url": "https://maps.app.goo.gl/AzZ2Z2KJd44tS4ai7"
+    },
+    {
+        "name": "Puskesmas Punti Kayu",
+        "lat": -2.9498302,
+        "lng": 104.7264372,
+        "url": "https://maps.app.goo.gl/N52LP2J9dvBzDZHM8"
+    },
+    {
+        "name": "Klinik Sehat",
+        "lat": -2.9748497,
+        "lng": 104.755032,
+        "url": "https://maps.app.goo.gl/xBaNbNuYzWH6hLdC8"
+    },
+    {
+        "name": "Puskesmas Plaju",
+        "lat": -2.9957301,
+        "lng": 104.8136895,
+        "url": "https://maps.app.goo.gl/8v4BiWk9F8RtCXn69"
+    },
+    {
+        "name": "Puskesmas Pakjo",
+        "lat": -2.9635811,
+        "lng": 104.7344444,
+        "url": "https://maps.app.goo.gl/jwQ2Vo7L47BmDqCM8"
+    },
+    {
+        "name": "RS Khusus Mata Masyarakat Provinsi Sumatera Selatan \"Binar\"",
+        "lat": -2.9499828,
+        "lng": 104.7340764,
+        "url": "https://maps.app.goo.gl/VRQsht2ERAAs1zct9"
+    },
+    {
+        "name": "Rsup",
+        "lat": -2.9648533,
+        "lng": 104.7503004,
+        "url": "https://maps.app.goo.gl/mLFKNDyi4GLFMLWi9"
+    },
+    {
+        "name": "PUSKESMAS SABOKINGKING",
+        "lat": -2.9737381,
+        "lng": 104.7915577,
+        "url": "https://maps.app.goo.gl/9hpmrL6tGrNAWf2b6"
+    },
+    {
+        "name": "Puskesmas Basuki Rahmat",
+        "lat": -2.9481851,
+        "lng": 104.7490356,
+        "url": "https://maps.app.goo.gl/6Nyw1XitniQNeKtx6"
+    },
+    {
+        "name": "Rumah Sakit Hermina Palembang",
+        "lat": -2.9558049,
+        "lng": 104.7483075,
+        "url": "https://maps.app.goo.gl/CgC71BVhtSugNz1c9"
+    },
+    {
+        "name": "Puskesmas Merdeka",
+        "lat": -2.9904458,
+        "lng": 104.7528697,
+        "url": "https://maps.app.goo.gl/6vvRes9pGnJuGFnQ9"
+    },
+    {
+        "name": "Puskesmas Kenten",
+        "lat": -2.9404925,
+        "lng": 104.7673936,
+        "url": "https://maps.app.goo.gl/88XPXwGfEGyJumhb7"
+    },
+    {
+        "name": "Puskesmas Pembina",
+        "lat": -2.9968695,
+        "lng": 104.7753158,
+        "url": "https://maps.app.goo.gl/AAeYsy1Bprv2YoJu7"
+    },
+    {
+        "name": "Rumah Sakit Islam Ar-Rasyid Palembang",
+        "lat": -2.9361687,
+        "lng": 104.7218342,
+        "url": "https://maps.app.goo.gl/HmEKvSWXR291bQBE8"
+    },
+    {
+        "name": "Puskesmas Makrayu",
+        "lat": -3.0000319,
+        "lng": 104.7442954,
+        "url": "https://maps.app.goo.gl/GoB3avt1inhn2EnE7"
+    },
+    {
+        "name": "Puskesmas Tegal Binangun",
+        "lat": -3.0139275,
+        "lng": 104.811608,
+        "url": "https://maps.app.goo.gl/rzEUGHjewsurP4269"
+    },
+    {
+        "name": "Puskesmas Punti Kayu",
+        "lat": -2.9498302,
+        "lng": 104.7264372,
+        "url": "https://maps.app.goo.gl/jwDc4cFj4tmwX7wR7"
+    },
+    {
+        "name": "Charitas Hospital Palembang",
+        "lat": -2.9750631,
+        "lng": 104.7526774,
+        "url": "https://maps.app.goo.gl/rm1f3kng1ncdPpS86"
+    },
+    {
+        "name": "Puskesmas Talang Ratu",
+        "lat": -2.954011,
+        "lng": 104.7320921,
+        "url": "https://maps.app.goo.gl/XbLoFNcmQKjJasVF8"
+    },
+    {
+        "name": "Puskesmas 4 Ulu",
+        "lat": -3.0069681,
+        "lng": 104.7609593,
+        "url": "https://maps.app.goo.gl/osx1ujZppjXCax2s5"
+    },
+    {
+        "name": "Charitas Hospital Kenten",
+        "lat": -2.937275,
+        "lng": 104.794784,
+        "url": "https://maps.app.goo.gl/x5raujMLFrPgUPNQ9"
+    },
+    {
+        "name": "Puskesmas 5 Ilir",
+        "lat": -2.9650818,
+        "lng": 104.7727007,
+        "url": "https://maps.app.goo.gl/hWHTGeibJ2Pi3Atz5"
+    },
+    {
+        "name": "Puskesmas Alang Alang Lebar",
+        "lat": -2.931542,
+        "lng": 104.690732,
+        "url": "https://maps.app.goo.gl/WeXaHokTBKrQKPYL6"
+    },
+    {
+        "name": "Puskesmas Talang Betutu",
+        "lat": -2.8888931,
+        "lng": 104.6868828,
+        "url": "https://maps.app.goo.gl/8wnTpPqmXhQivmqr9"
+    },
+    {
+        "name": "RSUD GANDUS",
+        "lat": -3.0148219,
+        "lng": 104.6897849,
+        "url": "https://maps.app.goo.gl/YqKz123hHnJfukux7"
+    },
+    {
+        "name": "Puskesmas Boom Baru",
+        "lat": -2.9752592,
+        "lng": 104.7824175,
+        "url": "https://maps.app.goo.gl/VvtXnU6pyaxh3QXG7"
+    },
+    {
+        "name": "klinik & apotek al-syifa",
+        "lat": -2.9766441,
+        "lng": 104.7710776,
+        "url": "https://maps.app.goo.gl/hqQgj63LiAJmgaLK6"
+    },
+    {
+        "name": "Rumah Sakit Ibu dan Anak Az-Zahra Palembang",
+        "lat": -2.9422846,
+        "lng": 104.7841096,
+        "url": "https://maps.app.goo.gl/69X2QnvMotUk5vaF8"
+    },
+    {
+        "name": "Puskesmas Kampus Palembang",
+        "lat": -2.9755074,
+        "lng": 104.7383431,
+        "url": "https://maps.app.goo.gl/mhU2GQsNdwyK7quQ6"
+    },
+    {
+        "name": "Puskesmas Sekip",
+        "lat": -2.9576051,
+        "lng": 104.7541237,
+        "url": "https://maps.app.goo.gl/u4Vz6Xar7J7VFYkj8"
+    },
+    {
+        "name": "Puskesmas Sematang Borang",
+        "lat": -2.934066,
+        "lng": 104.7904911,
+        "url": "https://maps.app.goo.gl/TA22wZHjccjPL6y88"
+    },
+    {
+        "name": "Puskesmas KIP Unit 1",
+        "lat": -3.011446,
+        "lng": 104.751971,
+        "url": "https://maps.app.goo.gl/BHTQnysr7NzHmA8N9"
+    },
+    {
+        "name": "Rumah Sakit Islam Siti Khadijah Palembang",
+        "lat": -2.9716501,
+        "lng": 104.7314097,
+        "url": "https://maps.app.goo.gl/ZK9i8wL86kGTyact6"
+    }
+]

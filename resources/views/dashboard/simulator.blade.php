@@ -452,47 +452,7 @@
     updateClock();
 
     // Planned Reference Routes (Palembang)
-    const routePaths = {
-        'RSUP Dr. Mohammad Hoesin': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung Roundabout
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9829, 104.7552], // Sudirman St near Pasar Cinde
-            [-2.9803, 104.7547], // Sudirman St near Marathon
-            [-2.9774, 104.7540], // Sudirman St / Kapten A Rivai intersection (Charitas)
-            [-2.9748, 104.7533], // Sudirman St near Kodam II Sriwijaya
-            [-2.9723, 104.7528], // Sudirman St SMA 3
-            [-2.9702, 104.7521], // Sudirman St / Veteran intersection
-            [-2.9669, 104.7505]  // RSUP Dr. Mohammad Hoesin
-        ],
-        'RSUD Palembang BARI': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9912, 104.7592], // Jembatan Ampera (North Approach)
-            [-2.9935, 104.7618], // Jembatan Ampera (Center Span)
-            [-2.9961, 104.7628], // Jembatan Ampera (South Approach)
-            [-2.9995, 104.7635], // Jl. Ryacudu
-            [-3.0068, 104.7625], // Simpang Bastari
-            [-3.0125, 104.7615], // Jl. Gubernur Bastari near Lippo
-            [-3.0142, 104.7585], // Jl. Panca Usaha entrance
-            [-3.0185, 104.7645]  // RSUD Palembang BARI
-        ],
-        'RS Charitas': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9829, 104.7552], // Sudirman St near Pasar Cinde
-            [-2.9803, 104.7547], // Sudirman St near Marathon
-            [-2.9772, 104.7522]  // RS Charitas
-        ],
-        'Puskesmas Dempo': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9865, 104.7630]  // Puskesmas Dempo
-        ]
-    };
-
+    
     const originCoord = { lat: -2.9880, lng: 104.7560 };
         let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
 
@@ -1185,47 +1145,7 @@
     updateClock();
 
     // Planned Reference Routes (Palembang)
-    const routePaths = {
-        'RSUP Dr. Mohammad Hoesin': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung Roundabout
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9829, 104.7552], // Sudirman St near Pasar Cinde
-            [-2.9803, 104.7547], // Sudirman St near Marathon
-            [-2.9774, 104.7540], // Sudirman St / Kapten A Rivai intersection (Charitas)
-            [-2.9748, 104.7533], // Sudirman St near Kodam II Sriwijaya
-            [-2.9723, 104.7528], // Sudirman St SMA 3
-            [-2.9702, 104.7521], // Sudirman St / Veteran intersection
-            [-2.9669, 104.7505]  // RSUP Dr. Mohammad Hoesin
-        ],
-        'RSUD Palembang BARI': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9912, 104.7592], // Jembatan Ampera (North Approach)
-            [-2.9935, 104.7618], // Jembatan Ampera (Center Span)
-            [-2.9961, 104.7628], // Jembatan Ampera (South Approach)
-            [-2.9995, 104.7635], // Jl. Ryacudu
-            [-3.0068, 104.7625], // Simpang Bastari
-            [-3.0125, 104.7615], // Jl. Gubernur Bastari near Lippo
-            [-3.0142, 104.7585], // Jl. Panca Usaha entrance
-            [-3.0185, 104.7645]  // RSUD Palembang BARI
-        ],
-        'RS Charitas': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9829, 104.7552], // Sudirman St near Pasar Cinde
-            [-2.9803, 104.7547], // Sudirman St near Marathon
-            [-2.9772, 104.7522]  // RS Charitas
-        ],
-        'Puskesmas Dempo': [
-            [-2.9880, 104.7560], // Dinas Kesehatan Palembang
-            [-2.9887, 104.7565], // Air Mancur Masjid Agung
-            [-2.9868, 104.7561], // Sudirman St near IP
-            [-2.9865, 104.7630]  // Puskesmas Dempo
-        ]
-    };
-
+    
     const originCoord = { lat: -2.9880, lng: 104.7560 };
         let routeCoords = routePaths['RSUP Dr. Mohammad Hoesin'];
 

@@ -1,0 +1,270 @@
+[
+    {
+        "id": "30",
+        "nama": "Puskesmas Kampus"
+    },
+    {
+        "id": "11",
+        "nama": "RS Hermina OPI Jakabaring"
+    },
+    {
+        "id": "15",
+        "nama": "RS Muhammadiyah Palembang"
+    },
+    {
+        "id": "27",
+        "nama": "Puskesmas Sekip"
+    },
+    {
+        "id": "8",
+        "nama": "RS Charitas"
+    },
+    {
+        "id": "19",
+        "nama": "RS Myria"
+    },
+    {
+        "id": "5",
+        "nama": "RS Ernaldi Bahar"
+    },
+    {
+        "id": "13",
+        "nama": "RS Bunda Palembang"
+    },
+    {
+        "id": "10",
+        "nama": "RS Hermina Palembang"
+    },
+    {
+        "id": "14",
+        "nama": "RS Ar-Rasyid"
+    },
+    {
+        "id": "26",
+        "nama": "Puskesmas Makrayu"
+    },
+    {
+        "id": "28",
+        "nama": "Puskesmas Punti Kayu"
+    },
+    {
+        "id": "21",
+        "nama": "RS Sriwijaya"
+    },
+    {
+        "id": "9",
+        "nama": "RS Siloam Sriwijaya"
+    },
+    {
+        "id": "7",
+        "nama": "RS Islam Siti Khadijah"
+    },
+    {
+        "id": "23",
+        "nama": "RSIA Bunda Noni"
+    },
+    {
+        "id": "4",
+        "nama": "RSUD Gandus"
+    },
+    {
+        "id": "2",
+        "nama": "RSUD Palembang Bari"
+    },
+    {
+        "id": "31",
+        "nama": "Puskesmas Dempo"
+    },
+    {
+        "id": "3",
+        "nama": "RSUD Siti Fatimah"
+    },
+    {
+        "id": "20",
+        "nama": "RS Pertamina Plaju"
+    },
+    {
+        "id": "12",
+        "nama": "RS Bhayangkara Palembang"
+    },
+    {
+        "id": "55",
+        "nama": "Puskesmas Kertapati"
+    },
+    {
+        "id": "42",
+        "nama": "Puskesmas Padang Selasa"
+    },
+    {
+        "id": "45",
+        "nama": "Puskesmas Plaju"
+    },
+    {
+        "id": "41",
+        "nama": "Puskesmas Keramasan"
+    },
+    {
+        "id": "50",
+        "nama": "Puskesmas Talang Betutu"
+    },
+    {
+        "id": "60",
+        "nama": "Puskesmas Sako"
+    },
+    {
+        "id": "46",
+        "nama": "Puskesmas Pakjo"
+    },
+    {
+        "id": "40",
+        "nama": "Puskesmas Basuki Rahmat"
+    },
+    {
+        "id": "54",
+        "nama": "Puskesmas Nagaswidak"
+    },
+    {
+        "id": "65",
+        "nama": "Puskesmas Kenten"
+    },
+    {
+        "id": "38",
+        "nama": "Puskesmas Gandus"
+    },
+    {
+        "id": "44",
+        "nama": "Puskesmas Boom Baru"
+    },
+    {
+        "id": "64",
+        "nama": "Puskesmas Pembina"
+    },
+    {
+        "id": "52",
+        "nama": "Puskesmas Sematang Borang"
+    },
+    {
+        "id": "51",
+        "nama": "Puskesmas Ariodillah"
+    },
+    {
+        "id": "34",
+        "nama": "Puskesmas Bukitsangkal"
+    },
+    {
+        "id": "58",
+        "nama": "Puskesmas Tegal Binangun"
+    },
+    {
+        "id": "61",
+        "nama": "Puskesmas Sukarami"
+    },
+    {
+        "id": "56",
+        "nama": "Puskesmas Alang-Alang Lebar"
+    },
+    {
+        "id": "36",
+        "nama": "Puskesmas Sosial"
+    },
+    {
+        "id": "6",
+        "nama": "RS Dr. AK. Gani"
+    },
+    {
+        "id": "16",
+        "nama": "RS Khusus Mata Sumsel"
+    },
+    {
+        "id": "32",
+        "nama": "Puskesmas Karya Jaya"
+    },
+    {
+        "id": "35",
+        "nama": "Puskesmas OPI"
+    },
+    {
+        "id": "33",
+        "nama": "Puskesmas Merdeka"
+    },
+    {
+        "id": "17",
+        "nama": "RS Graha Mandiri"
+    },
+    {
+        "id": "18",
+        "nama": "RS Karya Asih Charitas"
+    },
+    {
+        "id": "22",
+        "nama": "RSIA Az-Zahra"
+    },
+    {
+        "id": "24",
+        "nama": "RSIA Widiyanti"
+    },
+    {
+        "id": "25",
+        "nama": "RSIA YK Madira"
+    },
+    {
+        "id": "29",
+        "nama": "Puskesmas Satu Ulu"
+    },
+    {
+        "id": "37",
+        "nama": "Puskesmas Lima Ilir"
+    },
+    {
+        "id": "43",
+        "nama": "Puskesmas Sebelas Ilir"
+    },
+    {
+        "id": "53",
+        "nama": "Puskesmas Seiselincah"
+    },
+    {
+        "id": "57",
+        "nama": "Puskesmas Talangjambe"
+    },
+    {
+        "id": "67",
+        "nama": "Puskesmas Empat Ulu"
+    },
+    {
+        "id": "49",
+        "nama": "Puskesmas Kalidoni"
+    },
+    {
+        "id": "47",
+        "nama": "Puskesmas Tujuh Ulu"
+    },
+    {
+        "id": "62",
+        "nama": "Puskesmas 23 Ilir"
+    },
+    {
+        "id": "66",
+        "nama": "Puskesmas Taman Bacaan"
+    },
+    {
+        "id": "39",
+        "nama": "Puskesmas Multiwahana"
+    },
+    {
+        "id": "59",
+        "nama": "Puskesmas Sei Baung"
+    },
+    {
+        "id": "1",
+        "nama": "RSUP Dr. Mohammad Hoesin"
+    },
+    {
+        "id": "48",
+        "nama": "Puskesmas Sabokingking"
+    },
+    {
+        "id": "63",
+        "nama": "Puskesmas Talang Ratu"
+    }
+]
