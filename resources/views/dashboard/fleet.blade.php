@@ -436,6 +436,45 @@
         setInterval(pollLiveLocation, 2000);
     });
 
+    
+    async function drawOsrmHistoryRoute(ruteId, pathHistory) {
+        try {
+            if (!pathHistory || pathHistory.length === 0) return;
+            let sampled = [];
+            if (pathHistory.length <= 50) {
+                sampled = pathHistory;
+            } else {
+                let step = (pathHistory.length - 1) / 49;
+                for (let i = 0; i < 50; i++) {
+                    sampled.push(pathHistory[Math.floor(i * step)]);
+                }
+            }
+            let coordinatesStr = sampled.map(c => `${c[1]},${c[0]}`).join(';');
+            let url = `https://router.project-osrm.org/route/v1/driving/${coordinatesStr}?overview=full&geometries=geojson`;
+            
+            let response = await fetch(url);
+            let data = await response.json();
+            
+            if (data.code === 'Ok' && data.routes.length > 0) {
+                let coordinates = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                if (actualPolylines[ruteId]) {
+                    actualPolylines[ruteId].setLatLngs(coordinates);
+                } else {
+                    actualPolylines[ruteId] = L.polyline(coordinates, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+                }
+            } else {
+                if (!actualPolylines[ruteId]) {
+                    actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+                }
+            }
+        } catch (e) {
+            console.error('OSRM fetch failed', e);
+            if (!actualPolylines[ruteId]) {
+                actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+            }
+        }
+    }
+
     function getPolylineColor(status) {
         if (status === 'Peringatan') return '#ffb95f';
         if (status === 'Tidak Layak Pakai') return '#ffb4ab';
@@ -506,15 +545,11 @@
         // Actual Polyline (Real GPS History)
         // ----------------------------------------------------
         if (route.path_history && route.path_history.length > 0 && !actualPolylines[ruteId]) {
-            actualPolylines[ruteId] = L.polyline(route.path_history, {
-                color: '#3b82f6', // Solid bright blue
-                weight: 4.5,
-                opacity: 0.9,
-                dashArray: null
-            }).addTo(map);
-        } else if (actualPolylines[ruteId]) {
-            actualPolylines[ruteId].addLatLng(currentLatLng);
-        }
+                actualPolylines[ruteId] = L.polyline([], { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map); // placeholder
+                drawOsrmHistoryRoute(ruteId, route.path_history);
+            } else if (actualPolylines[ruteId]) {
+                actualPolylines[ruteId].addLatLng(currentLatLng);
+            }
 
         let iconColor = 'text-primary';
         let bgRing = 'bg-primary/20';

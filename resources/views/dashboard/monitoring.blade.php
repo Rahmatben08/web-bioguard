@@ -1141,6 +1141,45 @@ const plannedPaths = {};
     /**
      * Get route polyline color matching excursion status.
      */
+    
+    async function drawOsrmHistoryRoute(ruteId, pathHistory) {
+        try {
+            if (!pathHistory || pathHistory.length === 0) return;
+            let sampled = [];
+            if (pathHistory.length <= 50) {
+                sampled = pathHistory;
+            } else {
+                let step = (pathHistory.length - 1) / 49;
+                for (let i = 0; i < 50; i++) {
+                    sampled.push(pathHistory[Math.floor(i * step)]);
+                }
+            }
+            let coordinatesStr = sampled.map(c => `${c[1]},${c[0]}`).join(';');
+            let url = `https://router.project-osrm.org/route/v1/driving/${coordinatesStr}?overview=full&geometries=geojson`;
+            
+            let response = await fetch(url);
+            let data = await response.json();
+            
+            if (data.code === 'Ok' && data.routes.length > 0) {
+                let coordinates = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                if (actualPolylines[ruteId]) {
+                    actualPolylines[ruteId].setLatLngs(coordinates);
+                } else {
+                    actualPolylines[ruteId] = L.polyline(coordinates, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+                }
+            } else {
+                if (!actualPolylines[ruteId]) {
+                    actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+                }
+            }
+        } catch (e) {
+            console.error('OSRM fetch failed', e);
+            if (!actualPolylines[ruteId]) {
+                actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
+            }
+        }
+    }
+
     function getPolylineColor(status) {
         if (status === 'Peringatan') {
             return '#ffb95f'; // amber/warning
@@ -1756,15 +1795,9 @@ const plannedPaths = {};
             // Actual Polyline (Real GPS History)
             // ----------------------------------------------------
             if (c.path_history && c.path_history.length > 0 && !actualPolylines[ruteId]) {
-                // Initial load: create the full path history
-                actualPolylines[ruteId] = L.polyline(c.path_history, {
-                    color: '#3b82f6', // Solid bright blue
-                    weight: 4.5,
-                    opacity: 0.9,
-                    dashArray: null
-                }).addTo(map);
+                actualPolylines[ruteId] = L.polyline([], { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map); // placeholder
+                drawOsrmHistoryRoute(ruteId, c.path_history);
             } else if (actualPolylines[ruteId]) {
-                // Subsequent polls: append the latest point
                 actualPolylines[ruteId].addLatLng(currentLatLng);
             }
 
