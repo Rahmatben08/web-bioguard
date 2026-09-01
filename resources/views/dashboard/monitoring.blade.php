@@ -1168,13 +1168,17 @@ const plannedPaths = {};
                     actualPolylines[ruteId] = L.polyline(coordinates, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
                 }
             } else {
-                if (!actualPolylines[ruteId]) {
+                if (actualPolylines[ruteId]) {
+                    actualPolylines[ruteId].setLatLngs(pathHistory);
+                } else {
                     actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
                 }
             }
         } catch (e) {
             console.error('OSRM fetch failed', e);
-            if (!actualPolylines[ruteId]) {
+            if (actualPolylines[ruteId]) {
+                actualPolylines[ruteId].setLatLngs(pathHistory);
+            } else {
                 actualPolylines[ruteId] = L.polyline(pathHistory, { color: '#3b82f6', weight: 4.5, opacity: 0.9 }).addTo(map);
             }
         }
