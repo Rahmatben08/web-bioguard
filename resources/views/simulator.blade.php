@@ -571,7 +571,7 @@
                 </div>
 
                 <!-- Logger Console -->
-                <div class="glass-panel rounded-3xl p-6 border border-white/10 flex-1 flex flex-col min-h-[220px]">
+                <div class=\"glass-panel rounded-3xl p-6 border border-white/10 flex-1 flex flex-col min-h-[220px] max-h-[400px]\">
                     <div class="flex justify-between items-center mb-3">
                         <div class="text-xs font-extrabold tracking-wider text-slate-300 uppercase flex items-center space-x-1.5">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-emerald-400">
@@ -582,7 +582,7 @@
                         <button onclick="clearLogs()" class="text-[10px] text-slate-500 hover:text-slate-300 font-bold font-mono">CLEAR</button>
                     </div>
                     <!-- Terminal Console UI -->
-                    <div id="log-console" class="flex-1 bg-black/40 font-mono text-[10px] p-3.5 rounded-xl border border-white/5 overflow-y-auto space-y-1.5 text-slate-400 select-text">
+                    <div id=\"log-console\" class=\"flex-1 bg-black/40 font-mono text-[10px] p-3.5 rounded-xl border border-white/5 overflow-y-auto space-y-1.5 text-slate-400 select-text max-h-[300px]\">
                         <div class="text-slate-500">[10:20:00] BIO-GUARD Simulator diinisialisasi.</div>
                         <div class="text-slate-500">[10:20:00] SQLite Database siap (Offline-first helper).</div>
                     </div>

@@ -402,31 +402,7 @@
                 'origin_latitude' => -2.9880,
                 'origin_longitude' => 104.7560,
                 'dest_latitude' => $p->dest_latitude ?? -2.9865,
-                'dest_longitude' => [
-                    'RSUP Dr. Mohammad Hoesin' => 104.7498217,
-                    'RSUD Palembang BARI' => 104.7645,
-                    'RS Charitas' => 104.7522,
-                    'RS RK Charitas' => 104.7528599,
-                    'Puskesmas Dempo' => 104.7589042,
-                    'RSUD Siti Fatimah' => 104.7345504,
-                    'RS Hermina' => 104.74846,
-                    'RS Siloam Sriwijaya' => 104.7422702,
-                    'RS Bhayangkara' => 104.7374268,
-                    'RS Muhammadiyah' => 104.8163221,
-                    'RS Myria' => 104.7269887,
-                    'RS Ernaldi Bahar' => 104.6846093,
-                    'RS Pelabuhan' => 104.7766276,
-                    'Puskesmas Merdeka' => 104.7528331,
-                    'Puskesmas Plaju' => 104.8136447,
-                    'Puskesmas 7 Ulu' => 104.7639636,
-                    'Puskesmas 11 Ilir' => 104.7673696,
-                    'Puskesmas Kalidoni' => 104.7674479,
-                    'Puskesmas Kenten' => 104.7674479,
-                    'Puskesmas Boom Baru' => 104.7824651,
-                    'Puskesmas Kampus' => 104.7382453,
-                    'Dinas Kesehatan Kota Palembang' => 104.7573614,
-                    'Puskesmas Alang-Alang Lebar' => 104.7000,
-                ][$p->lokasi_tujuan] ?? 104.7630,
+                'dest_longitude' => $p->dest_longitude ?? 104.7522,
                 'suhu_aktual' => $p->latestLog ? (float)$p->latestLog->suhu_aktual : 5.0,
                 'status' => $p->getExcursionInfo()['status']
             ];
@@ -466,7 +442,27 @@
         return '#06b6d4';
     }
 
+    
+    async function drawOsrmFutureRoute(ruteId, originLat, originLng, destLat, destLng) {
+        try {
+            const url = `https://router.project-osrm.org/route/v1/driving/${originLng},${originLat};${destLng},${destLat}?overview=full&geometries=geojson`;
+            const response = await fetch(url);
+            const data = await response.json();
+            if (data.code === 'Ok' && data.routes.length > 0) {
+                const coordinates = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]); // GeoJSON is lng,lat
+                if (routeLayer[ruteId]) {
+                    routeLayer[ruteId].setLatLngs(coordinates);
+                } else {
+                    routeLayer[ruteId] = L.polyline(coordinates, { color: '#94a3b8', dashArray: '5, 10', weight: 2, opacity: 0.8 }).addTo(map);
+                }
+            }
+        } catch (e) {
+            console.error('OSRM fetch failed', e);
+        }
+    }
+    
     async function createOrUpdateMarker(route) {
+
         const ruteId = route.id_rute;
         const currentLatLng = [parseFloat(route.latitude), parseFloat(route.longitude)];
         
@@ -503,13 +499,7 @@
                 window.activeDestMarkers[ruteId].bindPopup(`<div class='text-xs font-bold text-slate-800 py-0.5'>${route.lokasi_tujuan} (Tujuan)</div>`, { closeButton: false });
             }
 
-            // Draw a straight dashed line to destination
-            const futureRoute = [currentLatLng, [destLat, destLng]];
-            if (routeLayer[ruteId]) {
-                routeLayer[ruteId].setLatLngs(futureRoute);
-            } else {
-                routeLayer[ruteId] = L.polyline(futureRoute, { color: '#94a3b8', dashArray: '5, 10', weight: 2, opacity: 0.6 }).addTo(map);
-            }
+            drawOsrmFutureRoute(ruteId, currentLatLng[0], currentLatLng[1], destLat, destLng);
         
 
         // ----------------------------------------------------
